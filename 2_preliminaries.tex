@@ -1,0 +1,501 @@
+\section{Preliminaries}
+
+\subsection{Definitions and Notations}
+In the present paper, $\frak{i}$ denotes a square root of $-1$, i.e., $\frak{i}^2=-1$.
+$\alpha$ denotes a square root of $\frak{i}$, i.e., $\alpha^2=\frak{i}$.
+Let $\mathbb{N} = \{0,1,2,\ldots\}$,
+$N_2=
+\left[\begin{smallmatrix}
+0 & 1 \\
+ 1 & 0
+\end{smallmatrix}\right]
+$,
+$H=\frac{1}{\sqrt{2}}
+\left[\begin{smallmatrix}
+1 & 1 \\
+ 1 & -1
+\end{smallmatrix}\right]
+$, $Z=\frac{1}{\sqrt{2}} \left[\begin{smallmatrix}
+1 & 1 \\
+\mathfrak{i} & -\mathfrak{i}
+\end{smallmatrix}\right]$.
+For row vectors $\mathbf{u},\mathbf{v}\in \mathbb{C}^n$, define $\braket{\mathbf{u},\mathbf{v}}=\mathbf{u}\cdot\mathbf{\overline{v}^{\tt T}}$ and $|\mathbf{u}|=\sqrt{\braket{\mathbf{u},\mathbf{u}}}.$
+
+\begin{lemma}\label{lm: conjugation and Z-trans}
+    Let $f$ be a (complex-weighted) signature of arity $n$.
+    For every $\alpha\in \{0,1\}^n$, we have 
+    $
+    \widehat{\overline{f}}(\alpha)=\overline{\widehat{f}(\overline{\alpha})}.
+    $
+\end{lemma}
+\begin{proof}
+    $\widehat{\overline{f}}=Z^{-1}\overline{f}=\overline{Z^Tf}=N_2\overline{Z^{-1}f}=N_2\overline{\widehat{f}}.$
+    Entry-wisely, we have $
+    \widehat{\overline{f}}(\alpha)=\overline{\widehat{f}(\overline{\alpha})},\,\forall\alpha\in\{0,1\}^n.
+    $
+\end{proof}
+
+\begin{definition}
+    A signature set $\mathcal{F}$ is conjugate closed, denoted by $\mathcal{F}=\overline{\mathcal{F}}$, if $f\in \mathcal{F}\implies \overline{f}\in\mathcal{F}$;
+    A signature set $\mathcal{G}$ is arrow reversal closed, denoted by $\mathcal{G}=\mathcal{G}^{\textsc ar}$, if $g\in \mathcal{G}\implies {g}^{\textsc ar}\in \mathcal{G}$, where $g^{\textsc ar}(\alpha):=\overline{g(\overline{\alpha})},\,\forall \alpha\in \{0,1\}^n$.
+\end{definition}
+
+\cref{lm: conjugation and Z-trans} directly implies the following statement:
+\begin{lemma}\label{lm: conjugate closed and ars closed}
+    $\mathcal{F}$ is conjugate closed $\iff$ $\widehat{\mathcal{F}}$ is arrow reversal closed.
+\end{lemma}
+
+Let $\mathcal{U}$ denote the set of all binary unitary signatures and the binary zero signature. 
+
+\subsection{Tractable Signatures}
+
+\subsection{Known Dichotomies and Hardness Results}
+\begin{theorem}[Dichotomy for \#EO \cite{}]\label{thm: dichotomy for EO}
+    
+\end{theorem}
+
+\begin{theorem}[Dichotomy for $\holodd$ \cite{Holant_Odd}]\label{thm: holant odd}
+    Let $\mathcal{F}$ be a set of signatures that contains a non-zero signature of odd arity, then $\Holant(\mathcal{F})$ is \#P-hard unless:
+    \begin{enumerate}
+        \item $\widehat{\mathcal{F}}$ only contains $\eog$ signatures (or $\eol$ signatures respectively), and $\widehat{\mathcal{F}}|_{\eo}\subseteq \POLUP$ or $\widehat{\mathcal{F}}|_{\eo}\subseteq \POLDOWN$, and $\widehat{\mathcal{F}}|_{\eo}\subseteq \eo^\mathscr{A}$ or $\widehat{\mathcal{F}}|_{\eo}\subseteq \eo^\mathscr{P}$;
+        
+        \item 
+        All signatures in $\widehat{\mathcal{F}}$ are single-weighted. 
+        There exists a signature in $\eosg$ and another in $\eosl$ belonging to $\widehat{\mathcal{F}}$.  
+        In addition, $\widehat{\mathcal{F}}_{\to\eo}\subseteq \POLUP$ or $\widehat{\mathcal{F}}_{\to\eo}\subseteq \POLDOWN$, and $\widehat{\mathcal{F}}_{\to\eo}\subseteq \eo^\mathscr{A}$ or $\widehat{\mathcal{F}}_{\to\eo}\subseteq \eo^\mathscr{P}$;
+
+        
+
+        \item $\widehat{\mathcal{F}}\subseteq\langle \mathcal{M}\rangle$ or $\widehat{\mathcal{F}}\subseteq\langle N_2\mathcal{M}\rangle$;
+
+        \item $\mathcal{F}\subseteq\mathscr{T}$;
+        
+        \item $\mathcal{F}$ is $\mathscr{A}$-transformable;
+
+        \item $\mathcal{F}$ is $\mathscr{P}$-transformable;
+
+        \item $\mathcal{F}$ is $\mathscr{L}$-transformable;
+    \end{enumerate}
+    We denote Case 1-7 as condition $(\mathcal{PC})$.
+\end{theorem}
+
+\begin{lemma}\label{lm: conjugation_polymorphism_affine support}
+    Suppose $\mathcal{F}$ is a conjugate closed signature set.
+    If $\widehat{\mathcal{F}}\subseteq \eog$ or $\widehat{\mathcal{F}}\subseteq \eol$, then every $\widehat{f}\in \widehat{\mathcal{F}}$ is $\eo$.
+    Moreover, if $\widehat{\mathcal{F}}\subseteq \POLUP$ or $\widehat{\mathcal{F}}\subseteq \POLDOWN$, then every $\widehat{f}\in \widehat{\mathcal{F}}$ has affine support.
+\end{lemma}
+\begin{proof}
+    We assume $\widehat{\mathcal{F}}\subseteq \eog$, the other case can be handled similarly.
+    By \cref{lm: conjugate closed and ars closed}, $\widehat{\mathcal{F}}$ is arrow reversal closed.
+    Hence $\widehat{\mathcal{F}}\subseteq \eog\cap \eol$, i.e., $\widehat{\mathcal{F}}$ is a set of $\eo$ signatures.
+    We assume $\widehat{\mathcal{F}}\subseteq \POLUP$ without loss of generality.
+    Pick arbitrary $\widehat{f}\in \widehat{\mathcal{F}}$ and $\alpha,\beta,\gamma\in \mathscr{S}(\widehat{f})$, we have $\alpha\oplus \beta\oplus \gamma\in \mathscr{S}(\widehat{f})\cup \eosg$.
+    By \cref{lm: conjugate closed and ars closed}, $\widehat{f}^{\textsc ar}\in \widehat{\mathcal{F}}$.
+    Notice that $\overline{\alpha},\overline{\beta},\overline{\gamma}\in \mathscr{S}(\widehat{f}^{\textsc ar})$.
+    Then $\overline{\alpha\oplus\beta\oplus\gamma}\in \mathscr{S}(\widehat{f}^{\textsc ar})\cup \eosg$.
+    It follows that $\alpha\oplus\beta\oplus\gamma\in \mathscr{S}(\widehat{f})\cup \eosl$.
+    Thus, $\alpha\oplus\beta\oplus\gamma\in (\mathscr{S}(\widehat{f})\cup \eosl)\cap (\mathscr{S}(\widehat{f})\cup \eosg)=\mathscr{S}(\widehat{f})$.
+    Therefore, $\widehat{f}$ has affine support.
+\end{proof}
+
+\begin{lemma}\label{lm: odd holant with conjugation}
+    Let $\mathcal{F}$ be a conjugate closed set of signatures containing a nonzero signature of odd arity.
+    If $\mathcal{F}$ does not satisfy condition \rm{(\ref{cond: tractable classes})},
+    then $\Holant(\mathcal{F})$ is \#P-hard.
+\end{lemma}
+\begin{proof}
+    Notice that Case 4-7 in $(\mathcal{PC})$ is {\rm(\ref{cond: tractable classes})}.
+    By \cref{thm: holant odd}, we only need to show that Case 1-3 in $(\mathcal{PC})$ cannot happen.
+    \begin{enumerate}
+        \item 
+        Case 1 in $(\mathcal{PC})$ happens.
+        By \cref{lm: conjugation_polymorphism_affine support}, $\hF$ is $\eo$ and has affine support.
+        Combined with $\widehat{\mathcal{F}}|_{\eo}\subseteq \eo^\mathscr{A}$ or $\widehat{\mathcal{F}}|_{\eo}\subseteq \eo^\mathscr{P}$, we have $\hF\subseteq \mathscr{A}$ or $\hF\subseteq \mathscr{P}$.
+        So $\F$ is $\mathscr{A}$-transformable or $\mathscr{P}$-transformable, contradicting that $\F$ does not satisfy \rm{(\ref{cond: tractable classes})}.
+
+        \item 
+        Case 2 in $(\mathcal{PC})$ happens.
+        By \cref{lm: conjugation_polymorphism_affine support}, $\widehat{\mathcal{F}}_{\to\eo}$ has affine support.
+        Combined with $\widehat{\mathcal{F}}_{\to\eo}\subseteq \eo^\mathscr{A}$ or $\widehat{\mathcal{F}}_{\to\eo}\subseteq \eo^\mathscr{P}$, we have
+        $\widehat{\mathcal{F}}_{\to\eo}\subseteq \mathscr{A}$ or  $\widehat{\mathcal{F}}_{\to\eo}\subseteq \mathscr{P}$.
+        So $\hF\subseteq \mathscr{A}$ or $\hF\subseteq \mathscr{P}$,
+        contradicting \rm{(\ref{cond: tractable classes})}.
+
+        \item 
+        Case 3 in $(\mathcal{PC})$ happens.
+        Pick an arbitrary $\widehat{f}\in \hF$.
+        Write its unique prime factorization $\widehat{f}=\widehat{q_1}\otimes \widehat{q_2}\otimes\cdots\otimes \widehat{q_s}.$
+        We first assume $\hF\in \braket{\widehat{\mathcal{M}}}.$
+        Then every $\widehat{q_i}$ is supported on Hamming weight at most 1.
+        By \cref{lm: conjugate closed and ars closed}, $\hF$ is arrow reversal closed.
+        Taking {\sc ars} doesn't change factorization and irreducibility.
+        So $\widehat{f}^{\textsc ar}=\widehat{q_1}^{\textsc ar}\otimes \widehat{q_2}^{\textsc ar}\otimes\cdots\otimes \widehat{q_3}^{\textsc ar}\in \hF$, where every $\widehat{q_i}^{\textsc ar}$ is also supported on Hamming weight at most 1.
+        This is impossible if some $\widehat{q_i}$ has arity greater than 2.
+        Thus, every $q_i$ has arity at most 2.
+        So $\widehat{f}\in {\mathscr{T}}$, and $\hF\subseteq \mathscr{T}$.
+        After a $Z$-transformation,  $\F\subseteq \mathscr{T}$.
+        Contradiction.
+    \end{enumerate}
+\end{proof}
+
+\begin{lemma}[\cite{jcbook}]\label{lm: 2 by 2 interpolation}
+    Let $f$ and $g$ be nonzero binary signatures with $M(f)=P^{-1}\left[\begin{smallmatrix}
+    \lambda_1 & 0\\
+    0 & \lambda_2\\
+    \end{smallmatrix}\right]P$ and
+    $M(g)=P^{-1}\left[\begin{smallmatrix}
+    1 & 0\\
+    0 & 0\\
+    \end{smallmatrix}\right]P$ for some invertible matrix $P$.
+    If $\lambda_1\neq 0$ and $|\frac{\lambda_2}{\lambda_1}|\neq 1$,
+    then $$\Holant(g, \mathcal{F})\leqslant_T\Holant(f, \mathcal{F})$$ for any signature set $\mathcal{F}$.
+\end{lemma}
+
+\begin{theorem}[Eight-vertex model \cite{eight-vertex_model}]\label{thm: eight-vertex model}
+    Let $\widehat{f}$ be a non-zero signature with $M(\widehat{f})=\left[\begin{smallmatrix}
+    a & 0 & 0 & b\\
+    0 & c & d & 0\\
+    0 & d & c & 0\\
+    b' & 0 & 0 & \overline{a}\\
+    \end{smallmatrix}\right]$ and $\hF$ be a set of signatures.
+    Then, $\holant{\neq_2}{\widehat f,\hF}\equiv_T \holant{\neq_2}{\widehat g, \hF}$ where $M(\widehat{g})=\left[\begin{smallmatrix}
+    |a| & 0 & 0 & b\\
+    0 & c & d & 0\\
+    0 & d & c & 0\\
+    b' & 0 & 0 & |a|\\
+    \end{smallmatrix}\right]$, and $\holant{\neq_2}{\widehat g}$ is \#P-hard unless $\widehat{g}$ has support size 2, 4 or 8.
+    Moreover, if $\widehat{g}$ has support size 8, then one of the following holds:
+    \begin{enumerate}
+        \item $\holant{\neq_2}{\widehat{g}}$ is \#P-hard.
+
+        \item There exists $T\in\mathrm{GL}_2(\mathbb{C})$ such that $\#\mathrm{CSP}_2(T\hF)\le_T\holant{\neq_2}{\widehat{g},\hF}.$
+
+        \item $b=b'$ and $|a|=|b|=|c|=|d|$.
+    \end{enumerate}
+\end{theorem}
+
+\vspace{1em}
+We {define} the signature set
+$\alpha\mathscr{A}=\left\{ \left[\begin{smallmatrix} 1 & 0 \\
+0 & \alpha \end{smallmatrix}\right]^{\otimes \operatorname{ary}(f)} f
+\mid f\in\mathscr{A}
+\right\}.$
+\begin{theorem}[\cite{real_holantc}]\label{thm: CSP2}
+    Let $\mathcal{F}$ be any set of signatures. 
+    Then $\#\operatorname{CSP}^2(\mathcal{F})$ is $\#\operatorname{P}$-hard unless $\mathcal{F}\subseteq\mathscr{A}$ or $\mathcal{F}\subseteq\alpha\mathscr{A}$ or $\mathcal{F}\subseteq\mathscr{P}$ or $\mathcal{F}\subseteq\mathscr{L}$, in which cases the problem is computable in polynomial time.
+\end{theorem}
+
+\begin{lemma}[\cite{jcbook}]\label{lm: CSP2 to holant =4}
+    $\#\mathrm{CSP}_2(\mathcal{F})\leqslant_T\Holant(=_4, \mathcal F)$.
+\end{lemma}
+
+\begin{lemma}\label{lm: disequality 4 gives dichotomy}
+    Let $\F$ be a set of signatures. Then $\holant{\neq_2}{\neq_4,\hF}$ is either polynomial-time solvable or $\#\operatorname{P}$-hard.
+\end{lemma}
+
+\begin{proof}
+
+    We divide the proof into three cases.
+
+    \textbf{Case 1: $\F$ contains a nonzero signature of odd arity.}
+
+    Let $g_4:=Z^{\otimes 4}\neq_4$. By the holographic transformation $Z$, $\holant{\neq_2}{\neq_4,\hF}\equiv_T \holant{=_2}{g_4,\F}$, and by~\Cref{thm: holant odd}, $\holant{=_2}{g_4,\F}$ is either polynomial-time solvable or is $\#\operatorname{P}$-hard.
+
+    \textbf{Case 2: every signature in $\hF$ is an $\eo$ signature.}
+    Since $\neq_4$ is also an $\eo$ signature, then the problem $\holant{\neq_2}{\neq_4,\hF}$ is a $\ceo$ problem, namely $\holant{\neq_2}{\neq_4,\hF}\equiv_T \ceo(\neq_4,\hF)$. Then by~\Cref{thm: dichotomy for EO}, $\ceo(\neq_4,\hF)$ is either polynomial-time solvable or $\#\operatorname{P}$-hard.
+
+    \textbf{Case 3: a non-$\eo$ signature occurs.}
+
+    Let $\widehat{f}\in \hF$ has arity $2n$ and suppose that $\widehat{f}$ is not an $\eo$ signature. Then there exists $\alpha\in\mathrm{supp}(\widehat{f})$ such that $\mathrm{wt}(\alpha)=k\neq n$. We first show that, if $k<n$, we can realize a signature  $\widehat{g}$ of arity $r=2n-2k>0$ such that $\widehat{g}(\vec{0})\neq 0$, if $k>n$, we can realize a signature  $\widehat{g}$ of arity $r=2k-2n>0$ such that $\widehat{g}(\vec{1})\neq 0$. By \textcolor{red}{lemma: arity reduction lemma}, we are done.
+
+    We treat the case $k<n$ firstly. Recall that we realized a signature $\widehat{h}$ of arity $r=2n-2k$ such that $\widehat{g}(\vec{0})\neq 0$. Let $a:=\widehat{g}(\vec{0})\neq 0$ and $b:=\widehat{g}(\vec{1})$. By \textcolor{red}{lemma: disequality 4 gives all disequality}, $\neq_{2r}$ can be realized on the RHS of $\holant{\neq_2}{\neq_4,\hF}$. We permute its variables so that $\mathrm{supp}(\neq_{2r})=\{0^r1^r,1^r0^r\}$. Then we connect the $r$ variables of $\widehat{g}$ with the first $r$ variables of $\neq_{2r}$ using $\neq_2$, leaving the last $r$ variables of $\neq_{2r}$ dangling. The resulting signature $\widehat{h}$ of arity $r$ is $\widehat{h}=[a,0,\dots,0,b]_r$. Since $\widehat{h}$ is realized on the RHS of $\holant{\neq_2}{\neq_4,\hF}$, we have $\holant{\neq_2}{\neq_4,\hF}\equiv_T \holant{\neq_2}{\neq_4,\widehat{h},\hF}$.
+
+    We now distinguish whether $b$ is zero.
+    
+    \textbf{Subcase 3.1: b=0.}
+
+    Then $\widehat{h}=[a,0,\dots,0]_r=a\Delta_0^{\otimes r}=(\sqrt[r]a \Delta_0)^{\otimes r}$. By~\Cref{lm: decomposition of tensor power}, we can get $\holant{\neq_2}{\neq_4,\hF}\equiv_T \holant{\neq_2}{\neq_4,\widehat{h},\hF}\equiv_T \holant{\neq_2}{\neq_4,\Delta_0,\hF}$. By a holographic transformation $Z$, we can get $\holant{\neq_2}{\neq_4,\Delta_0,\hF}\equiv_T \holant{=_2}{g_4,u_0,\F}$ where $u_0=Z\Delta_0=\frac{1}{\sqrt{2}}\begin{bmatrix}1\\ i\end{bmatrix}.$ Thus a nonzero odd arity signature is available, and by~\Cref{thm: holant odd}, $\holant{=_2}{g_4,u_0,\F}$ is either polynomial time solvable or $\#\operatorname{P}$-hard.
+
+    \textbf{Subcase 3.2: $b\neq 0$.}
+
+    Now $ab\neq 0$. We first suppose that $r\geq 4$. Let $q\in \mathbb{C}$ satisfying $q^{2r}=\frac{b}{a}$. Define 
+    \[
+        \widehat{Q}^{-1}
+        =
+        \begin{pmatrix}
+        q^{-1}&0\\
+        0&q
+        \end{pmatrix},
+        \qquad
+        \widehat Q
+        =
+        \begin{pmatrix}
+        q&0\\
+        0&q^{-1}
+        \end{pmatrix}.
+    \]
+    We have 
+    \[
+        (\widehat{Q}^{-1})^{\mathsf T}N\widehat Q^{-1}
+        =
+        \begin{pmatrix}
+        q^{-1}&0\\
+        0&q
+        \end{pmatrix}
+        \begin{pmatrix}
+        0&1\\
+        1&0
+        \end{pmatrix}
+        \begin{pmatrix}
+        q^{-1}&0\\
+        0&q
+        \end{pmatrix}
+        =N.
+    \]
+    By a holographic transformation $\widehat{Q}$, $\holant{\neq_2}{\neq_4,\widehat{h},\hF}\equiv_T \holant{(\widehat{Q}^{-1})^TN\widehat{Q}^{-1}}{\widehat{Q}\neq_4,\widehat{Q}\widehat{h},\widehat{Q}\hF}\equiv_T \holant{\neq_2}{\widehat{Q}\neq_4,\widehat{Q}\widehat{h},\widehat{Q}\hF}\equiv_T \holant{\neq_2}{\neq_4,\widehat{Q}\widehat{h},\widehat{Q}\hF}$. Furthermore, $\widehat{Q}\widehat{h}=\widehat{Q}^{\otimes r}\widehat{h}=[aq^r,0,\dots,0,bq^{-r}]_r=aq^r[1,0,\dots,0,1]_r=aq^r(=_r)$ since $q^{2r}=b/a$. Thus $\holant{\neq_2}{\neq_4,\widehat{h},\hF}\equiv_T \holant{\neq_2}{\neq_4,=_r,\widehat{Q}\hF}$. By \textcolor{red}{lemma: From Holant to quantum, arxiv, lemma 5.2, for $r\geq 3$, $\#\operatorname{CSP}_r(\neq_2,F)\leq_T K-\Holant(=_r,F)$, lemma: odd lemma 61,62}, we have $\#\operatorname{CSP}_r(\neq_2,\neq_4,\widehat{Q}\hF)\equiv_T \holant{\neq_2}{\neq_4,=_r,\widehat{Q}\hF}$. Then by \textcolor{red}{lemma: from holant to quantum, theorem 5.3}, $\#\operatorname{CSP}_r(\neq_2,\neq_4,\widehat{Q}\hF)$ is either polynomial-time solvable or $\#\operatorname{P}$-hard.
+
+    It remains to consider $r=2$. In this case $\widehat{h}=[a,0,0,b]$. Recall that $\neq_8$ can be realized on the RHS of $\holant{\neq_2}{\neq_4,\widehat{h},\hF}$. Permuting the variables of $\neq_8$ so that $\mathrm{supp}(\neq_8)=\{0^41^4,1^40^4\}$.
+    Connecting the first four variables of $\neq_8$ with two copies of $\widehat{h}$ using $\neq_2$, leaving the last four variables of $\neq_8$ dangling. The resulting quaternary signature is $\widehat{h}_4=[a^2,0,\dots,0,b^2]_4$. Since $a^2b^2\neq 0$, the preceding argument applies with $r=4$. This completes the case $k<n$.
+
+    The case $k>n$ is similar.
+\end{proof}
+
+\begin{corollary}\label{cor: In conjugate closed setting, disequality gives hardness}
+    Let $\F$ be a conjugate closed signature set. If $\F$ does satisfy the condition \rm{(\ref{cond: tractable classes})}, then $\holant{\neq_2}{\neq_4,\hF}$ is $\#\operatorname{P}$-hard.
+\end{corollary}
+\begin{proof}
+     By~\Cref{lm: disequality 4 gives dichotomy}, we just need to verify that $\holant{\neq_2}{\neq_4,\hF}$ will not fall into the polynomial-time solvable side of case 1, case 2, and case 3.
+
+     \textbf{Case 1: $\F$ contains a nonzero signature of odd arity.}
+
+     By~\Cref{lm: odd holant with conjugation}, this case is $\#\operatorname{P}$-hard.
+
+     \textbf{Case 2: every signature in $\hF$ is an $\eo$ signature.}
+
+     Suppose that $\hF\in\POLUP$ and $\hF\in \eo^{\mathscr{A}}$ or $\hF\in \eo^{\mathscr{P}}$, since $\neq_4\in \POLUP$ and $\neq_4\in \eo^{\mathscr{A}},\eo^{\mathscr{P}}$, then by~\Cref{lm: conjugation_polymorphism_affine support} we can get $\neq_4$ and every $\widehat{f}\in\hF$ has affine support. By \textcolor{red}{lemma: EO with affine support gives pairwise opposite} and combined with
+     $\neq_4,\hF$ are $\eo^{\mathscr{A}}$ or $\eo^{\mathscr{P}}$, we can get $\neq_4\cup \hF\subseteq \mathscr{A} $ or $\mathscr{P}$. This is a contradiction that $\F$ does not satisfy the condition \rm{(\ref{cond: tractable classes})}. $\hF\in\POLUP$ and $\hF\in \eo^{\mathscr{A}}$ or $\hF\in \eo^{\mathscr{P}}$ is symmetric. Thus this case is $\#\operatorname{P}$-hard.
+     
+
+     \textbf{Case 3: a non-$\eo$ signature occurs.}
+     By \textcolor{red}{theorem: from holant to quantum, theorem 5.3}, if $\F$ does not satisfy the condition \rm{(\ref{cond: tractable classes})}, $\#\operatorname{CSP}_r(\neq_2,\neq_4,\widehat{Q}\hF)$ is $\#\operatorname{P}$-hard for $r\geq 3$. Thus this case is also $\#\operatorname{P}$-hard.
+\end{proof}
+
+
+
+\subsection{Signature Factorization}
+
+\begin{lemma}[\cite{Lin_Wang_Decomposition_lemma} lemma 3.1]\label{lm: decomposition of tensor power}
+    Let $\F$ be a set of signatures. Then
+    $$
+        \Holant(\F,f)\leq_T \Holant(\F,f^{\otimes d}),
+    $$
+    for all $d\geq 1$.
+\end{lemma}
+\begin{theorem}[\cite{Holant_Odd}]\label{thm: decomposition lemma}
+    Let $\mathcal{F}$ be a set of signatures and $f$, $g$ be two signatures. Then
+
+$$\Holant(f,g,\mathcal{F})\equiv_T\Holant(f\otimes g,\mathcal{F})$$ 
+holds unless $\widehat{\mathcal{F}}'=\widehat{\mathcal{F}}\cup\{\widehat{f}\otimes\widehat{g}\}$ only contains $\eog$ signatures (or $\eol$ signatures respectively).
+\end{theorem}
+
+\begin{lemma}[Decomposition lemma]\label{lm: decomposition}
+    Let $\mathcal{F}$ be a conjugate closed set of signatures.
+    If $f\in \mathcal{F}$ has a factorization $g\otimes h$, then $\Holant(g, h, \mathcal{F})\equiv_T\Holant( \mathcal{F})$.
+    In the setting of $\holant{\neq_2}{\hF}$, $\holant{\neq_2}{\widehat{g}, \widehat{h}, \hF}\equiv_T\holant{\neq_2}{\hF}$.
+\end{lemma}
+
+\begin{proof}
+    By \cref{thm: decomposition lemma}, we only need to consider the case that $\widehat{\mathcal{F}}$ only contains $\eog$ signatures (or $\eol$ signatures respectively).
+    Since $\mathcal{F}$ is conjugate closed, $\widehat{\mathcal{F}}$ is $\eo$ by \cref{lm: conjugation_polymorphism_affine support}.
+    By \cref{thm: dichotomy for EO}, either $\Holant(\mathcal{F})\equiv_T\holant{\neq_2}{\widehat{\mathcal{F}}}$ is \#P-hard, then trivially $\Holant(g,h,\mathcal{F})\equiv_T\Holant(\mathcal{F})$, or $\holant{\neq_2}{\hF}$ is tractable.
+    In the tractable case, $\widehat{\mathcal{F}}\subseteq \POLUP$ or $\widehat{\mathcal{F}}\subseteq \POLDOWN$ and $\widehat{\mathcal{F}}\subseteq \eo^{\mathscr{A}}$ or $\widehat{\mathcal{F}}\subseteq \eo^{\mathscr{P}}$.
+    By \cref{lm: conjugation_polymorphism_affine support}, every $\widehat{f}\in \mathcal{F}$ has affine support.
+    Combined with $\widehat{\mathcal{F}}\subseteq \eo^{\mathscr{A}}$ or $\widehat{\mathcal{F}}\subseteq \eo^{\mathscr{P}}$, we have $\widehat{\mathcal{F}}\subseteq \mathscr{A}$ or $\widehat{\mathcal{F}}\subseteq\mathscr{P}$.
+    Since $\widehat{f}=\widehat{g}\otimes\widehat{h}$, $\widehat{g}$ and $\widehat{h}$ are both affine or both product.
+    Then trivially $\holant{\neq_2}{\widehat{g},\widehat{h},\widehat{\mathcal{F}}}\equiv_T \holant{\neq_2}{\widehat{\mathcal{F}}}$, which is equivalent to $\Holant(g, h, \mathcal{F})\equiv_T\Holant( \mathcal{F}).$ 
+\end{proof}
+
+
+
+\subsection{Gadget Construction}
+\paragraph{Mating and first order orthogonality}
+Given a (complex-valued) signature $f$ of arity $n\geqslant 2$, we connect $f$ and $\overline{f}$ in the following manner:
+Fix a set $S$ of $n-m$ variables among all $n$ variables of $f$. 
+For each $x_k\in S$, connect $x_k$ of $f$ with the corresponding variable $x_k$ of $\overline{f}$ using $=_2$. 
+The variables that are not in $S$ are called dangling variables.
+In this paper, we only consider the case that $m=1$ or $2$.
+For $m=1$, there is one dangling variable $x_i$. Then, 
+the mating construction  realizes a binary signature, denoted by $\mathfrak m_{i}f$.
+It can be represented by matrix multiplication. 
+We have 
+\begin{equation}\label{m-form}
+M(\mathfrak m_{i}f)=M_{i}(f)I_2^{\otimes (n-1)}M^{\tt T}_{i}(\overline{f})=M_i(f)M_i(f)^{\dagger}
+=\begin{bmatrix}
+{\bf {f}}^{0}_i\\
+{\bf {f}}^{1}_i\\
+\end{bmatrix}
+\left[\begin{matrix}
+{{\bf {\overline{f}}}^{0}_i}^{\tt T} &{{\bf {\overline{f}}}^{1}_i}^{\tt T}\\
+\end{matrix}\right]
+=\left[\begin{matrix}
+|{\bf f}_i^0|^2 &  \langle {\bf f}_i^0, {\bf f}_i^1 \rangle\\
+\langle {\bf f}_i^1, {\bf f}_i^0 \rangle & |{\bf f}_i^1|^2\\
+\end{matrix}\right],
+\end{equation}
+where $\langle \cdot, \cdot\rangle$ denotes the 
+inner product and $|\cdot|$ denotes the  norm defined by this inner product.
+Note that $\langle{\bf f}^{0}_i, {\bf f}^{1}_i\rangle=\overline{\langle{\bf f}^{1}_i, {\bf f}^{0}_i\rangle}$ and $|\langle{\bf f}^{0}_i, {\bf f}^{1}_i\rangle\leqslant|{\bf f}^{0}_i||{\bf f}^{1}_i|$ by the Cauchy-Schwarz inequality. 
+
+\begin{definition}[First order orthogonality \cite{odd_holant_real}]\label{def-first-order}
+       Let $f$ be a complex-valued signature of arity $n \geqslant 2$. It satisfies the \emph{first order orthogonality}, denoted by $f\in$ {\sc 1st-Orth}, if there exists some $\mu\neq 0$ such that for all indices $i\in [n]$, the entries of $f$ satisfy the following equations
+\begin{equation*}
+    |{\bf f}_{i}^{0}|^2=|{\bf f}_{i}^{1}|^2=\mu, \text{ and } \langle{\bf f}_{i}^{0}, {\bf f}_{i}^{1}\rangle =0.
+\end{equation*}
+    \end{definition}
+    
+\begin{proposition}\label{prop: invariant 1st-Orth}
+    {\sc 1st-Orth} is invariant up to conjugation and holographic transformation by $T\in \mathbf{U}_2(\mathbb{C})$.
+\end{proposition}
+
+\begin{proof}
+    Suppose $f$ has arity $n$.
+    Clearly $f\in$ {\sc 1st-Orth} $\iff $ $\overline{f}\in$ {\sc 1st-Orth}.
+    Now take $T\in \mathbf{U}_2(\mathbb{C})$, we have
+    \begin{equation*}
+        \begin{aligned}
+            M(\mathfrak m_i (Tf))
+            =&M_i(Tf)M_i(Tf)^{\dagger}\\
+            =&TM_i(f)(T^{\tt T})^{\otimes n-1}\overline{T}^{\otimes n-1}M_i(f)^\dagger T^\dagger\\
+            =&TM_i(f)M_i(f)^\dagger T^\dagger\\
+            =&TM(\mathfrak m_i f)^\dagger T^\dagger.\\
+        \end{aligned}
+    \end{equation*}
+    So $M(\mathfrak m_i f)=I_2 \iff M(\mathfrak m_i (Tf))=I_2$.
+    That is, $f\in$ {\sc 1st-Orth} $\iff $ $Tf\in$ {\sc 1st-Orth}.
+\end{proof}
+
+\begin{remark}
+    Since $Z\in \mathbf{U}_2(\mathbb{C})$, $f\in$ {\sc 1st-Orth} $\iff \widehat{f}\in $ {\sc 1st-Orth}.
+\end{remark}
+
+Similarly, in the setting of $\holant{\neq_2}{\widehat{\mathcal{F}}}$, the above mating operation is equivalent to connecting variables in $S$ of $\widehat{f}$ and those of $\widehat{\overline{f}}$ using $\neq_2$. 
+We denote the resulting signature by  $\widehat{\mathfrak{m}}_i\widehat{f}$.
+It is easy to check that $\widehat{\mathfrak{m}}_i\widehat{f}=\widehat{{\mathfrak{m}}_i{f}}.$
+So $f\in$ {\sc 1st-Orth} $\iff \exists \mu>0,M(\mathfrak m_if)=\mu I_2\iff  \exists \mu>0, M(\widehat{\mathfrak m}_i \widehat{f})= \mu N_2$.
+We can also calculate the matrix $M(\widehat{\mathfrak m}_i\widehat{f})$ specifically as follows:
+\begin{equation*}
+    M(\widehat{\mathfrak{m}}_i\widehat{f})=
+    M_{i}(\widehat f)N_2^{\otimes n-1}M^{\tt T}_{i}\left(\widehat{\overline{f}}\right)=
+    \left[\begin{matrix}
+    \widehat{{\bf f}}_i^0\\
+    \widehat{{\bf f}}_i^1
+    \end{matrix}\right]
+    \left[\begin{matrix}
+    0 & 1 \\
+     1 & 0
+    \end{matrix}\right]^{\otimes (n-1)}
+    \left[\begin{matrix}
+    {\widehat{\overline{{\bf f}_i^{0}}}}^{\tt T} & {\widehat{\overline{{\bf f}_i^{1}}}^{\tt T}}
+    \end{matrix}\right].\\
+\end{equation*}
+By \cref{lm: conjugation and Z-trans},
+we have
+\begin{equation*}
+    N_2^{\otimes (n-1)}{\widehat{\overline{{\bf f}_i^{0}}}^{\tt T}}
+    =N_2^{\otimes (n-1)}[\overline{\widehat f^{1,11\ldots1}}, \overline{\widehat f^{1, 11\ldots0}}, \ldots, \overline{\widehat f^{1, 00\ldots0}}]^{\tt T}\\=[\overline{\widehat f^{1,00\ldots0}}, \overline{\widehat f^{1,00\ldots1}}, \ldots, \overline{\widehat f^{1, 11\ldots1}}]^{\tt T}={\overline{\widehat{{\bf f}}_i^{1}}}^{\tt T}.
+\end{equation*}
+Thus, we have
+\begin{equation}\label{eqn: 1st-Orth by neq}
+M(\widehat{\mathfrak{m}}_i\widehat{f})=
+\left[\begin{matrix}
+\widehat{{\bf f}}_i^0\\
+\widehat{{\bf f}}_i^1
+\end{matrix}\right]
+\left[\begin{matrix}
+0 & 1 \\
+ 1 & 0
+\end{matrix}\right]^{\otimes (n-1)}
+\left[\begin{matrix}
+    {\widehat{\overline{{\bf f}_i^{0}}}}^{\tt T} & {\widehat{\overline{{\bf f}_i^{1}}}^{\tt T}}
+    \end{matrix}\right]\\
+=\left[\begin{matrix}
+\widehat{{\bf f}}_i^0\\
+\widehat{{\bf f}}_i^1
+\end{matrix}\right]
+\left[\begin{matrix}
+{\overline{\widehat{{\bf f}}_i^{1}}}^{\tt T} &\overline{{\widehat{{\bf f}}_i^{0}}}^{\tt T}
+\end{matrix}\right]
+=\left[\begin{matrix}
+\langle \widehat{{\bf f}}_i^0, \widehat{{\bf f}}_i^1 \rangle & |\widehat{{\bf f}}_i^0|^2\\
+|\widehat{{\bf f}}_i^1|^2 & \langle \widehat{{\bf f}}_i^1, \widehat{{\bf f}}_i^0 \rangle
+\end{matrix}\right].
+\end{equation}
+\cref{eqn: 1st-Orth by neq} combined with \cref{prop: invariant 1st-Orth} also shows that $\exists \mu>0,M(\mathfrak m_if)=\mu I_2$ iff $ \exists \mu>0, M(\widehat{\mathfrak m}_i \widehat{f})= \mu N_2$.
+
+\begin{lemma}\label{lm: 1st-Orth uniform}
+    Let $f$ be a signature of arity $n$.
+    If for all indices $i\in [n]$, $M(\mathfrak{m}_{i}f)= \mu_i I_2$ for some real $\mu_i\neq 0$, then $f$ satisfies {\sc 1st-Orth} (i.e., all $\mu_i$ have the same value).
+\end{lemma}
+\begin{proof}
+    For an arbitrary $i\in[n]$, connecting two variables of $\mathfrak m_if$ by $=_2$, we will get Holant value $2\mu_i\neq 0.$
+    On the other hand, this value is equal to $\sum_{\alpha\in\{0,1\}^n}f(\alpha)\overline{f(\alpha)}$ which is independent of $i$.
+    Therefore, all $\mu_i$ have the same value.
+\end{proof}
+
+\begin{lemma}\label{lm: not 1st-orth is hard}
+    Let $\mathcal{F}$ be a conjugate closed set of signatures containing a nonzero signature that does not satisfy {\sc 1st-Orth}. 
+    If $\mathcal{F}$ does not satisfy condition \rm{(\ref{cond: tractable classes})},
+    then $\Holant(\mathcal{F})$ is \#P-hard.
+\end{lemma}
+ 
+\begin{proof}
+    Consider $M_{i}(f)$ for an arbitrary $f\in \F$ and index $i$.  
+    Clearly, $M(\mathfrak{m}_if)=M_{i}(f)M^\dagger_{i}(f)$ is a Hermitian positive semi-definite matrix, which is diagonalizable with two non-negative real eigenvalues $\lambda_i\geqslant\mu_i\geqslant 0$.
+    These two eigenvalues are not both zero since $f \not\equiv 0$, and so $M(\mathfrak{m}_if)\neq 0$. Thus, $\lambda_i\neq 0$.
+    Then, $|\frac{\mu_i}{\lambda_i}|=1$ iff $\lambda_i=\mu_i$. 
+    %In other words, $M(\mathfrak{m}_if)= \mu_i I_2$ for some real $\mu_i\neq 0$.
+
+    Since $f$ does not satisfy {\sc 1st-Orth}, by \cref{lm: 1st-Orth uniform}, there is an index $i$ such that $M(\mathfrak{m}_if)\neq  \mu_i I_2$ for any real $\mu_i\neq 0$. 
+    Thus, $M(\mathfrak{m}_if)$ has two eigenvalues with different norms. 
+    By \cref{lm: 2 by 2 interpolation}, we can realize a nonzero binary signature $g$ such that $M(g)$ is degenerate. This implies that  $g$ can be factorized as a tensor product of two nonzero unary signatures. 
+    By \cref{lm: decomposition}, we can realize a nonzero unary signature.
+    By \cref{lm: odd holant with conjugation}, $\Holant(\mathcal{F})$ is \#P-hard.
+\end{proof}
+
+\subsection{Signatures and Quantum states}
+A signature $f:\{0,1\}^n\to \mathbb{C}$ can be naturally viewed as a quantum state $\ket{f}=\sum_{x\in\{0,1\}^n}f(x)\ket{x}$ (assume $f$ is normalized, i.e., $\sum_{x\in\{0,1\}^n}|f(x)|^2=1$). 
+Then $f$ satisfies {\sc $k$th-Orth} iff $\ket{f}$ is $k$-uniform.
+More importantly, since $\mathcal{F}$ is conjugate closed, we can realize marginal states of $\ket{f}$ by merging $f$ and $\overline{f}$.
+In the following, we use signature $f$ and quantum state $\ket{f}$ interchangeably.
+
+\paragraph{Pauli representation}
+Define the Hilbert–Schmidt inner product on $\mathbb{C}^{n\times n}$ by $\braket{A,B}:=\mathrm{Tr}(A^\dagger B).$
+The four Pauli matrices are 
+$$
+\sigma_0=I=\left[\begin{matrix}
+    1 & 0\\
+    0 & 1\\
+\end{matrix}\right],
+\sigma_1=X=\left[\begin{matrix}
+    0 & 1\\
+    1 & 0\\
+\end{matrix}\right],
+\sigma_2=Y=\left[\begin{matrix}
+    0 & -\mathfrak i\\
+    \mathfrak i & 0\\
+\end{matrix}\right],
+\sigma_3=Z=\left[\begin{matrix}
+    1 & 0\\
+    0 & -1\\
+\end{matrix}\right]
+$$
+such that $\braket{\sigma_i,\sigma_j}=2\delta_{ij}$.
+Thus they form an orthogonal basis of the vector space of $\mathbb{C}^{2\times 2}.$
+More generally, the $4^m$ matrices $\sigma_{i_1}\otimes\cdots\otimes  \sigma_{i_m}$ form an orthogonal basis of $\mathbb{C}^{2^m\times 2^m}$.
+Therefore every $m$-qubit density matrix has a unique expansion
+$$
+    \rho=\frac{1}{2^m}\sum_{i_1,\ldots,i_m}r_{i_1,\ldots,i_m}\sigma_{i_1}\otimes \cdots\otimes \sigma_{i_m},
+$$
+where $r_{i_1,\ldots,i_m}=\mathrm{Tr}((\sigma_{i_1}\otimes\cdots\otimes\sigma_{i_m})\rho)$.
+
+\input{2_prelim_SU2_SO3}

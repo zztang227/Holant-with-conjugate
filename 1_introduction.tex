@@ -1,0 +1,18 @@
+\section{Introduction}
+Consider the problem $\holant{=_2}{\mathcal{F}}$, where $\mathcal{F}$ is closed under conjugation. i.e., $f\in \mathcal{F}\iff \overline{f}\in \mathcal{F}.$
+
+\begin{theorem}\label{thm: tractable classes}
+    Let $\mathcal{F}$ be a set of complex valued signatures.
+    Then $\Holant(\mathcal{F})$ is tractable if
+    \begin{equation}\label{cond: tractable classes}
+    \mathcal{F}\subseteq \mathscr{T}, ~~~
+     \mathcal{F} \text{ is }\mathscr{P}\text{-transformable,}~~~
+     \mathcal{F} \text{ is } \mathscr{A}\text{-transformable,~~~or~} 
+     \mathcal{F} \text{ is } \mathscr{L}\text{-transformable.}\tag{$\mathrm{ \textcolor{red}{T}}$}
+     \end{equation}
+\end{theorem}
+
+\begin{conjecture}
+    Let $\mathcal{F}$ be a complex signature set that is closed under conjugation. 
+    Then $\Holant(\mathcal{F})$ is \#P-hard unless $\mathcal{F}$ satisfies {\rm (\ref{cond: tractable classes})}, in which case it is tractable.
+\end{conjecture}

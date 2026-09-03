@@ -1,0 +1,143 @@
+\section{The Induction Framework and Base Case}\label{sec-induction}
+    In this section, we introduce the induction framework and handle the base cases (\cref{lm: base case 2n=2,lm: base case 2n=4}).
+    Recall that we always assume that ${\mathcal{F}}$ does not satisfy  condition \rm{(\ref{cond: tractable classes})}.
+    So ${\mathcal{F}}\not\subseteq \mathscr{T}$.
+    Also, since  ${\mathcal{U}}^{\otimes}\subseteq \mathscr{T}$, ${\mathcal{F}}\not\subseteq {\mathcal{U}}^{\otimes}$.
+    Thus, there is a nonzero signature ${f}\in {\mathcal{F}}$ of arity $2n$ such that ${f}\notin {\mathcal{U}}^{\otimes}$.
+    We want to achieve a proof of  \#P-hardness by induction on $2n$. 
+    
+\subsection{Base Case}
+    We first consider the base that $2n=2$.
+    Notice that a nonzero binary signature  ${f}$ satisfies {\sc 1st-Orth} iff its matrix form (as a 2-by-2 matrix) is projective unitary.
+    Thus, ${f}\notin{\mathcal{U}}$ implies that it does not satisfy {\sc 1st-Orth}.
+    Then, we have the following result.
+
+\begin{lemma}\label{lm: base case 2n=2}
+    Let $\mathcal F$ contain a binary signature $f\notin \mathcal{U}^{\otimes}$.
+    Then, $\Holant(\mathcal{F})$ is \#P-hard.
+    %Equivalently, let $\widehat{\mathcal{F}}$ contain a binary signature $\widehat{f}\notin \widehat{\mathcal{U}}^{\otimes}$.
+    %Then, $\Holant(\neq_2\mid \widehat{\mathcal{F}})$ is \#P-hard.
+\end{lemma}
+
+\begin{proof}
+    We prove this lemma in the setting of $\Holant(\mathcal{F})$.
+    Since ${\mathcal{U}}^{\otimes}$ contains the binary zero signature, $f\notin {\mathcal{U}}^{\otimes}$ implies that $f\not\equiv 0$.
+    If $f$ is reducible, then it is a tensor product of two nonzero unary signatures. 
+    By \cref{lm: decomposition}, either $\Holant(\mathcal{F})$ is \#P-hard, or we can realize a nonzero unary signature by factorization, and we are done by \cref{lm: odd holant with conjugation}.
+    Otherwise, $f$ is irreducible. 
+    Since $f\notin \mathcal{U}^{\otimes}$, $f$ does not satisfy {\sc 1st-Orth}. 
+    By \cref{lm: not 1st-orth is hard},  $\Holant(\mathcal{F})$ is \#P-hard.
+\end{proof}
+
+Next, we consider the base case $2n=4$.
+\begin{lemma}\label{lm: base case 2n=4}
+    Let ${\mathcal{F}}$ contain a $4$-ary signature ${f}\notin {\mathcal{U}}^{\otimes}$.
+    Then, $\Holant({\mathcal F})$ is {\rm \#}P-hard.
+\end{lemma}
+
+\begin{proof}
+    Since ${f}\notin{{\mathcal{U}}}^{\otimes}$, $f\not\equiv 0$.
+    First, we may assume that $f$ is irreducible. 
+    Otherwise, we can realize a nonzero unary signature or a binary signature that is not in ${\mathcal{U}}$.
+    Then, by \cref{lm: odd holant with conjugation,lm: base case 2n=2}, we have \#P-hardness.
+    Since $f$ is irreducible, we may further assume that ${f}$ satisfies {\sc 2nd-Orth}.
+    Otherwise, by \cref{lm: not 2nd-orth is hard}, we get \#P-hardness. 
+    However, this is impossible due to the non-existence of an \rm{AME}$(4,2)$ state \textcolor{red}{[citation]}.
+    A contradiction!
+\end{proof}
+
+\subsection{Induction Framework}
+The general induction framework is  that we start with a signature $f$ of arity $2n>4$ that is not in ${\mathcal{U}}^{\otimes}$, and realize a signature $g$ of arity $2k \leqslant 2n-2$ that is also not in ${\mathcal{U}}^{\otimes}$, or we can directly show $\Holant({\mathcal F})$ is {\rm \#}P-hard.
+If we can reduce the arity down to $2$ (by a sequence of reductions of length independent of the problem instance size), then we have a binary signature ${b}\notin{\mathcal{U}}$. 
+By \cref{lm: not 1st-orth is hard}, we are done.
+
+\vspace{0.5em}
+\noindent\textbf{Induction Hypothesis:} If we can realize a $2k$-arity $(1\le k<n)$ signature $f$ from $\mathcal{F}$ such that $f\notin \mathcal{U}^{\otimes}$, then $\Holant(\mathcal{F})$ is \#P-hard.
+\vspace{0.5em}
+
+For the inductive step, we first consider the case that ${f}$ is reducible.
+Suppose that ${f}={f_1} \otimes {f_2}$.
+If ${f_1}$ or ${f_2}$ have odd arity, then we can realize a signature of odd arity by factorization and we are done.
+Otherwise, ${f_1}$ and ${f_2}$ both have even arity. 
+Since ${f}\notin {\mathcal{U}}^{\otimes}$, we know ${f_1}$ and ${f_2}$ cannot both be in ${\mathcal{U}}^{\otimes}$. 
+Then, we can realize a signature of lower arity that is not in ${\mathcal{U}}^{\otimes}$ by factorization. 
+We are done.
+
+In the following we may assume that $f$ is irreducible.
+Then, we may further assume that $f$ satisfies {\sc 2nd-Orth}. 
+Otherwise, we get \#P-hardness by \cref{lm: not 2nd-orth is hard}.
+We use merging with $=_2$ to realize signatures of arity $2n-2$ from $f$.
+Consider ${\partial}_{ij} f$ for all pairs of indices $\{i, j\}$. 
+If there exists a pair $\{i, j\}$ such that ${\partial}_{ij} f \notin {\mathcal{U}}^{\otimes}$, 
+then we can realize $g={\partial}_{ij}f$ which has arity $2n-2$, and we are done.
+Thus, we may assume ${\partial}_{ij} f \in {\mathcal{U}}^{\otimes}$ for all $\{i, j\}$. 
+We denote this property by $ f\in{\int}{\mathcal{U}}^{\otimes}$.
+
+Now, can assume that $f$ is irreducible, satisfies {\sc 2nd-Orth} and $f\in {\int}{\mathcal{U}}^{\otimes}$. 
+By factorization, we can realize all the binary factors of $\partial_{ij}f$ for any pair ${i,j}$.
+Then we can merge $f$ by any of the binary factor $b$ and realize $\partial^b_{ij}f$.
+We may further assume that $\partial^b_{ij}f\in \mathcal{U}^{\otimes}$, otherwise we obtain \#P-hardness by the Induction Hypothesis.
+Then we can realize all binary factors of $\partial^b_{ij}f\in \mathcal{U}^{\otimes}$, and so on.
+In each step, we can also concatenate two binary factors using $=_2$.
+Finally, we can realize a set of binary signatures from $f$ by consecutive merging, factorization and concatenation.
+Clearly, if $f$ satisfies all the assumptions above, so does $\overline{f}$.
+If we can realize $b$ from $f$, then we can also realize $\overline{b}$ from $\overline{f}$.
+We summarize the above generating process as follows:
+
+\begin{definition}[Projective binary group] \label{def: generating process}
+    Given a signature $f$ of arity $2n$, we recursively define a sequence of sets:
+    \begin{enumerate}
+        \item $B_0(f)=\{=_2\}$.
+        
+        \item Given $B_{i-1}(f)$, $A_i(f)$ consists of all binary factors of $\partial^{b}_{ij}f\in \mathcal{U}^{\otimes}$ and $\partial^{b}_{ij}\overline{f}\in \mathcal{U}^{\otimes}$ for arbitrary distinct pair $\{i,j\}$ and $b$ arbitrarily chosen from $B_{i-1}(f)$.
+
+        \item Given $A_i(f)$, $B_i(f)$ consists of all binary signatures realized by connecting $k$ signatures from $A_i(f)$ as a path for arbitrary $k\ge 1$.
+    \end{enumerate}
+    Let $B(f)=\mathop{\bigcup}\limits_{i=1}^{\infty}B_i(f)$, and call it the projective binary group of $f$.
+\end{definition}
+
+By definition, $f$ has the following closure property:
+\begin{proposition}[$B(f)$ closure]\label{prop: binary closure}
+    For all pairs of indices $\{i,j\}$ and $b\in B(f)$, $\partial^b_{ij}f\in B(f)^{\otimes}$.
+\end{proposition}
+
+Next, we explain the notion ``projective binary group".
+Every binary signature $b(x,y)\in \mathcal{U}$ can be represented as a $2\times 2$ matrix $M(b)=\left[\begin{smallmatrix}
+    b(00) & b(01)\\
+    b(10) & b(11)
+\end{smallmatrix}\right]\in \mathbf{PU}(2)$.
+Since normalizing by a nonzero constant doesn't change the complexity, we can realize every binary signature in $[b]:=\{c\cdot b\mid c\in \mathbb{C}\setminus\{0\}\}.$
+We identify every binary signature $b$ in $B(f)$ with its projective class $[b]$, and its representative can be chosen in $\mathbf{SU}(2).$ 
+Note that there are two possible choices of representatives, according to normalizing by $\pm\det(M(b))$.
+
+We can define the multiplication $b_3:=b_1\cdot b_2$ by the resulting signature connecting $b_1$ and $b_2$ using $=_2$.
+Then $b_3$ has the matrix $M(b_3)=M(b_1)M(b_2)$.
+In the following, we always assume $M(b)\in \mathbf{SU}(2)$ unless otherwise stated.
+An important observation by Xia in \cite{MingjiProgram} is that:
+
+\begin{theorem}\label{thm: binary set is finite group}
+    $B(f)$ is %isomorphic to 
+    a finite subgroup of $\mathbf{PU}(2)=\mathbf{SU}(2)/\{\pm I_2\}$, otherwise $\Holant(\mathcal{F})$ is \#P-hard.
+\end{theorem}
+
+Since $\mathbf{SU}(2)/\{\pm I_2\}\cong\mathbf{SO}(3)$, $B(f)$ is isomorphic to a finite subgroup of $\mathbf{SO}(3).$
+Moreover, in our conjugate closed setting, once we can realize $b$, we can realize $\overline{b}$.
+Also, we can rename the two variables of $b$.
+Therefore, we may assume that $B(f)$ is closed under taking conjugation and transpose.
+
+Similarly, we can do a $Z$-transformation and define the projective binary group $\widehat{B}(\widehat{f})$ is the $\holant{\neq_2}{\hF}$ setting.
+We have $\widehat{B}(\widehat{f})=Z^{-1}B(f).$
+The multiplication $\widehat{b_3}=\widehat{b_1}\cdot \widehat{b_2}$ has the matrix $M(\widehat{b_3})=M(\widehat{b_1})NM(\widehat{b_2})$, and $\widehat{B}(\widehat{f})$ has the identity elemetn $\widehat{e}$ with matrix $M(\widehat{e})=N.$
+\iffalse
+\begin{definition}[Binary group]\label{def: binary group}
+    We define $[b]:=\{b,-b\}$ for $b\in B(f)$, and define $G(f)=\{[b],b\in B(f)\}$.
+    Since $\mathbf{SU}(2)/\{\pm I\}\simeq \mathbf{SO}(3)$, $G(f)$ is a subgroup of $\mathbf{SO}(3).$
+    We call $G(f)$ the binary group of $f$.
+\end{definition}
+\fi
+
+
+
+
+
+

@@ -1,0 +1,317 @@
+\section{Hardness When $f_6$ is Available}
+
+In this section, we prove that $\Holant(f_6,\mathcal{F})$ is \#P-hard when $\mathcal{F}$ doesn't satisfy condition (\ref{cond: tractable classes}).
+The proof consists of two cases.
+If every signature in $\mathcal{F}$ has parity, we do a realification argument to prove that every signature in $\mathcal{F}$ is \emph{real} up to a complex phase. 
+Then the result in \cite{realholant} applies.
+If $\mathcal{F}$ contains a signature with no parity, we can do arity reduction to realize a binary signature with no parity.
+
+In this section, we still assume that $\mathcal{F}$ only contains even arity signatures and doesn't satisfy condition (\ref{cond: tractable classes}).
+
+
+\subsection{Parity Condition}
+In this subsection, we assume every signature in $\mathcal{F}$ has parity.
+Recall
+$$
+\sigma_0=I=\left[\begin{matrix}
+    1 & 0\\
+    0 & 1\\
+\end{matrix}\right],
+\sigma_1=X=\left[\begin{matrix}
+    0 & 1\\
+    1 & 0\\
+\end{matrix}\right],
+\sigma_2=Y=\left[\begin{matrix}
+    0 & -\mathfrak i\\
+    \mathfrak i & 0\\
+\end{matrix}\right],
+\sigma_3=Z=\left[\begin{matrix}
+    1 & 0\\
+    0 & -1\\
+\end{matrix}\right],
+J=\left[\begin{matrix}
+    0 & 1\\
+    -1 & 0\\
+\end{matrix}\right].
+$$
+
+If we can realize $f_6$, then we can realize $K_4=\{I,X,Z,J\}$ by \cref{lm:}
+
+\begin{definition}[Projectively real]
+    A signature $f:\{0,1\}^d\to \mathbb{C}$ is projectively real, if there exists $\lambda\in \mathbb{C}$ and a signature $g:\{0,1\}^d\to \mathbb{R}$ such that $f=\lambda g.$
+\end{definition}
+
+\begin{restatable}{definition}{Fgate}
+    Let $\mathcal{G}=\{g\mid g \text{  is an $\mathcal{F}$-gate or $g$ is a factor of some $\mathcal{F}$-gate}\}.$
+\end{restatable}
+
+Clearly $\Holant(\mathcal{F})\equiv_T \Holant(\mathcal{G})$.
+By previous sections, when $\mathcal{F}$ doesn't satisfy condition (\ref{cond: tractable classes}), either $f_6\in \mathcal{G}$, or $\Holant(\mathcal{F})$ is \#P-hard. 
+So in the following we may assume that $f_6\in \mathcal{G}$
+
+\begin{lemma}\label{lm: non-zero Bell contraction}
+    Let $f,g\in \mathcal{G}$ be two non-zero signatures both of arity $d\ge 4$.
+    If $f$ and $g$ have opposite parity, 
+    then there exists $\{i,j\}\subseteq [d]$ and $A\in \{I,X,Z,J\}$ such that $\partial_{ij}^Af\neq 0$ and $\partial_{ij}^Ag\neq 0$, otherwise $\Holant(\mathcal{F})$ is \#P-hard.
+\end{lemma}
+\begin{proof}
+    Since $f$ and $g$ are non-zero and have opposite parity, we may pick $\alpha\in \mathscr{S}(f)$ and $\beta\in \mathscr{S}(g)$ such that $\gamma:=\alpha\oplus \beta$ has odd Hamming weight.
+    Combined with $d\ge 4$, there exists three distinct positions $i,j,k$ where $\gamma_i=\gamma_j=\gamma_k.$
+    Without loss of generality, we assume $(i,j,k)=(1,2,3).$
+    Suppose for a contradiction that, for every $\{u,v\}\subseteq \{1,2,3\}$ and every $A\in\{I,X,Z,J\}$, $\partial_{uv}^Af=0$ or $\partial_{uv}^Ag=0$.
+    
+    We let $e_i$ be the vector of length $d$ where the $i$-th position is $1$ and other positions are $0$.
+    Define 
+    \begin{equation*}
+        \begin{aligned}
+            &a=f(\alpha)\neq 0,&
+            &a'=g(\beta)\neq 0;\\
+            &b=f(\alpha\oplus e_1\oplus e_2),
+            &&b'=g(\beta\oplus e_1\oplus e_2);\\
+            &c=f(\alpha\oplus e_1\oplus e_3),
+            &&c'=g(\beta\oplus e_1\oplus e_3).
+        \end{aligned}
+    \end{equation*}
+    If $\alpha_1=\alpha_2$, then $\beta_1=\beta_2$ by $\gamma_1=\gamma_2$.
+    Consider merging variables $x_1$ and $x_2$ of $f$ and $g$ respectively by $I$,
+    we have $\partial_{12}^If(\alpha_3\cdots\alpha_d)=a+b$ and $\partial_{12}^Ig(\beta_3\cdots\beta_d)=a'+b'$.
+    Since $\partial_{uv}^If=0$ or $\partial_{uv}^Ig=0$, we have $(a+b)(a'+b')=0$.
+    Consider merging variables $x_1$ and $x_2$ of $f$ and $g$ respectively by $Z$, we have $(a-b)(a'-b')=0$.
+    If $\alpha_1\neq \alpha_2$, then $\beta_1\neq \beta_2$ by $\gamma_1=\gamma_2.$
+    Consider merging by $X$ and $J$, we still have
+    $$
+    \begin{cases}
+        (a+b)(a'+b')=0,\\
+        (a-b)(a'-b')=0.
+    \end{cases}
+    $$
+    Plus the above two equations, we have $aa'+bb'=0.$
+    Now consider merging variables $x_1$ and $x_3$ of $f$ and $g$ respectively, we will obtain $aa'+cc'=0.$
+    Again consider merging variables $x_2$ and $x_3$ of $f$ and $g$ respectively, we have
+    $bb'+cc'=0.$
+    Thus $aa'=bb'=cc'=0$, contradicting $aa'\neq 0.$
+\end{proof}
+
+\begin{lemma}\label{lm: realification when parity}
+    Suppose $f\in \mathcal{G}$ has parity. 
+    Then $f$ is projectively real, otherwise $\Holant(\mathcal{F})$ is \#P-hard.
+\end{lemma}
+\begin{proof}
+    We prove this lemma by induction on the arity of $f$.
+    If $f$ has arity $2$, then $f\in \Gamma$, otherwise $\Holant(\mathcal{F})$ is \#P-hard by \cref{lm:}.
+    Since $f$ has parity, $f\in \{I,X,Z,J\}.$
+    Then $f$ is real.
+    If $f$ has arity $4$, then by \cref{lm: base case 2n=4}, $\Holant(\mathcal{F})$ is \#P-hard unless $f\in \mathcal{U}^{\otimes }$.
+    Suppose $f=f_1\otimes f_2$, where $f_1,f_2\in \mathcal{U}.$
+    Then we can realize $f_1$ and $f_2$ by \cref{lm: decomposition}.
+    It is clear that the factor of a parity signature must satisfy parity as well.
+    So both $f_1$ and $f_2$ have parity.
+    Hence $f_1,f_2\in \{I,X,Z,J\}$, otherwise $\Holant(\mathcal{F})$ is \#P-hard, by the same argument as in the arity 2 case.
+    Thus $f=f_1\otimes f_2$ is real.
+
+    Next suppose $f$ has arity $2d\ge 6$.
+    If $f$ is reducible, then we can realize its arbitrary factor $f_1$ in $\mathcal{G}$.
+    Clearly $f_1$ has parity.
+    By induction hypothesis, $f_1$ is projectively real, otherwise $\Holant(\mathcal{F})$ is \#P-hard.
+    So $f$ is projectively real.
+    In the following, we assume that $f$ is irreducible.
+    By \cref{lm: not 2nd-orth is hard},
+    we may assume that $f$ satisfies {\sc 2nd-Orth}. 
+    Fix a pair of indices $\{i,j\}$ for some $i,j$, $1\le i<j \le 2d$.
+    Consider $\partial_{ij}^If=f_{ij}^{00}+f_{ij}^{11}$.
+    By {\sc 2nd-Orth}, $|\partial_{ij}^If|^2=|f_{ij}^{00}|^2+|f_{ij}^{11}|^2>0.$
+    So $\partial_{ij}^If\neq 0.$
+    Similarly, $\partial^{A}_{ij}f\neq 0$ for every $A\in\{I,X,Z,J\}.$
+
+    It is clear that $\partial_{e}^Af$ has the same parity as $f$ for any $A\in \{I,Z\},$ and $\partial_{ij}^Af$ has the opposite parity as $f$ for any $A\in \{X,J\}.$
+    So $\partial_{ij}^Af$ has arity $2(d-1)$ and it has parity.
+    By induction hypothesis,
+    we may assume that $\partial_{ij}^Af=\lambda_A\cdot  g_A$ for some $\lambda_{A}\in \mathbb{C}^{\times}$ and some non-zero real signature $g_A$, for every $A\in \{I,X,Z,J\}.$
+    
+    Now fix arbitrary $B\in \{I,Z\}$ and $C\in \{X,J\}.$
+    Notice that $\partial_{ij}^Bf$ and $\partial_{ij}^Cf$ are non-zero signatures in $\mathcal{G}$ of arity at least 4, and they have opposite parity.
+    By \cref{lm: non-zero Bell contraction}, there exists $A\in\{I,X,Z,J\}$ and a pair of indices $\{u,v\}$ with $1\le u<v\le 2d$ and $\{u,v\}\cap \{i,j\}=\emptyset,$ such that $\partial_{uv}^A\partial_{ij}^Bf\neq 0$ and $\partial_{uv}^A\partial_{ij}^Cf\neq 0.$
+    Consider $\partial_{uv}^Af\in \mathcal{G}$, it is non-zero by {\sc 2nd-Orth} and has parity. 
+    So we may write $\partial_{uv}^Af=\mu\cdot h$ for some $\mu\in \mathbb{C}^\times$ and non-zero real signature $h.$
+    Commutativity gives that
+    \begin{equation*}
+        \begin{aligned}
+            &\lambda_B\cdot \partial_{uv}^Ag_B=\partial_{uv}^A\partial_{ij}^Bf=\partial_{ij}^B\partial_{uv}^Af=\mu\cdot \partial_{ij}^Bh,\\
+            &
+            \lambda_C\cdot \partial_{uv}^Ag_C=\partial_{uv}^A\partial_{ij}^Cf=\partial_{ij}^C\partial_{uv}^Af=\mu\cdot \partial_{ij}^Ch.\\
+        \end{aligned}
+    \end{equation*}
+    Notice that $\partial_{uv}^Ag_B,\,\partial_{ij}^Bh,\,\partial_{uv}^Ag_C,\,\partial_{ij}^Ch$ are all non-zero and real, we have $\frac{\lambda_B}{\mu}\in \mathbb{R}^\times$ and $\frac{\lambda_C}{\mu}\in \mathbb{R}^\times$.
+    Thus $\frac{\lambda_B}{\lambda_C}\in \mathbb{R}^\times.$
+    Since $B\in \{I,Z\}$ and $C\in\{X,J\}$ are arbitrarily picked, $\lambda_I,\lambda_X,\lambda_Z,\lambda_J$ are non-zero complex numbers with the same phase.
+    Therefore, we may write $\partial_{ij}^Af=e^{\mathfrak i \theta} \cdot r_A$ for some $\theta\in [0,2\pi)$ and some non-zero real signature $r_A$, for every $A\in\{I,X,Z,J\}$.
+    We may recover $f$ by 
+    \begin{equation*}
+        \begin{aligned}
+            &f_{ij}^{00}=\frac{1}{2}(\partial_{ij}^If+\partial_{ij}^Zf)=\frac{e^{\mathfrak i \theta}}{2}(r_I+r_Z),\quad 
+            f_{ij}^{11}=\frac{1}{2}(\partial_{ij}^If-\partial_{ij}^Zf)=\frac{e^{\mathfrak i \theta}}{2}(r_I-r_Z),\\
+            &f_{ij}^{01}=\frac{1}{2}(\partial_{ij}^Xf+\partial_{ij}^Jf)=\frac{e^{\mathfrak i \theta}}{2}(r_X+r_J),\quad 
+            f_{ij}^{10}=\frac{1}{2}(\partial_{ij}^Xf-\partial_{ij}^Jf)=\frac{e^{\mathfrak i \theta}}{2}(r_X-r_J).
+        \end{aligned}
+    \end{equation*}
+    Therefore, $f$ is projectively real.
+\end{proof}
+
+\begin{lemma}\label{lm: parity f6 is hard}
+    If every signature  $f\in\mathcal{F}$ has parity, then $\Holant(f_6,\mathcal{F})$ is \#P-hard.
+\end{lemma}
+\begin{proof}
+    By \cref{lm: realification when parity}, every signature $f\in \mathcal{F}$ is projectively real, otherwise $\Holant(\mathcal{F})$ is \#P-hard and then we are done.
+    Since a normalization doesn't change the complexity, we may assume that $\mathcal{F}$ is a set of real signatures.
+    Then by Lemma 7.20 in \cite{realholant}, $\Holant(f_6,\mathcal{F})$ is \#P-hard.
+\end{proof}
+
+\subsection{Non-parity Condition}
+
+\begin{lemma}\label{lm: non-pairty reduction}
+    If $f$ is a signature of arity $2d\ge 4$ with no parity, then we can realize a signature $g$ of arity $2(d-1)$ with no parity.
+\end{lemma}
+\begin{proof}
+    The proof is the same as Lemma 7.1 in \cite{realholant}.
+\end{proof}
+
+By \cref{lm: non-pairty reduction}, we can realize a binary signature $b$ with no parity.
+By $\cref{lm: }$, $b\in\Gamma,$ otherwise $\Holant(\mathcal{F})$ is \#P-hard.
+So $b\in \Gamma\setminus \{I,X,Z,J\}\cong A_4 \setminus K_4.$
+\textcolor{red}{Since an arbitrary element in $A_4 \setminus K_4$ and $K_4$ generates $A_4$,} we can realize all elements in $\Gamma.$
+In the following, we will prove $\Holant(\Gamma,f_6,\mathcal{F})$ is \#P-hard.
+Recall
+\Fgate*
+Now we may assume $\Gamma\cup \{f_6\}\subseteq \mathcal{G}.$
+
+\begin{definition}[Pauli tensor]
+    For $i_1,i_2,\ldots,i_k\in \{0,1,2,3\}$, we define the Pauli tensor matrix 
+    $$Q_{i_1i_2\ldots i_k}=\sigma_{i_1}\otimes \sigma_{i_2}\otimes\cdots\otimes \sigma_{i_k}.$$
+    The weight of $Q_{i_1i_2\ldots i_k}$, denoted by $\mathrm{wt}(Q_{i_1i_2\ldots i_k})$, is defined as $\#\{j\mid 1\le j \le k\mid i_j\neq 0\}$, the number of matrices in $\sigma_{i_1},\sigma_{i_2},\ldots,\sigma_{i_k}$ that are not equal to $\sigma_0=I.$
+\end{definition}
+
+\begin{lemma}\label{lm: conjugate action by Gamma}
+    For any $A,B\in\{X,Y,Z\}$, there exists $\gamma\in \Gamma$ such that $\gamma A\gamma^\dagger =B.$
+\end{lemma}
+\begin{proof}
+    Let $C=\frac{1}{2}\left[\begin{matrix}
+        1+\mathfrak i & 1+\mathfrak i\\
+        -1+\mathfrak i & 1-\mathfrak i
+    \end{matrix}\right]\in \Gamma.$
+    Direct cauculation shows that
+    \begin{equation*}
+        CXC^\dagger=Z,\quad 
+        CZC^\dagger=Y,\quad
+        CYC^\dagger=X.
+    \end{equation*}
+    Since the power of $C$ is also in $\Gamma,$ the lemma is proved.
+\end{proof}
+
+\begin{lemma}\label{lm: decrease Pauli weight by 2}
+    Suppose $Q_{i_1i_2\ldots i_k}$ is a Pauli tensor of weight at least $3.$
+    Then we can realize a signature $g_{i_1i_2\ldots i_k}\in \mathscr{A}\cap \mathcal{G}$ of arity $2k$ with matrix $U_{i_1i_2\ldots i_k}=M_{x_1\ldots x_k,\, x_{k+1}\ldots x_{2k}}(g_{i_1i_2\ldots i_k})$ which is unitary, such that $U_{i_1i_2\ldots i_k}Q_{i_1i_2\ldots i_k}U_{i_1i_2\ldots i_k}^\dagger$ is a Pauli tensor of weight decreased by 2 compared with the Pauli tensor $Q_{i_1i_2\ldots i_k}$.
+    \todo{ZZT: add a figure here.}
+\end{lemma}
+\begin{proof}
+    Since $Q_{i_1i_2\ldots i_k}$ has weight at least 3, we may assume $i_1i_2i_3\neq 0$ without loss of generality.
+    First apply \cref{lm: conjugate action by Gamma}, we realize a 6-ary signature $g_6$ with matrix $M(g_6)=\gamma_1\otimes \gamma_2\otimes\gamma_3$ with $\gamma_1,\gamma_2,\gamma_3\in \Gamma$, such that $M(g_6)(\sigma_{i_1}\otimes\sigma_{i_2}\otimes \sigma_{i_3})M(g_6)^\dagger=X\otimes Z\otimes Z.$
+    %Group $\sigma_{i_1},\sigma_{i_2},\ldots, \sigma_{i_k}$ into groups of 3.
+    %Notice that $M(X\otimes Z\otimes Z)M^\dagger=4X\otimes I\otimes I.$
+    Now connect variables $x_4,x_5,x_6$ of $f_6$ and variables $x_1,x_2,x_3$ of $g_6$, we realize the signature $h_6$ with matrix $M(h_6)$, such that $M(h_6)(\sigma_{i_1}\otimes\sigma_{i_2}\otimes \sigma_{i_3})M(h_6)^\dagger=M(f_6)(X\otimes Z\otimes Z)M(f_6)^\dagger=4X\otimes I\otimes I.$
+    Let $h_{i_1i_2\ldots i_k}=h_6 \otimes (=_2)^{\otimes (k-3)}$.
+    Then $M(h_{i_1i_2\ldots i_k})Q_{i_1i_2\ldots i_k}M(h_{i_1i_2\ldots i_k})^\dagger$ has Pauli weight decreased by 2.
+    Clearly $M(h_{i_1i_2\ldots i_k})$ is projectively unitary, because $f_6$ and $g_6$ are projectively unitary.
+    Letting $g_{i_1i_2\ldots i_k}$ be the normalized signature of $h_{i_1i_2\ldots i_k}$ finishes the proof.
+\end{proof}
+
+Repeatedly apply \cref{lm: decrease Pauli weight by 2}, we have the following Corollary:
+
+\begin{corollary}\label{cor: decrease Pauli weight}
+    Suppose $Q_{i_1i_2\ldots i_k}$ is a Pauli tensor of weight at least $3.$
+    Then we can realize a signature $f_{i_1i_2\ldots i_k}\in \mathscr{A}\cap\mathcal{G}$ of arity $2k$ with matrix $V_{i_1i_2\ldots i_k}=M_{x_1\ldots x_k,\, x_{k+1}\ldots x_{2k}}(f_{i_1i_2\ldots i_k})$ which is unitary, such that $V_{i_1i_2\ldots i_k}Q_{i_1i_2\ldots i_k}V_{i_1i_2\ldots i_k}^\dagger$ is a Pauli tensor of weight 1 or 2.
+\end{corollary}
+
+\begin{lemma}\label{lm: all 12 binary available is hard}
+    $\Holant(\Gamma, f_6, \mathcal{F})$ is \#P-hard.
+\end{lemma}
+\begin{proof}
+    
+    Since $\mathcal{F}$ doesn't satisfy condition (\ref{cond: tractable classes}), then there exists some $f\in \mathcal{G}$ such that $f\notin \mathscr{A}.$
+    We choose such an $f$ with minimal arity $d$.
+    If $d=2$, then $f\notin \Gamma$.
+    By \cref{lm:}, $\Holant(\Gamma,f_6,\mathcal{F})$ is \#P-hard.
+    In the following we assume $d\ge 4.$
+    Let $\mathbf{f}$ denote the truth table of $f$, listed lexicographically as a column vector in $\mathbb{C}^{2^d}$.
+
+    Consider an arbitrary Pauli tensor $Q_{i_1i_2\ldots i_d}.$
+    By \cref{cor: decrease Pauli weight}, we can realize a signature $f_{i_1i_2\ldots i_d}\in \mathscr{A}\cap \mathcal{G}$ of arity $2d$ with matrix $V_{i_1i_2\ldots i_d}=M_{x_1\ldots x_d,\,x_{d+1}\ldots x_{2d}}(f_{i_1i_2\ldots i_d})$ such that $V_{i_1i_2\ldots i_d}Q_{i_1i_2\ldots i_d}V_{i_1i_2\ldots i_d}^\dagger$ is a Pauli tensor of weight 1 or 2.
+    Connect variables $x_{d+1},\ldots, x_{2d}$ of $f_{i_1i_2\ldots i_d}$ and variables $x_1,\ldots, x_d$ of $f$, we realize a signature $g_{i_1i_2\ldots i_d}$ of arity $d$ with truth table $\mathbf{g}_{i_1i_2\ldots i_k}=V_{i_1i_2\ldots i_d}\mathbf{f}.$
+
+    \begin{claim}\label{claim: g is irreducible}
+        For every $i_1,i_2,\ldots, i_d\in [4]$, $g_{i_1i_2\ldots i_d}$ is irreducible. 
+    \end{claim}
+    \begin{claimproof}{\cref{claim: g is irreducible}}
+        Suppose for a contradiction that $g_{i_1i_2\ldots i_d}$ is reducible for some $i_1,i_2,\ldots, i_d\in [4]$.
+        %Then we can realize its factor $g'$ in $\mathcal{G}$ by \cref{lm: decomposition}.
+        Every factor $g'$ must be affine.
+        Otherwise we can realize $g'\in \mathcal{G}$ of arity less than $d$, contradicting minimality of $f$.
+        If every factor $g'\in \mathscr{A}$, then $g_{i_1i_2\ldots i_d}\in \mathscr{A}$.
+        Since $f_{i_1i_2\ldots i_d}\in \mathscr{A}\cap \mathcal{G}$, we have $\overline{f_{i_1i_2\ldots i_d}}\in \mathscr{A}\cap \mathcal{G}$ by conjugate closure.
+        Connect variables $x_{d+1},\ldots, x_{2d}$ of $\overline{{f}_{i_1i_2\ldots i_d}}$ and variables $x_1,\ldots, x_d$ of $g_{i_1i_2\ldots i_d}$, we realize a signature with truth table $V_{i_1i_2\ldots i_d}^\dagger V_{i_1i_2\ldots i_d}\mathbf{f}=\mathbf{f}.$
+        Because both $\overline{{f}_{i_1i_2\ldots i_d}}$ and $g_{i_1i_2\ldots i_d}$ are affine, $f$ is affine, contradiction.
+    \end{claimproof}
+    \begin{claim}\label{claim: reduce Pauli weight}
+        There exists $i_1,i_2,\ldots, i_d\in [4]$ such that $g_{i_1i_2\ldots i_d}$ doesn't satisfy {\sc 2nd-Orth.}
+    \end{claim}
+    \begin{claimproof}{\cref{claim: reduce Pauli weight}}
+        
+        Suppose for a contradiction that, for all $i_1,i_2,\ldots, i_d\in [4]$, $g_{i_1i_2\ldots i_d}$ satisfies {\sc 2nd-Orth}.
+        Consider the Pauli representation of $\mathbf{ff}^\dagger:$
+        \begin{equation*}
+            \mathbf{ff^\dagger}=\frac{1}{2^d}\sum_{i_1,i_2,\ldots,i_d\in[4]}\mathrm{Tr}(\mathbf{ff}^\dagger Q_{i_1i_2\ldots i_d})Q_{i_1i_2\ldots i_d}.
+        \end{equation*}
+        The Pauli coefficient is
+        \begin{equation*}
+            \mathrm{Tr}(\mathbf{ff}^\dagger Q_{i_1i_2\ldots i_d})=\mathbf{f}^\dagger Q_{i_1i_2\ldots i_d} \mathbf{f}=\mathbf{g}_{i_1i_2\ldots i_d}^\dagger V_{i_1i_2\ldots i_d}Q_{i_1i_2\ldots i_d}V_{i_1i_2\ldots i_d}^\dagger \mathbf{g}
+            =\mathbf{g}_{i_1i_2\ldots i_d}^\dagger Q'_{i_1i_2\ldots i_d} \mathbf{g},
+        \end{equation*}
+        where $Q'_{i_1i_2\ldots i_d}$ is a Pauli tensor of weight 1 or 2 if $i_1i_2\cdots i_d\neq 0$.
+        So $\mathrm{Tr}(\mathbf{ff}^\dagger Q_{i_1i_2\ldots i_d})=0$ if $i_1i_2\cdots i_d\neq 0$\todo{ZZT: add a lemma for 2nd orth}, and $\mathrm{Tr}(\mathbf{ff}^\dagger Q_{00\ldots 0})=|\mathbf{f}|^2>0.$
+        Thus $\mathbf{ff}^\dagger={|\mathbf{f}|^2}/{2^d}\cdot I_{2^d}$.
+        LHS has rank 1 while RHS has full rank. 
+        Contradiction!
+    \end{claimproof}
+    By \cref{claim: g is irreducible}, \cref{claim: reduce Pauli weight}, there exists some $g_{i_1i_2\ldots i_d}\in \mathcal{G}$ of arity at least 4 that is irreducible and doesn't satify {\sc 2nd-Orth}.
+    So by \cref{lm: not 2nd-orth is hard}, $\Holant(\Gamma, f_6, \mathcal{F})\equiv_T \Holant(\mathcal{G})$ is \#P-hard.
+\end{proof}
+
+\begin{lemma}\label{lm: non-parity f6 is hard}
+    If $\mathcal{F}$ contains a signature with no parity, then $\Holant(f_6,\mathcal{F})$ is \#P-hard.
+\end{lemma}
+\begin{proof}
+    By \cref{lm: non-pairty reduction}, we can realize a binary signature $b$ with no parity.
+    By $\cref{lm: }$, $b\in\Gamma,$ otherwise $\Holant(\mathcal{F})$ is \#P-hard.
+    So $b\in \Gamma\setminus \{I,X,Z,J\}\cong A_4 \setminus K_4.$
+    Since an arbitrary element in $A_4 \setminus K_4$ and $K_4$ generates $A_4$, we can realize all elements in $\Gamma.$
+    By \cref{lm: all 12 binary available is hard}, $\Holant(f_6,\mathcal{F})\equiv_T\Holant(\Gamma,f_6,\mathcal{F})$ is \#P-hard.
+\end{proof}
+
+\subsection{Hardness When $f_6$ is Available}
+\begin{lemma}
+    $\Holant(f_6,\mathcal{F})$ is \#P-hard.
+\end{lemma}
+\begin{proof}
+    Combine \cref{lm: parity f6 is hard,lm: non-parity f6 is hard}.
+\end{proof}
+
+The following lemma no longer requires that $\mathcal{F}$ doesn't satify condition (\ref{cond: tractable classes}).
+\begin{lemma}\label{lm: f6 is hard}
+    If $\mathcal{F}$ contains a signature ${f}$ of arity $6$ and $f\notin \mathcal{U}^\otimes$, then $\Holant(\mathcal{F})$ is \#P-hard.
+\end{lemma}
+\begin{proof}
+    By \cref{lm: } $\Holant(f_6,\mathcal{F})\equiv_T \Holant(\mathcal{F})$.
+    By \cref{lm: f6 is hard}, $\Holant(\mathcal{F})$ is \#P-hard.
+\end{proof}
+
+
+

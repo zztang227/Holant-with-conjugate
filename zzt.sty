@@ -1,0 +1,129 @@
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{amsthm}
+\usepackage{comment}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{euscript}
+\usepackage{nicematrix}
+\usepackage{nicefrac}
+\usepackage{bm}
+\usepackage{thm-restate}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{nameref}
+\usepackage{scalerel}
+\usepackage[nameinlink, capitalise]{cleveref}
+\usepackage{mathtools}
+\usepackage{braket}
+\usepackage{xcolor}
+\hypersetup{
+	colorlinks,
+	linkcolor={red!50!black},
+	citecolor={blue!50!black},
+	urlcolor={blue!80!black}
+}
+\usepackage{tikz}
+\usetikzlibrary{decorations.markings, arrows}
+
+\newcommand{\class}{\textrm} % Typeset Classes in roman font
+% math operators...
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclareMathOperator{\GH}{\tt{GH}}
+\DeclareMathOperator{\CSP}{\tt{CSP}}
+\DeclareMathOperator{\PlGH}{\tt{Pl\text{-}GH}}
+\DeclareMathOperator{\PlHolant}{Pl\text{-}Holant}
+\newcommand{\Holant}{\operatorname{Holant}}
+\newcommand{\holant}[2]{\ensuremath{\Holant\left(#1\mid #2\right)}}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\algnewcommand{\algorithmicinput}{\textbf{Input:}}
+\algnewcommand{\algorithmicreturns}{\textbf{Returns:}}
+\algnewcommand{\Input}{\item[\algorithmicinput]}
+\algnewcommand{\Returns}{\item[\algorithmicreturns]}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Rp}{\mathbb{R}_{>0}}
+\newcommand{\Zp}{\mathbb{Z}_{>0}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\numPhard}{\#P-hard}
+
+\def\COUNT{\text{\sf COUNT}}
+\DeclareMathOperator{\PlEdge}{\tt{Pl}\text{-}\mathfrak{E}}
+\DeclareMathOperator{\Edge}{\mathfrak{E}}
+\DeclareMathOperator{\PlGadget}{\tt{Pl}\text{-}\mathfrak{B}}
+\DeclareMathOperator{\Gadget}{\mathfrak{B}}
+\def\COUNT{\text{\sf COUNT}}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\qut}{Qut}
+\DeclareMathOperator{\aut}{Aut}
+\DeclareMathOperator{\uc}{\mathcal{U}}
+\DeclareMathOperator{\vk}{\mathbf{K}}
+\DeclareMathOperator*{\entrywise}{\scalerel*{\bullet}{\sum}}
+
+
+%%%Mat
+\newcommand{\Mat}[2]{%
+  \text{Mat}%
+  \ifthenelse{\equal{#1}{}}{}{_{#1}}%
+  \ifthenelse{\equal{#2}{}}{}{^{\rm{#2}}}%
+}
+
+
+%%% Symmetry matrix
+\newcommand{\Sym}[3]{%
+  \text{Sym}_{#1}^{\tt{#2}}(#3)%
+}
+
+%%% Potts_q(x)
+\newcommand{\potts}[2]{\text{\tt{Potts}}_{#1}(#2)}
+
+%%% Lattice of q by q Potts
+\newcommand{\LPotts}[1]{\mathfrak{L}_{\mathtt{Potts}}{(#1)}}
+%%% derivative
+\newcommand{\deriv}[3]{\frac{d^{#1} #2}{d #3^{#1}}}
+
+%%% 2 norm
+\newcommand{\norm}[1]{||\mathbf{#1}||_2}
+
+% example environment
+\newenvironment{example}
+{\smallskip \noindent \emph{Example:}}
+{\hfill $\boxtimes$ \smallskip}
+
+% some theorem environments
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\newtheorem{condition}{Condition}
+\newtheorem*{remark*}{Remark}
+\newtheorem{question}{Question}
+\newtheorem{definition}{Definition} % Use this for non-trivial
+	% definitions.
+% Define the proof sketch environment
+\newenvironment{proofsketch}{%
+  \renewcommand{\proofname}{Proof Sketch}\proof}{\endproof}
+
+% currently not used %
+\newtheorem{exercise}{Exercise}
+
+\newenvironment{claimproof}[1]{%
+  \begin{proof}[\textbf{Proof of #1}]%
+  \def\customqed{End of Proof #1}%
+}{%
+  \renewcommand{\qedsymbol}{\customqed}%
+  \end{proof}%
+}
+%claimproof

@@ -1,0 +1,272 @@
+\section{Second Order Orthogonality}\label{sec: second order orthoganality}
+\begin{definition}[Second order orthogonality \cite{realholant}]\label{def: second-order-orth}
+    Let $f$ be a complex-valued signature of arity $n \geqslant 4$. It satisfies the \emph{second order orthogonality ({\sc 2nd-Orth})} if there exists some $\lambda\neq 0$ such that for all pairs of indices $\{i, j\}\subseteq [n]$, the entries of $f$ satisfy 
+    \begin{equation*}
+        |{\bf f}_{ij}^{00}|^2=|{\bf f}_{ij}^{01}|^2=|{\bf f}_{ij}^{10}|^2=|{\bf f}_{ij}^{11}|^2=\lambda, 
+    \text{ ~~~~\rm and }~~~~ \langle{\bf f}_{ij}^{ab}, {\bf f}_{ij}^{cd}\rangle =0 ~~~~\text{\rm  for  all } (a, b)\neq (c, d).
+    \end{equation*}
+\end{definition}
+
+Similar to \cref{lm: 1st-Orth uniform}, one can easily prove:
+\begin{lemma}\label{lm: 2nd-Orth uniform}
+    Let $f$ be a signature of arity $n$.
+    If for all indices $i\neq j\in [n]$, $M(\mathfrak{m}_{ij}f)= \lambda_{ij} I_4$ for some real $\lambda_{ij}\neq 0$, then $f$ satisfies {\sc 2nd-Orth} (i.e., all $\lambda_{ij}$ have the same value).
+\end{lemma}
+
+Recall $\mathfrak{m}_{ij}f$ is the 4-arity signature representing the mating of $f$ and $\overline{f}$ by their corresponding variables except for $x_i$ and $x_j$.
+Note that $f$ satisfies {\sc 2nd-Orth} iff $M(\mathfrak{m}_{ij}f)=\lambda I_4$ for some $\lambda>0$.
+In the setting of $\holant{\neq_2}{\hF}$, the mating operation corresponds to connecting variables except for $x_i$ and $x_j$ of $\widehat{f}$ and $\widehat{\overline{f}}$ using $\neq_2$.
+We denote the resulting signature by $\widehat{\mathfrak m}_{ij} \widehat{f}$.
+Clearly $\widehat{\mathfrak m}_{ij} \widehat{f}=\widehat{\mathfrak{m}_{ij}f}$, so $f$ satisfies {\sc 2nd-Orth} iff $M(\widehat{\mathfrak m}_{ij} \widehat{f})=\lambda N_4$ for some $\lambda>0$.
+Similar to \cref{prop: invariant 1st-Orth}, one can easily show that {\sc 2nd-Orth} is invariant up to holographic transformation by a $2\times 2$ unitary matrix, hence $f\in$ {\sc 2nd-Orth} iff $\widehat{f}\in$ {\sc 2nd-Orth}.
+
+In the following, we assume that $\mathcal{F}$ is conjugate closed and doesn't satisfy condition \rm{(\ref{cond: tractable classes})}.
+Recall that $\hF$ is arrow reversal closed.
+
+
+
+\begin{lemma}\label{lm: pre not 2nd-orth is hard}
+    Let $\widehat f\in\widehat{\mathcal{F}}$ be a signature of arity $2n\geqslant 4$. 
+    Then, 
+    \begin{itemize}
+
+        \item $\holant{\neq_2}{\widehat{\mathcal{F}}}$ is \#P-hard, or
+        
+        \item for all pairs of indices $\{i, j\}$, there exists a nonzero binary signature $\widehat{b}_{ij}\in \widehat{\mathcal{O}}$ such that $\widehat{b}_{ij}(x_i, x_j)\mid \widehat{f}$ or $M(\widehat{\mathfrak{m}}_{ij}\widehat{f})= \lambda_{ij} N_4$ for some real $\lambda_{ij}\neq 0$.
+    \end{itemize}
+\end{lemma}
+
+\begin{proof}
+    If $\widehat{f}\equiv 0$, then the lemma holds trivially since for all $\{i, j\}$ and any $\widehat{b}_{ij}\neq 0$, $\widehat{b}_{ij}(x_i, x_j)\mid \widehat{f}$.
+    Thus, we may assume that $f\not\equiv 0$.
+  
+    If $\widehat{f}$ does not satisfy {\sc 1st-Orth}, then $f$ does not satisfy it by \cref{prop: invariant 1st-Orth}. 
+    By \cref{lm: not 1st-orth is hard}, $\holant{\neq_2}{\widehat{\mathcal{F}}}\equiv_T\holant{=_2}{\mathcal{F}}$ is \#P-hard. 
+    Thus, we may assume that $\widehat{f}$ satisfies {\sc 1st-Orth}. 
+    Then there exists some $\mu>0$, such that for all indices $i$, 
+    $$M(\widehat{\mathfrak{m}}_i\widehat{f})
+    =\left[\begin{matrix}
+    \langle \widehat{{\bf f}}_i^0, \widehat{{\bf f}}_i^1 \rangle & |\widehat{{\bf f}}_i^0|^2\\
+    |\widehat{{\bf f}}_i^1|^2 & \langle \widehat{{\bf f}}_i^1, \widehat{{\bf f}}_i^0 \rangle
+    \end{matrix}\right]=
+    \mu\left[\begin{matrix}
+    0 & 1 \\
+     1 & 0
+    \end{matrix}\right].
+    $$
+    
+    For any variable $x_i$, we may take another arbitrary variable $x_j$ $(j\neq i)$ and partition the sum in the inner product $\langle \widehat{{\bf f}}_i^0, \widehat{{\bf f}}_i^1\rangle=0$ into two sums depending on whether $x_j=0$ or $1$.
+    In the following, we denote $\langle \widehat{{\bf f}}_{ij}^{ab}, \widehat{{\bf f}}_{ij}^{cd} \rangle$ 
+    by $\braket{ab\mid cd}$.
+    We have 
+    $$\langle \widehat{{\bf f}}_i^0, \widehat{{\bf f}}_i^1 \rangle
+    = 
+    \langle \widehat{{\bf f}}_{ij}^{00}, \widehat{{\bf f}}_{ij}^{10} \rangle+\langle \widehat{{\bf f}}_{ij}^{01}, \widehat{{\bf f}}_{ij}^{11}\rangle 
+    =0.$$
+    Then $\textcolor{red}{\braket{00\mid 10}}+\textcolor{red}{\braket{01\mid 11}}=0$.
+    Note that by exchanging $i$ and $j$ we also have $\textcolor{blue}{\braket{00\mid 01}}+\textcolor{blue}{\braket{10\mid 11}}=0.$
+    Similarly, $\braket{\widehat{\bf f}_i^1, \widehat{\bf f}_i^0}=0$ implies that $\textcolor{gray}{\braket{10\mid 00}}+\textcolor{gray}{\braket{11\mid 01}}=0$ and $\textcolor{orange}{\braket{01\mid 00}}+\textcolor{orange}{\braket{11\mid 10}}=0$.
+    By $|\widehat{{\bf f}}_i^0|^2=|\widehat{{\bf f}}_i^1|^2,$ we have $\braket{00\mid 00}+\braket{01\mid 01}=\braket{10\mid 10}+\braket{11\mid 11}.$
+    Similarly by $|\widehat{{\bf f}}_j^0|^2=|\widehat{{\bf f}}_j^1|^2,$ we have $\braket{00\mid 00}+\braket{10\mid 10}=\braket{01\mid 01}+\braket{11\mid 11}.$
+    So $\braket{00\mid 00}=\braket{11\mid 11}=c$ and $\braket{01\mid 01}=\braket{10\mid 10}=d$, where $c,d\in \mathbb{R}_{\ge 0}.$ 
+    
+    Now, consider $\widehat{\mathfrak{m}}_{ij}\widehat{f}$. 
+    We have
+
+$$M(\widehat{\mathfrak m}_{ij}\widehat f)=\begin{bmatrix}
+{\widehat{{\bf f}}}_{ij}^{00}\\
+{\widehat{{\bf f}}}_{ij}^{01}\\
+{\widehat{{\bf f}}}_{ij}^{10}\\
+{\widehat{{\bf f}}}_{ij}^{11}\\
+\end{bmatrix}
+N^{\otimes{(n-2)}}
+\left[\begin{matrix}
+\widehat{\overline{{\bf f}_{ij}^{00}}}^{\tt T}&
+\widehat{\overline{{\bf f}_{ij}^{01}}}^{\tt T}&
+\widehat{\overline{{\bf f}_{ij}^{10}}}^{\tt T}&
+\widehat{\overline{{\bf f}_{ij}^{11}}}^{\tt T}
+\end{matrix}\right].$$
+By \cref{lm: conjugation and Z-trans},
+we have
+\begin{equation*}
+    N_2^{\otimes (n-2)}
+    \begin{bmatrix}
+        \widehat{\overline{{\bf f}_{ij}^{00}}}^{\tt T} &
+        \widehat{\overline{{\bf f}_{ij}^{01}}}^{\tt T} &
+        \widehat{\overline{{\bf f}_{ij}^{10}}}^{\tt T} &
+        \widehat{\overline{{\bf f}_{ij}^{11}}}^{\tt T} 
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        {\overline{\widehat{{\bf f}}_{ij}^{11}}}^{\tt T}&
+        {\overline{\widehat{{\bf f}}_{ij}^{10}}}^{\tt T}&
+        {\overline{\widehat{{\bf f}}_{ij}^{01}}}^{\tt T}&
+        {\overline{\widehat{{\bf f}}_{ij}^{00}}}^{\tt T}
+    \end{bmatrix}.
+\end{equation*}
+    Then
+    $$M(\widehat{\mathfrak m}_{ij}\widehat f)=\begin{bmatrix}
+    {\widehat{{\bf f}}}_{ij}^{00}\\
+    {\widehat{{\bf f}}}_{ij}^{01}\\
+    {\widehat{{\bf f}}}_{ij}^{10}\\
+    {\widehat{{\bf f}}}_{ij}^{11}\\
+    \end{bmatrix}
+    \left[\begin{matrix}
+    {\overline{{\widehat{{\bf f}}}_{ij}^{11}}}^{\tt T} &{\overline{{\widehat{{\bf f}}}_{ij}^{10}}}^{\tt T}
+    &{\overline{{\widehat{{\bf f}}}_{ij}^{01}}}^{\tt T}&{\overline{{\widehat{{\bf f}}}_{ij}^{00}}}^{\tt T}
+    \end{matrix}\right]
+    =
+    \left[\begin{matrix}
+    \braket{00\mid 11} & \textcolor{red}{\braket{00\mid 10}} & 
+    \textcolor{blue}{\braket{00\mid 01}} & \braket{00\mid 00}\\
+    
+    \textcolor{red}{\braket{01\mid 11}} & \braket{01\mid 10} & 
+    \braket{01\mid 01} & \textcolor{orange}{\braket{01\mid 00}}\\
+
+    \textcolor{blue}{\braket{10\mid 11}} & \braket{10\mid 10} & 
+    \braket{10\mid 01} & \textcolor{gray}{\braket{10\mid 00}}\\
+
+    \braket{11\mid 11} & \textcolor{orange}{\braket{11\mid 10}} & 
+    \textcolor{gray}{\braket{11\mid 01}} & \braket{11\mid 00}
+    \end{matrix}\right].$$
+    \textcolor{red}{If $\widehat{\mathfrak m}_{ij}\widehat f$ belongs to the additional tractable case (beyond that of the eight-vertex model), the colored entries in the upper (or lower) diagonal of the above matrix are all 0.}
+    So all colored entries are 0, thus $\widehat{\mathfrak{m}}_{ij}\widehat{f}$ has even parity, and it represents a signature of the eight-vertex model.
+    Note that $|\braket{ab\mid cd}|^2\le \braket{ab
+    \mid ab}\cdot \braket{cd\mid cd}$ by Cauchy-Schwarz inequality.
+
+    If there exists a pair of indices $\{i, j\}$ such that $\Holant(\neq_2 \mid \widehat{\mathfrak{m}}_{ij}\widehat f)$ is \#P-hard, then we are done since $\Holant(\neq_2 \mid \widehat{\mathfrak{m}}_{ij}\widehat f)\leqslant_T \Holant(\neq_2 \mid \widehat{\mathcal{F}})$.
+    Thus, we may assume all $\widehat{\mathfrak{m}}_{ij}\widehat f$ belong to the tractable family for eight-vertex models.
+    Clearly, by observing its antidiagonal entries of the matrix $M(\widehat{\mathfrak{m}}_{ij}\widehat{f})$, we have $\widehat{\mathfrak{m}}_{ij}\widehat{f} \not\equiv 0$ since $\widehat f\not \equiv 0$.
+    By \cref{thm: eight-vertex model},  there are three possible cases.
+
+\begin{itemize}
+    \item  $\widehat{\mathfrak{m}}_{ij}\widehat f$ has support of size $2$. 
+    Since $f\not\equiv0$, the anti-diagonals of $\widehat{\mathfrak{m}}_{ij} \widehat{f}$ contain at least one non-zero entry.
+    According to the positions of non-zero entries in $M(\widehat{\mathfrak{m}}_{ij}\widehat f)$, there are two possible sub-cases:
+    (1) $\widehat{\mathfrak{m}}_{ij}\widehat f$ can be factorized as the tensor product of a unary signature and a ternary signature.
+    Then by \cref{lm: decomposition} and \cref{lm: odd holant with conjugation}, $\holant{\neq_2}{\widehat{\mathfrak{m}}_{ij}\widehat f}\le_T\Holant(\neq_2 \mid \widehat{\mathcal{F}})$ is \#P-hard.
+    (2) After a possible permutation of variables, we can realize a weighted $\neq_4$: $ \left[\begin{smallmatrix}
+    0 & 0 & 0 & a\\
+     0 & 0 & 0 & 0\\
+      0 & 0 & 0 & 0\\
+       b & 0 & 0 & 0\\
+    \end{smallmatrix}\right]$ where $a,b> 0.$
+    Similar to \cref{lm: 2 by 2 interpolation}, we can do polynomial interpolation and realize $(\neq_4)=\left[\begin{smallmatrix}
+    0 & 0 & 0 & 1\\
+     0 & 0 & 0 & 0\\
+      0 & 0 & 0 & 0\\
+       1 & 0 & 0 & 0\\
+    \end{smallmatrix}\right]$.
+    \todo{Use $\neq_4$ to show \#P-hardness.}
+    
+    \item $\widehat{\mathfrak{m}}_{ij}\widehat f$ has support of size $8$. 
+    We can rename the four variables of $\widehat{\mathfrak{m}}_{ij}\widehat f$ in a cyclic permutation, and replace $\braket{00\mid 11}$ and $\braket{11\mid 00}$ by $|\braket{00\mid 11}|$ by \cref{thm: eight-vertex model}.
+    We use $\widehat{g}$ to denote this signature.
+    Then $M(\widehat g)= \left[\begin{smallmatrix}
+    a & 0 & 0 & b\\
+    0 & c & d & 0\\
+    0 & d & c & 0\\
+    b' & 0 & 0 & a\\
+    \end{smallmatrix}\right]$ where $a=|\braket{00\mid 11}|, c=\braket{00\mid 00}=\braket{11\mid 11},d=\braket{10\mid 10}=\braket{01\mid 01}$ are positive real numbers and $ b=\braket{10\mid 01}, b'=\braket{01\mid 10}$ are nonzero complex numbers. 
+    By \cref{thm: eight-vertex model}, we consider the following three cases:
+    (1) $\holant{\neq_2}{\widehat{g}}$ is \#P-hard.
+    Then $\holant{\neq_2}{\hF}$ is \#P-hard, we are done.
+    (2) There exists $T\in\mathrm{GL}_2(\mathbb{C})$ such that $\#\mathrm{CSP}_2(T\hF)\le_T\holant{\neq_2}{\widehat{g},\hF}.$
+    Since $\mathcal{F}$ doesn't satisfy \rm{(\ref{cond: tractable classes})}, $T\hF$ doesn't lie in $\mathscr{A}$ or $\alpha\mathscr{A}$ or $\mathscr{P}$ or $\mathscr{L}$.
+    Thus, by \cref{thm: CSP2}, $\#\mathrm{CSP}_2(T\hF)$ is \#P-hard.
+    It follows that $\holant{\neq_2}{\hF}$ is \#P-hard.
+    (3) $b'= b$ and $a=|b|=c=d$.
+    Consider the signature $\widehat{\mathfrak{m}}_{12}\widehat{g}$ realized by mating $\widehat{g}$ and $\widehat{\overline{g}}$ using $\neq_2$.
+    $$M(\widehat{\mathfrak{m}}_{12}\widehat{g})=M(\widehat g)N_4M^{\dagger}(\widehat g)= \left[\begin{matrix}
+    ab+a\overline{b} & 0 & 0 & a^2+|b|^2\\
+    0 &  2cd & c^2+d^2 & 0\\
+    0 & c^2+d^2 & 2cd  & 0\\
+    a^2+|b|^2 & 0 & 0 &  ab+a\overline{b}\\
+    \end{matrix}\right],$$
+    which is a matrix with real entries. 
+    Moreover, all entries except $ab+a\overline{b}$ are strictly positive.
+    If $ab+a\overline{b}=0$, then $\holant{\neq_2}{\widehat{\mathfrak{m}}_{12}\widehat{g}}$ is \#P-hard by the complexity classification of the six-vertex model \cite{six-vertex_model}.
+    Otherwise, by \cref{thm: eight-vertex model}, either (1) $\holant{\neq_2}{\widehat{\mathfrak{m}}_{12}\widehat{g}}$ is \#P-hard, and thus $\holant{\neq_2}{\hF}$ is \#P-hard;
+    or (2) There exists $T\in\mathrm{GL}_2(\mathbb{C})$ such that $\#\mathrm{CSP}_2(T\hF)\le_T\holant{\neq_2}{\widehat{f},\hF}.$
+    Similar to the above argument, $\holant{\neq_2}{\hF}$ is \#P-hard.
+    (3) We can realize $\widehat{h}$ with matrix $M(\widehat{h})$=$\left[\begin{smallmatrix}
+        1 & 0 & 0 & 1\\
+        0 & 1 & 1 & 0\\
+        0 & 1 & 1 & 0\\
+        1 & 0 & 0 & 1\\
+    \end{smallmatrix}\right]$.
+    A direct computation shows that $Z^{\otimes 2}M(\widehat{h}){(Z^{\tt T})}^{\otimes 2}=2\left[\begin{smallmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 0 & 0 & 0\\
+        0 & 0 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+    \end{smallmatrix}\right].$
+    So $\holant{\neq_2}{\widehat{h},\hF}\equiv_T\holant{(\neq_2)Z^{-1}}{Z\widehat{h},Z\hF}\equiv_T\holant{=_2}{=_4,\mathcal{F}}$ by holographic transformation. 
+    By \cref{lm: CSP2 to holant =4}, $\#\mathrm{CSP}_2(\mathcal{F})\leqslant_T\Holant(=_4, \mathcal F)\equiv_T\holant{\neq_2}{\hF}$.
+    Since $\mathcal{F}$ doesn't satisfy condition \rm{(\ref{cond: tractable classes})}, $\#\mathrm{CSP}_2(\mathcal{F})$ is \#P-hard by \cref{thm: CSP2}, and thus $\holant{\neq_2}{\hF}$ is \#P-hard.
+    
+       \item $\widehat{\mathfrak{m}}_{ij}\widehat f$ has support size $4$. 
+       By Cauchy-Schwarz inequality, $M(\widehat{\mathfrak{m}}_{ij}\widehat f)$ is of the form 
+    $\left[\begin{smallmatrix}
+    a & 0 & 0 & c\\
+    0 & 0 & 0 & 0\\
+    0 & 0 & 0 & 0\\
+    c & 0 & 0 &  \overline{a}\\
+    \end{smallmatrix}\right]$
+    or  $\left[\begin{smallmatrix}
+    0 & 0 & 0 & 0\\
+    0 & e & d & 0\\
+    0 & d & \overline{e} & 0\\
+    0 & 0 & 0 & 0\\
+    \end{smallmatrix}\right]$  or $ \left[\begin{smallmatrix}
+    0 & 0 & 0 & c\\
+    0 & 0 & d & 0\\
+    0 & d & 0 & 0\\
+    c & 0 & 0 & 0\\
+    \end{smallmatrix}\right]$, where $\braket{00\mid 11}=a$, $\braket{00\mid 00}=\braket{11\mid 11}=c$, $\braket{01\mid 01}=\braket{10\mid 10}=d$, and $\braket{01\mid 10}=e.$
+    In the first case, by Lemma 6.1 in \cite{eight-vertex_model}, $\holant{\neq_2}{\widehat{\mathfrak{m}}_{ij}\widehat f}$ is \#P-hard unless $|a|^2=c^2.$ 
+    By Cauchy-Schwartz inequality, there exists some $\lambda\neq0$ such that $\mathbf{f}_{ij}^{11}=\lambda\mathbf{f}_{ij}^{00}$.
+    Also notice that $\mathbf{f}_{ij}^{01}=\mathbf{f}_{ij}^{10}=0$.
+    So $\widehat{f}=\widehat{b'}(x_i,x_j)\otimes f_{ij}^{00}$, where $\widehat{b'}(x_i,x_j)$ is the binary signature with matrix
+    $\left[\begin{smallmatrix}
+        1 & 0\\
+        0 & \lambda
+    \end{smallmatrix}\right]$.
+    Since $|\mathbf{f}_{ij}^{11}|^2=|\mathbf{f}_{ij}^{00}|^2=c$, $|\lambda|=1$.
+    Suppose $\lambda=e^{2\mathfrak{i}\theta}$. After a normalization, we have $\widehat{b}(x_i,x_j)\mid \widehat{f}$, where $\widehat{b}(x_i,x_j)\in\widehat{\mathcal{O}}$ is the binary signature with matrix
+    $\left[\begin{smallmatrix}
+        e^{-\mathfrak{i}\theta} & 0\\
+        0 & e^{\mathfrak{i}\theta}
+    \end{smallmatrix}\right]$.
+    In the second case, by Theorem 3.1 and Corollary 2.6 in \cite{six-vertex_model}, $\holant{\neq_2}{\widehat{\mathfrak{m}}_{ij}\widehat f}$ is \#P-hard unless $d^2=|e|^2$.
+    Similar to case one, we can show $\widehat{b}(x_i,x_j)\mid \widehat{f}$, where $\widehat{b}(x_i,x_j)\in\widehat{\mathcal{O}}$.
+    In the third case, still by Theorem 3.1 and Corollary 2.6 in \cite{six-vertex_model}, $\holant{\neq_2}{\widehat{\mathfrak{m}}_{ij}\widehat f}$ is \#P-hard unless $c=d$, in which case $M(\mathfrak{m}_{ij}\widehat{f})=\lambda_{ij}N_4$ for $\lambda_{ij}=c$, then we are done.
+    \end{itemize}
+    To conclude, if there exists a pair of indices $\{i,j\}$ such that $\widehat{\mathfrak{m}}_{ij}\widehat f$ has support size 2 or 8, then $\Holant(\neq_2 \mid \widehat{\mathfrak{m}}_{ij}\widehat f)$ is \#P-hard and thus $\holant{\neq_2}{\hF}$ is \#P-hard.
+    Otherwise, for every pair of indices $\{i,j\}$, $\widehat{\mathfrak{m}}_{ij}\widehat f$ has support size 4. 
+    Then there exists a nonzero binary signature $\widehat{b}_{ij}\in \widehat{\mathcal{O}}$ such that $\widehat{b}_{ij}(x_i, x_j)\mid \widehat{f}$ or $M(\widehat{\mathfrak{m}}_{ij}\widehat{f})= \lambda_{ij} N_4$ for some real $\lambda_{ij}\neq 0$.  
+    The lemma is proved.
+\end{proof}
+
+\begin{remark}
+    We give a restatement of \cref{lm: pre not 2nd-orth is hard} in the setting of $\Holant(\mathcal{F})$.
+    Let $f\in \mathcal{F}$ be a signature of arity $2n\geqslant4$. Then, $\Holant(\mathcal{F})$ is \#P-hard, or for all pairs of indices $\{i, j\}$, there exists a nonzero binary signature $b_{ij}\in \mathcal{O}$ such that $b_{ij}(x_i, x_j)\mid f$ or $M(\mathfrak{m}_{ij}f)=\lambda_{ij}I_4$ for some real $\lambda_{ij}\neq 0$.
+\end{remark}
+
+\begin{lemma}\label{lm: not 2nd-orth is hard}
+    Let $f\in {\mathcal{F}}$ be a irreducible signature of arity $2n \geqslant 4$.
+    If $f$ does not satisfy {\sc 2nd-Orth}, then $\Holant({\mathcal{F}})$ is \#P-hard.
+\end{lemma}
+
+\begin{proof}
+    We proof the contrapositive of the statement in the $\holant{\neq_2}{\hF}$ setting.
+    Since $\widehat{f}$ is irreducible, by \cref{lm: pre not 2nd-orth is hard}, $M(\widehat{\mathfrak{m}}_{ij}\widehat f)=\lambda_{ij}N_4$ for all $\{i, j\}$. 
+    Now, we show all $\lambda_{ij}$ have the same value.  
+    If we connect further the two respective pairs of variables of $\widehat{\mathfrak m}_{ij}\widehat{f}$, which totally connects $\widehat{f}$ and $\widehat{\overline{f}}$, we get a value $4\lambda_{ij}$. 
+    This value clearly does not depend on the particular indices $\{i, j\}$.
+    We denote the value $\lambda_{ij}$ by $\lambda$.  This value is nonzero because $f$ is non-zero by irreducibility.
+\end{proof}
+
+
+
+

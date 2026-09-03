@@ -1,0 +1,1390 @@
+\section{Third Order Orthogonality}\label{sec: Third Order Orth}
+
+In this section, we assume 
+\begin{equation}\label{eq: arity 6 assumption}
+    f\in \mathcal{F} \text{ is arity } 6, \text{irreducible, satisfies {\sc 2nd-Orth} and } B(f) \text{ closure \cref{prop: binary closure}.}
+\end{equation}
+
+We are going to prove that $f$ satisfies {\sc 3rd-Orth}, i.e., $\ket{f}$ is an AME$(6,2)$ state.
+The proof enumerates all possible cases of the finite group $B(f)\le \mathbf{SO}(3)$.
+We fix arbitrary distinct indices $\{i,j,k\}$ and show that either $\rho_{ijk}=\frac{1}{8}I$ or \eqref{eq: arity 6 assumption} cannot be satisfied.
+
+\subsection{Polyhedral Groups}\label{subsec: polyhedral groups}
+
+In this subsection, we consider the case that $B(f)\le \mathbf{SO}(3)$ is a polyhedral group.
+It can be the tetrahedral group $A_4$, the octahedral group $S_4$, or the icosahedral group $A_5$.
+
+Let $\rho=\ket{f}\bra{f}$ be the density matrix of $f$.
+By merging we can realize the state with marginal density matrix in Pauli representation:
+$$\rho_{ijk}=\frac{1}{8}\sum_{p,q,r=0}^3 t_{pqr} \sigma_p\otimes\sigma_q\otimes\sigma_r.$$
+By {\sc 2nd-Orth}, we have 
+\begin{lemma}\label{lm: Pauli rep by 2nd-Orth}
+    $$\rho_{ijk}=\frac{1}{8}\left(I^{\otimes3}+\sum_{p,q,r=1}^3 t_{pqr} \sigma_p\otimes\sigma_q\otimes\sigma_r\right).$$
+\end{lemma}
+\begin{proof}
+    First, $t_{000}=\mathrm{Tr}(\rho_{ijk}(\sigma_0\otimes\sigma_0\otimes\sigma_0))=\mathrm{Tr}(\rho_{ijk})=1.$
+    We only need to prove $t_{pqr}=0$ if there are $1$ or $2$ zeros among $\{p,q,r\}.$
+    For example,
+    $t_{120}=\mathrm{Tr}(\rho_{ijk}(\sigma_1\otimes \sigma_2\otimes I))=\mathrm{Tr}(\rho_{ij}(\sigma_1\otimes \sigma_2)).$
+    By {\sc 2nd-Orth}, $\rho_{ij}=\frac{1}{4}I$.
+    So $t_{120}=\frac{1}{4}\mathrm{Tr}(\sigma_1\otimes \sigma_2)=\frac{1}{4}\mathrm{Tr}(\sigma_1)\mathrm{Tr}(\sigma_2)=0.$
+    Similarly, $t_{pqr}=0$ if there are $1$ or $2$ zeros among $\{p,q,r\}.$
+\end{proof}
+
+
+So $f$ satisfies $3$rd-Orth iff $t_{pqr}=0$ for all $p,q,r\in\{1,2,3\}.$
+
+\begin{definition}
+    For every $b\in B(f)$ with matrix $M(b)\in \mathbf{SU}(2)$, 
+    define $\Vec{b}=(b_{00},b_{01},b_{10},b_{11})^{\tt T}$, $R_b\in \mathbf{SO}(3)$ be the adjoint rotation of $b$, and the matrix $C(b)\in \mathbb{R}^{3\times 3}$ by $C(b)_{pq}=\Vec{b}^\dagger (\sigma_p\otimes\sigma_q) \Vec{b}$ for $p,q\in\{1,2,3\}$.
+\end{definition}
+
+\begin{lemma}\label{lm: Cb and Rb}
+    $C(b)=2R_{b^{-1}}^{\tt T}S$, where $S=\mathrm{diag}(1,-1,1).$
+\end{lemma}
+\begin{proof}
+    %Suppose the binary signature $b$ is normalized with matrix $M(b)\in \mathbf{SU}(2).$
+    Recall the correspondence between $M(b)\in\mathbf{SU}(2)$ and $R_b\in \mathbf{SO}(3)$ in \cref{para: SU2 and SO3} gives
+    $$M(b) \sigma_pM(b)^\dagger=\sum_{r=1}^3(R_b)_{rp}\sigma_r\implies M(b)^\dagger\sigma_pM(b)=\sum_{r=1}^3(R_{b^{-1}})_{rp}\sigma_r$$ 
+    for $p=1,2,3.$
+    Let $s_1=1, s_2=-1, s_3=1$, notice that $s_q\sigma_q=\sigma_q^{\tt T}$ for $q=1,2,3.$
+    Then
+    \begin{equation*}
+        \begin{aligned}
+            C(b)_{pq}=&\Vec{b}^\dagger(\sigma_p\otimes\sigma_q) \Vec{b}=\mathrm{Tr}(M(b)^\dagger \sigma_p M(b)\sigma_q^{\tt T})
+            =\mathrm{Tr}\left(\sum_{r=1}^3(R_{b^{-1}})_{rp}\sigma_rs_q\sigma_q\right)
+            =s_q \sum_{r=1}^3 (R_{b^{-1}})_{rp}\mathrm{Tr}(\sigma_r\sigma_q)\\
+            =&2s_q \sum_{r=1}^3 (R_{b^{-1}})_{rp}\delta_{rq}
+            =2s_q(R_{b^{-1}})_{qp}
+            =(2R_{b^{-1}}^{\tt T}S)_{pq}.
+        \end{aligned}
+    \end{equation*}
+\end{proof}
+
+\begin{lemma}[Pauli slice]\label{lm: Pauli slice}
+    For every $b\in B(f)$ and $r=1,2,3$, we have $\sum_{p,q=1}^3C(b)_{pq}t_{p,q,r}=0.$
+\end{lemma}
+
+\begin{proof}
+    Suppose after merging $f$ and $\overline{f}$, the dangling edges are $x_i,x_j,x_k$ and $y_i,y_j,y_k$.
+    Since $b\in B(f)$, we have $\overline{b}\in B(f)$.
+    Connect $x_i$ and $x_j$ using $\overline{b}$, $y_i$ and $y_j$ using $b$, we get a binary signature $g(x_k,y_k)\in \mathcal{U}$ by binary closure \cref{prop: binary closure}.
+    We have
+    \begin{equation*}
+        \begin{aligned}
+            \mu I_2
+            =&M(g)M(g)^{\dagger}=(\Vec{b}^\dagger \otimes I_2) \rho_{ijk}(\Vec{b} \otimes I_2)\\
+            =&\frac{1}{8}(\Vec{b}^\dagger \otimes I_2)\left(I_2^{\otimes3}+\sum_{p,q,r=1}^3 t_{pqr} \sigma_p\otimes\sigma_q\otimes\sigma_r\right)(\Vec{b} \otimes I_2)\\
+            =& \frac{1}{8}\left(\Vec{b}^{\dagger}\Vec{b}\otimes I_2+\sum_{p,q,r=1}^3t_{pqr}(\Vec{b}^\dagger (\sigma_p\otimes\sigma_q) \Vec{b})\sigma_r\right)\\
+            =&\frac{|\Vec{b}|^2}{8}I_2+\frac{1}{8}\sum_{r=1}^3\left(\sum_{p,q=1}^3 C(b)_{pq}t_{pqr}\right)\sigma_r.&
+        \end{aligned}
+    \end{equation*}
+    Since $\{I_2,\sigma_1,\sigma_2,\sigma_3\}$ is a basis of $\mathbb{C}^{2\times 2}$, we have $\sum_{p,q=1}^3 C(b)_{pq}t_{pqr}=0$ for $r=1,2,3.$
+\end{proof}
+\begin{remark}
+    For $r=1,2,3$, we define $T^{(r)}$ be the $3\times 3$ matrix with entries $T^{(r)}_{pq}=t_{pqr}$.
+    This is a slice of the the Pauli coefficients $t_{pqr}.$
+    \cref{lm: Pauli slice} says $T^{(r)}$ is orthogonal to $C(b)$ under the Frobenius inner product in $M_3(\mathbb{R}).$
+    Similarly, we can define $T^{(p)}$ and $T^{(q)}$, and they are also orthogonal to $C(b)$.
+\end{remark}
+
+The following lemma utilizes the assumption that $B(f)=A_4,S_4$ or $A_5$.
+\begin{lemma}\label{lm: rep lemma}
+    Let $W=\mathrm{Span}_{\mathbb{R}}\{C(b)\mid b\in B(f)\}$, then $W=M_3(\mathbb{R})$.
+\end{lemma}
+\begin{proof}
+    By Section 4.8 and Theorem 4.5.1 in \cite{reptheory}, for $B(f)=A_4,S_4,A_5$, the natural three-dimensional rotation representation $\rho:b\mapsto R_b$ is irreducible.
+    Apply the density theorem (Theorem 3.2.2 in \cite{reptheory}), we have $\mathrm{Span}_{\mathbb{C}}\{R_b\mid b\in B(f)\}=M_3(\mathbb{C})$.
+    Since all matrices $R_b$ are real, $\mathrm{Span}_{\mathbb{R}}\{R_b\mid b\in B(f)\}=M_3(\mathbb{R})$.
+    By \cref{lm: Cb and Rb}, $W=M_3(\mathbb{R}).$
+\end{proof}
+
+\begin{lemma}\label{lm: arity 6 polyhedral group 3rd orth}
+    %$t_{p,q,r}=0$ for all $p,q,r\in\{1,2,3\}$. i.e., $f$ satisfies {\sc 3rd-Orth}.
+    If $B(f)$ is isomorphic to a polyhedral group, then $f$ satisfies {\sc 3rd-Orth}.
+\end{lemma}
+\begin{proof}
+    By \cref{lm: Pauli slice}, the matrix $T^{(r)}$ with entries $(T^{(r)})_{pq}=t_{pqr}$ is in $W^{\perp}$. 
+    Here we use the Frobenius inner product in $M_3(\mathbb{R})$: $\braket{A,B}=\mathrm{Tr}(A^TB).$
+    By \cref{lm: rep lemma}, $W^\perp=\{O\}.$ 
+    Thus, $T^{(r)}=O$ for every $r=1,2,3$, or $t_{pqr}=0$ for every $p,q,r\in\{1,2,3\}.$
+\end{proof}
+
+\subsection{Dihedral Groups of Order at Least Six}
+In this subsection, we assume that $B(f)\cong D_n(n\ge 3)$ which is the dihedral group of order $2n.$
+We still use the Pauli representation of $\rho_{ijk}$ in \cref{subsec: polyhedral groups}.
+
+Suppose in $\mathbb{R}^3$, the regular $n$-polygon $P_n$ lies on the $x$-$y$ plane, and $P_n$ is symmetric relative to the $x$-axis.
+Then $D_{n}$ is generated by a rotation $r$ through angle $\theta=\frac{2\pi}{n}$ around the $z$-axis, and a rotation $h$ through angle $\pi$ around the $x$-axis.
+Specifically,
+$$r=\left[\begin{matrix}
+    \cos \theta & -\sin \theta &0\\
+    \sin \theta & \cos \theta & 0\\
+    0 & 0 & 1
+\end{matrix}\right],\quad
+h=\left[\begin{matrix}
+    1 & 0 & 0\\
+    0 & -1 & 0\\
+    0 & 0 & -1
+\end{matrix}\right].
+$$
+These matrices satisfy $r^n=I,h^2=I,hrh=r^{-1}.$
+Therefore $D_n=\braket{r,h}=\{r^k,hr^k\mid k\in[n]\}.$
+Let $L$ be the space spanned by the $z$-axis in $\mathbb{R}^3,$ and $P$ be the $x$-$y$ plane.
+Notice that every element in $D_n$ is block diagonal relative to $P\oplus L.$
+So $\mathrm{Span}_{\mathbb{R}}\{R_b\mid b\in B(f)\}\subseteq\mathrm{End}(P)\oplus \mathrm{End}(L)$.
+By inspection, we can see $D_n$ generates every element in $\mathrm{End}(P)\oplus \mathrm{End}(L)$.
+Thus, $\mathrm{Span}_{\mathbb{R}}\{R_b\mid b\in B(f)\}=\mathrm{End}(P)\oplus \mathrm{End}(L)$.
+By \cref{lm: Cb and Rb}, $W=\mathrm{Span}_{\mathbb{R}}\{C(b)\mid b\in B(f)\}=\mathrm{End}(P)\oplus \mathrm{End}(L).$
+Next we compute $W^\perp.$
+Suppose $X\in W^\perp$, then $\mathrm{Tr}(C^{\tt T}X)=0$ for every $C\in \mathrm{End}(P)\oplus \mathrm{End}(L).$
+$C$ has the form $\left[\begin{smallmatrix}
+    A & 0\\
+    0 & \alpha
+\end{smallmatrix}\right]$ where $A\in M_2(\mathbb{R})$ and $\alpha\in \mathbb{R}$.
+We write $X=\left[\begin{smallmatrix}
+    Y & u\\
+    v & \beta
+\end{smallmatrix}\right]$ where $Y\in M_{2}(\mathbb{R})$, $u\in \mathbb{R}^{2\times 1}$, $v\in \mathbb{R}^{1\times 2}$, $\beta\in \mathbb{R}$.
+Then 
+$$
+\mathrm{Tr}\left(
+\left[\begin{matrix}
+    A^{\tt T} & 0\\
+    0 & \alpha
+\end{matrix}\right]
+\left[\begin{matrix}
+    Y & u\\
+    v & \beta
+\end{matrix}\right]
+\right)
+=\mathrm{Tr}(A^{\tt T}Y)+\alpha\beta=0
+$$
+for every $A\in M_{2}(\mathbb{R})$ and $\alpha\in \mathbb{R}.$
+Thus, $Y=O$ and $\beta=0.$
+We have 
+$$
+W^{\perp}=\{\left[\begin{matrix}
+    O & u\\
+    v & 0
+\end{matrix}\right]\mid u\in \mathbb{R}^{2\times 1}, v\in \mathbb{R}^{1\times 2}\}.
+$$
+By Pauli slice \cref{lm: Pauli slice}, $T^{(p)},T^{(q)}$ and $T^{(r)}\in W^\perp$ for every $p,q,r\in\{1,2,3\}.$
+By inspection, the only possibility is that $t_{pqr}=0$ for every $p,q,r\in\{1,2,3\}.$
+Thus, we prove the following lemma:
+\begin{lemma}\label{lm: arity 6 dihedral group 3rd orth}
+    If $B(f)\cong D_{n}(n\ge 3)$, then $f$ satisfies {\sc 3rd-Orth}.
+\end{lemma}
+
+
+\subsection{Klein Group}
+Let $B(f)=\{b_0,b_1,b_2,b_3\}\cong K_4$.
+It is proved in \cite{MingjiProgram} that we only need to consider the following two cases:
+\begin{enumerate}
+    \item
+    (Standard Case).
+    $$
+    M(b_0)=\left[\begin{matrix}
+    1 & 0\\
+    0 & 1
+    \end{matrix}\right],
+    M(b_1)=\left[\begin{matrix}
+    0 & \mathfrak{i}\\
+    \mathfrak{i} & 0
+    \end{matrix}\right],
+    M(b_2)=\left[\begin{matrix}
+    \mathfrak{i} & 0\\
+    0 & -\mathfrak{i}
+    \end{matrix}\right],
+    M(b_3)=\left[\begin{matrix}
+    0 & 1\\
+    -1 & 0
+    \end{matrix}\right].$$
+        
+    \item
+    (Non-standard Case).
+    $$M(b_0)=\left[\begin{matrix}
+    1 & 0\\
+    0 & 1
+    \end{matrix}\right],
+    M(b_1)=\left[\begin{matrix}
+    \mathfrak{i} & 0\\
+    0 & -\mathfrak{i}
+    \end{matrix}\right],
+    M(b_2)=\frac{1}{\sqrt{2}}\left[\begin{matrix}
+    0 & 1+\mathfrak{i}\\
+    -1+\mathfrak{i} & 0
+    \end{matrix}\right],
+    M(b_3)=\frac{1}{\sqrt{2}}\left[\begin{matrix}
+    0 & -1+\mathfrak{i}\\
+    1+\mathfrak{i} & 0
+    \end{matrix}\right].$$
+\end{enumerate}
+
+\subsubsection{Standard Case}
+By \cref{para: SU2 and SO3}, we can compute the corresponding rotation matrices of $b_0,b_1,b_2,b_3$ in $\mathbf{SO}(3)$:
+$$
+R_{b_0}=
+\left[\begin{matrix}
+    1 & 0 & 0\\
+    0 & 1 & 0\\
+    0 & 0 & 1\\
+\end{matrix}\right],
+R_{b_1}=
+\left[\begin{matrix}
+    1 & 0 & 0\\
+    0 & -1 & 0\\
+    0 & 0 & -1\\
+\end{matrix}\right],
+R_{b_2}=
+\left[\begin{matrix}
+    -1 & 0 & 0\\
+    0 & -1 & 0\\
+    0 & 0 & 1\\
+\end{matrix}\right],
+R_{b_3}=
+\left[\begin{matrix}
+    -1 & 0 & 0\\
+    0 & 1 & 0\\
+    0 & 0 & -1\\
+\end{matrix}\right].
+$$
+So $\mathrm{Span}_{\mathbb R}\{R_{b}\mid b\in B(f)\}=\{\mathrm{diag}(x,y,z)\mid x,y,z\in \mathbb R\}.$
+By \cref{lm: Cb and Rb}, $W:=\mathrm{Span}_{\mathbb R}\{C(b)\mid b\in B(f)\}=\{\mathrm{diag}(x,y,z)\mid x,y,z\in \mathbb R\}.$
+So $W^\perp=\{A\in M_3(\mathbb{R})\mid A_{11}=A_{22}=A_{33}=0\}.$
+By Pauli slice \cref{lm: Pauli slice}, $t_{pqr}\neq 0\implies p,q,r\text{ are mutually distinct}.$
+
+In the standard case, by the realnumberizing method (see \cite{MingjiProgram} v3, Section 5), $f$ is a real signature up to a normalization.
+Since normalization doesn't change the complexity, we assume $f$ is real.
+Then $\rho_{ijk}=M(f)M(f)^{\dagger}=M(f)M(f)^{\tt T}=\rho_{ijk}^{\tt T}.$
+It follows that $t_{pqr}=\mathrm{Tr}(\rho_{ijk}(\sigma_p\otimes \sigma_q\otimes \sigma_r))=\mathrm{Tr}((\sigma_p\otimes \sigma_q\otimes \sigma_r)^{\tt T}\rho_{ijk}^{\tt T})=\mathrm{Tr}(\rho_{ijk}(\sigma_p\otimes \sigma_q\otimes \sigma_r)^{\tt T})$.
+Assume that $p,q,r$ are mutually distinct. 
+Then $(p,q,r)$ contains exactly one $2$.
+Notice that $\sigma_1^{\tt T}=\sigma_1,\sigma_2^{\tt T}=-\sigma_2,\sigma_3^{\tt T}=\sigma_3$, we have  $(\sigma_p\otimes \sigma_q\otimes \sigma_r^{\tt T})=-\sigma_p\otimes \sigma_q\otimes \sigma_r.$
+So $t_{pqr}=\mathrm{Tr}(\rho_{ijk}(\sigma_p\otimes \sigma_q\otimes \sigma_r)^{\tt T})=-\mathrm{Tr}(\rho_{ijk}(\sigma_p\otimes \sigma_q\otimes \sigma_r))=-t_{pqr}$.
+Thus, $t_{qpr}=0$ if $p,q,r$ are mutually distinct.
+We have proved:
+\begin{lemma}\label{lm: K4 standard case}
+    In the standard case of $B(f)\cong K_4$, $f$ satisfies {\sc 3rd-Orth}.
+\end{lemma}
+
+
+\subsubsection{Non-standard Case}
+In this case the Pauli slice constraints alone do not force all the
+weight-three Pauli coefficients to vanish.  We instead use the full
+factorization assertion in \cref{prop: binary closure}.
+
+\begin{lemma}[Common matching]\label{lm: common matching}
+    Up to a permutation of variables,
+    \begin{equation}\label{eq: common matching}           
+        f=\sum_{s=0}^3w_sb_s(x_1,x_2)b_{p(s)}(x_3,x_4)b_{q(s)}(x_5,x_6),
+    \end{equation}
+    where $w_s\neq 0\,(\forall s, 0\le s\le 3)$ and $p,q$ are both permutations of $\{0,1,2,3\}.$
+\end{lemma}
+\begin{proof}
+    Suppose $f$ is normalized with norm 1.
+    Define $u_i=\frac{1}{\sqrt{2}}({b_i}(00),b_i(01),b_i(10),b_i(11))^{\tt T}$ be the normalized vector.
+    Notice that 
+    $$\braket{u_i,u_j}=\frac{1}{2}\mathrm{Tr}(M(b_i)^\dagger M(b_j))=\delta_{ij},\quad  \forall i,j=0,1,2,3.$$ 
+    So $\{u_0,u_1,u_2,u_3\}$ is an orthonormal basis for the vector space $ (\mathbb C^{4}).$
+    Let $F=M_{x_1x_2,x_3x_4x_5x_6}(f)\in \mathbb{C}^{4\times 16}$, and $F_y$ denote the column in $F$ indexed by $y=(x_3,x_4,x_5,x_6).$ Then $F_y$ can be expanded as $F_y=\sum_{s=0}^3 c_s(y)u_s$, where $c_s(y)\in \mathbb{C}.$  
+    Define $c_s=(c_s(0000),\ldots,c_s(1111))^{\tt T}\in \mathbb{C}^{16}.$
+    Then $F=\sum_{s=0}^3 u_s c_s^{\tt T}$.
+    The coefficient is $c_s(y)=u_s^\dagger F_y=\frac{1}{\sqrt{2}}\partial_{12}^{\overline{b_s}}f(y).$
+    Since $f$ satisfies {\sc 2nd-Orth}, we have $$\frac{1}{4}\sum_{s=0}^3u_su_s^\dagger=\frac{1}{4}I_4=\rho_{12}=FF^\dagger=\sum_{s,t=0}^3u_sc_s^{\tt T}\overline{c_t}u_t^\dagger=\sum_{s,t=0}^3\braket{c_t,c_s}u_su_t^\dagger.$$
+    Then $\braket{c_t,c_s}=\frac{1}{4}\delta_{st}$.
+    Let $g_s=2c_s$, then $\braket{g_s,g_t}=\delta_{st}$, and $F=\frac{1}{2}\sum_{s=0}^3 u_sg_s^{\tt T}$.
+    We can view $g_s$ as a signature on $y=(x_3,x_4,x_5,x_6).$
+    Then $g_s=\sqrt{2}\partial_{12}^{\overline{b_s}}f$ and
+    \begin{equation*}\label{eq: Schmidt decomposition of f}
+        f(x_1,x_2,x_3,x_4,x_5,x_6)=\frac{1}{2}\sum_{s=0}^3 u_s(x_1,x_2)\otimes g_s(x_3,x_4,x_5,x_6).
+    \end{equation*}
+    Tracing out $x_1,x_2$, we have 
+    \begin{equation}\label{eq: tracing out x1 x2}
+        \rho_{3456}=\frac{1}{4}\sum_{s=0}^3g_sg_s^{\dagger}.
+    \end{equation}
+    Here \(g_sg_s^\dagger\) simply means the matrix whose \((x,y)\)-entry is \(g_s(x)\overline{g_s(y)}\).
+    Since we can realize $g_s=\sqrt{2}\partial_{12}^{\overline{b_s}}f$ for $s=0,1,2,3$,
+    by assumption \eqref{eq: arity 6 assumption}, $g_s$ factors into two binaries $b_{\ell_s}$ and $b_{k_s}.$
+    The two binaries match up the four variables $\{x_3,x_4,x_5,x_6\}$ into two pairs.
+    Consider the pair $\{3,4\}$.
+    Let $k_{34}$ be the number of the four signatures \(g_0,g_1,g_2,g_3\) whose matching contains the edge \(34\).
+    Tracing out $x_5,x_6$ in \eqref{eq: tracing out x1 x2},
+    %We now consider the mating signature $\mathfrak{m}_{34}f$ (or the marginal of $\ket{f}$ on $x_3,x_4$).
+    \begin{itemize}
+        \item If $g_s=u_{\ell_s}(x_3,x_4)\otimes u_{k_s}(x_5,x_6)$, then the $s$-th term in \eqref{eq: tracing out x1 x2} contributes $\frac{1}{4}{u_{\ell_s}}{u_{\ell_s}}^\dagger.$
+        
+        \item If $g_s=u_{\ell_s}(x_3,x_5)\otimes u_{k_s}(x_4,x_6)$, then the $s$-th term in \eqref{eq: tracing out x1 x2} contributes $\frac{1}{4}(\frac{1}{2}I_2\otimes \frac{1}{2}I_2)$.
+    \end{itemize}
+    By {\sc 2nd-Orth}, $$\rho_{34}=\frac{1}{4}\left(\sum_{s: 34 \text{ is matched in } g_s}u_{\ell_s}u_{\ell_s}^\dagger+(4-k_{34})\frac{1}{4}I_4 \right)=\frac{1}{4}I_4.$$
+    Multiplying by \(4\) and rearranging gives
+    \begin{equation*}
+        \sum_{s:\,34\text{ is matched in }g_s}u_{\ell_s}u_{\ell_s}^\dagger = \frac{k_{34}}4I_4.
+    \end{equation*}
+    Let \(m_j\) be the number of times the label \(u_j\) occurs on the edge \(34\).
+    So
+    $$\sum_{j=0}^3 m_j u_{j}u_j^\dagger=\frac{k_{34}}{4}I_4=\frac{k_{34}}{4} \sum_{j=0}^3 u_ju_j^\dagger.$$
+    Multiply $u_i$ on both sides, we have $m_iu_i=\frac{k_{34}}{4}u_i,\,\forall i=0,1,2,3.$
+    So $m_0=m_1=m_2=m_3=\frac{k_{34}}{4}.$
+    Since $m_i\in \mathbb{N},$ we have $k_{34}=0$ or $4.$
+    Moreover, if $k_{34}=4$, then $m_0=m_1=m_2=m_3=1.$
+    Similarly, we can define $k_e$ be number of the four signatures $g_0,g_1,g_2,g_3$ whose matching contains the edge $e=ij$, and the same argument shows $k_e=0$ or $4.$
+
+    Now we count the edge occurrences and show that $k_{34}=k_{56}=4$ after possibly renaming the variables.
+    The four signatures \(g_0,g_1,g_2,g_3\) each have a perfect matching consisting of two edges. 
+    Therefore the total number of edge occurrences is
+    $4\cdot2=8.$
+    For every residual edge \(e\), since $k_e=0$ or $4$, its number of occurrences is either \(0\) or \(4\). The only way these counts can sum to \(8\) is that exactly two edges occur four times each.
+    Therefore all four contractions use the same matching.
+    i.e., after renaming variables possibly, we may assume $$g_s(x_3,x_4,x_5,x_6)=u_{p(s)}(x_3,x_4)\otimes u_{q(s)}(x_5,x_6),\quad \text{for all } s=0,1,2,3.$$
+    On either edge of that common matching, the factors \(u_0,u_1,u_2,u_3\) occur exactly once.
+    That is, $p(s),q(s)$ are both permutations of $\{0,1,2,3\}.$
+    The lemma is proven.
+\end{proof}
+
+\begin{lemma}
+Under assumption \eqref{eq: arity 6 assumption}, the non-standard case of
+$B(f)\cong K_4$ cannot occur.
+\end{lemma}
+
+\begin{proof}
+    We note that $$M(b_r)M(b_s)=M(b_{r\oplus s}),$$
+    where $\oplus$ is the commutative addition of the indices of the Klein group $B(f)$ defined by
+    $$
+    s\oplus s=0, \quad 1\oplus2=3, \quad 1\oplus 3=2,\quad 2\oplus 3=1.
+    $$
+    Also note that $B(f)$ has the transpose closure property:
+    $$
+    M(b_0)^{\tt T}=M(b_0), \quad
+    M(b_1)^{\tt T}=M(b_1), \quad
+    M(b_2)^{\tt T}=M(b_3), \quad 
+    M(b_3)^{\tt T}=M(b_2).
+    $$
+    Let \(\tau(s)\) denote the label obtained by transpose. 
+    Thus
+    \[
+    \tau(0)=0,\quad \tau(1)=1,\quad
+    \tau(2)=3,\quad \tau(3)=2.
+    \]
+    Now we start from the common matching expression \eqref{eq: common matching} in \cref{lm: common matching}:
+    \begin{equation*}    
+        f=\sum_{s=0}^3w_sb_s(x_1,x_2)b_{p(s)}(x_3,x_4)b_{q(s)}(x_5,x_6),
+    \end{equation*}
+    Merge $x_2$ and $x_3$ using $=_2$, we get 
+    \begin{equation}\label{eq: first expansion of g}
+        \begin{aligned}
+            \partial_{23}f(x_1,x_4,x_5,x_6)
+            =&\sum_{s=0}^3\sum_{a=0}^1 w_sb_s(x_1,a)b_{p(s)}(a,x_4)b_{q(s)}(x_5,x_6)\\
+            =&\sum_{s=0}^3w_sb_{s\oplus p(s)}(x_1,x_4)b_{q(s)}(x_5,x_6).
+        \end{aligned}
+    \end{equation}
+    
+    Next we show that $s\mapsto s\oplus p(s)$ is also a permutation of $\{0,1,2,3\}.$
+    Since $\{b_0,b_1,b_2,b_3\}$ is a basis for the set of binary signatures, $\{b_r\otimes b_t\mid 0\le r,t\le 3\}$ is a basis for the set of 4-ary signatures.
+    We can expand $\partial_{23}f$ under this basis:
+    \begin{equation}\label{eq: second expansion of g}
+        \partial_{23}f(x_1,x_4,x_5,x_6)=\sum_{r,t=0}^3 A_{rt}b_r(x_1,x_4)b_t(x_5,x_6).
+    \end{equation}
+    Compare \eqref{eq: first expansion of g} and \eqref{eq: second expansion of g}, we have $A_{s\oplus p(s),q(s)}=w_s.$
+    Since $q(s)$ is a permutation, every column of $A$ receices a non-zero entry. 
+    So $\mathrm{rank}(A)=\#\{s\oplus p(s)\mid s=0,1,2,3\}.$
+
+    On the other hand, $\partial_{23}f$ factors into two binaries by assumption \eqref{eq: arity 6 assumption}.
+    There are three cases:
+    \begin{enumerate}
+        \item $\partial_{23}f(x_1,x_4,x_5,x_6)=\lambda b_{i}(x_1,x_4)b_j(x_5,x_6)$.
+        Then the matrix $A$ only has one non-zero entry $A_{ij}=\lambda.$
+        So $\mathrm{rank}(A)=1.$
+        \item $\partial_{23}f(x_1,x_4,x_5,x_6)=\lambda b_{i}(x_1,x_5)b_j(x_4,x_6)$.
+        Then $M_{x_1x_4,x_5x_6}(\partial_{23}f)=\lambda M_{x_1,x_5}(b_i)\otimes M_{x_4,x_6}(b_j)$ and thus $\mathrm{rank}(M_{x_1x_4,x_5x_6}(\partial_{23}f))=2\times 2=4.$
+        Basis change preserves the rank.
+        So $\mathrm{rank}(A)=4.$
+        \item $\partial_{23}f(x_1,x_4,x_5,x_6)=\lambda b_{i}(x_1,x_6)b_j(x_4,x_5)$.
+        Similar to Case 2, $\mathrm{rank}(A)=4.$
+    \end{enumerate}
+    So far we proved $\mathrm{rank}(A)=1$ or $4$.
+    If $\mathrm{rank}(A)=1,$ then $s\oplus p(s)=r$ for $s=0,1,2,3.$
+    By \eqref{eq: first expansion of g}, $$\partial_{23}f=\sum_{s=0}^3w_sb_r(x_1,x_4)b_{q(s)}(x_5,x_6)=b_r(x_1,x_4)\otimes \sum_{s=0}^3w_sb_{q(s)}(x_5,x_6).$$
+    But $q(s)$ is a permutation, \(b_0,b_1,b_2,b_3\) are linearly independent, and all the coefficients $w_s\neq 0$.
+    Therefore $\sum_{s=0}^3 w_s b_{q(s)}$ cannot be proportional to a single member of \(B(f)\).
+    This contradicts \cref{prop: binary closure}.
+    Thus, $\mathrm{rank}(A)=\#\{s\oplus p(s)\mid s=0,1,2,3\}=4.$
+    We proved that $s\mapsto s\oplus p(s)$ is a permutation of $\{0,1,2,3\}.$
+
+    We now consider merging $x_1$ and $x_3$ using $=_2.$
+    \begin{equation}\label{eq: merge 13}
+        \begin{aligned}
+            \partial_{13}f(x_2,x_4,x_5,x_6)
+            =&\sum_{s=0}^3\sum_{a=0}^1 w_sb_s(a,x_2)b_{p(s)}(a,x_4)b_{q(s)}(x_5,x_6)\\
+            =&\sum_{s=0}^3w_sb_{\tau(s)\oplus p(s)}(x_2,x_4)b_{q(s)}(x_5,x_6).
+        \end{aligned}
+    \end{equation}
+    By the same rank argument above, $s\mapsto \tau(s)\oplus p(s)$ is a permutation of $\{0,1,2,3\}.$
+    We are ready to arrive at a contradiction by the following claim:
+    \begin{claim}\label{claim: impossible permutations}
+        It is impossible that $p(s),s\oplus p(s),\tau(s)\oplus p(s)$ are all permutations of $\{0,1,2,3\}.$
+    \end{claim}
+    \begin{claimproof}{\cref{claim: impossible permutations}}
+        Let
+        $
+        d=p(0), r(s)=p(s)\oplus d.
+        $
+        Since $p$ is a permutation, $r$ is also a
+        permutation, and $r(0)=0$.
+        By assumption, $s\mapsto s\oplus p(s)$ is a permutation. 
+        If $r(s)=s$ for some $s\neq0$, then
+        $
+        s\oplus p(s)=s\oplus r(s)\oplus d=d=0\oplus p(0),
+        $
+        a contradiction. 
+        Hence $r$ has no fixed point on $\{1,2,3\}$, so
+        \[
+        r|_{\{1,2,3\}}\in\{(1\,2\,3),(1\,3\,2)\}.
+        \]
+        In the first case, $r(2)=3=\tau(2)$; in the second case,
+        $r(3)=2=\tau(3)$. Thus, in either case, there exists
+        $s_*\in\{2,3\}$ such that $r(s_*)=\tau(s_*)$. Consequently,
+        \[
+        \tau(s_*)\oplus p(s_*)
+         =\tau(s_*)\oplus r(s_*)\oplus d
+         =d
+         =\tau(0)\oplus p(0).
+        \]
+        Therefore $s\mapsto\tau(s)\oplus p(s)$ is not injective, hence is not
+        a permutation. It is thus impossible for
+        $
+        p(s), s\oplus p(s), \tau(s)\oplus p(s)
+        $
+        to all be permutations of $\{0,1,2,3\}$.
+    \end{claimproof}
+    The lemma is proved.
+\end{proof}
+
+
+\subsection{Trivial Group}
+In this subsection, we assume $B(f)\cong C_1$ is the trivial group, i.e., the only binary signature generated from $f$ is $=_2$.
+For a pair of distinct indices $\{i,j\}$, we can view it as an edge in $K_6$.
+We write $\partial_{ij}f=\partial_ef$.
+\cref{prop: binary closure} gives
+\begin{equation}
+    \partial_e f
+    =
+    \lambda_e \bigotimes_{d\in M_e} (=_2)_d ,
+    \qquad \lambda_e\neq 0,
+    \label{eq:C1-contraction}
+\end{equation}
+where \(M_e\) is a perfect matching of the four vertices outside \(e\);
+in particular, \(M_e\) consists of two disjoint edges.
+We first show that all \(\lambda_e\) have the same modulus.  
+By {\sc 2nd-Orth}, there is a common \(\mu>0\) such that
+$
+    |f_e^{ab}|^2=\mu,
+    \text{for every \(e\) and \(a,b\in\{0,1\}\),}
+$
+and the four slices \(f_e^{ab}\) are pairwise orthogonal.  Hence
+$
+    |\partial_e f|^2
+    =
+    |f_e^{00}+f_e^{11}|^2
+    =
+    2\mu.
+$
+Since \(|(=_2)|^2=2\), the right-hand side of
+\eqref{eq:C1-contraction} has squared norm \(4|\lambda_e|^2\).
+Consequently,
+$
+    |\lambda_e|^2=\frac{\mu}{2},
+$
+which is independent of \(e\).
+
+Now let \(e,d\) be disjoint edges.  The contractions commute:
+$
+    \partial_d\partial_e f
+    =
+    \partial_e\partial_d f.
+$
+If \(d\in M_e\), then the second contraction closes an equality loop
+and contributes a factor \(2\).  If \(d\notin M_e\), then \(d\) crosses
+the two matching edges and contributes no additional scalar.  In both
+cases the remaining tensor is equality on the two uncontracted
+vertices.  Therefore
+\begin{equation}
+    \lambda_e\,2^{[d\in M_e]}
+    =
+    \lambda_d\,2^{[e\in M_d]},
+    \label{eq:C1-double-contraction}
+\end{equation}
+where \([P]\in\{0,1\}\) is the indicator of the statement \(P\).
+Taking absolute values in \eqref{eq:C1-double-contraction} and using
+\(|\lambda_e|=|\lambda_d|\) gives the reciprocity relation
+\begin{equation}
+    d\in M_e
+    \quad\Longleftrightarrow\quad
+    e\in M_d.
+    \label{eq:C1-reciprocity}
+\end{equation}
+The powers of \(2\) in \eqref{eq:C1-double-contraction} then agree, so
+\(\lambda_e=\lambda_d\) whenever \(e\cap d=\varnothing\).  
+Hence there is
+one common nonzero scalar
+$
+    \lambda_e=\lambda\neq 0
+    \text{ for every edge \(e\).}
+$
+Define
+$
+    F_e:=\{e\}\cup M_e.
+$
+Then \(F_e\) is a perfect matching of \(K_6\).  
+If \(d\in M_e\), write
+\(M_e=\{d,c\}\).  By \eqref{eq:C1-reciprocity}, \(e\in M_d\), and the
+remaining edge is necessarily \(c\).  Thus
+$
+    M_d=\{e,c\},
+    \text{ and therefore }
+    F_d=F_e.
+$
+It follows that the distinct sets \(F_e\) partition the \(15\) edges of
+\(K_6\) into five perfect matchings.  
+Up to relabelling, they are
+\begin{equation}
+\begin{aligned}
+    &12\mid 34\mid 56, \qquad
+     13\mid 25\mid 46, \qquad
+     14\mid 26\mid 35,\\
+    &15\mid 24\mid 36, \qquad
+     16\mid 23\mid 45.
+\end{aligned}
+\label{eq:C1-factorization}
+\end{equation}
+We now derive a contradiction from four of these factors.  From
+\[
+    M_{12}=\{34,56\},\qquad
+    M_{13}=\{25,46\},\qquad
+    M_{25}=\{13,46\},\qquad
+    M_{14}=\{26,35\},
+\]
+equation \eqref{eq:C1-contraction}, evaluated at suitable residual
+assignments, gives
+\begin{align}
+    f_{001010}+f_{111010}&=0,
+    &
+    f_{000110}+f_{110110}&=0,
+    \label{eq:C1-eight-a}\\
+    f_{010010}+f_{111010}&=\lambda,
+    &
+    f_{000110}+f_{101110}&=0,
+    \label{eq:C1-eight-b}\\
+    f_{000000}+f_{010010}&=\lambda,
+    &
+    f_{100100}+f_{110110}&=0,
+    \label{eq:C1-eight-c}\\
+    f_{000000}+f_{100100}&=\lambda,
+    &
+    f_{001010}+f_{101110}&=\lambda.
+    \label{eq:C1-eight-d}
+\end{align}
+The first seven equations imply
+\[
+\begin{aligned}
+    f_{001010}&=-f_{111010},&
+    f_{101110}&=f_{110110},\\
+    f_{000000}&=f_{111010},&
+    f_{100100}&=-f_{110110}.
+\end{aligned}
+\]
+Using the first equation in \eqref{eq:C1-eight-d}, we therefore obtain
+\[
+\begin{aligned}
+    f_{001010}+f_{101110}
+    &=-f_{111010}+f_{110110}\\
+    &=-\bigl(f_{000000}+f_{100100}\bigr)\\
+    &=-\lambda.
+\end{aligned}
+\]
+However, the second equation in \eqref{eq:C1-eight-d} says that the same
+quantity is \(\lambda\).  Hence \(\lambda=-\lambda\), so
+\(\lambda=0\), contradicting \(\lambda\neq 0\).
+Therefore, we proved:
+\begin{lemma}
+    Under assumption \eqref{eq: arity 6 assumption}, the case $B(f)\cong C_1$ cannot occur.
+\end{lemma}
+
+\subsection{Order Two Group}
+In this subsection, we assume that $B(f)\cong C_2$, the group of order $2$. 
+We will show this case cannot occur under assumption \eqref{eq: arity 6 assumption}.
+Suppose $B(f)=\{e,b\}$, where $M(e)=I_2$ and $b^2=e.$
+\begin{lemma}\label{lm: C2 standard form}
+    Up to a normalization and a real orthogonal holographic transformation, there are two cases: 1. (Symmetric Case): $M(b)=\left[\begin{matrix}
+        \mathfrak{i} & 0\\
+        0 & -\mathfrak{i}
+    \end{matrix}\right]$
+    or 2. (Asymmetric Case):
+    $M(b)=\left[\begin{matrix}
+        0 & 1\\
+        -1 & 0
+    \end{matrix}\right].$
+\end{lemma}
+\begin{proof}
+    Notice that $B(f)$ is closed under transpose. 
+    So $M(b)^{\tt T}=\pm M(b).$
+    \begin{enumerate}
+        \item $M(b)^{\tt T}=M(b)$.
+        Assume $M(b)=\left[\begin{matrix}
+            x & y\\
+            y & z
+        \end{matrix}\right]\in \mathbf{SU}(2).$
+        Since $b$ has order two,
+        we have $M(b)^2=\left[\begin{matrix}
+            x^2+y^2 & xy+yz\\
+            xy+yz & y^2+z^2
+        \end{matrix}\right]=\pm I.$
+        So $y(x+z)=0$ and $x^2=z^2.$
+        \begin{itemize}
+            \item 
+            If $y=0$, $M(b)=\left[\begin{matrix}
+            x & 0\\
+            0 & z
+            \end{matrix}\right].$
+            By $\det(M(b))=xz=1$ and $x^2=z^2$, we have $x^4=1$.
+            If $x=\pm 1$, then $z=\pm 1$ by $xz=1$, contradicting $b$ has order 2.
+            So $x=\pm \mathfrak{i}.$
+            It follows that $z=\mp \mathfrak{i}.$
+            Up to a normalization, $M(b)=\left[\begin{matrix}
+                \mathfrak{i} & 0\\
+                0 & -\mathfrak{i}
+            \end{matrix}\right].$
+
+            \item If $x+z=0$, $M(b)=\left[\begin{matrix}
+                x & y\\
+                y & -x
+            \end{matrix}\right].$
+            By $M(b)\in \mathbf{SU}(2)$, 
+            we have $x^2+y^2=-1$ and 
+            $M(b)M(b)^\dagger=\left[\begin{matrix}
+                |x|^2+|y|^2 & x\overline{y}-\overline{x}y\\
+                \overline{x}y-x\overline{y} & |x|^2+|y|^2
+            \end{matrix}\right]=\pm I_2$. 
+            So $x\overline{y}=\overline{x}y$.
+            If $xy\neq 0$, then $\arg(x)=\arg(y)$.
+            After a normalization, we may assume $x,y\in \mathbb{R}$.
+            If $xy=0$, we may still normalize and assume $x,y\in \mathbb{R}.$
+            Since $x^2+y^2=-1$, we may assume $x=\mathfrak{i}\cos(2\theta)$ and $y=\mathfrak{i}\sin(2\theta).$
+            Let $T=\left[\begin{matrix}
+                \cos \theta & -\sin \theta\\
+                \sin \theta & \cos \theta
+            \end{matrix}\right]\in \mathbf{SO}(2).$
+            A direct calculation shows that $T^{\tt T}M(b)T=\left[\begin{matrix}
+                \mathfrak{i} & 0\\
+                0 & -\mathfrak{i}
+            \end{matrix}\right].$
+            So the lemma is true by a $T$-transformation.
+        \end{itemize}
+        
+        \item 
+        $M(b)^{\tt T}=-M(b).$
+        Assume that 
+        $M(b)=\left[\begin{matrix}
+                0 & x\\
+                -x & 0
+            \end{matrix}\right].$
+        Since $M(b)\in \mathbf{SU}(2)$, we have $x^2=1$, $x=\pm 1$.
+        So up to a normalization, $M(b)=\left[\begin{matrix}
+                0 & 1\\
+                -1 & 0
+            \end{matrix}\right].$
+    \end{enumerate}
+\end{proof}
+
+For simplicity, in the standard case, we no longer require $M(b)\in \mathbf{SU}(2)$ 
+and assume that $M(b)=\left[\begin{matrix}
+    1 & 0\\
+    0 & -1
+\end{matrix}\right].$
+We first record two lemmas that will be used in both cases:
+\begin{lemma}\label{lem:c2-two-projection}
+    Suppose that $g=\lambda\phi(x_\ell,x_m)\psi(x_u,x_v)$ for some $\lambda\neq 0$, $\phi,\psi\in\{e,b\}$ and $\{1,2\}\subseteq\{\ell,m,p,q\}.$
+    If $\{1,2\}=\{\ell,m\}$ or $\{1,2\}=\{p,q\}$, then exactly one of
+    $\partial_{12}^{e}g$ and $\partial_{12}^{b}g$ is nonzero.  
+    Otherwise, both $\partial_{12}^{e}g$ and $\partial_{12}^{b}g$ are nonzero and are not proportional.
+\end{lemma}
+
+\begin{proof}
+    Define $\phi^p=e$ if $p \equiv 0 \text{ (mod }{2})$, and $\phi^p=b$ if $p \equiv 1 \text{ (mod }{2})$.
+    First suppose that $g=\lambda\phi^p(x_1,x_2)\phi^q(x_u,x_v)$.
+    Notice that
+    \[
+     \sum_{\alpha,\beta\in\{0,1\}}
+     \phi^p(\alpha,\beta)\phi^q(\alpha,\beta)
+     =
+     \begin{cases}
+     2,&p \equiv q \text{ (mod }{2})\\
+     0,&p \not\equiv q \text{ (mod }{2}).
+     \end{cases}
+    \]
+    Consequently, merging $x_1$ and $x_2$ by $e$ or $b$ gives exactly one nonzero result.
+
+    Now suppose that $g=\lambda\phi^p(x_1,x_u)\phi^q(x_2,x_v)$.
+    In the symmetric case, merging $x_1$ and $x_2$ by $\phi^t$ produces $\partial_{12}^{\phi^t} g=\lambda\phi^{p+q+t}(x_u,x_v)$.
+    The two signatures $\partial_{12}^eg$ and $\partial_{12}^bg$ therefore produce the two distinct factors $e$ and $b$, up to nonzero scalars.
+    In the asymmetric case, $M_{x_u,x_v}(\partial_{12}^{\phi^t} g)=\lambda M(\phi^p)^{\tt T}M(\phi^t)M(\phi^q).$
+    For $t=0$ and $t=1$, these matrices are projectively $I_2$ and $M(b)$. 
+    Hence they are again nonzero and not proportional.
+\end{proof}
+
+\begin{lemma}\label{lm: C2 contraction orth}
+    For any pair of indices $\{i,j\},$ $|\partial_{ij}^{e}f|=|\partial_{ij}^bf|> 0$ and $\braket{\partial_{ij}^ef,\partial_{ij}^bf}=0.$
+\end{lemma}
+
+\begin{proof}
+    In the symmetric case, $\partial_{ij}^ef=f_{ij}^{00}+f_{ij}^{11}$, and $\partial_{ij}^bf=f_{ij}^{00}-f_{ij}^{11}$.
+    By {\sc 2nd-Orth}, $|f_{ij}^{00}|=|f_{ij}^{11}|>0$ and $\braket{f_{ij}^{00},f_{ij}^{11}}=0.$
+    So
+    \begin{equation*}
+        \begin{aligned}
+            |\partial_{ij}^{e}f|^2=\braket{f_{ij}^{00}+f_{ij}^{11},f_{ij}^{00}+f_{ij}^{11}}=|f_{ij}^{00}|^2+|f_{ij}^{11}|^2>0.
+        \end{aligned}
+    \end{equation*}
+    Similarly, $|\partial_{ij}^{b}f|^2=|f_{ij}^{00}|^2+|f_{ij}^{11}|^2=|\partial_{ij}^{e}f|^2>0.$
+    Also,
+    \begin{equation*}
+        \begin{aligned}
+            \braket{\partial_{ij}^{e}f,\partial_{ij}^{b}f}=\braket{f_{ij}^{00}+f_{ij}^{11},f_{ij}^{00}-f_{ij}^{11}}=|f_{ij}^{00}|^2-|f_{ij}^{11}|^2-\braket{f_{ij}^{00},f_{ij}^{11}}+\braket{f_{ij}^{11},f_{ij}^{00}}
+            =0.
+        \end{aligned}
+    \end{equation*}
+    In the asymmetric case, $\partial_{ij}^ef=f_{ij}^{01}+f_{ij}^{10}$, and $\partial_{ij}^bf=f_{ij}^{01}-f_{ij}^{10}$.
+    {\sc 2nd-Orth} gives $|f_{ij}^{01}|=|f_{ij}^{10}|>0$ and $\braket{f_{ij}^{01},f_{ij}^{10}}=0.$
+    So $|\partial_{ij}^{e}f|^2=|\partial_{ij}^bf|^2=|f_{ij}^{01}|^2+|f_{ij}^{10}|^2> 0$ and $\braket{\partial_{ij}^ef,\partial_{ij}^bf}=0.$
+\end{proof}
+
+\subsubsection{Symmetric Case}
+
+\todo{ZZT: I will replace the symmetric Case by a simpler argument.}
+In this case, $B(f)=\{e,b\}$ where $M(e)=I_2$ and $M(b)=\left[\begin{matrix}
+    1 & 0\\
+    0 & -1
+\end{matrix}\right]$.
+
+\iffalse
+\begin{lemma}\label{lm: C2 even support}
+    For any $x\in\mathscr{S}(f)$, $\mathrm{wt}(x)$ is even.
+\end{lemma}
+\begin{proof}
+    Suppose $a=(a_1,a_2,a_3,a_4,a_5,a_6)\in \mathscr{S}(f)$ but $\mathrm{wt}(a)$ is odd.
+    After renaming the variables, we may assume $a_1=a_2,a_3=a_4,a_5\neq a_6.$
+    Consider merging $x_1$ and $x_2$ using $b^s\in B(f)$, and merging $x_3$ and $x_4$ using $b^t\in B(f)$.
+    The resulting signature $\partial_{12}^{b^s}\partial^{b^t}_{34}f$ is also in $B(f)$ by assumption \eqref{eq: arity 6 assumption}.
+    So $\partial_{12}^{b^s}\partial^{b^t}_{34}f(a_5,a_6)=0.$
+    Thus,
+    \begin{equation}\label{eq: C2 even support}
+        \sum_{i,j\in\{0,1\}}(-1)^{si+tj}f(i,i,j,j,a_5,a_6)=\partial_{12}^{b^s}\partial^{b^t}_{34}f(a_5,a_6)=0.
+    \end{equation}
+    Pick $(s,t)=(0,0),(0,1),(1,0)$ and $(1,1)$ respectively, \eqref{eq: C2 even support} gives that 
+    \begin{equation*}
+        \left[\begin{matrix}
+            1 & 1 & 1 & 1\\
+            1 & -1 & 1 & -1\\
+            1 & 1 & -1 & -1\\
+            1 & -1 & -1 & 1\\
+        \end{matrix}\right]
+        \left[\begin{matrix}
+            f(0,0,0,0,a_5,a_6)\\
+            f(0,0,1,1,a_5,a_6)\\
+            f(1,1,0,0,a_5,a_6)\\
+            f(1,1,1,1,a_5,a_6)\\
+        \end{matrix}\right]
+        =\left[\begin{matrix}
+            0\\
+            0\\
+            0\\
+            0\\
+        \end{matrix}\right].
+    \end{equation*}
+    The coefficient matrix is 
+    $\left[\begin{smallmatrix}
+        1 & 1\\
+        1 & -1
+    \end{smallmatrix}\right]\otimes\left[\begin{smallmatrix}
+        1 & 1\\
+        1 & -1
+    \end{smallmatrix}\right]$, which has rank 4.
+    Thus $f(a)=0$, contradiction.
+\end{proof}
+\fi
+
+
+\begin{lemma}\label{lm: C2 symmetric impossible}
+    Under assumption \eqref{eq: arity 6 assumption}, the symmetric case of $B(f)\cong C_2$ cannot occur.
+\end{lemma}
+\begin{proof}
+    
+    By permuting the residual variables $(x_3,x_4,x_5,x_6)$ and applying local binary modification by $b$, we may normalize
+    \begin{equation}
+         \partial_{12}^{e}f=x\cdot e(x_3,x_4)e(x_5,x_6),
+         \qquad x\in\mathbb C^\times.
+         \label{eq:c2-symmetric-normalization}
+    \end{equation}
+    Here $x\neq 0$ by \cref{lm: C2 contraction orth}.
+    With a little abuse of notation, we still use $f$ to denote the 6-ary signature after the binary modification.
+    Notice that a binary modification by $b$ doesn't change assumption \eqref{eq: arity 6 assumption} and the conclusion in \cref{lem:c2-two-projection}.
+    \begin{claim}\label{claim: C2 symmetry}
+        Up to the symmetries preserving \eqref{eq:c2-symmetric-normalization}, there are three possibilities for $\partial_{12}^{b}f$:
+        \[
+         y\cdot e(x_3,x_4)b(x_5,x_6),\quad
+         y\cdot b(x_3,x_4)b(x_5,x_6),\quad
+         y\cdot e(x_3,x_5)b(x_4,x_6),
+         \qquad y\in\mathbb C^\times.
+        \]
+    \end{claim}
+    \begin{claimproof}{\cref{claim: C2 symmetry}}
+        By \cref{lm: C2 contraction orth}, $\braket{\partial_{12}^{e}f,\partial_{12}^{b}f}=0.$
+        If $\partial_{12}^bf=y\cdot \phi^p(x_3,x_4)\phi^q(x_5,x_6)$ where $y\neq 0$ by \cref{lm: C2 contraction orth}, orthogonality to \(\partial_{12}^{e}f=x\cdot e(x_3,x_4)e(x_5,x_6)\) requires at least one \(b\)-factor in $\phi^p$ and $\phi^q$. 
+        Up to exchanging $(x_3,x_4)$ and $(x_5,x_6)$, we have $\partial_{12}^bf=y\cdot e(x_3,x_4)b(x_5,x_6)$ or $\partial_{12}^bf= y\cdot b(x_3,x_4)b(x_5,x_6).$
+        Otherwise, $x_3$ and $x_4$ are in distinct binary factors of $\partial_{12}^bf$.
+        Up to exchanging $x_5$ and $x_6$, we may assume
+        $\partial_{12}^bf=y\cdot \phi^p(x_3,x_5)\phi^q(x_4,x_6), \,y\ne 0.$
+        Then $0=\braket{\partial_{12}^ef,\partial_{12}^bf}=xy\cdot\mathrm{Tr}(I_2\cdot M(\phi^q)\cdot I_2\cdot M(\phi^p)^{\tt T})=(-1)^{p+q}.$
+        So exactly one binary factor of $\partial_{12}^bf$ is $b$.
+        Up to exchanging $(x_3,x_5)$ and $(x_4,x_6)$, $\partial_{12}^bf=y\cdot e(x_3,x_5)b(x_4,x_6).$
+    \end{claimproof}
+    
+    
+    Suppose first that
+    $\partial_{12}^bf=y\cdot e(x_3,x_4)b(x_5,x_6)$, and put $g=\partial_{34}^{b}f$.  Commutativity of contractions gives
+    \[
+     \partial_{12}^{e}g
+     =\partial_{34}^{b}\partial_{12}^{e}f=0,
+     \qquad
+     \partial_{12}^{b}g
+     =\partial_{34}^{b}\partial_{12}^{b}f=0.
+    \]
+    Since $g\neq 0$ by \cref{lm: C2 contraction orth}, the above equations contradicts \cref{lem:c2-two-projection}.
+    Next suppose that $\partial_{12}^{b}f=y\cdot b(x_3,x_4)b(x_5,x_6)$, and put $g=\partial_{35}^{e}f$.  Then
+    \[
+     \partial_{12}^{e}g
+     =\partial_{35}^{e}\partial_{12}^{e}f=x\cdot e(x_4,x_6),
+     \qquad
+     \partial_{12}^{b}g
+     =\partial_{35}^{e}\partial_{12}^{b}f=y\cdot e(x_4,x_6).
+    \]
+    Both projections are nonzero and proportional, again contradicting
+    \cref{lem:c2-two-projection}.
+
+    It remains to consider the case
+    \begin{equation}
+        \partial_{12}^{e}f=x\cdot e(x_3,x_4)e(x_5,x_6),
+         \qquad
+         \partial_{12}^{b}f=y\cdot e(x_3,x_5)b(x_4,x_6).
+         \label{eq:c2-symmetric-crossed}
+    \end{equation}
+    Since $\partial_{12}^{e}f=f_{12}^{00}+f_{12}^{11}$ and $\partial_{12}^{b}f=f_{12}^{00}-f_{12}^{11},$
+    we can recover $f_{12}^{00}$ and $f_{12}^{11}$ by 
+    $f_{12}^{00}=\frac{1}{2}(\partial_{12}^{e}f+\partial_{12}^{b}f)$ and  $f_{12}^{11}=\frac{1}{2}(\partial_{12}^{e}f-\partial_{12}^{b}f).$
+    In particular, we can list the truth table of $2f$ with \(x_1=x_2=x_3\) by \eqref{eq:c2-symmetric-crossed}:
+    \begin{equation}\label{eq: C2 table 1=2=3}
+        \begin{array}{c|cccccccc}
+     \sigma&
+     000000&000011&000101&000110&
+     111001&111010&111100&111111\\ \hline
+     2f^\sigma&
+     x+y&x&-y&0&0&-y&x&x+y
+    \end{array}.
+    \end{equation}
+    
+    We next apply consider merging $x_1$ and $x_3$.
+    Order the residual variables
+    as $(x_2,x_4,x_5,x_6)$ and define
+    \[
+    \begin{aligned}
+     R_{0}^{p,q}&=\phi^p(x_2,x_4)\phi^q({x_5,x_6}),\\
+     R_{1}^{p,q}&=\phi_p(x_2,x_5)\phi^q(x_4,x_6),\\
+     R_{2}^{p,q}&=\phi^p(x_2,x_6)\phi^q(x_4,x_5).
+    \end{aligned}
+    \]
+    We have
+    $\partial_{13}^{e}f=z\cdot R_{m}^{p,q}$ and
+    $\partial_{13}^{b}f=w\cdot R_{m'}^{r,s}$ for some
+    $z,w\in\mathbb C^\times$.
+    Let $V_0(R)$ denote the values of $R(x_2,x_4,x_5,x_6)$ on
+    \(
+     (0000,0011,0101,0110),
+    \)
+    and let $V_1(R)$ denote the value of $R(x_2,x_4,x_5,x_6)$ on
+    \(
+     (1001,1010,1100,1111).
+    \)
+    Direct evaluation gives
+    \[
+    \begin{array}{c|c|c}
+     m&V_0(R_{m}^{p,q})&V_1(R_{m'}^{r,s})\\ \hline
+     0&(1,(-1)^q,0,0)&(0,0,(-1)^r,(-1)^{r+s})\\
+     1&(1,0,(-1)^q,0)&(0,(-1)^r,0,(-1)^{r+s})\\
+     2&(1,0,0,(-1)^q)&((-1)^r,0,0,(-1)^{r+s})
+    \end{array}.
+    \]
+    Comparison with \eqref{eq: C2 table 1=2=3} gives
+    \begin{align}
+     zV_0(R_{m}^{p,q})+wV_0(R_{m'}^{r,s})
+       &=(x+y,x,-y,0), \label{eq:c2-V0}\\
+     zV_1(R_{m}^{p,q})-wV_1(R_{m'}^{r,s})
+       &=(0,-y,x,x+y). \label{eq:c2-V1}
+    \end{align}
+    Because $x,y\ne0$, the second and third coordinates on the right side of \eqref{eq:c2-V0} are nonzero.  
+    Hence $\{m,m'\}=\{0,1\}.$
+    Solving the remaining signs in \eqref{eq:c2-V0}--\eqref{eq:c2-V1} gives exactly the following four possibilities:
+    \[
+    \begin{array}{c|c|c}
+         \partial_{13}^{e}f&\partial_{13}^{b}f&
+         \text{relations among the scalars}\\ \hline
+         zR_{0}^{0,0}&wR_{1}^{0,1}&z=x,\ w=y\\
+         zR_{0}^{1,1}&wR_{1}^{1,0}&x=w,\ y=-w,\ z=-w\\
+         zR_{1}^{0,0}&wR_{0}^{0,1}&x=-w,\ y=w,\ z=-w\\
+         zR_{1}^{1,1}&wR_{0}^{1,0}&x=w,\ y=z
+    \end{array}.
+    \]
+
+    Now evaluate $\partial_{14}^{e}f$ on the residual words
+    \(
+     \mathcal W=(1010,0110,1001,0101),
+    \)
+    where the residual variables are ordered as $(x_2,x_3,x_5,x_6)$.  
+    Using \eqref{eq:c2-symmetric-crossed} and the four rows above, respectively,
+    we obtain
+    \[
+    \left.\partial_{14}^{e}f\right|_{\mathcal W}
+     =
+    \frac12(w,w,w,w),\text{ or }
+    \frac12(-w,-w,-w,-w),\text{ or }
+    \frac12(-w,w,w,-w),\text{ or }
+    \frac12(-z,z,z,-z).
+    \]
+    As a sample of calculation, in the first row consider \((x_2,x_3,x_5,x_6)=1010\).
+    Then $\partial_{14}^ef=f({010010})+f({110110}).$
+    We have $$f({010010})=\frac{1}{2}(\partial_{13}^ef(1010)+\partial_{13}^b(1010))=\frac{1}{2}(zR_0^{0,0}(1010)+wR_1^{0,1}(1010))=\frac{w}{2},$$
+    and 
+    $$f({110110})=\frac{1}{2}(\partial_{12}^ef(0110)-\partial_{12}^b(0110))=0.$$
+    So $\partial_{14}^ef(1010)=\frac{w}{2}.$
+    The other entries are obtained in exactly the same way from $\partial_{12}^tf$ and $\partial_{13}^tf$, where $t\in\{e,b\}$.
+    Thus $\partial_{14}^{e}f$ is nonzero on all four words of $\mathcal W$.
+    On the other hand, $\partial_{14}^{e}f$ is a product of two diagonal binary signatures. 
+    The intersection $\mathscr{S}(\partial_{14}^ef)\cap \mathcal W$, according two the matching of $x_2,x_3,x_5,x_6$, is
+    \[
+    \begin{array}{c|c}
+     23\mid56&\varnothing\\
+     25\mid36&\{1010,0101\}\\
+     26\mid35&\{0110,1001\}
+    \end{array}.
+    \]
+    Hence $\partial_{14}^ef$ is nonzero on at most two words of $\mathcal W$, contradiction.
+    Therefore, the case \eqref{eq:c2-symmetric-crossed} cannot occur.
+\end{proof}
+
+
+\subsubsection{Asymmetric Case}
+In the asymmetric case, we have $B(f)=\{e,b\}$, where $M(e)=I_2$ and $M(b)=\left[\begin{matrix}
+    0 & 1\\
+    -1 & 0
+\end{matrix}\right].$
+\begin{lemma}\label{lm: C2 asymmetric impossible}
+    Under assumption \eqref{eq: arity 6 assumption}, the asymmetric case of $B(f)\cong C_2$ cannot occur.
+\end{lemma}
+\begin{proof}
+    Similar to the proof of \cref{lm: C2 symmetric impossible}, we may permute the variables and apply binary modification and assume
+    \[
+     \partial_{12}^{e}f=x\cdot e(x_3,x_4)e(x_5,x_6),
+     \qquad x\in\mathbb C^\times.
+    \] 
+    By \cref{lm: C2 contraction orth}, $\partial_{ij}^{e}f\neq 0,\,\partial_{ij}^bf\neq 0,$ and $\braket{\partial_{ij}^ef,\partial_{ij}^bf}=0$ for any pair of indices ${i,j}.$ 
+    Again orthogonality of $\partial_{12}^{e}f$ and
+    $\partial_{12}^{b}f$ leaves three possibilities for $\partial_{12}^bf:$
+    \[
+     y\cdot e(x_3,x_4)b(x_5,x_6),\quad
+     y\cdot b(x_3,x_4)b(x_5,x_6),\quad
+     y\cdot e(x_3,x_5)b(x_4,x_6),
+    \]
+    for some $y\in \mathbb{C}^\times.$
+    Suppose first that $\partial_{12}^{b}f=y\cdot e(x_3,x_4)b(x_5,x_6)$, and put $g=\partial_{34}^{b}f$.  Commutativity gives
+    \[
+     \partial_{12}^{e}g
+     =\partial_{34}^{b}\partial_{12}^{e}f=0,
+     \qquad
+     \partial_{12}^{b}g
+     =\partial_{34}^{b}\partial_{12}^{b}f=0.
+    \]
+    This contradicts \cref{lem:c2-two-projection}.
+    Next suppose that $\partial_{12}^bf=y\cdot b(x_3,x_4)b(x_5,x_6)$, and put $g=\partial_{35}^{e}f$.  Since $M(b)^{\tt T}I_2M(b)=I_2$, we have
+    \[
+     \partial_{12}^{e}g=\partial_{35}^e\partial_{12}^ef=x\cdot e(x_4,x_6),
+     \qquad
+     \partial_{12}^{b}g=\partial_{35}^e\partial_{12}^bf=y\cdot e(x_4,x_6).
+    \]
+    These are nonzero and proportional, again contradicting \cref{lem:c2-two-projection}.
+
+    It remains to consider the case
+    \begin{equation}
+        \partial_{12}^{e}f=x\cdot e(x_3,x_4)e(x_5,x_6),
+        \qquad     \partial_{12}^{b}f=y\cdot e(x_3,x_5)b(x_4,x_6).
+    \end{equation}
+    Put $g=\partial_{34}^{b}f$.  Commuting the two contractions gives
+    \begin{equation}\label{eq: C2 asym}
+        \partial_{12}^{e}g=\partial_{34}^b\partial_{12}^ef=0,
+     \qquad
+     \partial_{12}^{b}g=\partial_{34}^b\partial_{12}^bf=-y\cdot e(x_5,x_6)\ne0,
+    \end{equation}
+    where the second identity follows from $I_2^{\tt T}JJ=-I_2$.
+
+    By \cref{lem:c2-two-projection}, $e(x_1,x_2)\mid g$ or $b(x_1,x_2)\mid g$.
+    If $g=z\cdot e(x_1,x_2)t(x_5,x_6)$ for some $t\in \{e,b\}$, then $\partial_{12}^e g=2z\cdot t(x_5,x_6)\neq 0$, contradiction.
+    Thus
+    $g=z\cdot b(x_1,x_2)t(x_5,x_6)$ for some $t\in\{e,b\}$.  
+    Merge $x_1$ and $x_2$ by $b$ gives
+    \(
+     \partial_{12}^{b}g=2z\cdot t(x_5,x_6).
+    \)
+    Comparison with \eqref{eq: C2 asym} gives $|y|=2|z|$ and $t=e$.
+    On the other hand, for any pair of indices $\{i,j\},$
+   
+    $$|\partial_{ij}^{b}f|^2
+    =
+    \sum_{r,s,p,q}
+    b(r,s)\overline{b(p,q)}
+    \langle f_{ij}^{rs},f_{ij}^{pq}\rangle=\sum_{r,s}|b(r,s)|^2\braket{f_{ij}^{rs},f_{ij}^{rs}}=2\lambda$$
+    by {\sc 2nd-Orth}, where $\lambda=|f_{ij}^{00}|^2=|f_{ij}^{01}|^2=|f_{ij}^{10}|^2=|f_{ij}^{11}|^2$.
+    Consequently $|\partial_{12}^{b}f|=|\partial_{34}^{b}f|=|g|$.
+    So $|y|=|z|$, contradicting $|y|=2|z|$.
+\end{proof}
+
+\subsection{Cyclic Group of Order at Least Three}
+In this subsection, we assume that $B(f)\cong C_n(n\ge 3)$ which is the cyclic group of order $n$.
+We are going to prove that under assumption \eqref{eq: arity 6 assumption}, $B(f)\cong C_n$ cannot occur.
+In \cite{MingjiProgram} v1, it is proved that we only need to consider two possible cases:
+\begin{enumerate}
+    \item 
+    (Standard Case).
+    In the setting of $\Holant(\mathcal{F}),$ up to a real orthogonal holographic transformation, 
+    the projective binary group of $f$ is $B(f)=\{b^0, b^1,\ldots,b^{n-1}\}$, where $b$ is the binary signature $\left[\begin{matrix}
+        1 & 0\\
+        0 & \zeta
+    \end{matrix}\right]$ and  $\zeta=e^{\frac{2\pi \mathfrak{i}}{n}}.$
+    
+    \item 
+    (Non-standard Case).
+    In the setting of $\holant{\neq_2}{\hF}$, the projective binary group of $\widehat{f}$ is $\widehat{B}(\widehat{f})=\{b^0,b^1,\ldots,b^n\}$,
+    where $b$ is the binary signature $\left[\begin{matrix}
+        0 & 1\\
+        \zeta & 0
+    \end{matrix}\right]$ and $\zeta=e^{\frac{2\pi \mathfrak{i}}{n}}.$
+    %\todo{$\widehat{B}(\widehat{f})$ has not been defined.}
+\end{enumerate}
+
+\subsubsection{Standard Case}
+By \cref{prop: binary closure}, after merging $x_i$ and $x_j$ using some binary signature $b^k$ in $B(f)$, $\partial_{ij}^{b^k}f$ factors into two binary signatures in $B(f)$. 
+This two binaries matches up the remaining variables by pairs.
+The following lemma shows that for any $\{i,j\}$ there is a common matching which is independent of $k\in [n]$.
+\begin{lemma}[Common matching]\label{lm: common matching Cn}
+    Fix an arbitrary pair of indices $\{i,j\}$.
+    For any $b^k\in B(f)$, $\partial_{ij}^{b^k}f(x_\ell,x_m,x_p,x_q)$ factors into binaries $b^{k_1}(x_\ell,x_n)$ and $b^{k_2}(x_p,x_q)$ for some $k_1,k_2\in [n]$ after permuting the variables possibly, where $\{i,j,\ell,m,p,q\}=\{1,2,3,4,5,6\}$.
+\end{lemma}
+\begin{proof}
+    Let $f^{(k)}=\partial_{ij}^{b^k}f,\, g=f_{ij}^{00},\,h=f_{ij}^{11}$ and $y=(x_\ell,x_m,x_p,x_q).$
+    We have 
+    \begin{equation}\label{eq: cyclic group merging}
+        f^{(k)}(y)=\partial_{ij}^{b^{k}}f(y)=f_{ij}^{00}(y)+\zeta^k f_{ij}^{11}(y)=g(y)+\zeta^k h(y), \quad \text{for every } y\in \{0,1\}^4.
+    \end{equation}
+    By assumption \eqref{eq: arity 6 assumption}, every merging signature $f^{(k)}$ factors into two binary signatures in $B(f).$
+    %Without of loss of generality, we may assume $\{i,j\}=\{5,6\}.$
+    In the standard case, the two binary signatures match up $x_\ell,x_m,x_p,x_q$ into two equal pairs.
+    So the support of $f^{(k)}$ is
+    \begin{equation*}
+        \begin{aligned}
+            &S_1=\{0000,0011,1100,1111\}, \text{ or }\\
+            &S_2=\{0000,0101,1010,1111\}, \text{ or }\\
+    &S_3=\{0000,0110,1001,1111\},
+        \end{aligned}
+    \end{equation*}
+    according to the matching $\ell m\mid pq, \ell p\mid mq$ or $\ell q\mid mp.$
+    \begin{claim}\label{claim: cyclic group common matching}
+        If there exists two distinct $k,k'\in [n]$, such that $\mathscr{S}(f^{(k)})=\mathscr{S}(f^{(k')})=S$, then $\mathscr{S}(f^{(t)})=S$ for every $t\in[n]$. 
+    \end{claim}
+    \begin{claimproof}{\cref{claim: cyclic group common matching}}
+    By \eqref{eq: cyclic group merging}, we have
+    \[\left[
+    \begin{matrix}
+        f^{(k)}(y)\\
+        f^{(k')}(y)
+    \end{matrix}
+    \right]
+    =\left[\begin{matrix}
+        1 & \zeta^k\\
+        1 & \zeta^{k'}
+    \end{matrix}
+    \right]
+    \left[\begin{matrix}
+        g(y)\\
+        h(y)
+    \end{matrix}
+    \right],\quad \forall y\in \{0,1\}^4.
+    \]
+    Thus, $g(y)=h(y)=0 \iff f^{(k)}(y)=f^{(k')}(y)=0.$
+    %This implies $\mathscr{S}(f^{(k)})\cup \mathscr{S}(f^{(k')})=\mathscr{S}(g)\cup \mathscr{S}(h).$
+    Since $\mathscr{S}(f^{(k)})=\mathscr{S}(f^{(k')})=S$, $g$ and $h$ vanishes outside $S$.
+    By \eqref{eq: cyclic group merging}, $f^{(t)}$ vanishes outside $S$ for every $t\in [n]$.
+    So $\mathscr{S}(f^{(t)})\subseteq S.$
+    Since $\mathscr{S}(f^{(t)})=S_1,S_2$ or $S_3$, we have $\mathscr{S}(f)^{(t)}=S,$ for every $t\in [n].$
+    \end{claimproof}
+    
+    If $n\ge 4$, then by pigeon hole principle, there exists distinct $k,k'\in [n]$ such that $\mathscr{S}(f^{(k)})=\mathscr{S}(f^{(k')})=S$.
+    By \cref{claim: cyclic group common matching}, the lemma is proved.
+    In the following, we may assume that $n=3$, and $\{\mathscr{S}(f^{(0)}),\mathscr{S}(f^{(1)}),\mathscr{S}(f^{(2)})\}=\{S_1,S_2,S_3\}.$
+    Now $\zeta=\omega=e^{\frac{2\pi \mathfrak{i}}{3}}.$
+    By \eqref{eq: cyclic group merging}, 
+    \begin{equation}\label{eq: cyclic group n=3}
+        f^{(0)}+\omega f^{(1)}+\omega^2 f^{(2)}=(1+\omega+\omega^2)g+(1+\omega^2+\omega^4)h=0.
+    \end{equation}
+    Notice that $y=0011$ is in $S_1$ but not in $S_2\cup S_3.$
+    Evaluate \eqref{eq: cyclic group n=3} at $y=0011,$ LHS is nonzero, contradiction.
+\end{proof}
+
+\begin{lemma}\label{lm: cyclic group support size 2}
+    Fix an arbitrary pair of indices $\{i,j\}$, $|\mathscr{S}(f_{ij}^{00})|=|\mathscr{S}(f_{ij}^{11})|=2.$ 
+\end{lemma}
+\begin{proof}
+    Follow the notations in the proof of \cref{lm: common matching Cn},
+    let $f^{(k)}=\partial_{ij}^{b^k}f,$ $g=f_{ij}^{00}$ and $h=f_{ij}^{11}.$
+    Without loss of generality, we assume $\{i,j\}=\{5,6\}$.
+    By \cref{lm: common matching Cn}, we may assume that for every $k\in[n]$, $f^{(k)}(x_1,x_2,x_3,x_4)=\lambda_k b^{^{k_1}}(x_1,x_2)b^{k_2}(x_3,x_4)$ for some $\lambda_k\neq 0$ and $k_1,k_2\in [n]$.
+    Define $\widetilde{f^{(k)}}(x,y)=f^{(k)}(x,x,y,y),\,\widetilde{g}(x,y)=g(x,x,y,y),\,\widetilde{h}(x,y)=h(x,x,y,y)$ for every $x,y\in \{0,1\}.$
+    By \eqref{eq: cyclic group merging}, we have $\widetilde{f^{(k)}}=\widetilde{g}+\zeta^k \widetilde{h}.$
+    Notice that $$M(\widetilde{f^{(k)}})=\lambda_k\left[\begin{matrix}
+        b^{(k_1)}(0,0)\\
+        b^{(k_1)}(1,1)
+    \end{matrix}\right]
+    \left[\begin{matrix}
+        b^{(k_2)}(0,0)&
+        b^{(k_2)}(1,1)
+    \end{matrix}\right].$$
+    So $\mathrm{rank}(M(\widetilde{g}+\zeta^k\widetilde{h}))=\mathrm{rank}(M(\widetilde{f^{(k)}}))=1.$
+    Hence $\det(M(\widetilde{g}+\zeta^k\widetilde{h}))=0.$
+    Notice that $\det(M(\widetilde{g}+t\widetilde{h}))$ is a polynomial in $t$ of degree at most $2$, and it vanishes at $\zeta^k$, for all $k\in [n]$.
+    Since $n\ge 3$, we have $\det(M(\widetilde{g}+t\widetilde{h}))\equiv 0.$
+    \begin{claim}\label{claim: cyclic group rank 1}
+        $\mathrm{rank}(M(\widetilde{g}))=\mathrm{rank}(M(\widetilde{h}))=1.$
+    \end{claim}
+    \begin{claimproof}{\cref{claim: cyclic group rank 1}}
+        Let $t=0$ in $\det(M(\widetilde{g}+t\widetilde{h}))= 0$, we have $\det(M(\widetilde{g}))=0.$
+        Hence $\mathrm{rank}(M(\widetilde{g}))\le 1.$
+        Let $t\to +\infty$ in $\det(M(\widetilde{g}+t\widetilde{h}))= 0$, we have $\det(M(\widetilde{h}))=0$ and $\mathrm{rank}(M(\widetilde{h}))\le 1.$
+        Next we show $\widetilde{g}\neq 0$ and $\widetilde{h}\ne 0.$
+        By the assumption $f^{(k)}=\lambda_k b^{^{k_1}}(x_1,x_2)b^{k_2}(x_3,x_4)$, we have $\mathscr{S}(f^{(k)})=S$ for every $k\in [n]$, where $S=\{0000,0011,1100,1111\}.$
+        By \eqref{eq: cyclic group merging}, we have 
+        $$g=\frac{\zeta^{k_2}f^{(k_1)}-\zeta^{k_1}f^{(k_2)}}{\zeta^{k_2}-\zeta^{k_1}},\quad \text{for every distinct }k_1,k_2\in[n].$$
+        So $\mathscr{S}(g)\subseteq S.$
+        By assumption \eqref{eq: arity 6 assumption}, $f$ satisfies {\sc 2nd-Orth}.
+        So $g=f_{ij}^{00}\neq 0.$
+        It follows that $\widetilde{g}\neq 0$ by the definition of $\widetilde{g}$ and $\mathscr{S}(g)\subseteq S.$
+        Thus, $\mathrm{rank}(M(\widetilde{g}))=1.$
+        Similarly, we can show $\widetilde{h}\neq 0$ and $\mathrm{rank}(M(\widetilde{h}))=1.$
+    \end{claimproof}
+    By \cref{claim: cyclic group rank 1}, we may write $M(\widetilde{g})=uv^{\tt T}$ and $M(\widetilde{h})=wz^{\tt T}$, where $u,v,w,z\in \mathbb{C}^2.$
+    If $u$ and $w$, $v$ and $z$ are both linearly independent, then $$M(\widetilde{g}+\widetilde{h})=\left[\begin{matrix}
+        u & w
+    \end{matrix}\right]
+    \left[\begin{matrix}
+        v^{\tt T} \\ z^{\tt T}
+    \end{matrix}\right]$$
+    has rank two, contradicting $\det(M(\widetilde{g}+t\widetilde{h}))\equiv 0.$
+    Thus we may assume $u=w$ or $v=z$.
+    After renaming variables, we may always assume $u=w.$
+    Since $f$ satisfies {\sc 2nd-Orth}, we have $|g|=|h|$ and $\braket{g,h}=0.$
+    So
+    $$
+    \braket{g,h}=(|u_0|^2+|u_1|^2)(v_0\overline{z_0}+v_1\overline{z_1})=0.
+    $$
+    Clearly $u\neq 0$, otherwise $\widetilde{g}=0.$
+    So $v_0\overline{z_0}+v_1\overline{z_1}=0.$
+    Also, $|g|=|h|$ gives $|v_0|^2+|v_1|^2=|z_0|^2+|z_1|^2.$ 
+    \begin{claim}\label{claim: cyclic group equal norm}
+        $|v_0|=|z_1|, |v_1|=|z_0|.$
+    \end{claim}
+    \begin{claimproof}{\cref{claim: cyclic group equal norm}}
+        Let $r=(-\overline{v_1},\overline{v_0})^{\tt T}$, then $\braket{v,r}=0.$
+        Since $\braket{v,z}=0$ and $v\neq 0$, there exists some $\lambda\in \mathbb{C}$ such that $z=\lambda r.$
+        Substitute into $|v_0|^2+|v_1|^2=|z_0|^2+|z_1|^2$, we obtain $|v_0|^2+|v_1|^2=|\lambda|^2(|r_0|^2+|r_1|^2)=|\lambda|^2(|v_1|^2+|v_0|^2)$.
+        So $|\lambda|=1.$
+        Substituting back, we have $|v_0|=|z_1|$ and $|v_1|=|z_0|$.
+    \end{claimproof}
+    Now $\widetilde{f^{(k)}}=\widetilde{g}+\zeta^k\widetilde{h}=u(v+\zeta^k z)^{\tt T}$.
+    So $f^{(k)}(x_1,x_2,x_3,x_4)=u(x_1,x_2)u'(x_3,x_4)$, where $u(0,0)=u_0$, $u(1,1)=u_1$, $u(0,1)=u(1,0)=0$; $u'(0,0)=v_0+\zeta^k z_0$, $u'(1,1)=v_1+\zeta^k z_1$ and $u'(0,1)=u'(1,0)=0.$
+    By assumption \eqref{eq: arity 6 assumption}, both $u$ and $u'$ are proportional to some binary signatures in $B(f)$.
+    Hence $|u_0|=|u_1|\neq 0$, and $|v_0+\zeta^k z_0|=|v_1+\zeta^k z_1|,\,\forall k\in [n].$
+    Square both sides, we have
+    \begin{equation*}
+        |v_0|^2+2\Re(\zeta^k\overline{v_0}z_0)+|z_0|^2=|v_1|^2+2\Re(\zeta^k\overline{v_1}z_1)+|z_1|^2,\quad \forall k\in[n].
+    \end{equation*}
+    Using \cref{claim: cyclic group equal norm}, we have 
+    \begin{equation*}
+        \Re(\zeta^k(\overline{v_0}z_0-\overline{v_1}z_1))=0,\quad \forall k\in [n].
+    \end{equation*}
+    So $\overline{v_0}z_0-\overline{v_1}z_1=0.$
+    Combining $v_0\overline{z_0}+v_1\overline{z_1}=0$, we have $\overline{v_0}z_0=\overline{v_1}z_1=0.$
+    Since both $v$ and $z$ are non-zero, after possibly exchanging the coordinates, $v=(v_0,0)$ and $z=(0,z_1)$ with $v_0z_1\neq 0.$
+    Consequently, $\widetilde{g}=uv^{\tt T}$ has two non-zero entries.
+    By the definition of $\widetilde{g}$, we have $\mathscr{S}(g)=\mathscr{S}(\widetilde{g})=2$.
+    Similarly, $\mathscr{S}(h)=2.$
+    The lemma is proved.
+\end{proof}
+
+\begin{lemma}\label{lm: cyclic group even support}
+    For any $x\in\mathscr{S}(f)$, $\mathrm{wt}(x)$ is even.
+\end{lemma}
+\begin{proof}
+    Suppose $a=(a_1,a_2,a_3,a_4,a_5,a_6)\in \mathscr{S}(f)$ but $\mathrm{wt}(a)$ is odd.
+    After renaming the variables, we may assume $a_1=a_2,a_3=a_4,a_5\neq a_6.$
+    Consider merging $x_1$ and $x_2$ using $b^s\in B(f)$, and merging $x_3$ and $x_4$ using $b^t\in B(f)$.
+    The resulting signature $\partial_{12}^{b^s}\partial^{b^t}_{34}f$ is also in $B(f)$ by assumption \eqref{eq: arity 6 assumption}.
+    So $\partial_{12}^{b^s}\partial^{b^t}_{34}f(a_5,a_6)=0.$
+    Thus,
+    \begin{equation}\label{eq: cyclic group even support}
+        \sum_{i,j\in\{0,1\}}(\zeta^s)^i(\zeta^t)^jf(i,i,j,j,a_5,a_6)=\partial_{12}^{b^s}\partial^{b^t}_{34}f(a_5,a_6)=0.
+    \end{equation}
+    Pick $s_1,s_2,t_1,t_2\in [n]$ such that $s_1\neq s_2$ and $t_1\neq t_2.$
+    Then \eqref{eq: cyclic group even support} gives that 
+    \begin{equation*}
+        \left[\begin{matrix}
+            1 & \zeta^{t_1} & \zeta^{s_1} & \zeta^{s_1t_1}\\
+            1 & \zeta^{t_2} & \zeta^{s_1} & \zeta^{s_1t_2}\\
+            1 & \zeta^{t_1} & \zeta^{s_2} & \zeta^{s_2t_1}\\
+            1 & \zeta^{t_2} & \zeta^{s_2} & \zeta^{s_2t_2}\\
+        \end{matrix}\right]
+        \left[\begin{matrix}
+            f(0,0,0,0,a_5,a_6)\\
+            f(0,0,1,1,a_5,a_6)\\
+            f(1,1,0,0,a_5,a_6)\\
+            f(1,1,1,1,a_5,a_6)\\
+        \end{matrix}\right]
+        =\left[\begin{matrix}
+            0\\
+            0\\
+            0\\
+            0\\
+        \end{matrix}\right].
+    \end{equation*}
+    The coefficient matrix is 
+    $\left[\begin{smallmatrix}
+        1 & \zeta^{s_1}\\
+        1 & \zeta^{s_2}
+    \end{smallmatrix}\right]\otimes\left[\begin{smallmatrix}
+        1 & \zeta^{t_1}\\
+        1 & \zeta^{t_2}
+    \end{smallmatrix}\right]$, which has rank 4.
+    Thus $f(a)=0$, contradiction.
+\end{proof}
+
+\begin{lemma}\label{lm: cyclic group impossible}
+    Under assumption \eqref{eq: arity 6 assumption}, the standard case of $B(f)\cong C_n (n\ge 3)$ cannot occur.
+\end{lemma}
+\begin{proof}
+    We count the number of pairs \((x,\{i,j\})\) such that $f(x)\ne0\text{ and }x_i=x_j.$
+    There are fifteen choices of \(\{i,j\}\).
+    For each pair, exactly four supported words satisfy $x_i=x_j$ by \cref{lm: cyclic group support size 2}.
+    Thus the total number of incidences is
+    $15\times4=60.$
+
+    On the other hand,
+    let \(e=\#\{x\in \mathscr{S}(f)\mid \mathrm{wt}(x)=0  \text{ or } 6\}\)
+    and
+    \(m=\#\{x\in \mathscr{S}(f)\mid \mathrm{wt}(x)=2\}\). 
+    Clearly
+    $0\le e\le2.$
+    A word of weight \(0\) or \(6\) has $\binom{6}{2}=15$ equal pairs $\{x_i,x_j\}$.
+    A word of weight \(2\) has $\binom22+\binom42=1+6=7$ equal pairs. 
+    A word of weight \(4\) has the same number.
+    By \cref{lm: cyclic group even support}, the total number of pairs $(x,\{i,j\})$ such that $f(x)\neq 0$ and $x_i=x_j$ is
+    $15e+7m.$
+    So $60=15e+7m$,
+    $4\equiv e\pmod7.$
+    Contradicting $0\le e\le 2.$
+\end{proof}
+
+\subsubsection{Non-standard Case}
+The non-standard case can be handled similarly to the standard case by the following lemma.
+We only sketch the proof and focus on differences from the standard case.
+\begin{lemma} 
+    Under assumption \eqref{eq: arity 6 assumption}, the non-standard case of $B(f)\cong C_n (n\ge 3)$ cannot occur.
+\end{lemma}
+\begin{proof}
+    Fix a pair of indices $\{x_i,x_j\}.$
+    Let $f^{(k)}=\partial_{ij}^{b^k}f,\, g=f_{ij}^{01},\, h=f_{ij}^{10}.$
+    Without loss of generality, we assume $\{i,j\}=\{5,6\}.$
+    We have 
+    $
+        f^{(k)}=g+\zeta^k h.
+    $
+    For every $k\in[n]$, $\mathscr{S}(f^{(k)})$ is one of the following:
+    \begin{equation*}
+        \begin{aligned}
+        S_1&=\{0101,0110,1001,1010\}, \text{ or}\\
+        S_2&=\{0011,0110,1001,1100\},\text{ or}\\
+        S_3&=\{0011,0101,1010,1100\}.
+        \end{aligned}
+    \end{equation*}
+    Again, if there exists two distinct $k,k'\in[n]$ such that $\mathscr{S}(f^{(k)})=\mathscr{S}(f^{(k')})=S$, then $\mathscr{S}(f^{(t)})=S$ for any $t\in[n]$.
+    For $n\ge 4$, this is true by the pigeon hole principle.
+    For $n=3$,
+    unlike in \cref{lm: common matching Cn}, we require an exceptional argument here.
+    Suppose $\{\mathscr{S}(f^{(0)}),\mathscr{S}(f^{(1)}),\mathscr{S}(f^{(2)})\}=\{S_1,S_2,S_3\}.$
+    Then 
+    \[\{f^{(0)},f^{(1)},f^{(2)}\}=\{\lambda_0b^{r_1}(x_1,x_2)b^{r_2}(x_3,x_4),\lambda_1b^{s_1}(x_1,x_3)b^{s_2}(x_2,x_4),\lambda_2b^{t_1}(x_1,x_4)b^{t_2}(x_2,x_3)\}\]
+    for some $\lambda_0,\lambda_1,\lambda_2\neq 0$ and $r_1,r_2,s_1,s_2,t_1,t_2\in\{0,1,2\}.$
+    By
+    $
+        f^{(k)}=g+\omega^k h
+    $
+    where $\omega=e^{\frac{2\pi \mathfrak{i}}{3}}$, we have
+    $f^{(0)}+\omega f^{(1)}+\omega^2 f^{(2)}=0.$
+    Absorbing the coefficients $\lambda_k$, we have
+    $$
+    \alpha b^{r_1}(x_1,x_2)b^{r_2}(x_3,x_4)+\beta b^{s_1}(x_1,x_3)b^{s_2}(x_2,x_4)+\gamma b^{t_1}(x_1,x_4)b^{t_2}(x_2,x_3)=0
+    $$
+    for some $\alpha,\beta,\gamma\neq0.$
+    Evaluate at $(x_1,x_2,x_3,x_4)=0110,0011$ and $0101$ respectively, we have
+    \begin{equation*}
+        \begin{aligned}
+            &\alpha \omega^{r_2}+\beta \omega^{s_2}=0,\\
+            & \beta+\gamma=0,\\
+            &\alpha+\gamma \omega^{t_2}=0.
+        \end{aligned}
+    \end{equation*}
+    The second equation gives $\beta=-\gamma$.
+    Plug into the first, $\alpha=\gamma\omega^{s_2-r_2}.$
+    Plug into the third, $\omega^{t_2}=-\omega^{s_2-r_2}.$
+    Cube both sides, we have $-1=1$, contradiction.
+    Thus, the same statement (after replacing $B(f)$ by $\widehat{B}(\widehat{f})$) in \cref{lm: common matching Cn} can be proved in the non-standard case.
+    Similar to \cref{lm: cyclic group support size 2}, we can prove $|\mathscr{S}(f_{ij}^{01})|=|\mathscr{S}(f_{ij}^{10})|=2$ for any pair of indices $\{i,j\}.$
+
+    Instead of proving $f$ is supported on even Hamming weights like \cref{lm: cyclic group even support}, we will show that for any $x\in \mathscr{S}(f)$, $\mathrm{wt}(x)=0,6$ or $3$.
+    Pick a non-constant $x\in \mathscr{S}(f)$.
+    Choose two positions \(i,j\) on which \(x_i\ne x_j\), and let \(y\) denote the remaining four bits.
+    Since $f(x)\neq 0$, the degree one polynomial
+    \(
+    P_y(t)=f_{ij}^{01}(y)+tf_{ij}^{10}(y)
+    \)
+    is not identically zero.
+    Therefore, there exists some $k\in[n]$ such that $f^{(k)}(y)=P_y(\zeta^k)\neq 0.$
+    Since $\mathscr{S}(f^{(k)})=S_1,S_2$ or $S_3$, we have $\mathrm{wt}(y)=2.$
+    Hence $\mathrm{wt}(x)=3.$
+    We have proved $\mathscr{S}(f)\subseteq \{000000,111111\}\cup \{x\mid x\in \{0,1\}^6,\mathrm{wt}(x)=3\}$.
+
+    Now we count the number of pairs $(x, \{i,j\})$ such that $f(x)\neq 0$ and $x_i\ne x_j$.
+    Again there are fifteen choices of \(\{i,j\}\), and
+    for each pair, exactly four supported words satisfy $x_i=x_j$.
+    Thus the total number of incidences is
+    $15\times4=60.$
+    On the other hand, the two constant words contribute zero unequal pairs, and
+    a weight-three word has $3\times 3=9$ unequal pairs.
+    So $60=9m$, where $m\in \mathbb{Z}$ is the number of $x\in \mathscr{S}(f)$ such that $\mathrm{wt}(x)=3.$
+    This is a contradiction.
+\end{proof}
+
+
