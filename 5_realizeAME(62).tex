@@ -36,7 +36,7 @@ So $f$ satisfies $3$rd-Orth iff $t_{pqr}=0$ for all $p,q,r\in\{1,2,3\}.$
 
 \begin{definition}
     For every $b\in B(f)$ with matrix $M(b)\in \mathbf{SU}(2)$, 
-    define $\Vec{b}=(b_{00},b_{01},b_{10},b_{11})^{\tt T}$, $R_b\in \mathbf{SO}(3)$ be the adjoint rotation of $b$, and the matrix $C(b)\in \mathbb{R}^{3\times 3}$ by $C(b)_{pq}=\Vec{b}^\dagger (\sigma_p\otimes\sigma_q) \Vec{b}$ for $p,q\in\{1,2,3\}$.
+    define $\operatorname{vec}(b)=(b_{00},b_{01},b_{10},b_{11})^{\tt T}$, $R_b\in \mathbf{SO}(3)$ be the adjoint rotation of $b$, and the matrix $C(b)\in \mathbb{R}^{3\times 3}$ by $C(b)_{pq}=\operatorname{vec}(b)^\dagger (\sigma_p\otimes\sigma_q) \operatorname{vec}(b)$ for $p,q\in\{1,2,3\}$.
 \end{definition}
 
 \begin{lemma}\label{lm: Cb and Rb}
@@ -51,7 +51,7 @@ So $f$ satisfies $3$rd-Orth iff $t_{pqr}=0$ for all $p,q,r\in\{1,2,3\}.$
     Then
     \begin{equation*}
         \begin{aligned}
-            C(b)_{pq}=&\Vec{b}^\dagger(\sigma_p\otimes\sigma_q) \Vec{b}=\mathrm{Tr}(M(b)^\dagger \sigma_p M(b)\sigma_q^{\tt T})
+            C(b)_{pq}=&\operatorname{vec}(b)^\dagger(\sigma_p\otimes\sigma_q) \operatorname{vec}(b)=\mathrm{Tr}(M(b)^\dagger \sigma_p M(b)\sigma_q^{\tt T})
             =\mathrm{Tr}\left(\sum_{r=1}^3(R_{b^{-1}})_{rp}\sigma_rs_q\sigma_q\right)
             =s_q \sum_{r=1}^3 (R_{b^{-1}})_{rp}\mathrm{Tr}(\sigma_r\sigma_q)\\
             =&2s_q \sum_{r=1}^3 (R_{b^{-1}})_{rp}\delta_{rq}
@@ -73,10 +73,10 @@ So $f$ satisfies $3$rd-Orth iff $t_{pqr}=0$ for all $p,q,r\in\{1,2,3\}.$
     \begin{equation*}
         \begin{aligned}
             \mu I_2
-            =&M(g)M(g)^{\dagger}=(\Vec{b}^\dagger \otimes I_2) \rho_{ijk}(\Vec{b} \otimes I_2)\\
-            =&\frac{1}{8}(\Vec{b}^\dagger \otimes I_2)\left(I_2^{\otimes3}+\sum_{p,q,r=1}^3 t_{pqr} \sigma_p\otimes\sigma_q\otimes\sigma_r\right)(\Vec{b} \otimes I_2)\\
-            =& \frac{1}{8}\left(\Vec{b}^{\dagger}\Vec{b}\otimes I_2+\sum_{p,q,r=1}^3t_{pqr}(\Vec{b}^\dagger (\sigma_p\otimes\sigma_q) \Vec{b})\sigma_r\right)\\
-            =&\frac{|\Vec{b}|^2}{8}I_2+\frac{1}{8}\sum_{r=1}^3\left(\sum_{p,q=1}^3 C(b)_{pq}t_{pqr}\right)\sigma_r.&
+            =&M(g)M(g)^{\dagger}=(\operatorname{vec}(b)^\dagger \otimes I_2) \rho_{ijk}(\operatorname{vec}(b) \otimes I_2)\\
+            =&\frac{1}{8}(\operatorname{vec}(b)^\dagger \otimes I_2)\left(I_2^{\otimes3}+\sum_{p,q,r=1}^3 t_{pqr} \sigma_p\otimes\sigma_q\otimes\sigma_r\right)(\operatorname{vec}(b) \otimes I_2)\\
+            =& \frac{1}{8}\left(\operatorname{vec}(b)^{\dagger}\operatorname{vec}(b)\otimes I_2+\sum_{p,q,r=1}^3t_{pqr}(\operatorname{vec}(b)^\dagger (\sigma_p\otimes\sigma_q) \operatorname{vec}(b))\sigma_r\right)\\
+            =&\frac{|\operatorname{vec}(b)|^2}{8}I_2+\frac{1}{8}\sum_{r=1}^3\left(\sum_{p,q=1}^3 C(b)_{pq}t_{pqr}\right)\sigma_r.&
         \end{aligned}
     \end{equation*}
     Since $\{I_2,\sigma_1,\sigma_2,\sigma_3\}$ is a basis of $\mathbb{C}^{2\times 2}$, we have $\sum_{p,q=1}^3 C(b)_{pq}t_{pqr}=0$ for $r=1,2,3.$

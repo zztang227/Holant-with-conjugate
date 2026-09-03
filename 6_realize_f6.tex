@@ -286,9 +286,9 @@ An $n$-qubit Pauli string is an operator $E=E_1\otimes \cdots \otimes E_n$ with 
         &S_3=XXIIXX, \quad S_4=Z_0Z_0IIZ_0Z_0.
     \end{align*}
 
-    Now consider $K=4\operatorname{Tr}_{13}(P^{(2)})$ and order its four qubits as $(2,4,5,6)$. Thus by~\cref{lem: QA is orth proj of pure 442}, $K$ is a rank-4 projector of pure $((4,4,2))_2$ code. Restrict the four stabilizers $S_1,S_2,S_3,S_4$ to qubits $(2,4,5,6)$, we can $IXXX,IZZZ,XIXX,ZIZZ$. Since $S_1P^{(2)}S_1=P^{(2)}$, the partial trace gives $(IXXX)K(IXXX)=K$, $IZZZ,XIXX,ZIZZ$ is similar. Thus $[K,IXXX]=[K,IZZZ]=[K,XIXX]=[K,ZIZZ]=0$. 
+    Now consider $Q_{13}^{(2)}=4\operatorname{Tr}_{13}(P^{(2)})$ and order its four qubits as $(2,4,5,6)$. Thus by~\cref{lem: QA is orth proj of pure 442}, $Q_{13}^{(2)}$ is a rank-4 projector of pure $((4,4,2))_2$ code. Restrict the four stabilizers $S_1,S_2,S_3,S_4$ to qubits $(2,4,5,6)$, we can $IXXX,IZZZ,XIXX,ZIZZ$. Since $S_1P^{(2)}S_1=P^{(2)}$, the partial trace gives $(IXXX)Q_{13}^{(2)}(IXXX)=Q_{13}^{(2)}$, $IZZZ,XIXX,ZIZZ$ is similar. Thus $[Q_{13}^{(2)},IXXX]=[Q_{13}^{(2)},IZZZ]=[Q_{13}^{(2)},XIXX]=[Q_{13}^{(2)},ZIZZ]=0$.
 
-    Since $K$ is $16\times 16$ matrix, then $K=\sum_{E\in\{I,X,Y,Z\}^{\otimes 4}}c_E E$. Note that the $256$ different $E$ is a orthonormal basis of $16\times 16$ matrix. Encode the 4 qubit Pauli string as $(x_1,x_2,x_3,x_4|z_1,z_2,z_3,z_4)$, $(x_i,z_i)=(0,0)$ means that the $i$'th Pauli Matrix is $I$. $(1,0)$ is $X$, $(0,1)$ is $Z$ and $(1,1)$ is $Y$. Let $\mathbf{x}=(x_1,x_2,x_3,x_4)^T,\mathbf{z}=(z_1,z_2,z_3,z_4)^T$. A key property is that two Pauli strings  $(\mathbf{x|z})$ and $(\mathbf{x'|z'})$ are commutate if and only if $\mathbf{x^T z'+z^T x'}=0 \mod{2}$. 
+    Since $Q_{13}^{(2)}$ is $16\times 16$ matrix, then $Q_{13}^{(2)}=\sum_{E\in\{I,X,Y,Z\}^{\otimes 4}}c_E E$. Note that the $256$ different $E$ is a orthonormal basis of $16\times 16$ matrix. Encode the 4 qubit Pauli string as $(x_1,x_2,x_3,x_4|z_1,z_2,z_3,z_4)$, $(x_i,z_i)=(0,0)$ means that the $i$'th Pauli Matrix is $I$. $(1,0)$ is $X$, $(0,1)$ is $Z$ and $(1,1)$ is $Y$. Let $\mathbf{x}=(x_1,x_2,x_3,x_4)^T,\mathbf{z}=(z_1,z_2,z_3,z_4)^T$. A key property is that two Pauli strings  $(\mathbf{x|z})$ and $(\mathbf{x'|z'})$ are commutate if and only if $\mathbf{x^T z'+z^T x'}=0 \mod{2}$.
 
     Since $IXXX,IZZZ,XIXX,ZIZZ$'s corresponding Pauli string encodes are $(0111|0000),(0000|0111),(1011|0000)$ and $(0000|1011)$ respectively. Then the possible Pauli string $E=(\mathbf{x|z})$ with nonzero coefficient must satisfy 
     \begin{align*}
@@ -307,21 +307,21 @@ An $n$-qubit Pauli string is an operator $E=E_1\otimes \cdots \otimes E_n$ with 
 \end{array}
 \end{equation}
 
-Note that $e_E=\operatorname{Tr}(KE)=4\operatorname{Tr}(P^{(2)}(I_{13}\otimes E))=4\bra{\psi^{(2)}}I_{13}\otimes E\ket{\psi^{(2)}}=0$ if $\operatorname{wt}(E)\leq 3$ and $E$ is nonidentity by~\cref{lem:614 code}. Thus the Pauli expansion of $K$ contains no terms of weights 1,2 or 3. Since $K$ is rank 4 orthonormal projector, then $\operatorname{Tr}(K)=\operatorname{rank}(K)=4$. Hence 
+Note that $e_E=\operatorname{Tr}(Q_{13}^{(2)}E)=4\operatorname{Tr}(P^{(2)}(I_{13}\otimes E))=4\bra{\psi^{(2)}}I_{13}\otimes E\ket{\psi^{(2)}}=0$ if $\operatorname{wt}(E)\leq 3$ and $E$ is nonidentity by~\cref{lem:614 code}. Thus the Pauli expansion of $Q_{13}^{(2)}$ contains no terms of weights 1,2 or 3. Since $Q_{13}^{(2)}$ is rank 4 orthonormal projector, then $\operatorname{Tr}(Q_{13}^{(2)})=\operatorname{rank}(Q_{13}^{(2)})=4$. Hence
 \begin{equation}
-    K=\frac{1}{4}I+bXXYZ_0+cYYZ_0X+dZ_0Z_0XY+eXXZ_0Y+fYYXZ_0+gZ_0Z_0YX,
+    Q_{13}^{(2)}=\frac{1}{4}I+bXXYZ_0+cYYZ_0X+dZ_0Z_0XY+eXXZ_0Y+fYYXZ_0+gZ_0Z_0YX,
 \end{equation}
 where $b,c,d,e,f,g\in \mathbb{R}$. Let $A_1:=XXYZ_0,A_2:=YYZ_0X,A_3:=Z_0Z_0XY, B_1:XXZ_0Y,B_2:=YYXZ_0,B_3:=Z_0Z_0YX$, we have $(A_i,A_j)$ are commute and $A_i^2=B_i^2=I,A_1A_2=A_3,A_2A_3=A_1,A_3A_1=A_2,B_1B_2=B_3,B_2B_3=B_1,B_3B_1=B_2$ and $A_1B_1=IIXX,A_2B_2=IIYY,A_3B_3=IIZ_0Z_0$ and $(A_i,B_j)$ are anticommute when $i\neq j$.
 
-Since $K$ is orthogonal projector, thus $K^2=K$. Let $L=bA_1+cA_2+dA_3+eB_1+fB_2+gB_3$. Expanding $K^2$, we can get
+Since $Q_{13}^{(2)}$ is orthogonal projector, thus $(Q_{13}^{(2)})^2=Q_{13}^{(2)}$. Let $L=bA_1+cA_2+dA_3+eB_1+fB_2+gB_3$. Expanding $(Q_{13}^{(2)})^2$, we can get
 \begin{align}
-    K^2&=\frac{1}{16}I+\frac{1}{2}L+L^2\\
+    (Q_{13}^{(2)})^2&=\frac{1}{16}I+\frac{1}{2}L+L^2\\
     &=(\frac{1}{16}+b^2+c^2+d^2+e^2+f^2+g^2)I\\
     &+(\frac{b}{2}+2cd)A_1+(\frac{c}{2}+2bd)A_2+(\frac{d}{2}+2bc)A_3\\
     &+(\frac{e}{2}+2fg)B_1+(\frac{f}{2}+2eg)B_2+(\frac{g}{2}+2ef)B_3\\
     &+2beIIXX+2cfIIYY+2dgIIZ_0Z_0.
 \end{align}
-Comparing $K=\frac{1}{4}I+bA_1+cA_2+dA_3+eB_1+fB_2+gB_3$, we can get 
+Comparing $Q_{13}^{(2)}=\frac{1}{4}I+bA_1+cA_2+dA_3+eB_1+fB_2+gB_3$, we can get
 \begin{align}
     & b^2+c^2+d^2+e^2+f^2+g^2=\frac{3}{16},\\
     & be=cf=dg=0,\\
@@ -335,9 +335,9 @@ Since $be=0$, gives $b=0$ or $e=0$. Swapping qubits 5,6 will exchanges the tripl
 \end{equation}
 Thus, let $s_b=4b\in\{\pm1\},s_c=4c\in\{\pm1\}$, we have 
 \begin{equation}
-    K=\frac{1}{4}(I+s_bA_1+s_cA_2+s_bs_cA_3)=\frac{1}{4}(I+s_bA_1)(I+s_cA_2),
+    Q_{13}^{(2)}=\frac{1}{4}(I+s_bA_1+s_cA_2+s_bs_cA_3)=\frac{1}{4}(I+s_bA_1)(I+s_cA_2),
 \end{equation}
-since $A_1A_2=A_3$. This indicates that $\mathrm{im} K$ is the simultaneous $+1$ eigenspace of $s_bA_1$ and $s_cA_2$. Thus, lifting to $\ket{\psi^{(2)}}$, we can get $T_5=s_bIXIXYZ_0,T_6=s_cIYIYZ_0X$ and 
+since $A_1A_2=A_3$. This indicates that $\mathrm{im} Q_{13}^{(2)}$ is the simultaneous $+1$ eigenspace of $s_bA_1$ and $s_cA_2$. Thus, lifting to $\ket{\psi^{(2)}}$, we can get $T_5=s_bIXIXYZ_0,T_6=s_cIYIYZ_0X$ and
 \begin{equation}
     s_bIXIXYZ_0\ket{\psi^{(2)}}=\ket{\psi^{(2)}}, \quad s_cIYIYZ_0X\ket{\psi^{(2)}}=\ket{\psi^{(2)}}.
 \end{equation}
@@ -432,7 +432,7 @@ This completes the proof.
 
 \subsection{The proof of~\cref{thm: AME62 to f6}}
 
-Since the normalized $\hat{f_6}$ is $\mathrm{AME}(6,2)$. By~\cref{lem: ame62 is unitary equivalent}, we can get that $\ket{\hat{f_6}}=\beta P_{\pi_B}(B_1\otimes \cdots \otimes B_6)\ket{H_6}$. Since $f\in \mathcal{F}$ is a 6-ary signature whose normalized state is $\mathrm{AME}(6,2)$ and $Z^{-1}=Z^\dagger$ is unitary matrix, thus $\hat{f}$ is also a 6-ary signature whose normalized state is $\mathrm{AME}(6,2)$ state. Hence, $\hat{f}=\alpha P_{\pi_A}(A_1\otimes \cdots \otimes A_6)\ket{H_6}$. In conclusion, after a permutation of variables and ignoring the scalar, we can get that 
+Since the normalized $\hat{f_6}$ is $\mathrm{AME}(6,2)$. By~\cref{lem: ame62 is unitary equivalent}, we can get that $\ket{\hat{f_6}}=\beta P_{\pi_B}(B_1\otimes \cdots \otimes B_6)\ket{H_6}$. Since $f\in \mathcal{F}$ is a 6-ary signature whose normalized state is $\mathrm{AME}(6,2)$ and $K^{-1}=K^\dagger$ is a unitary matrix, thus $\hat{f}$ is also a 6-ary signature whose normalized state is $\mathrm{AME}(6,2)$ state. Hence, $\hat{f}=\alpha P_{\pi_A}(A_1\otimes \cdots \otimes A_6)\ket{H_6}$. In conclusion, after a permutation of variables and ignoring the scalar, we can get that
 \begin{equation}
     \hat{f}=(U_1\otimes \cdots \otimes U_6)\hat{f_6},
 \end{equation}

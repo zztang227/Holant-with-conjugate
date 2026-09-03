@@ -1,58 +1,485 @@
 \section{Preliminaries}
 
 \subsection{Definitions and Notations}
-In the present paper, $\frak{i}$ denotes a square root of $-1$, i.e., $\frak{i}^2=-1$.
-$\alpha$ denotes a square root of $\frak{i}$, i.e., $\alpha^2=\frak{i}$.
-Let $\mathbb{N} = \{0,1,2,\ldots\}$,
-$N_2=
-\left[\begin{smallmatrix}
-0 & 1 \\
- 1 & 0
-\end{smallmatrix}\right]
-$,
-$H=\frac{1}{\sqrt{2}}
-\left[\begin{smallmatrix}
-1 & 1 \\
- 1 & -1
-\end{smallmatrix}\right]
-$, $K=\frac{1}{\sqrt{2}} \left[\begin{smallmatrix}
-1 & 1 \\
-\mathfrak{i} & -\mathfrak{i}
-\end{smallmatrix}\right]$.
-For row vectors $\mathbf{u},\mathbf{v}\in \mathbb{C}^n$, define $\braket{\mathbf{u},\mathbf{v}}=\mathbf{u}\cdot\mathbf{\overline{v}^{\tt T}}$ and $|\mathbf{u}|=\sqrt{\braket{\mathbf{u},\mathbf{u}}}.$
 
-\begin{lemma}\label{lm: conjugation and Z-trans}
-    Let $f$ be a (complex-weighted) signature of arity $n$.
-    For every $\alpha\in \{0,1\}^n$, we have 
-    $
-    \widehat{\overline{f}}(\alpha)=\overline{\widehat{f}(\overline{\alpha})}.
-    $
+Throughout the paper, signatures are Boolean and complex-valued unless stated
+otherwise.  We write
+\[
+\mathbb N=\{0,1,2,\ldots\},\qquad [n]=\{1,\ldots,n\},\qquad
+\mathbb C^\times=\mathbb C\setminus\{0\},
+\]
+and let $\mathfrak i^2=-1$.  We fix
+\[
+\alpha=\frac{1+\mathfrak i}{\sqrt 2}=e^{\pi\mathfrak i/4},
+\]
+so that $\alpha^2=\mathfrak i$.
+
+A \emph{signature} of arity $n$ is a function
+$f:\{0,1\}^n\to\mathbb C$ on an ordered list of variables
+$x_1,\ldots,x_n$.  We also write $\operatorname{arity}(f)=n$ and
+$f^\sigma=f(\sigma)$.  Unless a row orientation is explicitly indicated,
+the truth table of $f$ is the column vector in lexicographic order.  For a
+bit string $\sigma=\sigma_1\cdots\sigma_n$, let $|\sigma|=n$,
+\[
+\operatorname{wt}(\sigma)=\sum_{j=1}^n\sigma_j,
+\]
+and let $\overline{\sigma}$ be its bitwise complement.  The symbols
+$0^n=\vec 0^{\,n}$ and $1^n=\vec 1^{\,n}$ denote the all-zero and all-one
+strings; the superscript is omitted when its value is clear.  Addition
+$\oplus$ of bit strings is coordinatewise over $\mathbb Z_2$.
+
+The \emph{support} of $f$ is
+\[
+\mathcal S(f)=\{\sigma\in\{0,1\}^n:f(\sigma)\ne0\}.
+\]
+We use $\mathscr S(f)$ and $\operatorname{supp}(f)$ synonymously.  The
+signature is zero, written $f\equiv0$, if $\mathcal S(f)=\varnothing$.
+For $\mathcal T\subseteq\{0,1\}^n$, the restriction $f|_{\mathcal T}$ is
+the signature that agrees with $f$ on $\mathcal T$ and is zero off
+$\mathcal T$.
+
+A signature is \emph{symmetric} if its value depends only on Hamming weight.
+For such a signature of arity $n$, we use the compressed notation
+\[
+f=[f_0,f_1,\ldots,f_n]_n,
+\]
+where $f_j$ is the value on every input of weight $j$; the arity subscript
+is omitted when clear.  Let
+\[
+\Delta_0=[1,0],\qquad \Delta_1=[0,1].
+\]
+For $n\ge1$, the equality signature $=_n$ is one on $0^n$ and $1^n$ and
+zero elsewhere.  The binary disequality signature is
+$\neq_2=[0,1,0]$.  More generally, $\neq_{2n}$ denotes the indicator of
+\[
+(x_1\ne x_2)\wedge(x_3\ne x_4)\wedge\cdots\wedge
+(x_{2n-1}\ne x_{2n}),
+\]
+including any signature obtained by permuting the paired variables.  We
+write $\mathcal{EQ}=\{=_n:n\ge1\}$ and
+$\mathcal{DEQ}=\{\neq_{2n}:n\ge1\}$.
+
+Let
+\[
+\mathscr E_n=\{\sigma\in\{0,1\}^n:\operatorname{wt}(\sigma)
+\text{ is even}\},\qquad
+\mathscr O_n=\{\sigma\in\{0,1\}^n:\operatorname{wt}(\sigma)
+\text{ is odd}\}.
+\]
+A signature has \emph{even parity} or \emph{odd parity} if its support is
+contained in $\mathscr E_n$ or $\mathscr O_n$, respectively; it has
+\emph{parity} in either case.  Following the notation of~\cite{GSS26},
+for $\bowtie\in\{=,\ge,\le,>,<\}$ define
+\[
+\mathrm{HW}^{\bowtie}
+=\left\{\sigma\in\{0,1\}^*:
+  \operatorname{wt}(\sigma)\mathrel{\bowtie}\frac{|\sigma|}{2}\right\}.
+\]
+We also write $f\in\mathrm{HW}^{\bowtie}$ when
+$\mathcal S(f)\subseteq\mathrm{HW}^{\bowtie}$.  Thus the macros
+$\eoe,\eog,\eol,\eosg,\eosl$ stand for
+$\mathrm{HW}^{=},\mathrm{HW}^{\ge},\mathrm{HW}^{\le},
+\mathrm{HW}^{>},\mathrm{HW}^{<}$, respectively.  An arity-$2d$ signature
+$f$ is an \emph{Eulerian-orientation signature}, or an \emph{$\eo$
+signature}, if $f\in\eoe$.
+
+A signature of arity $k$ is \emph{single-weighted} if its support is
+contained in the strings of one Hamming weight $d$.  In that case define
+the associated $\eo$ signature
+\[
+f_{\to\eo}=
+\begin{cases}
+f\otimes\Delta_0^{\otimes(2d-k)},&2d\ge k,\\
+f\otimes\Delta_1^{\otimes(k-2d)},&2d<k.
+\end{cases}
+\]
+Also set $f|_{\eo}:=f|_{\mathrm{HW}^{=}}$, and extend both operations
+elementwise to signature sets:
+\[
+\mathcal F|_{\eo}=\{f|_{\eo}:f\in\mathcal F\},\qquad
+\mathcal F_{\to\eo}=\{f_{\to\eo}:f\in\mathcal F\}.
+\]
+
+For $S\subseteq[n]$, let $M_S(f)$ be the
+$2^{|S|}\times2^{n-|S|}$ flattening whose rows are indexed by assignments
+to the variables in $S$ and whose columns are indexed by assignments to
+the remaining variables, both in lexicographic order.  We also write
+$M_{S,T}(f)$ when the ordered row and column variable lists $S,T$
+partition the variables.  In particular,
+\[
+M_i(f)=
+\begin{bmatrix}\mathbf f_i^0\\ \mathbf f_i^1\end{bmatrix},
+\qquad
+M_{ij}(f)=
+\begin{bmatrix}
+\mathbf f_{ij}^{00}\\ \mathbf f_{ij}^{01}\\
+\mathbf f_{ij}^{10}\\ \mathbf f_{ij}^{11}
+\end{bmatrix}.
+\]
+Here $f_i^a$ and $f_{ij}^{ab}$ are the signatures obtained by pinning the
+displayed variables, while the bold symbols are their truth-table row
+vectors.  For a binary signature $b$, $M(b)$ denotes its $2\times2$
+signature matrix and
+\[
+\operatorname{vec}(b)
+=(b_{00},b_{01},b_{10},b_{11})^{\mathsf T}.
+\]
+
+For a vector or matrix $A$, write $A^{\mathsf T}$ for transpose,
+$\overline A$ for entrywise complex conjugation, and
+$A^\dagger=\overline A^{\mathsf T}$ for conjugate transpose.  For row
+vectors $\mathbf u,\mathbf v\in\mathbb C^m$, our convention is
+\[
+\langle\mathbf u,\mathbf v\rangle
+=\mathbf u\,\overline{\mathbf v}^{\mathsf T},\qquad
+\|\mathbf u\|=\sqrt{\langle\mathbf u,\mathbf u\rangle}.
+\]
+We also use $|\mathbf u|$ for this norm when no confusion with scalar
+absolute value can arise.
+
+We use the matrices
+\[
+I_2=\begin{bmatrix}1&0\\0&1\end{bmatrix},\quad
+N_2=\begin{bmatrix}0&1\\1&0\end{bmatrix},\quad
+H=\frac1{\sqrt2}\begin{bmatrix}1&1\\1&-1\end{bmatrix},\quad
+K=\frac1{\sqrt2}\begin{bmatrix}1&1\\
+\mathfrak i&-\mathfrak i\end{bmatrix}.
+\]
+For $r\ge1$, set $I_{2^r}=I_2^{\otimes r}$ and
+$N_{2^r}=N_2^{\otimes r}$; in particular, $N_4=N_2^{\otimes2}$.
+The groups $\mathrm{GL}_2(\mathbb C)$, $\mathbf U_2(\mathbb C)$, and
+$\mathbf O_2(\mathbb R)$ denote the invertible complex, unitary, and real
+orthogonal $2\times2$ matrices, respectively.  We also use
+\[
+\mathbf{PU}(2)=\mathbf U_2(\mathbb C)/
+ \{\lambda I_2:|\lambda|=1\}
+\cong\mathbf{SU}(2)/\{\pm I_2\}.
+\]
+
+A \emph{signature grid} over $\mathcal F$ is a pair
+$\Omega=(G,\pi)$, where $G=(V,E)$ is a graph and $\pi$ assigns to every
+$v\in V$ a signature $f_v\in\mathcal F$ of arity $\deg(v)$ together with
+an ordering of its incident edges.  Its partition function is
+\[
+\operatorname{Holant}_{\Omega}
+=\sum_{\sigma:E\to\{0,1\}}
+ \prod_{v\in V}f_v(\sigma|_{E(v)}).
+\]
+The problem $\Holant(\mathcal F)$ asks for this value.  For a bipartite
+grid with signature sets $\mathcal G$ and $\mathcal F$ on the two sides,
+we write $\holant{\mathcal G}{\mathcal F}$.  Singleton braces and unions
+inside a Holant expression are suppressed.  The symbols $\le_T$ and
+$\equiv_T$ denote polynomial-time Turing reducibility and equivalence.
+
+The standard counting-CSP notation is
+\[
+\#\operatorname{CSP}_d(\mathcal F)
+:=\holant{\{=_{kd}:k\ge1\}}{\mathcal F};
+\]
+we omit the subscript when $d=1$.  For a set $\mathcal F$ of $\eo$
+signatures, we use
+\[
+\ceo(\mathcal F):=\holant{\neq_2}{\mathcal F}.
+\]
+The notation $\holodd$ refers to Holant problems whose signature set
+contains a nonzero signature of odd arity.
+
+For $T\in\mathrm{GL}_2(\mathbb C)$ and an arity-$n$ signature viewed as
+a column vector, define
+\[
+Tf:=T^{\otimes n}f,\qquad
+T\mathcal F:=\{Tf:f\in\mathcal F\}.
+\]
+For a signature written as a row vector, $fT^{-1}$ means
+$f(T^{-1})^{\otimes n}$.  These conventions give
+\[
+M_S(Tf)=T^{\otimes|S|}M_S(f)
+       (T^{\mathsf T})^{\otimes(n-|S|)}.
+\]
+Valiant's Holant theorem states that
+\[
+\holant{\mathcal G}{\mathcal F}
+\equiv_T
+\holant{\mathcal G T^{-1}}{T\mathcal F}.
+\]
+We call this equivalence a \emph{holographic transformation by $T$}.
+Since $(=_2)K=\neq_2$,
+\[
+\holant{=_2}{\mathcal F}
+\equiv_T
+\holant{\neq_2}{K^{-1}\mathcal F}.
+\]
+Accordingly, throughout this paper
+\[
+\widehat f:=K^{-1}f=(K^{-1})^{\otimes\operatorname{arity}(f)}f,
+\qquad
+\widehat{\mathcal F}:=K^{-1}\mathcal F.
+\]
+Thus a hat always denotes the $K^{-1}$ holographic transform; the letter
+$Z$ is reserved for the Pauli matrix.  We also call
+$\holant{\neq_2}{\widehat{\mathcal F}}$ the
+\emph{$K$-Holant} formulation of $\Holant(\mathcal F)$.
+
+\begin{lemma}\label{lm: conjugation and K-trans}
+Let $f$ be a complex-valued signature of arity $n$.  For every
+$\sigma\in\{0,1\}^n$,
+\[
+\widehat{\overline f}(\sigma)
+=\overline{\widehat f(\overline\sigma)}.
+\]
 \end{lemma}
 \begin{proof}
-    $\widehat{\overline{f}}=K^{-1}\overline{f}=\overline{K^Tf}=N_2\overline{K^{-1}f}=N_2\overline{\widehat{f}}.$
-    Entry-wisely, we have $
-    \widehat{\overline{f}}(\alpha)=\overline{\widehat{f}(\overline{\alpha})},\,\forall\alpha\in\{0,1\}^n.
-    $
+Using $K^{\mathsf T}=N_2K^{-1}$, we have
+\[
+\widehat{\overline f}
+=(K^{-1})^{\otimes n}\overline f
+=\overline{(K^{\mathsf T})^{\otimes n}f}
+=N_2^{\otimes n}\overline{\widehat f},
+\]
+which is the stated entrywise identity.
 \end{proof}
 
-\begin{definition}
-    A signature set $\mathcal{F}$ is conjugate closed, denoted by $\mathcal{F}=\overline{\mathcal{F}}$, if $f\in \mathcal{F}\implies \overline{f}\in\mathcal{F}$;
-    A signature set $\mathcal{G}$ is arrow reversal closed, denoted by $\mathcal{G}=\mathcal{G}^{\textsc ar}$, if $g\in \mathcal{G}\implies {g}^{\textsc ar}\in \mathcal{G}$, where $g^{\textsc ar}(\alpha):=\overline{g(\overline{\alpha})},\,\forall \alpha\in \{0,1\}^n$.
-\end{definition}
-
-\cref{lm: conjugation and Z-trans} directly implies the following statement:
+For a signature $f$, define its arrow reversal by
+\[
+f^{\textsc{ar}}(\sigma)
+:=\overline{f(\overline\sigma)}.
+\]
+It satisfies \emph{Arrow Reversal Symmetry} (\textsc{ars}) if
+$f=f^{\textsc{ar}}$.  A signature set $\mathcal F$ is
+\emph{conjugate closed}, written $\mathcal F=\overline{\mathcal F}$, if
+$f\in\mathcal F$ implies $\overline f\in\mathcal F$.  A set $\mathcal G$
+is \emph{arrow-reversal closed}, written
+$\mathcal G=\mathcal G^{\textsc{ar}}$, if $g\in\mathcal G$ implies
+$g^{\textsc{ar}}\in\mathcal G$.  The preceding lemma immediately gives
+the following equivalence.
 \begin{lemma}\label{lm: conjugate closed and ars closed}
-    $\mathcal{F}$ is conjugate closed $\iff$ $\widehat{\mathcal{F}}$ is arrow reversal closed.
+$\mathcal F$ is conjugate closed if and only if
+$\widehat{\mathcal F}$ is arrow-reversal closed.
 \end{lemma}
 
-Let $\mathcal{U}$ denote the set of all binary unitary signatures and the binary zero signature. 
+For signatures on disjoint variable sets, $f\otimes g$ denotes their
+tensor product.  We write $g\mid f$ if, up to a permutation of variables,
+$f=g\otimes h$ for some signature $h$; scalar and zero factors are
+allowed.  A nonzero signature is \emph{irreducible} if it has no
+factorization into two positive-arity signatures.  For $k\ge1$, let
+\[
+\mathcal F^{\otimes k}
+=\left\{\lambda\bigotimes_{j=1}^k f_j:
+  \lambda\in\mathbb C^\times,\ f_j\in\mathcal F\right\},\qquad
+\mathcal F^\otimes=\bigcup_{k\ge1}\mathcal F^{\otimes k}.
+\]
+We also write $\langle\mathcal F\rangle$ for this normalized tensor
+closure.
+
+An \emph{$\mathcal F$-gate} is a finite signature grid over $\mathcal F$
+with some dangling edges; summing over its internal edges realizes the
+signature on the dangling edges.  A signature is \emph{realizable from
+$\mathcal F$} if it is the signature of an $\mathcal F$-gate.  Given a
+binary signature $b$ and distinct variables $x_i,x_j$ of $f$, their
+contraction is
+\[
+(\partial_{ij}^b f)(x_{[n]\setminus\{i,j\}})
+=\sum_{a,c\in\{0,1\}}b(a,c)
+  f(x_1,\ldots,x_{i-1},a,x_{i+1},\ldots,x_{j-1},c,x_{j+1},\ldots,x_n).
+\]
+We abbreviate
+$\partial_{ij}f:=\partial_{ij}^{=_2}f=f_{ij}^{00}+f_{ij}^{11}$.
+For a signature class $\mathscr C$, the notation
+$f\in\int\mathscr C$ means that
+$\partial_{ij}f\in\mathscr C$ for every pair $i\ne j$.
+
+Let $\mathcal U$ be the set consisting of the binary zero signature and
+all binary signatures $b$ for which
+\[
+M(b)M(b)^\dagger=\lambda I_2
+\quad\text{for some }\lambda>0.
+\]
+Similarly, $\mathcal O$ consists of the binary zero signature and the
+real-valued binary signatures $b$ satisfying
+$M(b)M(b)^{\mathsf T}=\lambda I_2$ for some $\lambda>0$.  We set
+$\widehat{\mathcal O}=K^{-1}\mathcal O$ and
+$\widehat{\mathcal U}=K^{-1}\mathcal U$.  Finally,
+\[
+\mathcal M
+=\{f:f(\sigma)=0\text{ whenever }\operatorname{wt}(\sigma)>1\}
+\]
+is the class of weighted-matching signatures.
+
+We use projective binary matrices in the arity-six argument.  For nonzero
+matrices $A,B$, write $A\sim B$ if $A=\lambda B$ for some
+$\lambda\in\mathbb C^\times$, and let $[A]$ denote the projective class.
+Set
+\[
+X=N_2,\qquad
+Y=\begin{bmatrix}0&-\mathfrak i\\ \mathfrak i&0\end{bmatrix},\qquad
+Z=\begin{bmatrix}1&0\\0&-1\end{bmatrix},\qquad
+J=\mathfrak iY=\begin{bmatrix}0&1\\-1&0\end{bmatrix}.
+\]
+For $\varepsilon_1,\varepsilon_2,\varepsilon_3\in\{\pm1\}$, put
+\[
+C_{\varepsilon_1,\varepsilon_2,\varepsilon_3}
+=\frac12\bigl(I_2+\varepsilon_1\mathfrak iX
+                 +\varepsilon_2J+\varepsilon_3\mathfrak iZ\bigr).
+\]
+The projective tetrahedral group and its normal Klein-four subgroup are
+\[
+\Gamma
+=\{[I_2],[X],[Z],[J]\}
+ \cup
+ \{[C_{\varepsilon_1,\varepsilon_2,\varepsilon_3}]:
+        \varepsilon_1,\varepsilon_2,\varepsilon_3\in\{\pm1\}\},
+\qquad
+K_4=\{[I_2],[X],[Z],[J]\}.
+\]
+Thus $\Gamma\cong A_4$ and $K_4\cong V_4$.  We suppress the projective
+brackets when a displayed unitary representative is intended.  In this
+paragraph, and everywhere in the quantum arguments, $Z$ is the Pauli
+matrix rather than a holographic transformation.
+
+For completeness, we now give the $\#\eo$ support notation used
+in~\cite{GSS26}.  Let
+$\oplus_3(a,b,c)=a\oplus b\oplus c$, applied coordinatewise to strings.
+For an $\eo$ signature $f$, and for all
+$\beta,\gamma,\delta\in\mathcal S(f)$, define
+\begin{align*}
+f\in\POLMID
+&\iff \beta\oplus\gamma\oplus\delta\in\mathcal S(f),\\
+f\in\POLUP
+&\iff \beta\oplus\gamma\oplus\delta
+      \in\mathcal S(f)\cup\mathrm{HW}^{>},\\
+f\in\POLDOWN
+&\iff \beta\oplus\gamma\oplus\delta
+      \in\mathcal S(f)\cup\mathrm{HW}^{<}.
+\end{align*}
+The latter two classes are the up- and down-quasi-polymorphism classes.
+
+A \emph{perfect pairing} $M$ of the variables of an arity-$2d$
+signature is a partition into $d$ unordered pairs.  It determines
+\[
+\{0,1\}^{M}
+=\{x\in\{0,1\}^{2d}:x_p\ne x_q
+  \text{ for every }\{p,q\}\in M\}.
+\]
+For any signature class $\mathscr C$, define
+\[
+\eo^{\mathscr C}
+=\left\{f:f\text{ is an $\eo$ signature and }
+  f|_{\{0,1\}^{M}}\in\mathscr C
+  \text{ for every perfect pairing }M\right\}.
+\]
+
+The special signature used in the arity-six argument is the affine
+signature
+\[
+f_6(x_1,\ldots,x_6)
+=\chi_{\mathscr E_6}(x)\,
+ (-1)^{x_1+x_2+x_3+x_1x_2+x_2x_3+x_1x_3
+              +x_1x_4+x_2x_5+x_3x_6},
+\]
+and its $K^{-1}$-transform is
+\[
+\widehat f_6(x_1,\ldots,x_6)
+=\chi_{\mathscr E_6}(x)\,
+ (-1)^{x_1x_2+x_2x_3+x_1x_3+x_1x_4+x_2x_5+x_3x_6}.
+\]
+Here $\chi_S$ denotes the indicator of the set $S$.
 
 \subsection{Tractable Signatures}
 
+We recall the standard tractable signature classes
+from~\cite{realholant}.
+
+\begin{definition}
+The class $\mathscr T$ consists of all signatures that, up to a
+permutation of variables, are tensor products of unary and binary
+signatures.
+
+A signature is of \emph{product type} if it is an ordinary pointwise
+product of unary signatures, binary equality signatures, and binary
+disequality signatures; different factors may involve overlapping
+variables.  The class of all product-type signatures is denoted by
+$\mathscr P$.
+\end{definition}
+
+\begin{definition}
+A signature $f(x_1,\ldots,x_n)$ is \emph{affine} if it has the form
+\[
+f(x_1,\ldots,x_n)
+=\lambda\,\chi_{A\mathbf x=0}\,
+ \mathfrak i^{\,Q(x_1,\ldots,x_n)},
+\]
+where $\lambda\in\mathbb C$,
+$\mathbf x=(x_1,\ldots,x_n,1)^{\mathsf T}$, $A$ is a matrix over
+$\mathbb Z_2$, and $Q\in\mathbb Z_4[x_1,\ldots,x_n]$ is multilinear of
+degree at most two with even mixed coefficients.  Equivalently,
+\[
+Q(x_1,\ldots,x_n)
+=a_0+\sum_{k=1}^n a_kx_k
+ +\sum_{1\le i<j\le n}2b_{ij}x_ix_j,
+\qquad a_k,b_{ij}\in\mathbb Z_4.
+\]
+The equation $A\mathbf x=0$ is evaluated over $\mathbb Z_2$.
+The class of affine signatures is denoted by $\mathscr A$.  We say that
+$f$ has \emph{affine support} if $\mathcal S(f)$ is an affine subspace of
+$\mathbb Z_2^n$.
+\end{definition}
+
+For $s\in\mathbb Z$, let
+\[
+T_{\alpha^s}=\begin{bmatrix}1&0\\0&\alpha^s\end{bmatrix}.
+\]
+\begin{definition}
+An arity-$n$ signature $f$ is \emph{local-affine} if, for every
+$\sigma=s_1\cdots s_n\in\mathcal S(f)$,
+\[
+\left(T_{\alpha^{s_1}}\otimes\cdots\otimes
+      T_{\alpha^{s_n}}\right)f\in\mathscr A.
+\]
+The class of local-affine signatures is denoted by $\mathscr L$.
+We also use
+\[
+\alpha\mathscr A
+=\left\{T_\alpha^{\otimes\operatorname{arity}(f)}f:
+  f\in\mathscr A\right\}.
+\]
+\end{definition}
+
+\begin{definition}
+Let $\mathscr C$ be a class of signatures.  A signature set $\mathcal F$
+is \emph{$\mathscr C$-transformable} if there exists
+$T\in\mathrm{GL}_2(\mathbb C)$ such that
+\[
+(=_2)(T^{-1})^{\otimes2}\in\mathscr C
+\qquad\text{and}\qquad
+T\mathcal F\subseteq\mathscr C.
+\]
+\end{definition}
+
+These definitions give the four alternatives in
+\textup{(\ref{cond: tractable classes})}.  If
+$\mathcal F\subseteq\mathscr T$, or if $\mathcal F$ is
+$\mathscr P$-, $\mathscr A$-, or $\mathscr L$-transformable, then
+$\Holant(\mathcal F)$ is computable in polynomial time
+by~\cite[Theorem~2.22]{realholant}.
+
 \subsection{Known Dichotomies and Hardness Results}
-\begin{theorem}[Dichotomy for \#EO \cite{}]\label{thm: dichotomy for EO}
-    
+
+\begin{theorem}[Dichotomy for \#EO~\cite{GSS26}]
+\label{thm: dichotomy for EO}
+Let $\mathcal F$ be a finite set of complex-valued $\eo$ signatures.  If
+\[
+\bigl(\mathcal F\subseteq\POLUP
+      \ \text{or}\ \mathcal F\subseteq\POLDOWN\bigr)
+\quad\text{and}\quad
+\bigl(\mathcal F\subseteq\eo^{\mathscr A}
+      \ \text{or}\ \mathcal F\subseteq\eo^{\mathscr P}\bigr),
+\]
+then $\ceo(\mathcal F)$ is computable in polynomial time.  Otherwise,
+$\ceo(\mathcal F)$ is \#P-hard.
 \end{theorem}
+The two alternatives are uniform over $\mathcal F$: signatures from the
+up and down classes cannot be mixed, nor can
+$\eo^{\mathscr A}$ and $\eo^{\mathscr P}$ be mixed.
 
 \begin{theorem}[Dichotomy for $\holodd$ \cite{Holant_Odd}]\label{thm: holant odd}
     Let $\mathcal{F}$ be a set of signatures that contains a non-zero signature of odd arity, then $\Holant(\mathcal{F})$ is \#P-hard unless:
@@ -133,7 +560,7 @@ Let $\mathcal{U}$ denote the set of all binary unitary signatures and the binary
         This is impossible if some $\widehat{q_i}$ has arity greater than 2.
         Thus, every $q_i$ has arity at most 2.
         So $\widehat{f}\in {\mathscr{T}}$, and $\hF\subseteq \mathscr{T}$.
-        After a $Z$-transformation,  $\F\subseteq \mathscr{T}$.
+        After a $K$-transformation,  $\F\subseteq \mathscr{T}$.
         Contradiction.
     \end{enumerate}
 \end{proof}
@@ -174,12 +601,6 @@ Let $\mathcal{U}$ denote the set of all binary unitary signatures and the binary
     \end{enumerate}
 \end{theorem}
 
-\vspace{1em}
-We {define} the signature set
-$\alpha\mathscr{A}=\left\{ \left[\begin{smallmatrix} 1 & 0 \\
-0 & \alpha \end{smallmatrix}\right]^{\otimes \operatorname{ary}(f)} f
-\mid f\in\mathscr{A}
-\right\}.$
 \begin{theorem}[\cite{real_holantc}]\label{thm: CSP2}
     Let $\mathcal{F}$ be any set of signatures. 
     Then $\#\operatorname{CSP}^2(\mathcal{F})$ is $\#\operatorname{P}$-hard unless $\mathcal{F}\subseteq\mathscr{A}$ or $\mathcal{F}\subseteq\alpha\mathscr{A}$ or $\mathcal{F}\subseteq\mathscr{P}$ or $\mathcal{F}\subseteq\mathscr{L}$, in which cases the problem is computable in polynomial time.
@@ -199,7 +620,7 @@ $\alpha\mathscr{A}=\left\{ \left[\begin{smallmatrix} 1 & 0 \\
 
     \textbf{Case 1: $\F$ contains a nonzero signature of odd arity.}
 
-    Let $g_4:=Z^{\otimes 4}\neq_4$. By the holographic transformation $Z$, $\holant{\neq_2}{\neq_4,\hF}\equiv_T \holant{=_2}{g_4,\F}$, and by~\Cref{thm: holant odd}, $\holant{=_2}{g_4,\F}$ is either polynomial-time solvable or is $\#\operatorname{P}$-hard.
+    Let $g_4:=K^{\otimes 4}\neq_4$. By the holographic transformation $K$, $\holant{\neq_2}{\neq_4,\hF}\equiv_T \holant{=_2}{g_4,\F}$, and by~\Cref{thm: holant odd}, $\holant{=_2}{g_4,\F}$ is either polynomial-time solvable or is $\#\operatorname{P}$-hard.
 
     \textbf{Case 2: every signature in $\hF$ is an $\eo$ signature.}
     Since $\neq_4$ is also an $\eo$ signature, then the problem $\holant{\neq_2}{\neq_4,\hF}$ is a $\ceo$ problem, namely $\holant{\neq_2}{\neq_4,\hF}\equiv_T \ceo(\neq_4,\hF)$. Then by~\Cref{thm: dichotomy for EO}, $\ceo(\neq_4,\hF)$ is either polynomial-time solvable or $\#\operatorname{P}$-hard.
@@ -214,7 +635,7 @@ $\alpha\mathscr{A}=\left\{ \left[\begin{smallmatrix} 1 & 0 \\
     
     \textbf{Subcase 3.1: b=0.}
 
-    Then $\widehat{h}=[a,0,\dots,0]_r=a\Delta_0^{\otimes r}=(\sqrt[r]a \Delta_0)^{\otimes r}$. By~\Cref{lm: decomposition of tensor power}, we can get $\holant{\neq_2}{\neq_4,\hF}\equiv_T \holant{\neq_2}{\neq_4,\widehat{h},\hF}\equiv_T \holant{\neq_2}{\neq_4,\Delta_0,\hF}$. By a holographic transformation $Z$, we can get $\holant{\neq_2}{\neq_4,\Delta_0,\hF}\equiv_T \holant{=_2}{g_4,u_0,\F}$ where $u_0=Z\Delta_0=\frac{1}{\sqrt{2}}\begin{bmatrix}1\\ i\end{bmatrix}.$ Thus a nonzero odd arity signature is available, and by~\Cref{thm: holant odd}, $\holant{=_2}{g_4,u_0,\F}$ is either polynomial time solvable or $\#\operatorname{P}$-hard.
+    Then $\widehat{h}=[a,0,\dots,0]_r=a\Delta_0^{\otimes r}=(\sqrt[r]a \Delta_0)^{\otimes r}$. By~\Cref{lm: decomposition of tensor power}, we can get $\holant{\neq_2}{\neq_4,\hF}\equiv_T \holant{\neq_2}{\neq_4,\widehat{h},\hF}\equiv_T \holant{\neq_2}{\neq_4,\Delta_0,\hF}$. By a holographic transformation $K$, we can get $\holant{\neq_2}{\neq_4,\Delta_0,\hF}\equiv_T \holant{=_2}{g_4,u_0,\F}$ where $u_0=K\Delta_0=\frac{1}{\sqrt{2}}\begin{bmatrix}1\\ \mathfrak i\end{bmatrix}.$ Thus a nonzero odd arity signature is available, and by~\Cref{thm: holant odd}, $\holant{=_2}{g_4,u_0,\F}$ is either polynomial time solvable or $\#\operatorname{P}$-hard.
 
     \textbf{Subcase 3.2: $b\neq 0$.}
 
@@ -236,7 +657,7 @@ $\alpha\mathscr{A}=\left\{ \left[\begin{smallmatrix} 1 & 0 \\
     \]
     We have 
     \[
-        (\widehat{Q}^{-1})^{\mathsf T}N\widehat Q^{-1}
+        (\widehat{Q}^{-1})^{\mathsf T}N_2\widehat Q^{-1}
         =
         \begin{pmatrix}
         q^{-1}&0\\
@@ -250,9 +671,9 @@ $\alpha\mathscr{A}=\left\{ \left[\begin{smallmatrix} 1 & 0 \\
         q^{-1}&0\\
         0&q
         \end{pmatrix}
-        =N.
+        =N_2.
     \]
-    By a holographic transformation $\widehat{Q}$, $\holant{\neq_2}{\neq_4,\widehat{h},\hF}\equiv_T \holant{(\widehat{Q}^{-1})^TN\widehat{Q}^{-1}}{\widehat{Q}\neq_4,\widehat{Q}\widehat{h},\widehat{Q}\hF}\equiv_T \holant{\neq_2}{\widehat{Q}\neq_4,\widehat{Q}\widehat{h},\widehat{Q}\hF}\equiv_T \holant{\neq_2}{\neq_4,\widehat{Q}\widehat{h},\widehat{Q}\hF}$. Furthermore, $\widehat{Q}\widehat{h}=\widehat{Q}^{\otimes r}\widehat{h}=[aq^r,0,\dots,0,bq^{-r}]_r=aq^r[1,0,\dots,0,1]_r=aq^r(=_r)$ since $q^{2r}=b/a$. Thus $\holant{\neq_2}{\neq_4,\widehat{h},\hF}\equiv_T \holant{\neq_2}{\neq_4,=_r,\widehat{Q}\hF}$. By \textcolor{red}{lemma: From Holant to quantum, arxiv, lemma 5.2, for $r\geq 3$, $\#\operatorname{CSP}_r(\neq_2,F)\leq_T K-\Holant(=_r,F)$, lemma: odd lemma 61,62}, we have $\#\operatorname{CSP}_r(\neq_2,\neq_4,\widehat{Q}\hF)\equiv_T \holant{\neq_2}{\neq_4,=_r,\widehat{Q}\hF}$. Then by \textcolor{red}{lemma: from holant to quantum, theorem 5.3}, $\#\operatorname{CSP}_r(\neq_2,\neq_4,\widehat{Q}\hF)$ is either polynomial-time solvable or $\#\operatorname{P}$-hard.
+    By a holographic transformation $\widehat{Q}$, $\holant{\neq_2}{\neq_4,\widehat{h},\hF}\equiv_T \holant{(\widehat{Q}^{-1})^{\mathsf T}N_2\widehat{Q}^{-1}}{\widehat{Q}\neq_4,\widehat{Q}\widehat{h},\widehat{Q}\hF}\equiv_T \holant{\neq_2}{\widehat{Q}\neq_4,\widehat{Q}\widehat{h},\widehat{Q}\hF}\equiv_T \holant{\neq_2}{\neq_4,\widehat{Q}\widehat{h},\widehat{Q}\hF}$. Furthermore, $\widehat{Q}\widehat{h}=\widehat{Q}^{\otimes r}\widehat{h}=[aq^r,0,\dots,0,bq^{-r}]_r=aq^r[1,0,\dots,0,1]_r=aq^r(=_r)$ since $q^{2r}=b/a$. Thus $\holant{\neq_2}{\neq_4,\widehat{h},\hF}\equiv_T \holant{\neq_2}{\neq_4,=_r,\widehat{Q}\hF}$. By \textcolor{red}{lemma: From Holant to quantum, arxiv, lemma 5.2, for $r\geq 3$, $\#\operatorname{CSP}_r(\neq_2,F)\leq_T K-\Holant(=_r,F)$, lemma: odd lemma 61,62}, we have $\#\operatorname{CSP}_r(\neq_2,\neq_4,\widehat{Q}\hF)\equiv_T \holant{\neq_2}{\neq_4,=_r,\widehat{Q}\hF}$. Then by \textcolor{red}{lemma: from holant to quantum, theorem 5.3}, $\#\operatorname{CSP}_r(\neq_2,\neq_4,\widehat{Q}\hF)$ is either polynomial-time solvable or $\#\operatorname{P}$-hard.
 
     It remains to consider $r=2$. In this case $\widehat{h}=[a,0,0,b]$. Recall that $\neq_8$ can be realized on the RHS of $\holant{\neq_2}{\neq_4,\widehat{h},\hF}$. Permuting the variables of $\neq_8$ so that $\mathrm{supp}(\neq_8)=\{0^41^4,1^40^4\}$.
     Connecting the first four variables of $\neq_8$ with two copies of $\widehat{h}$ using $\neq_2$, leaving the last four variables of $\neq_8$ dangling. The resulting quaternary signature is $\widehat{h}_4=[a^2,0,\dots,0,b^2]_4$. Since $a^2b^2\neq 0$, the preceding argument applies with $r=4$. This completes the case $k<n$.
@@ -375,7 +796,7 @@ Note that $\langle{\bf f}^{0}_i, {\bf f}^{1}_i\rangle=\overline{\langle{\bf f}^{
 \end{proof}
 
 \begin{remark}
-    Since $Z\in \mathbf{U}_2(\mathbb{C})$, $f\in$ {\sc 1st-Orth} $\iff \widehat{f}\in $ {\sc 1st-Orth}.
+    Since $K\in \mathbf{U}_2(\mathbb{C})$, $f\in$ {\sc 1st-Orth} $\iff \widehat{f}\in $ {\sc 1st-Orth}.
 \end{remark}
 
 Similarly, in the setting of $\holant{\neq_2}{\widehat{\mathcal{F}}}$, the above mating operation is equivalent to connecting variables in $S$ of $\widehat{f}$ and those of $\widehat{\overline{f}}$ using $\neq_2$. 
@@ -398,7 +819,7 @@ We can also calculate the matrix $M(\widehat{\mathfrak m}_i\widehat{f})$ specifi
     {\widehat{\overline{{\bf f}_i^{0}}}}^{\tt T} & {\widehat{\overline{{\bf f}_i^{1}}}^{\tt T}}
     \end{matrix}\right].\\
 \end{equation*}
-By \cref{lm: conjugation and Z-trans},
+By \cref{lm: conjugation and K-trans},
 we have
 \begin{equation*}
     N_2^{\otimes (n-1)}{\widehat{\overline{{\bf f}_i^{0}}}^{\tt T}}
@@ -462,11 +883,26 @@ M(\widehat{\mathfrak{m}}_i\widehat{f})=
     By \cref{lm: odd holant with conjugation}, $\Holant(\mathcal{F})$ is \#P-hard.
 \end{proof}
 
-\subsection{Signatures and Quantum states}
-A signature $f:\{0,1\}^n\to \mathbb{C}$ can be naturally viewed as a quantum state $\ket{f}=\sum_{x\in\{0,1\}^n}f(x)\ket{x}$ (assume $f$ is normalized, i.e., $\sum_{x\in\{0,1\}^n}|f(x)|^2=1$). 
-Then $f$ satisfies {\sc $k$th-Orth} iff $\ket{f}$ is $k$-uniform.
-More importantly, since $\mathcal{F}$ is conjugate closed, we can realize marginal states of $\ket{f}$ by merging $f$ and $\overline{f}$.
-In the following, we use signature $f$ and quantum state $\ket{f}$ interchangeably.
+\subsection{Signatures and Quantum States}
+A nonzero arity-$n$ signature $f$ determines the normalized $n$-qubit
+state
+\[
+\ket f=\frac{1}{\|f\|}
+ \sum_{x\in\{0,1\}^n}f(x)\ket x.
+\]
+For $S\subseteq[n]$, let $\overline S=[n]\setminus S$ and define the
+reduced density matrix
+\[
+\rho_S=\operatorname{Tr}_{\overline S}(\ket f\!\bra f).
+\]
+The state $\ket f$ is \emph{$k$-uniform} if
+$\rho_S=2^{-k}I_{2^k}$ for every $S\subseteq[n]$ with $|S|=k$.
+Equivalently, $f$ satisfies \textsc{$k$th-Orth}.  An
+$\operatorname{AME}(n,2)$ state is a
+$\lfloor n/2\rfloor$-uniform $n$-qubit state.  We use a signature and its
+associated state interchangeably when no confusion can arise.  For a
+permutation $\pi\in S_n$, $P_\pi$ denotes the operator that permutes the
+tensor factors according to $\pi$.
 
 \paragraph{Pauli representation}
 Define the Hilbert–Schmidt inner product on $\mathbb{C}^{n\times n}$ by $\braket{A,B}:=\mathrm{Tr}(A^\dagger B).$
