@@ -1,1 +1,129 @@
-\section{$2n\ge 10$}\label{sec: 2n >= 10}
+\section{The Induction Proof of the Main Theorem: \texorpdfstring{$2n\ge 10$}{2n >= 10}}
+\label{sec: 2n >= 10}
+\label{sec: high arity induction}
+
+We now complete the induction framework of
+\cref{subsec: Induction framework}.  The normalization from
+\cref{lm: unitary wire normalization} is valid in every arity at least
+eight.  At arity at least ten, however, its strong equality outcome is
+combinatorially impossible.
+
+\begin{lemma}[Strong-equality rigidity]
+\label{lm: high arity equality rigidity}
+No nonzero signature of arity $2m\geq10$ can simultaneously satisfy
+{\sc 2nd-Orth} and the strong equality property.
+\end{lemma}
+
+\begin{proof}
+For every edge $e$ on the $2m$ coordinate positions, write
+\[
+ \partial_eh=\lambda_e e_{M_e},
+ \qquad F_e=\{e\}\cup M_e.
+\]
+Repeat the loop-versus-cross comparison in the proof of
+\cref{lm: f8 one factorization}.  That comparison did not use $m=4$:
+for disjoint $e,d$, closing an equality loop contributes $2$, while
+crossing two equality factors switches their other endpoints.  Thus
+$d\in M_e$ if and only if $e\in M_d$; when this holds, $F_e=F_d$.
+Consequently the sets $F_e$ partition $E(K_{2m})$ into a
+$1$-factorization, and comparison of the two contraction orders gives one
+common nonzero scalar $\lambda_e$: equality is first obtained for disjoint
+edges, and the disjointness graph on $E(K_{2m})$ is connected.
+
+Choose distinct factors $A,B$ and disjoint edges $e\in A$, $d\in B$.
+Such a choice exists because $m\geq5$.  Compute
+$\partial_d\partial_eh$ in the two orders.  Starting with $e$, the two
+endpoints of $d$ lie in two distinct edges of $A\setminus\{e\}$.
+Contracting $d$ switches those two edges into one edge and leaves the
+other $m-3$ edges of $A$ unchanged.  Hence the residual matching consists
+of one switched edge and $m-3$ unchanged $A$-edges.  Reversing the order
+gives one switched edge and $m-3$ unchanged $B$-edges.
+
+The two double contractions are the same nonzero equality product, so
+their residual matchings must coincide.  Distinct factors of a
+$1$-factorization share no edge.  Since $m\geq5$, the first residual
+matching contains at least two unchanged $A$-edges.  Neither can be an
+unchanged $B$-edge, while at most one can equal the single switched edge
+in the reverse-order matching.  This is impossible.  Therefore the two
+hypotheses cannot hold simultaneously.
+\end{proof}
+
+The following descent theorem plays the same role as
+\cite[Lemma~9.1]{realholant}.  Its last step is expressed here by the
+strong-equality rigidity lemma, so the proof remains valid for
+conjugate-closed complex signatures.
+
+\begin{theorem}[Strict arity descent]
+\label{thm: strict arity descent}
+Let $\mathcal F=\overline{\mathcal F}$ fail condition
+\rm{(\ref{cond: tractable classes})}, and let $f$ be an available
+signature of arity $2n\geq10$ with
+$f\notin\mathcal U^{\otimes}$.  Then either
+$\Holant(\mathcal F)$ is \#P-hard, or an even-arity signature
+$g\notin\mathcal U^{\otimes}$ of arity at most $2n-2$ is available.
+\end{theorem}
+
+\begin{proof}
+If $f$ is reducible, \cref{lm: decomposition} makes its proper factors
+available.  A nonzero odd-arity factor gives hardness by
+\cref{lm: odd holant with conjugation}.  If all factors have even arity,
+at least one proper factor lies outside $\mathcal U^{\otimes}$, and it is
+the desired $g$.
+
+Assume therefore that $f$ is irreducible.  If it fails {\sc 2nd-Orth},
+\cref{lm: not 2nd-orth is hard} gives hardness.  If some equality
+contraction $\partial_{ij}f$ lies outside
+$\mathcal U^{\otimes}$, take $g=\partial_{ij}f$, whose arity is
+$2n-2$.
+
+The only remaining case is that $f$ is irreducible, satisfies
+{\sc 2nd-Orth}, and every $\partial_{ij}f$ belongs to
+$\mathcal U^{\otimes}$.  Apply
+\cref{lm: unitary wire normalization}.  Its first outcome is precisely the
+required lower-arity $g$.  Its second outcome is a nonzero arity-$2n$
+signature satisfying both {\sc 2nd-Orth} and the strong equality property,
+contradicting \cref{lm: high arity equality rigidity}.  Thus one of the
+first two outcomes must occur.
+\end{proof}
+
+The induction below is essentially the same as the final induction in
+\cite[Theorem~9.2]{realholant}, with the complex arities $6$ and $8$
+supplied by \cref{lm: f6 is hard,thm: base case 2n=8}.  We include it to
+make the proof of the main theorem complete.
+
+\begin{theorem}[Main theorem]
+\label{thm: conjugate closed Holant dichotomy}
+Let $\mathcal F$ be a conjugate-closed set of complex-valued Boolean
+signatures.  If $\mathcal F$ satisfies condition
+\rm{(\ref{cond: tractable classes})}, then $\Holant(\mathcal F)$ is
+polynomial-time computable.  Otherwise $\Holant(\mathcal F)$ is
+\#P-hard.
+\end{theorem}
+
+\begin{proof}
+The tractable direction is \cref{thm: tractable classes}.  Suppose that
+$\mathcal F$ does not satisfy condition
+\rm{(\ref{cond: tractable classes})}.  If it contains a nonzero odd-arity
+signature, hardness follows from
+\cref{lm: odd holant with conjugation}.  We may therefore restrict to
+nonzero even-arity signatures.
+
+Since $\mathcal U^{\otimes}\subseteq\mathscr T$, the assumption that
+$\mathcal F$ fails condition \rm{(\ref{cond: tractable classes})} implies
+that some $f\in\mathcal F$ has even arity $2n$ and
+$f\notin\mathcal U^{\otimes}$.  We induct on $2n$.  The cases
+$2n=2,4,6,8$ are respectively
+\cref{lm: base case 2n=2,lm: base case 2n=4,lm: f6 is hard,%
+thm: base case 2n=8}.
+
+For $2n\geq10$, apply \cref{thm: strict arity descent}.  Either hardness
+already follows, or it supplies an available
+$g\notin\mathcal U^{\otimes}$ of smaller even arity.  The gadget and its
+conjugate make the augmented family conjugate closed, and its failure of
+condition \rm{(\ref{cond: tractable classes})} follows from the inclusion
+of $\mathcal F$.  The induction hypothesis makes the augmented problem
+\#P-hard, while gadget realization reduces it to
+$\Holant(\mathcal F)$.  Since each descent lowers the fixed signature
+arity by at least two, the process reaches one of the four base arities
+after finitely many constant-size reductions.  This completes the proof.
+\end{proof}
