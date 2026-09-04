@@ -1,1 +1,950 @@
-\section{$2n=8$}\label{sec: 2n=8}
+\section{Final Obstacle: \texorpdfstring{$f_8$}{f8}}
+\label{sec: 2n=8}
+\label{sec: f8}
+
+Throughout this section, $\mathcal F=\overline{\mathcal F}$ and
+$\mathcal F$ does not satisfy condition \rm{(\ref{cond: tractable classes})}.
+All gadget constructions and factor extractions are understood as
+polynomial-time Turing reductions.  In particular, whenever a nonzero
+signature factors, its factors are available by \cref{lm: decomposition}.
+
+\subsection{Realizing \texorpdfstring{$f_8$}{f8} through the lens of Reed Muller Code}
+\label{subsec: realize f8 Reed Muller}
+
+For a perfect matching $M$ on a set of variables, define the equality
+product
+\[
+ e_M=\prod_{\{u,v\}\in M}(=_2)(x_u,x_v).
+\]
+Thus $e_M$ is a tensor product of binary equality signatures, up to a
+permutation of variables.  We say that a signature $h$ has the
+\emph{strong equality property} if, for every pair $\{i,j\}$,
+\[
+ \partial_{ij}h\propto e_{M_{ij}}
+\]
+for some perfect matching $M_{ij}$ of the remaining variables.
+
+We first record a consequence of \cref{def: second-order-orth} that will be
+used repeatedly.  If $h$ satisfies {\sc 2nd-Orth} with common constant
+$\lambda>0$, then for every nonzero binary signature $b$,
+\begin{equation}
+ \left\|\partial_{ij}^{b}h\right\|^2
+ =\lambda\sum_{a,c\in\{0,1\}}|b(a,c)|^2>0.
+ \label{eq: nonzero binary contraction}
+\end{equation}
+Indeed, the four slices
+$\mathbf h_{ij}^{00},\mathbf h_{ij}^{01},
+  \mathbf h_{ij}^{10},\mathbf h_{ij}^{11}$ are mutually orthogonal and
+have squared norm $\lambda$.  Consequently none of the binary contractions
+used below vanishes.
+
+The following lemma has essentially the same role as
+\cite[Lemma~8.1]{realholant}.  The real proof cancels an orthogonal wire by
+transposing it.  Here the wires are unitary, so conjugate closure is needed
+to construct the inverse.  We give the complete argument.
+
+\begin{lemma}[Unitary-wire normalization]
+\label{lm: unitary wire normalization}
+Let $\mathcal H=\overline{\mathcal H}$, and let $f$ be available from
+$\mathcal H$ by gadget construction and the factor extraction in
+\cref{lm: decomposition}.  Suppose that $f$ has arity $2m\geq8$, is
+irreducible, satisfies
+{\sc 2nd-Orth}, and
+\[
+ \partial_{ij}f\in\mathcal U^{\otimes}
+ \qquad\text{for every }\{i,j\}\subseteq[2m].
+\]
+Then either a signature of arity $2m-2$ outside
+$\mathcal U^{\otimes}$ is available from $\mathcal H$, or an irreducible
+signature $h$ of arity $2m$ is available from $\mathcal H$ such that $h$
+satisfies {\sc 2nd-Orth} and has the strong equality property.
+\end{lemma}
+
+\begin{proof}
+Every binary factor $b$ of an equality contraction is available by
+\cref{lm: decomposition}.  Put $B=M(b)$.  Since
+$b\in\mathcal U$ and $b\neq 0$, $B$ is projectively unitary.  Reversing
+the two arguments gives $B^{\mathtt T}$, and conjugate closure gives
+$\overline B$.  Hence the binary signature with matrix
+\begin{equation}
+ B^{-1}\propto B^\dagger=\overline B^{\mathtt T}
+ \label{eq: inverse unitary wire}
+\end{equation}
+is also available.  Thus every available unitary wire can be cancelled.
+Attaching an invertible binary wire to one argument preserves
+irreducibility.  If that wire is projectively unitary, it also preserves
+{\sc 2nd-Orth}: reduced Gram matrices not involving the changed argument
+are unchanged up to a scalar, and those involving it are unitarily
+conjugated.
+
+Fix the anchor pair $\{1,2\}$.  Factor $\partial_{12}f$ into $m-1$
+nonzero binary unitary signatures.  Attach an appropriately oriented
+inverse of each factor to the corresponding remaining leg.  After
+permuting variables and absorbing one nonzero scalar, the resulting
+signature $f^0$ satisfies
+\begin{equation}
+ \partial_{12}f^0
+ =e_{M_0},\qquad
+ M_0=\{\{3,4\},\{5,6\},\ldots,\{2m-1,2m\}\}.
+ \label{eq: anchor equality product}
+\end{equation}
+It is still irreducible and satisfies {\sc 2nd-Orth}.  After every later
+unitary extension we inspect all equality contractions.  If one is outside
+$\mathcal U^{\otimes}$, the first conclusion of the lemma holds.  We may
+therefore assume throughout the rest of the proof that every such
+contraction stays in $\mathcal U^{\otimes}$.
+
+We use the following propagation observation.  Suppose a signature $q$ of
+arity at least eight has all equality contractions in
+$\mathcal U^{\otimes}$ and
+\begin{equation}
+ \partial_{ij}q\propto e_{M_{ij}}
+ \quad\text{whenever }\{i,j\}\cap\{1,2\}=\emptyset.
+ \label{eq: equality away anchor}
+\end{equation}
+Then $q$ has the strong equality property.  To see this, factor
+$\partial_{1k}q$ into projectively unitary binaries.  If one factor $c$
+is not proportional to $(=_2)$, choose an endpoint of $c$ other than
+$x_2$.  If another factor is an equality, contract the chosen endpoint
+with one endpoint of that equality factor; the resulting composition is
+still a non-equality binary.  If all other factors are non-equalities,
+use an endpoint of a third factor and leave a second non-equality factor
+untouched.  The chosen pair is disjoint from $\{1,2\}$, so by
+\eqref{eq: equality away anchor} the same double contraction, performed in
+the opposite order, is an equality product.  This contradicts uniqueness
+of tensor factorization.  There are at least three residual binary factors
+because $2m\geq8$.  Hence $\partial_{1k}q$ is an equality product.  The
+same argument applies to $\partial_{2k}q$ and $\partial_{12}q$, proving the
+observation.
+
+It remains to establish \eqref{eq: equality away anchor}.  Let
+$e=\{i,j\}$ be disjoint from $\{1,2\}$ and inspect the unique binary
+factorization of $\partial_e f^0$.  Projectively unitary binary signatures
+have matrix rank two and hence are irreducible; consequently their
+variable pairing in such a tensor product is unique.
+
+First suppose that $x_1$ and $x_2$ form one binary factor in
+$\partial_e f^0$ for every $e$ disjoint from the anchor.  Denote this
+factor by $c_e(x_1,x_2)$.  Commuting the contractions $\partial_{12}$ and
+$\partial_e$ and using \eqref{eq: anchor equality product} shows that all
+other factors of $\partial_e f^0$ are equality signatures.  If $e$ and
+$e'$ are disjoint, comparison of
+$\partial_e\partial_{e'}f^0$ in the two orders gives
+$c_e\propto c_{e'}$.  If $e$ and $e'$ intersect, choose a third pair
+disjoint from $\{1,2\}\cup e\cup e'$ and compare both with it.  Such a
+pair exists already when $2m=8$.  Thus all $c_e$ are proportional to one
+binary signature $c$.  Attach an appropriately oriented inverse of $c$ to
+$x_1$.  Every contraction disjoint from the anchor is now an equality
+product, and the propagation observation finishes this case.
+
+It remains to consider the case in which, for some
+$e=\{i,j\}$, $x_1$ and $x_2$ occur in distinct factors.  For suitable
+remaining variables $u,v$,
+\begin{equation}
+ \partial_e f^0
+ =c_1(x_1,x_u)c_2(x_2,x_v)e_N
+ \label{eq: crossed anchor factors}
+\end{equation}
+up to a nonzero scalar.  Commuting $\partial_e$ with $\partial_{12}$ and
+using \eqref{eq: anchor equality product} shows that all factors in $e_N$
+are equalities and
+\begin{equation}
+ M(c_1)^{\mathtt T}M(c_2)\sim I_2,
+ \qquad
+ M(c_2)M(c_1)^{\mathtt T}\sim I_2.
+ \label{eq: crossed inverse relation}
+\end{equation}
+Let $A_1=M(c_1)^{-1}$ and $A_2=M(c_2)^{-1}$, and attach binary wires with
+these matrices to $x_1,x_2$, using the row/column orientations for which
+$A_1M(c_1)=A_2M(c_2)=I_2$.  Call the result $q$.  Equality on the two new
+anchor arguments induces on the old arguments the matrix
+\[
+ A_1^{\mathtt T}A_2
+ =M(c_1)^{-\mathtt T}M(c_2)^{-1}
+ =(M(c_2)M(c_1)^{\mathtt T})^{-1}\sim I_2.
+\]
+Therefore
+\begin{equation}
+ \partial_{12}q\propto e_{M_0},\qquad
+ \partial_eq\propto
+ (=_2)(x_1,x_u)(=_2)(x_2,x_v)e_N.
+ \label{eq: two normalized contractions}
+\end{equation}
+
+We now propagate the second relation to every pair disjoint from the
+anchor.  This incidence check is included because it is the point at which
+one must not assume that an individual complex signature has
+arrow-reversal symmetry.
+
+Let $s=\{r,t\}$ be disjoint from $\{1,2,i,j\}$ and first suppose
+$s\neq\{u,v\}$.  If $x_1,x_2$ formed one factor of $\partial_s q$, that
+factor would survive the further contraction on $e$.  In the opposite
+order, however, the second formula in
+\eqref{eq: two normalized contractions} can pair $x_1$ with $x_2$ only
+when $s=\{u,v\}$.  Uniqueness of the residual factorization therefore
+forces
+\[
+ \partial_s q
+ \propto d_1(x_1,x_p)d_2(x_2,x_w)e_{N_s}.
+\]
+Commuting with $\partial_{12}$ shows that $e_{N_s}$ is an equality
+product and
+$M(d_1)^{\mathtt T}M(d_2)\sim I_2$.  If $d_1,d_2$ were both
+non-equalities, then contracting $e$ would either leave one of them
+untouched, or would require $\{p,w\}=e$.  The first possibility contradicts
+the equality product obtained by contracting in the opposite order.  In
+the second possibility, one order pairs $x_1$ with $x_2$, while the second
+formula in \eqref{eq: two normalized contractions}, together with
+$s\neq\{u,v\}$, leaves them in two distinct equality factors.  This is
+again impossible.  Hence $d_1,d_2$ are equalities and
+\begin{equation}
+ \partial_s q\text{ is an equality product}
+ \quad\text{for }s\cap\{1,2,i,j\}=\emptyset,
+ \ s\neq\{u,v\}.
+ \label{eq: remote pairs normalized}
+\end{equation}
+
+For $s=\{u,v\}$, if $x_1,x_2$ form one factor of
+$\partial_{uv}q$, commuting with $\partial_e$ forces that factor to be an
+equality, while commuting with $\partial_{12}$ forces all remaining
+factors to be equalities.  If instead $x_1,x_2$ occur in distinct factors,
+the opposite contraction order forces their other endpoints to be
+$x_i,x_j$.  Choose a pair outside $\{1,2,i,j,u,v\}$; it exists for arity
+eight and is covered by \eqref{eq: remote pairs normalized}.  Contracting
+this pair after $\partial_{uv}$ leaves both distinguished factors
+untouched, so both must be equalities.  Therefore $\partial_{uv}q$ is also
+an equality product.
+
+Finally consider $s=\{i,k\}$ with
+$k\notin\{1,2,i,j\}$.  If $x_1,x_2$ form one factor of $\partial_s q$,
+contracting a pair outside $\{1,2,i,j,k\}$ and using the preceding
+paragraphs forces that factor to be equality; commuting with
+$\partial_{12}$ also forces every remaining factor to be equality.  If
+they occur in factors
+$d_1(x_1,x_p),d_2(x_2,x_w)$, commuting with $\partial_{12}$ gives
+$M(d_1)^{\mathtt T}M(d_2)\sim I_2$ and makes every other factor an
+equality.  At least one of $p,w$ is not $x_j$; join that endpoint to an
+endpoint different from $x_j$ of a residual equality factor.  The
+corresponding contraction is covered by the preceding paragraphs and
+leaves the other distinguished factor untouched.  Hence both $d_1,d_2$
+are equalities.  The same argument applies to $\{j,k\}$.
+
+We have proved \eqref{eq: equality away anchor} for $q$.  The propagation
+observation now shows that every equality contraction of $q$ is an
+equality product.  Taking $h=q$ completes the proof.
+\end{proof}
+
+We next determine the exact form of an arity-$8$ signature with the strong
+equality property.  For a pair $e$ of coordinates, write
+\begin{equation}
+ \partial_eh=\lambda_e e_{M_e},
+ \qquad \lambda_e\in\mathbb C^\times,
+ \label{eq: strong equality factors}
+\end{equation}
+where $M_e$ is a perfect matching of the other six coordinates, and put
+$F_e=\{e\}\cup M_e$.
+
+\begin{lemma}[The induced $1$-factorization]
+\label{lm: f8 one factorization}
+Let $h$ be an arity-$8$ signature satisfying {\sc 2nd-Orth} and the strong
+equality property.  The sets $F_e$ form a $1$-factorization of $K_8$.
+After identifying the eight coordinates with the points of
+$\mathbb F_2^3$, these seven perfect matchings are
+\begin{equation}
+ F_v=\bigl\{\{z,z+v\}:z\in\mathbb F_2^3\bigr\},
+ \qquad v\in\mathbb F_2^3\setminus\{0\}.
+ \label{eq: translation matchings}
+\end{equation}
+Moreover, all scalars $\lambda_e$ in
+\eqref{eq: strong equality factors} are equal.
+\end{lemma}
+
+\begin{proof}
+By \cref{def: second-order-orth}, the norm of
+$\partial_eh$ is independent of $e$, and therefore so is
+$|\lambda_e|$.  Let $e,d$ be disjoint edges.  If $d\in M_e$, then
+contracting $d$ after $e$ closes one equality factor and contributes a
+factor $2$.  If $d\notin M_e$, its endpoints belong to two different
+equality factors; contraction switches their other endpoints and
+contributes no factor $2$.  Commutativity of contractions and the common
+value of $|\lambda_e|$ imply
+\begin{equation}
+ d\in M_e\quad\Longleftrightarrow\quad e\in M_d.
+ \label{eq: loop cross equivalence}
+\end{equation}
+When these equivalent conditions hold, uniqueness of the nonzero residual
+equality product gives
+\[
+ M_e\setminus\{d\}=M_d\setminus\{e\},
+ \qquad F_e=F_d.
+\]
+Hence the $F_e$ partition the edges of $K_8$ into seven perfect matchings.
+Comparing the two orders of every double contraction also gives
+$\lambda_e=\lambda_d$ for disjoint $e,d$.  The disjointness graph on the
+edges of $K_8$ is connected, so all $\lambda_e$ are equal.
+
+The union of two factors is a disjoint union of even alternating cycles.
+At eight vertices it is either one $8$-cycle or two $4$-cycles.  The first
+case is impossible.  Indeed, label an alternating $8$-cycle so that its
+two factors are
+\[
+ A=01\mid23\mid45\mid67,\qquad
+ B=12\mid34\mid56\mid70.
+\]
+Contracting first $01$ and then $34$ leaves the residual matching
+$25\mid67$, whereas reversing the order leaves $27\mid56$.  This
+contradicts commutativity and uniqueness of the residual equality product.
+Thus every two factors form two $4$-cycles.
+
+Regard the seven factors as fixed-point-free involutions.  The two-cycle
+description above says that any two of them commute.  Adjoin the identity
+and fix one vertex $z_0$.  Given two involutions $a,b$, let $c$ be the
+unique member satisfying $c(z_0)=ab(z_0)$.  For every member $d$,
+commutativity gives
+$c(dz_0)=d(cz_0)=ab(dz_0)$.  The eight points $dz_0$ exhaust the vertex
+set, so $c=ab$.  We have obtained a regular elementary abelian group of
+order eight, hence $\mathbb F_2^3$.  Its seven nonzero translations are
+exactly \eqref{eq: translation matchings}.
+\end{proof}
+
+Let
+\begin{equation}
+ C=\operatorname{RM}(1,3)
+ =\left\{(a_0+a\cdot z)_{z\in\mathbb F_2^3}:
+ a_0\in\mathbb F_2,\ a\in\mathbb F_2^3\right\}.
+ \label{eq: RM code definition}
+\end{equation}
+The coordinates are ordered as
+$000,001,010,011,100,101,110,111$.  Thus $C$ is the self-dual
+$[8,4,4]$ first-order Reed--Muller code, with codewords
+\begin{align*}
+&00000000,00001111,00110011,00111100,01010101,01011010,\notag\\
+&01100110,01101001,10010110,10011001,10100101,10101010,\notag\\
+&11000011,11001100,11110000,11111111.
+\end{align*}
+Define the arity-$8$ signature and two unary vectors
+\begin{equation}
+ f_8=\chi_C,\qquad
+ u_+=\begin{bmatrix}1\\ \mathfrak i\end{bmatrix},\qquad
+ u_-=\begin{bmatrix}1\\-\mathfrak i\end{bmatrix}.
+ \label{eq: f8 Reed Muller definition}
+\end{equation}
+
+\begin{lemma}[Normalized Reed--Muller equations]
+\label{lm: f8 normalized equations}
+After dividing $h$ by the common nonzero scalar in
+\cref{lm: f8 one factorization}, there exist
+$\alpha,\beta\in\mathbb C$ such that
+\begin{equation}
+ h=f_8+\alpha u_+^{\otimes8}+\beta u_-^{\otimes8}.
+ \label{eq: f8 kernel family}
+\end{equation}
+Moreover, $h$ satisfies {\sc 2nd-Orth} if and only if
+\begin{equation}
+ \operatorname{Re}(\alpha)+8|\alpha|^2=0,
+ \qquad
+ \operatorname{Re}(\beta)+8|\beta|^2=0.
+ \label{eq: f8 second orth circles}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Fix $v\neq0$ and an edge $e=\{z,z+v\}$.  Equality contraction on $e$
+restricts an affine function in \eqref{eq: RM code definition} to have
+equal values at $z$ and $z+v$, equivalently $a\cdot v=0$.  On the quotient
+$\mathbb F_2^3/\langle v\rangle\cong\mathbb F_2^2$, arbitrary values on
+the other three points have a unique affine extension to the missing
+point.  It follows that
+\[
+ \partial_e f_8=e_{F_v\setminus\{e\}}.
+\]
+Thus $f_8$ is one particular solution of all the normalized contraction
+equations.
+
+Let $k$ lie in the common homogeneous kernel, so
+$\partial_{pq}k=0$ for every pair.  Expand $k$ in the tensor basis
+$u_+,u_-$.  Since
+\begin{equation}
+ u_+^{\mathtt T}u_+=u_-^{\mathtt T}u_-=0,\qquad
+ u_+^{\mathtt T}u_-=u_-^{\mathtt T}u_+=2,
+ \label{eq: isotropic unary basis}
+\end{equation}
+the equation $\partial_{pq}k=0$ says that, among coefficients with a fixed
+number $r$ of $u_+$ factors, coefficients indexed by adjacent vertices of
+the Johnson graph $J(8,r)$ are negatives of one another.  For
+$1\leq r\leq7$, the graph $J(8,r)$ contains a triangle.  Going around that
+triangle makes a coefficient equal to its own negative; hence every mixed
+coefficient is zero.  Only the all-$u_+$ and all-$u_-$ terms remain, which
+proves \eqref{eq: f8 kernel family}.
+
+It remains to impose {\sc 2nd-Orth}.  The affine group of
+$\mathbb F_2^3$ is transitive on pairs of coordinates, so it suffices to
+compute the Gram matrix for one pair.  Put
+\[
+ E_-=2\operatorname{Re}(\alpha-\beta)
+       +16(|\alpha|^2-|\beta|^2),\qquad
+ E_+=2\operatorname{Re}(\alpha+\beta)
+       +16(|\alpha|^2+|\beta|^2).
+\]
+For the four slices ordered as $00,01,10,11$, direct substitution into
+$M_{12}(h)M_{12}(h)^\dagger$ gives
+\begin{equation}
+ D I_4+4
+ \begin{bmatrix}
+ 0&-\mathfrak iE_-&-\mathfrak iE_-&-E_+\\
+ \mathfrak iE_-&0&E_+&-\mathfrak iE_-\\
+ \mathfrak iE_-&E_+&0&-\mathfrak iE_-\\
+ -E_+&\mathfrak iE_-&\mathfrak iE_-&0
+ \end{bmatrix},
+ \label{eq: f8 slice Gram matrix}
+\end{equation}
+where
+$D=4+8\operatorname{Re}(\alpha+\beta)
+  +64(|\alpha|^2+|\beta|^2)$.
+The matrix in \eqref{eq: f8 slice Gram matrix} is scalar precisely when
+$E_-=E_+=0$, and these two equations are equivalent to
+\eqref{eq: f8 second orth circles}.  Pair transitivity proves sufficiency
+for every coordinate pair.
+\end{proof}
+
+The two circles in \eqref{eq: f8 second orth circles} still leave a
+two-real-parameter family.  A four-ary self-mating gadget removes the extra
+freedom by invoking the completed arity-$4$ case,
+\cref{lm: base case 2n=4}.
+
+\begin{lemma}[Self-mating forces the real orbit]
+\label{lm: f8 self mating}
+Let $h$ satisfy \eqref{eq: f8 kernel family} and
+\eqref{eq: f8 second orth circles}.  Unless the Holant problem is already
+\#P-hard, there exists $\theta\in\mathbb R$ such that
+\begin{equation}
+ h=R_\theta^{\otimes8}f_8,\qquad
+ R_\theta=
+ \begin{bmatrix}
+ \cos\theta&\sin\theta\\
+ -\sin\theta&\cos\theta
+ \end{bmatrix}.
+ \label{eq: f8 real orbit}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Take two copies of $h$, join six corresponding variables using $(=_2)$,
+and leave the first two variables of each copy dangling.  Let $g_4$ be the
+resulting four-ary signature.  With row order $00,01,10,11$ on the two
+variables from the first copy and the same column order on those from the
+second copy, substitution of \eqref{eq: f8 kernel family} and
+\eqref{eq: isotropic unary basis} gives
+\begin{equation}
+ M_{12,34}(g_4)=(4+t)I_4-t(J\otimes J),\qquad
+ t=8(\alpha+\beta+16\alpha\beta).
+ \label{eq: f8 self mating matrix}
+\end{equation}
+Equivalently,
+\[
+ M_{12,34}(g_4)=
+ \begin{bmatrix}
+ 4+t&0&0&-t\\
+ 0&4+t&t&0\\
+ 0&t&4+t&0\\
+ -t&0&0&4+t
+ \end{bmatrix}.
+\]
+The pure $u_+^{\otimes8}$ and $u_-^{\otimes8}$ self-pairings vanish on
+each joined leg, while the two mixed terms contribute
+$2^6\alpha\beta$; this accounts for every term in
+\eqref{eq: f8 self mating matrix}.
+
+The signature $g_4$ is nonzero.  By \cref{lm: base case 2n=4}, on the
+non-hard branch it belongs to $\mathcal U^{\otimes}$.  A four-ary member
+of $\mathcal U^{\otimes}$ has rank one in the $2|2$ flattening associated
+with its binary factorization.  For the pairing $(13)\mid(24)$,
+\eqref{eq: f8 self mating matrix} is a sum of the two independent rank-one
+matrices
+\[
+ (4+t)\operatorname{vec}(I_2)\operatorname{vec}(I_2)^{\mathtt T}
+ -t\operatorname{vec}(J)\operatorname{vec}(J)^{\mathtt T}.
+\]
+It has rank one exactly when $t(4+t)=0$.  In either of the other two
+flattenings, rank one would force both $(4+t)^2=0$ and $t^2=0$, which is
+impossible.  Thus $g_4$ factors, respectively, as equality on the pairs
+$(1,3),(2,4)$ or as binary signatures with matrix $J$ on those pairs, and
+\begin{equation}
+ t=0\quad\text{or}\quad t=-4.
+ \label{eq: f8 self mating alternatives}
+\end{equation}
+
+Now define
+\begin{equation}
+ z=1+16\alpha,\qquad w=1+16\beta.
+ \label{eq: f8 z w definition}
+\end{equation}
+The equations in \eqref{eq: f8 second orth circles} are precisely
+$|z|=|w|=1$, while \eqref{eq: f8 self mating matrix} gives
+$zw=1+2t$.  The alternative $t=-4$ would imply $|zw|=7$, a contradiction.
+Thus $t=0$, $zw=1$, and $w=\overline z$.  Hence
+$\beta=\overline\alpha$.
+
+Choose $\theta\in\mathbb R$ with $z=e^{8\mathfrak i\theta}$.  Since
+$R_\theta u_\pm=e^{\pm\mathfrak i\theta}u_\pm$, one has
+\begin{equation}
+ R_\theta^{\otimes8}f_8
+ =f_8+\frac{e^{8\mathfrak i\theta}-1}{16}u_+^{\otimes8}
+      +\frac{e^{-8\mathfrak i\theta}-1}{16}u_-^{\otimes8}.
+ \label{eq: rotated f8 expansion}
+\end{equation}
+Both sides solve the same normalized contraction equations; pairing with
+$u_-^{\otimes8}$ and $u_+^{\otimes8}$ determines the two displayed kernel
+coefficients.  Equations \eqref{eq: f8 z w definition} and
+\eqref{eq: rotated f8 expansion} prove \eqref{eq: f8 real orbit}.
+\end{proof}
+
+\begin{theorem}[Realization of $f_8$]
+\label{thm: realize f8}
+Let $\mathcal F=\overline{\mathcal F}$ fail condition
+\rm{(\ref{cond: tractable classes})}, and suppose that
+$f\in\mathcal F$ has arity eight and
+$f\notin\mathcal U^{\otimes}$.  Then either
+$\Holant(\mathcal F)$ is \#P-hard, or there is an effectively computable
+real orthogonal matrix $R$ such that
+\begin{equation}
+ \Holant(f_8,R^{-1}\mathcal F)\leq_T\Holant(\mathcal F).
+ \label{eq: realize f8 reduction}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+If $f$ is reducible, \cref{lm: decomposition} makes all its factors
+available.  An odd-arity factor gives hardness by
+\cref{lm: odd holant with conjugation}.  Otherwise the factors have even
+arity, and at least one is outside $\mathcal U^{\otimes}$.  Since the
+proper even arities below eight are $2,4,6$, hardness follows from
+\cref{lm: base case 2n=2,lm: base case 2n=4,lm: f6 is hard}.
+Thus we may assume that $f$ is irreducible.
+
+If $f$ fails {\sc 2nd-Orth}, hardness follows from
+\cref{lm: not 2nd-orth is hard}.  If some
+$\partial_{ij}f\notin\mathcal U^{\otimes}$, it is a six-ary obstruction
+and \cref{lm: f6 is hard} applies.  In the remaining case apply
+\cref{lm: unitary wire normalization}.  Its lower-arity outcome is again
+handled by \cref{lm: f6 is hard}; otherwise it gives an arity-$8$
+signature $h$ satisfying {\sc 2nd-Orth} and the strong equality property.
+Now \cref{lm: f8 one factorization,lm: f8 normalized equations,%
+lm: f8 self mating} give
+$h\propto R^{\otimes8}f_8$ for some real orthogonal $R$.
+
+View the problem as $\holant{=_2}{\mathcal F}$ and apply
+\cref{thm: holographic transformation} with $T=R^{-1}$.  Orthogonality
+gives $(=_2)R^{\otimes2}=(=_2)$, while the transformed signature $h$ is
+$f_8$ up to a nonzero scalar.  Since $h$ is available by the preceding
+gadget constructions and factor extractions, the complete reduction chain
+is
+\[
+ \Holant(f_8,R^{-1}\mathcal F)
+ \equiv_T\Holant(h,\mathcal F)
+ \leq_T\Holant(\mathcal F).
+\]
+This proves
+\eqref{eq: realize f8 reduction}.
+
+For later use, the transformed set $R^{-1}\mathcal F$ is still conjugate
+closed because $R$ is real.  Failure of condition
+\rm{(\ref{cond: tractable classes})} is also preserved.  Tensor
+factorization is invariant under a local invertible transformation; and
+if $R^{-1}\mathcal F$ were $\mathscr C$-transformable for one of
+$\mathscr P,\mathscr A,\mathscr L$, composing its witnessing matrix with
+$R^{-1}$ would show that $\mathcal F$ is $\mathscr C$-transformable.
+\end{proof}
+
+\subsection{Hardness when \texorpdfstring{$f_8$}{f8} is available}
+\label{subsec: f8 available hardness}
+
+We use lowercase letters for binary signatures and reserve uppercase
+letters for their matrices.  Let
+\begin{equation}
+ b_0=(=_2),\qquad
+ M(b_0)=I_2,\quad M(b_1)=X,\quad M(b_2)=Z,\quad M(b_3)=J,
+ \qquad
+ \mathcal B=\{b_0,b_1,b_2,b_3\}.
+ \label{eq: Bell signature set}
+\end{equation}
+These are the four projective Bell signatures.  Index the variables of
+$f_8$ by $z\in\mathbb F_2^3$.  For an edge
+$e=\{z,z+v\}$, orient the other three $v$-parallel pairs consistently.
+The affine-extension argument in the proof of
+\cref{lm: f8 normalized equations} gives
+\begin{equation}
+ \partial_e^{b_r}f_8\propto b_r^{\otimes3}
+ \qquad (0\leq r\leq3).
+ \label{eq: f8 strong Bell property}
+\end{equation}
+For $b_0$ and $b_1$, this says that an affine function has respectively
+zero or one derivative in direction $v$.  For $b_2$ and $b_3$, the sign
+on the contracted pair equals the product of the signs on the other three
+pairs, because the xor of the four values of an affine function on
+$\mathbb F_2^2$ is zero.  This proves
+\eqref{eq: f8 strong Bell property}, including the possible known sign
+caused by reversing an argument of $b_3$.  We call
+\eqref{eq: f8 strong Bell property} the \emph{strong Bell property}.
+
+Let $\mathcal G$ denote the closure of a signature set under constant-size
+gadgets, nonzero scalar multiples, argument permutations, conjugation, and
+the factor extraction supplied by \cref{lm: decomposition}.  If the
+starting set is conjugate closed, then so is $\mathcal G$.
+
+\begin{lemma}[Complex non-Bell hardness]
+\label{lm: f8 complex non Bell}
+Let $\mathcal H=\overline{\mathcal H}$ fail condition
+\rm{(\ref{cond: tractable classes})} and contain $f_8$.  If the closure of
+$\mathcal H$ contains a nonzero binary signature $b$ that is not
+projectively in $\mathcal B$, then $\Holant(\mathcal H)$ is \#P-hard.
+\end{lemma}
+
+\begin{proof}
+If $b\notin\mathcal U$, hardness follows from
+\cref{lm: base case 2n=2}.  Hence normalize $B=M(b)$ to be unitary.
+Contract $b$ into the two coordinates $000$ and $100$ of $f_8$, and call
+the resulting six-ary signature $g$.
+
+First suppose that all four entries of $B$ are nonzero.  Puncturing the
+two chosen coordinates is injective on the distance-$4$ code $C$, so
+$|\mathscr S(g)|=16$.  The projection of $C$ onto any two of the six
+remaining coordinates is surjective: an affine Boolean function can take
+arbitrarily prescribed values at two distinct points.  Therefore
+$\mathscr S(g)$ satisfies no fixed equality or disequality relation on
+any pair of variables.
+
+If $g\in\mathcal U^{\otimes}$, its support size is the product of the
+support sizes of three projectively unitary binary factors.  Such a factor
+has support size two when its matrix contains a zero and support size four
+otherwise.  The equation $16=2\cdot2\cdot4$ forces two sparse factors,
+and each sparse unitary factor imposes an equality or disequality relation
+on its two variables.  This contradicts the preceding surjectivity.
+Thus $g\notin\mathcal U^{\otimes}$.
+
+If a $2$-by-$2$ unitary matrix contains a zero, it is diagonal or
+anti-diagonal.  Suppose first that $B=\operatorname{diag}(a,d)$, where
+$|a|=|d|\neq0$.  For the remaining triples
+$y=(x_2,x_3,x_4)$ and $z=(x_6,x_7,x_8)$, the code definition gives
+\begin{equation}
+ g(y,z)=
+ \begin{cases}
+ a,&z=y\text{ and }\operatorname{wt}(y)\text{ is even},\\
+ d,&z=y\text{ and }\operatorname{wt}(y)\text{ is odd},\\
+ 0,&z\neq y.
+ \end{cases}
+ \label{eq: diagonal Bell test}
+\end{equation}
+Here $|\mathscr S(g)|=8$, so a factorization in
+$\mathcal U^{\otimes}$ must have three support-$2$ factors.  The support
+in \eqref{eq: diagonal Bell test} forces their unique pairing to be
+$(x_2,x_6),(x_3,x_7),(x_4,x_8)$, and all three factors are diagonal.
+Let $r_k$ be the $11/00$ ratio of the $k$th factor.  The three weight-two
+words give $r_1r_2=r_1r_3=r_2r_3=1$.  Hence
+$r_1=r_2=r_3=\varepsilon$ with $\varepsilon^2=1$, and a weight-one word
+gives $d/a=\varepsilon$.  Thus $b$ is projectively $b_0$ or $b_2$.
+
+Now let
+$B=\left[\begin{smallmatrix}0&a\\d&0\end{smallmatrix}\right]$.
+Then
+\[
+ g(y,z)=
+ \begin{cases}
+ a,&z=y\oplus111\text{ and }\operatorname{wt}(y)\text{ is even},\\
+ d,&z=y\oplus111\text{ and }\operatorname{wt}(y)\text{ is odd},\\
+ 0,&z\neq y\oplus111.
+ \end{cases}
+\]
+The support again has size eight, so a factorization in
+$\mathcal U^{\otimes}$ has three anti-diagonal factors with the unique
+pairing above.  If $r_k$ is the ratio of the factor value for $y_k=1$ to
+that for $y_k=0$, the three weight-two inputs give
+$r_1r_2=r_1r_3=r_2r_3=1$.  Thus every $r_k$ equals one sign
+$\varepsilon$, and a weight-one input gives $d/a=\varepsilon\in\{1,-1\}$.
+These are exactly the projective classes of $b_1$ and $b_3$.
+Consequently
+\begin{equation}
+ \partial_{000,100}^{b}f_8\in\mathcal U^{\otimes}
+ \quad\Longleftrightarrow\quad
+ b\text{ is projectively in }\mathcal B.
+ \label{eq: non Bell iff six obstruction}
+\end{equation}
+The assumed $b$ therefore yields a six-ary signature outside
+$\mathcal U^{\otimes}$, and \cref{lm: f6 is hard} proves hardness.
+\end{proof}
+
+For a signature $b$, let $\Holant(b^{\leq k},\mathcal H)$ denote the
+restriction in which at most $k$ vertices are labeled by $b$.
+
+The following lemma and its proof are essentially the same as
+\cite[Lemma~8.9]{realholant}; we reproduce the reduction in the present
+notation.
+
+\begin{lemma}[Three Bell copies become one]
+\label{lm: f8 three Bell copies}
+For every $b\in\mathcal B$,
+\begin{equation}
+ \Holant(b,f_8,\mathcal F)
+ \leq_T\Holant(b^{\leq2},f_8,\mathcal F).
+ \label{eq: Bell limited appearance}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq: f8 strong Bell property}, one $f_8$ vertex with two legs
+contracted by one copy of $b$ has external signature
+$b^{\otimes3}$, up to a known nonzero scalar and orientations.  Replace
+any three occurrences of $b$ in an input instance by this gadget.  It uses
+one occurrence of $b$, so the total number decreases by two.  Repeating
+the replacement produces an equivalent instance with at most two copies,
+and increases the instance size only linearly.
+\end{proof}
+
+The following lemma and its two-step oracle reconstruction are essentially
+the same as \cite[Lemma~8.10]{realholant}.  We give the proof because the
+present version uses \cref{lm: f8 complex non Bell} for complex binary
+signatures and must track the known orientation sign of $b_3$.
+
+\begin{lemma}[Bell simulation]
+\label{lm: f8 Bell simulation}
+If $\mathcal F=\overline{\mathcal F}$ fails condition
+\rm{(\ref{cond: tractable classes})}, then
+\begin{equation}
+ \Holant(\mathcal B,f_8,\mathcal F)
+ \leq_T\Holant(f_8,\mathcal F).
+ \label{eq: simulate Bell f8}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Assume the problem on the right is not already \#P-hard.  By
+\cref{lm: f8 complex non Bell}, every nonzero realizable binary signature
+is projectively in $\mathcal B$.  By \cref{lm: base case 2n=4}, every
+nonzero realizable four-ary signature lies in
+$\mathcal U^{\otimes}$; its two binary factors are available by
+\cref{lm: decomposition} and hence are Bell signatures by
+\cref{lm: f8 complex non Bell}.
+
+\emph{Step 1: simulate one nonidentity Bell signature $c_1$.}
+If a nonidentity Bell signature is already realizable, use it.  Otherwise
+every binary gadget over $\{f_8\}\cup\mathcal F$ is zero or a multiple of
+$b_0$, and every four-ary gadget is zero or a multiple of
+$b_0\otimes b_0$, with an unknown pairing of its external edges.  Fix any
+$c_1\in\mathcal B\setminus\{b_0\}$ and consider an instance with at most
+two occurrences of $c_1$.  A self-loop on one copy, or an edge directly
+joining the two copies, reduces to a known scalar or to the binary case.
+We may therefore assume that all their external half-edges meet the rest
+of the instance.
+
+With one occurrence, the rest of the instance is a binary gadget
+$\lambda b_0$.  The bilinear contraction of two distinct Bell signatures
+is zero, so the answer is zero.  With two occurrences, the rest is a
+four-ary gadget
+\begin{equation}
+ h=\lambda b_0(x_1,x_j)b_0(x_k,x_\ell),
+ \qquad \{j,k,\ell\}=\{2,3,4\}.
+ \label{eq: unknown equality pairing}
+\end{equation}
+Close the four external edges in each of the three possible pairings using
+$b_0=(=_2)$.  The three oracle values are $4\lambda$ for the actual
+pairing and $2\lambda,2\lambda$ for the other two.  If all values vanish,
+$h=0$; otherwise they determine both $\lambda$ and the pairing.  Since the
+two $c_1$ vertices are known, their contribution can then be computed
+exactly.  Thus
+$\Holant(c_1^{\leq2},f_8,\mathcal F)\leq_T
+  \Holant(f_8,\mathcal F)$, and
+\cref{lm: f8 three Bell copies} removes the occurrence bound.
+
+\emph{Step 2: simulate a second independent Bell signature $c_2$.}
+Step 1 proves
+$\Holant(c_1,f_8,\mathcal F)\leq_T\Holant(f_8,\mathcal F)$, so under the
+standing assumption the $c_1$-augmented problem is not \#P-hard.  Work
+over $\{c_1,f_8\}\cup\mathcal F$.  If another Bell signature is
+realizable, use it.  Otherwise \cref{lm: f8 complex non Bell} shows that
+every nonzero binary gadget is projectively in $\{b_0,c_1\}$.  Likewise,
+\cref{lm: base case 2n=4} puts every nonzero four-ary gadget in
+$\mathcal U^{\otimes}$, and \cref{lm: decomposition} extracts its binary
+factors.  The binary conclusion just proved then shows that every such
+four-ary gadget has the form
+\begin{equation}
+ h=\lambda c(x_1,x_j)d(x_k,x_\ell),
+ \qquad c,d\in\{b_0,c_1\}.
+ \label{eq: unknown two Bell pairing}
+\end{equation}
+Fix $c_2\in\mathcal B\setminus\{b_0,c_1\}$.  It again suffices, by
+\cref{lm: f8 three Bell copies}, to handle at most two occurrences.
+Self-loops and direct edges reduce to the already known arity-zero or
+arity-two cases.  With one occurrence, the rest is $b_0$ or $c_1$, both
+bilinearly orthogonal to $c_2$, so the answer is zero.
+
+With two occurrences, identify \eqref{eq: unknown two Bell pairing} using
+at most six oracle queries.  First close the three possible pairings using
+$b_0$ on both closing edges.  Up to the fixed orientation signs, the
+responses are
+\[
+\begin{array}{c|c}
+(c,d)&\text{three responses}\\ \hline
+(b_0,b_0)&(4\lambda,2\lambda,2\lambda)\\
+(c_1,c_1)&(0,2\varepsilon\lambda,2\lambda)\\
+(b_0,c_1)\text{ or }(c_1,b_0)&(0,0,0),
+\end{array}
+\]
+where $\varepsilon=1$ for the symmetric matrices $X,Z$; when
+$M(c_1)=J$, the sign and its position are fixed by the known argument
+orientations.  Only the mixed case requires three more queries: for each
+possible pairing, close the pair incident with $x_1$ using $c_1$ and the
+other pair using $b_0$.  If the factor incident with $x_1$ is $b_0$, the
+response pattern is $(0,2\varepsilon\lambda,2\lambda)$; if it is $c_1$,
+the pattern is $(4\varepsilon\lambda,2\lambda,2\lambda)$, again with known
+orientation signs.  These responses determine the pairing, the two
+factors, and $\lambda$, unless they all vanish, in which case $h=0$.
+The value after attaching the two known $c_2$ vertices is therefore
+computable.  This simulates $c_2$.
+
+The fourth Bell signature is obtained, up to a nonzero scalar and argument
+orientation, by connecting $c_1$ and $c_2$ as a path.  Combining the two
+steps proves \eqref{eq: simulate Bell f8}.
+\end{proof}
+
+We use the real Bell-hardness theorem
+\cite[Theorem~7.19]{realholant}: if a real-valued signature set
+$\mathcal H$ fails condition \rm{(\ref{cond: tractable classes})} and is
+non-Bell hard, meaning that adjoining any real binary signature outside
+$\mathcal B$ gives hardness, then
+$\Holant(\mathcal B,\mathcal H)$ is \#P-hard.
+
+The proof of the next lemma is essentially the phase-synchronization proof
+of \cref{lm: realification when parity}.  It is repeated because here the
+Bell signatures are supplied by the Turing reduction in
+\cref{lm: f8 Bell simulation}, rather than by a direct $f_6$ gadget.
+
+\begin{lemma}[Parity realification with $f_8$]
+\label{lm: f8 parity realification}
+Let $\mathcal F=\overline{\mathcal F}$ fail condition
+\rm{(\ref{cond: tractable classes})}, and assume
+$\Holant(f_8,\mathcal F)$ is not \#P-hard.  Every nonzero parity
+signature in the gadget-and-factor closure of
+$\mathcal B\cup\{f_8\}\cup\mathcal F$ is projectively real.
+\end{lemma}
+
+\begin{proof}
+By \cref{lm: f8 Bell simulation}, the Bell-augmented problem is also not
+\#P-hard.  Work in its conjugate-closed gadget-and-factor closure
+$\mathcal G$ and induct on arity.
+
+A nonzero nullary signature is a scalar and hence is projectively real.
+A nonzero odd-arity member of $\mathcal G$ would give hardness by
+\cref{lm: odd holant with conjugation}; since every member of $\mathcal G$
+is available from $\{f_8\}\cup\mathcal F$, this would contradict the
+standing assumption.  It therefore remains to treat positive even arity.
+A nonzero parity binary signature must be projectively in $\mathcal B$ by
+\cref{lm: f8 complex non Bell}, and hence is real.  At arity four,
+\cref{lm: base case 2n=4} gives membership in
+$\mathcal U^{\otimes}$; \cref{lm: decomposition} extracts its binary
+factors, which have parity and hence are real Bell signatures.  The same
+argument at arity six uses \cref{lm: f6 is hard}.  If a larger signature
+is reducible, \cref{lm: decomposition} extracts its factors.  Each factor
+of a nonzero parity signature has parity; an odd-arity factor would give
+hardness by \cref{lm: odd holant with conjugation}.  The even-arity factors
+are projectively real by induction, and so is their tensor product.
+
+Let $g$ now be irreducible of larger even arity.  By
+\cref{lm: not 2nd-orth is hard}, it satisfies {\sc 2nd-Orth}.  Fix a pair
+$\{i,j\}$.  Equation \eqref{eq: nonzero binary contraction} and the
+induction hypothesis give
+\begin{equation}
+ \partial_{ij}^{b_s}g=\lambda_s r_s,
+ \qquad 0\leq s\leq3,
+ \label{eq: projectively real Bell contractions}
+\end{equation}
+where every $\lambda_s\neq0$ and every $r_s$ is a nonzero real parity
+signature.  The contractions for $b_0,b_2$ have the same parity as $g$,
+whereas those for $b_1,b_3$ have the opposite parity.
+
+Choose $a\in\{0,2\}$ and $c\in\{1,3\}$.  By
+\cref{lm: non-zero Bell contraction}, there are a disjoint pair
+$\{u,v\}$ and $b_s\in\mathcal B$ such that
+$\partial_{uv}^{b_s}r_a$ and $\partial_{uv}^{b_s}r_c$ are both nonzero.
+The signature $\partial_{uv}^{b_s}g$ is a lower-arity parity signature, so
+write it as $\mu r$ with $\mu\neq0$ and $r$ real.  Commutativity gives
+\[
+ \lambda_a\partial_{uv}^{b_s}r_a
+ =\mu\partial_{ij}^{b_a}r,\qquad
+ \lambda_c\partial_{uv}^{b_s}r_c
+ =\mu\partial_{ij}^{b_c}r.
+\]
+All four signatures remaining after the scalar coefficients are nonzero
+and real.  Hence $\lambda_a/\mu$ and $\lambda_c/\mu$ are nonzero real
+numbers, so $\lambda_a/\lambda_c\in\mathbb R^\times$.  Applying this to
+$(a,c)=(0,1),(2,1),(0,3)$ shows that the four $\lambda_s$ have one common
+complex phase.  Absorb their remaining nonzero real multipliers into the
+corresponding $r_s$.  After factoring out the common phase, recover the
+four slices of $g$ by
+\[
+ \mathbf g_{ij}^{00}=\tfrac12(r_0+r_2),\quad
+ \mathbf g_{ij}^{11}=\tfrac12(r_0-r_2),\quad
+ \mathbf g_{ij}^{01}=\tfrac12(r_1+r_3),\quad
+ \mathbf g_{ij}^{10}=\tfrac12(r_1-r_3).
+\]
+All four slices are real, so $g$ is projectively real.  This completes the
+induction.
+\end{proof}
+
+\begin{theorem}[Hardness when $f_8$ is available]
+\label{thm: f8 available is hard}
+If $\mathcal F=\overline{\mathcal F}$ fails condition
+\rm{(\ref{cond: tractable classes})}, then
+\[
+ \Holant(f_8,\mathcal F)\text{ is \#P-hard}.
+\]
+\end{theorem}
+
+\begin{proof}
+By \cref{lm: f8 Bell simulation}, it suffices to prove hardness after
+adjoining $\mathcal B$.  Assume temporarily that the resulting problem is
+not already hard and work in the Bell-augmented gadget-and-factor closure.
+
+If the closure contains a signature without parity, it cannot have odd
+arity, since \cref{lm: odd holant with conjugation} would already give
+hardness.  Thus it has positive even arity.  If it is not already binary,
+repeatedly apply \cref{lm: non-pairty reduction} to obtain a binary
+signature without parity.  Every member of $\mathcal B$ has parity, so
+this binary signature is non-Bell.  Then
+\cref{lm: f8 complex non Bell} gives hardness, a contradiction.
+
+Otherwise every signature has parity.  By
+\cref{lm: f8 parity realification}, multiply each signature of
+$\mathcal F$ by an irrelevant nonzero phase and obtain a real-valued set
+$\mathcal F_{\mathbb R}$.  These rescalings preserve condition
+\rm{(\ref{cond: tractable classes})}, so the real set still fails it.
+Moreover, \cref{lm: f8 complex non Bell}, restricted to real binary
+signatures, says that $\{f_8\}\cup\mathcal F_{\mathbb R}$ is non-Bell
+hard.  Therefore \cite[Theorem~7.19]{realholant} gives
+\[
+ \Holant(\mathcal B,f_8,\mathcal F_{\mathbb R})
+ \text{ is \#P-hard}.
+\]
+Undoing the fixed projective scalars identifies this problem, under a
+direct polynomial-time reduction, with
+$\Holant(\mathcal B,f_8,\mathcal F)$.  Finally,
+\cref{lm: f8 Bell simulation} reduces the latter problem to
+$\Holant(f_8,\mathcal F)$.
+\end{proof}
+
+\begin{theorem}[The arity-$8$ case]
+\label{thm: base case 2n=8}
+Let $\mathcal F=\overline{\mathcal F}$ fail condition
+\rm{(\ref{cond: tractable classes})}.  If $\mathcal F$ contains an
+arity-$8$ signature $f\notin\mathcal U^{\otimes}$, then
+$\Holant(\mathcal F)$ is \#P-hard.
+\end{theorem}
+
+\begin{proof}
+Apply \cref{thm: realize f8}.  Its first outcome is hardness.  In the
+second outcome, the real orthogonal transform $R^{-1}\mathcal F$ remains
+conjugate closed and outside condition
+\rm{(\ref{cond: tractable classes})}, as proved there.  Hence
+\cref{thm: f8 available is hard} makes the left-hand side of
+\eqref{eq: realize f8 reduction} \#P-hard.  The reduction then proves
+hardness of $\Holant(\mathcal F)$.
+\end{proof}
