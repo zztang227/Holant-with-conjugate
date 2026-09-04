@@ -46,7 +46,7 @@ Next, we consider the base case $2n=4$.
     A contradiction!
 \end{proof}
 
-\subsection{Induction Framework}
+\subsection{Induction Framework}\label{subsec: Induction framework}
 The general induction framework is  that we start with a signature $f$ of arity $2n>4$ that is not in ${\mathcal{U}}^{\otimes}$, and realize a signature $g$ of arity $2k \leqslant 2n-2$ that is also not in ${\mathcal{U}}^{\otimes}$, or we can directly show $\Holant({\mathcal F})$ is {\rm \#}P-hard.
 If we can reduce the arity down to $2$ (by a sequence of reductions of length independent of the problem instance size), then we have a binary signature ${b}\notin{\mathcal{U}}$. 
 By \cref{lm: not 1st-orth is hard}, we are done.
@@ -115,10 +115,10 @@ Then $b_3$ has the matrix $M(b_3)=M(b_1)M(b_2)$.
 In the following, we always assume $M(b)\in \mathbf{SU}(2)$ unless otherwise stated.
 An important observation by Xia in \cite{MingjiProgram} is that:
 
-\begin{theorem}\label{thm: binary set is finite group}
+\begin{restatable}{theorem}{MingjiTheorem}\label{thm: binary set is finite group}
     $B(f)$ is %isomorphic to 
     a finite subgroup of $\mathbf{PU}(2)=\mathbf{SU}(2)/\{\pm I_2\}$, otherwise $\Holant(\mathcal{F})$ is \#P-hard.
-\end{theorem}
+\end{restatable}
 
 Since $\mathbf{SU}(2)/\{\pm I_2\}\cong\mathbf{SO}(3)$, $B(f)$ is isomorphic to a finite subgroup of $\mathbf{SO}(3).$
 Moreover, in our conjugate closed setting, once we can realize $b$, we can realize $\overline{b}$.

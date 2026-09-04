@@ -1,439 +1,504 @@
 
-\section{Rediscovery of $f_6$ through the view of qubit}
-\begin{definition}[Trace and partial trace]
-    For $n\geq 0$, let $\mathcal{H}_n:=(\mathbb{C}^2)^{\otimes n}$, with the standard basis $\{\ket{x}:x\in\{0,1\}^n\}$. A linear operator $M:\mathcal{H}_n\rightarrow \mathcal{H}_n$ is represented in this basis by a $2^n\times 2^n$ complex matrix whose entry in row x and column y is $(M)_{x,y}:=\bra{x}M\ket{y},\quad x,y\in\{0,1\}^n$. The trace of $M$ is 
-    \begin{equation}
-        \operatorname{Tr}(M)=\sum_{x\in \{0,1\}^n}\bra{x}M\ket{x}.
-    \end{equation}
+\section{Recovering \texorpdfstring{$f_6$}{f6} from six-qubit AME signatures}
+\label{sec:recover-f6}
 
-    Let $A\subseteq [n], \overline{A}=[n]\setminus A$. The partial trace of $M$ over the coordinates in A, denoted by $\operatorname{Tr}_A(M)$, is the
-\end{definition}
+By \cref{sec: AME62 has a common local unitary normal}, every
+$\operatorname{AME}(6,2)$ state is locally unitarily equivalent, up to a
+qubit permutation and a global phase, to the six-qubit hexacode state. We
+now choose a Boolean representative of this orbit and prove the stronger
+statement needed for the Holant reduction:
+under the contraction hypothesis below, the standard signature $f_6$ is
+realizable even though the six local unitaries are not initially available
+as gadgets. We write $A\propto B$ when $A$ is a nonzero scalar multiple
+of $B$.
 
-Let $g:\{0,1\}^n\rightarrow \mathbb{C}$ be a nonzero Boolean signature. It associated normalized state is
+Throughout this section, sums and exponents in Boolean variables are over
+$\mathbb F_2$. Define
 \begin{equation}
-    \ket{g}=\frac{1}{\lVert g\rVert_2}\sum_{x\in\{0,1\}^n} g(x)\ket{x},\quad\quad \lVert g\rVert_2^2=\sum_{x} \lvert g(x)\rvert^2.
+ \widehat f_6(x)=\mathbf 1_{x_1+\cdots+x_6=0}(-1)^{q(x)},\qquad
+ q(x)=x_1x_2+x_1x_3+x_2x_3+x_1x_4+x_2x_5+x_3x_6.
+ \label{eq:hat-f6}
 \end{equation}
-Let $\rho_g=\ket{g}\bra{g}$ be an $2^n \times 2^n$ matrix where $x,y\in\{0,1\}^n$ are row index and column index respectively, and each entry is $(\rho_g)_{x,y}=\bra{x}\rho_g\ket{y}=\frac{g(x)\overline{g(y)}}{\lVert g\rVert_2^2}$. For $S\subseteq [n]$ and $\overline{S}=[n]\setminus S$, the reduced density matrix $\rho_S$ is a $2^{\lvert S\rvert}\times 2^{\lvert S\rvert}$ matrix, where $x_S,y_S\in \{0,1\}^{\lvert S\rvert}$ are row index and column index respectively, and each entry 
-\begin{equation}
-    (\rho_S)_{x_S,y_S}=\bra{x_S}\rho_S\ket{y_S}=\sum_{z\in \{0,1\}^{\lvert \overline{S}\rvert}} \bra{x_Sz}\rho_g\ket{y_Sz}.
-\end{equation}
-Equivalently, $\rho_S=\operatorname{Tr}_{\overline{S}}(\rho_g)$. \todo{gjc: adding how to compute $\operatorname{Tr}_{\overline{S}}(\rho_g)$}
+Its support consists of the $32$ even-parity strings.
+
+\begin{lemma}
+\label{lem:hat-f6-is-ame}
+The normalized state $|\widehat f_6\rangle/\sqrt{32}$ is
+$\operatorname{AME}(6,2)$.
+\end{lemma}
 
 
-\begin{definition}[Absolutely maximally entangled state]
-    A normalized $n$-qubit state $\ket{\psi}$ is $\operatorname{AME}(n,2)$ if 
-    \begin{equation}\label{eq: AME}
-        \rho_S=2^{-\lvert S\rvert} I_{2^{\lvert S\rvert}}
-    \end{equation}
-    for every $S\in [n]$ with $\lvert S\rvert\leq \lfloor n/2 \rfloor$.
-\end{definition}
 
-\begin{remark}
-    For $n=6$, it is enough to impose~\eqref{eq: AME} for $\lvert S\rvert=3$, because tracing out further qubits gives the cases $\lvert S\rvert=1,2$.
-\end{remark}
+The uniqueness result from the preceding section can now be expressed using
+this concrete representative.
 
-Write 
-\begin{equation}
-    I=\left(\begin{matrix}
-        1 & 0\\
-        0 & 1
-    \end{matrix}\right), \quad
-    X=\left(\begin{matrix}
-        0 & 1\\
-        1 & 0
-    \end{matrix}\right), \quad 
-    Y=\left(\begin{matrix}
-        0 & -i\\
-        i & 0
-    \end{matrix}\right), \quad
-    Z_0=\left(\begin{matrix}
-        1 & 0\\
-        0 & -1
-    \end{matrix}\right).
-\end{equation}
-
-An $n$-qubit Pauli string is an operator $E=E_1\otimes \cdots \otimes E_n$ with $E_i\in \{I,X,Y,Z_0\}$ for $i\in [n]$. Its support and weight are 
-\begin{equation}
-    \operatorname{supp}(E)=\{i:E_i\neq I\}, \quad\quad \operatorname{wt}(E)=\lvert \operatorname{supp}(E)\rvert. 
-\end{equation}
-
-\begin{definition}[Pure quantum code]
-    Let $\mathcal{C}$ be a $K$-dimensional subspace of $(C^2)^{\otimes n}$. If $\ket{\psi_1},\dots,\ket{\psi_K}$ is an orthonormal basis of $\mathcal{C}$, define the orthogonal projector onto $\mathcal{C}$ by $P_{\mathcal{C}}:=\sum_{i=1}^K\ket{\psi_i}\bra{\psi_i}$. We call $\mathcal{C}$ a pure $((n,K,d))_2$ code if
-    \begin{equation}
-        P_{\mathcal{C}}EP_{\mathcal{C}}=0,
-    \end{equation}
-    for every nonidentity $n$-qubit Pauli string $E$ with $\operatorname{wt}(E)<d$. Equivalently, $\bra{\psi_i}E\ket{\psi_j}=0$ for all $i,j\in [K]$.
-
-    In particular, for $K=1$, $\mathcal{C}=\operatorname{span}\{\ket{\psi}\},P_{\mathcal{C}}=\ket{\psi}\bra{\psi}$, the condition is $\bra{\psi}E\ket{\psi}=0$.
-\end{definition}
-
-\begin{definition}[Local equivalence]
-    Two nonzero $n$-qubit tensors $u$ and $v$ are locally unitarily equivalent, up to input permutation, if there are exist $2\times 2$ unitary matrices $U_1,\dots,U_n\in U(2)$, a permutation $\pi\in S_n$, and a nonzero scalar $\lambda\in \mathbb{C}\setminus \{0\}$ such that 
-    \begin{equation}
-        \ket{u}=\lambda P_{\pi}(U_1\otimes \dots \otimes U_n)\ket{v}.
-    \end{equation}
-\end{definition}
-
-\subsection{The AME pure code}
-
-\begin{lemma}\label{lem:614 code}
-    A normalized $6$-qubit state $\ket{\psi}$ is $\operatorname{AME}(6,2)$ if and only if its one-dimensional span is a pure $((6,1,4))_2$ code.
+\begin{lemma}[Six-qubit AME normal form]
+\label{lem:ame6-normal-form}
+Let $g$ be a nonzero six-ary Boolean signature whose normalized state is
+$\operatorname{AME}(6,2)$. Then there are one-qubit unitaries
+$U_1,\ldots,U_6$, a permutation $\pi$, and $\lambda\in\mathbb C^\times$
+such that
+\[
+ |g\rangle=\lambda P_\pi
+ (U_1\otimes\cdots\otimes U_6)|\widehat f_6\rangle.
+\]
 \end{lemma}
 
 \begin{proof}
-    For a subset $S\subseteq [6]$, the reduced density matrix on $S$ is $\rho_S$. Let $\mathcal{E}_{S}=\{I,X,Y,Z_0\}^{\otimes \lvert S\rvert}$ be the set of all $\lvert S\rvert$-qubit Pauli strings and for $E,F\in \mathcal{E}_S$, $\operatorname{Tr}(EF)=2^{\lvert S\rvert}\delta_{E,F}$. Hence the matrices in $\mathcal{E}_S$ form an orthogonal basis of this $2^{\lvert S\rvert}\times 2^{\lvert S\rvert}$ matrix space.
-    Then there are unique coefficients $c_E$ such that $\rho_S=\sum_{E\in \mathcal{E}_S} c_E E$. For a fixed $F\in \mathcal{E}_S$, $\operatorname{Tr}(F\rho_S)=\operatorname{Tr}\left(F\sum_{E\in \mathcal{E}_S }c_E E\right)=\sum_{E\in \mathcal{E}_S}c_E \operatorname{Tr}(FE)=2^{\lvert S\rvert}c_F$. Therefore 
-    $$\rho_S=2^{-\lvert S\rvert}\sum_{E\in \mathcal{E}_S}\operatorname{Tr}(E\rho_S)E$$.
-
-    By the definition of trace,
-    \begin{align}
-        \operatorname{Tr}(E\rho_S)&=\sum_{x_S}\bra{x_S} E\rho_S\ket{x_S}\\
-        &= \sum_{x_S,y_S}\bra{x_S}E \ket{y_S}\bra{y_S}\rho_S\ket{x_S}\\
-        &= \sum_{x_S,y_S} \bra{x_S}E \ket{y_S} \sum_{z\in \{0,1\}^{\lvert \overline{S}\rvert}}\bra{y_Sz}\rho_g\ket{x_Sz}\\
-        &= \sum_{x_S,y_S,z}\bra{x_S}E \ket{y_S}\braket{y_Sz |\psi}\braket{\psi|x_Sz}\\
-        &=\sum_{x_S,y_S,z}\braket{\psi|x_Sz} \bra{x_S}E \ket{y_S}\braket{y_Sz |\psi}\\
-        &=\sum_{x_S,y_S,z}\braket{\psi|x_Sz} \bra{x_Sz}(E\otimes I_{\overline{S}}) \ket{y_Sz}\braket{y_Sz |\psi}\\
-        &=\bra{\psi}(E\otimes I_{\overline{S}})\ket{\psi}.
-    \end{align}
-    Hence,
-    \begin{equation}
-        \rho_S=2^{-\lvert S\rvert}\sum_{E\in \mathcal{E}_S}\bra{\psi}(E\otimes I_{\overline{S}})\ket{\psi}E.
-    \end{equation}
-    The coefficient corresponding to $E=I_S$ is $\bra{\psi}I_S\otimes I_{\overline{S}}\ket{\psi}=\braket{\psi|\psi}=1$. Consequently, by uniqueness of the Pauli expansion, $\rho_S=2^{-\lvert S\rvert}I_S$ if and only if 
-    \begin{equation}\label{eq: pure code}
-        \bra{\psi} (E\otimes I_{\overline{S}})\ket{\psi}=0
-    \end{equation}
-    for every nonidentity Pauli string $E\in \mathcal{E}_S$.
-    Since $\psi$ is $\operatorname{AME}(6,2)$ when $\rho_S=2^{-\lvert S\rvert}I_S$ for every $S\subseteq [6],|S|\leq 3$, then~\eqref{eq: pure code} is hold. Equivalently,
-    \begin{equation}
-        \bra{\psi} E\ket{\psi}=0,
-    \end{equation}
-    for every $E\neq I$ with $1\leq \operatorname{wt}(E)\leq 3$.
-
-    Therefore, $\ket{\psi}$ is $\operatorname{AME}(6,2)$ if and only if $\operatorname{span}(\ket{\psi})$ is pure $((6,1,4))_2$ code.
+By \cref{lem: ame62 is unitary equivalent}, which identifies the unique
+six-qubit AME orbit, both the normalized state of $g$ and the state in
+\cref{lem:hat-f6-is-ame} are locally unitarily equivalent to
+$|H_6\rangle$. Composing one equivalence with the inverse of the other
+gives the asserted local unitaries; the two qubit permutations combine
+into $\pi$.
 \end{proof}
 
-\begin{definition}
-    Let $S_X:=X^{\otimes 4}$ and $S_Z:=Z_0^{\otimes 4}$. Since $XZ_0=-Z_0X$, we have $S_XS_Z=(-1)^4S_ZS_X=S_ZS_X$, so $S_X$ and $S_Z$ commute. Define the standard four-qubit code $\mathcal{C}_{\mathrm{std}}\subseteq (\mathbb{C}^2)^{\otimes 4}$ to be their simultaneous $+1$ eigenspace:
-    \begin{equation}
-        \mathcal{C}_{\mathrm{std}}:=\{\ket{\phi}\in (\mathbb{C}^2)^{\otimes 4}:S_X\ket{\phi}=\ket{\phi},S_Z\ket{\phi}=\ket{\phi}\}.
-    \end{equation}
-    Equivalently, $$\mathcal{C}_{\mathrm{std}}=\operatorname{span}\{\frac{\ket{0000}+\ket{1111}}{\sqrt 2},\frac{\ket{0011}+\ket{1100}}{\sqrt 2},\frac{\ket{0101}+\ket{1010}}{\sqrt 2},\frac{\ket{0110}+\ket{1001}}{\sqrt 2}\}.$$
-    These four vectors are orthonormal, and hence $\mathrm{dim} \mathcal{C}_{\mathrm{std}}=4$. The code $\mathcal{C}_{\mathrm{std}}$ is conventionally called the standard $[[4,2,2]]_2$ code. Here the notation $[[n,k,d]]_2$ means that $n$ physical qubits encode $k$ logical qubits with distance $d$.
+Recall that the fixed holographic matrix $K$ is unitary and satisfies
+$K^TK=X$, where $X$ is the matrix of $\neq_2$. In the equality frame put
+\begin{equation}
+ f_6(x)=\mathbf 1_{x_1+\cdots+x_6=0}
+ (-1)^{x_1+x_2+x_3+q(x)}.
+ \label{eq:f6}
+\end{equation}
 
-    And let $\ket{c_0}=\frac{\ket{0000}+\ket{1111}}{\sqrt 2},\ket{c_1}=\frac{\ket{0011}+\ket{1100}}{\sqrt 2},\ket{c_2}=\frac{\ket{0101}+\ket{1010}}{\sqrt 2},\ket{c_3}=\frac{\ket{0110}+\ket{1001}}{\sqrt 2}$, define the orthogonal projector onto $\mathcal{C}_{\mathrm{std}}$ by $P_{\mathcal{C}_{\mathrm{std}}}:=\sum_{i=0}^3\ket{c_i}\bra{c_i}=\frac{1}{4}(I^{\otimes 4}+X^{\otimes 4}+Y^{\otimes 4}+Z_0^{\otimes 4}).$
-\end{definition}
 
-\begin{theorem}[Rains~\cite{rains1999quantum}]\label{thm: rains standard code}
-    Let $\mathcal{C}\subseteq (\mathbb{C}^2)^{\otimes 4}$ be a 4-dimensional subspace. If $\ket{\psi_1},\ket{\psi_2},\ket{\psi_3},\ket{\psi_4}$ is an orthonormal basis of $\mathcal{C}$, define the orthogonal projector onto $\mathcal{C}$ by $P_{\mathcal{C}}:=\sum_{i=1}^4\ket{\psi_i}\bra{\psi_i}$. Suppose that $P_{\mathcal{C}}EP_{\mathcal{C}}=0$ for every nonidentity 4-qubit Pauli string $E$ of weight 1; equivalently, $\mathcal{C}$ is a a pure $((4,4,2))_2$ code. Then there exist $2\times 2$ unitary matrices $U_1,U_2,U_3,U_4\in U(2)$ such that, with $U=U_1\otimes U_2\otimes U_3\otimes U_4$, we have
-    \begin{equation}
-        U\mathcal{C}=\mathcal{C}_{\mathrm{std}},\quad UP_{\mathcal{C}}U^\dagger=P_{\mathcal{C}_{\mathrm{std}}}
-    \end{equation}
-    Thus every pure $((4,4,2))_2$ code is locally unitary equivalent to the standard $[[4,2,2]]_2$ code.
+Local-unitary equivalence alone does not supply the inverse local matrices
+as binary gadgets. The next theorem upgrades the orbit statement to the
+realization used later.
+
+\begin{theorem}[Realization of $f_6$]
+\label{thm:realize-f6}
+Let $\mathcal F$ be a finite complex signature set that is
+closed under entrywise conjugation and is outside condition
+$\textup{(\ref{cond: tractable classes})}$. Suppose that
+$f\in\mathcal F$ is nonzero and irreducible, its normalized state is
+$\operatorname{AME}(6,2)$, and
+$\partial_{ij}f\in\mathcal U^{\otimes}$ for $1\leq i<j\leq6$.
+Then either $\operatorname{Holant}(\mathcal F)$ is
+$\#\operatorname{P}$-hard, or there is an effectively computable
+$O\in O(2,\mathbb R)$ such that
+\[
+ \operatorname{Holant}(=_2\mid\{f_6\}\cup O\mathcal F)
+ \leq_T\operatorname{Holant}(=_2\mid\mathcal F).
+\]
+In the latter case the four Bell signatures
+$\mathcal B=\{I,X,Z,J\}$ are available under the same reduction.
 \end{theorem}
 
-\begin{lemma}\label{lem: QA is orth proj of pure 442}
-    Let $\ket{\psi}$ be $\operatorname{AME}(6,2)$ state and $P=\ket{\psi}\bra{\psi}$. For every pair $A\subset [6]$, define the $2^4\times 2^4$ matrix $Q_A=4 \operatorname{Tr}_A(P)$ is the rank-$4$ projector of a pure $((4,4,2))_2$ code.
+The proof has three steps. Pair contractions first restrict the relative
+local matrices to a finite tetrahedral group. A common change of basis
+then removes their shared continuous part. Finally, binary factors from
+the contractions remove the remaining finite labels.
+
+\paragraph{The tetrahedral filter.}
+For $\epsilon,\eta\in\{\pm1\}$, put
+\[
+ R^+_{\epsilon,\eta}=
+ \begin{pmatrix}\epsilon\mathrm i&\eta\mathrm i\\-\epsilon\eta&1\end{pmatrix},
+ \qquad
+ R^-_{\epsilon,\eta}=
+ \begin{pmatrix}\epsilon\mathrm i&\eta\\-\epsilon\eta\mathrm i&1\end{pmatrix}.
+\]
+The twelve projective classes
+\begin{equation}
+ \mathfrak T_X=K_4\mathbin{\dot\cup}
+ \{[R^+_{\epsilon,\eta}]\}\mathbin{\dot\cup}
+ \{[R^-_{\epsilon,\eta}]\},\qquad
+ K_4=\{[I],[X],[Z],[J]\},
+ \label{eq:tetrahedral-group}
+\end{equation}
+where both displayed sets range over $\epsilon,\eta\in\{\pm1\}$, form a
+projective group. For $R_0=R^+_{+,+}$, the last two sets are
+$[R_0]K_4$ and $[R_0]^2K_4$, while conjugation by $[R_0]$ cycles
+$[X],[Z],[J]$. Hence
+$\mathfrak T_X=K_4\rtimes\langle[R_0]\rangle\cong A_4$; in particular it
+is closed under multiplication, inverse, and transpose.
+
+\begin{lemma}[Tetrahedral filter]
+\label{lem:tetrahedral-filter}
+Let $Q$ be an invertible projectively unitary binary matrix. Directly
+contract $Q$ into any two ports of $\widehat f_6$. The resulting four-ary
+signature is a product of two binary signatures if and only if
+$[Q]\in\mathfrak T_X$. Whenever it factors, both factors are
+projectively unitary and have classes in $\mathfrak T_X$.
 \end{lemma}
 
 \begin{proof}
-    Without loss of generality, we can suppose that $A=\{1,2\}$. Dividing the 6 qubits into 2 groups, one is $\{1,2\}$ and the other is $\{3,4,5,6\}$. Thus, we can represent the $\ket{\psi}$, $\ket{\psi}=\sum_{x\in\{0,1\}^2}\sum_{y\in\{0,1\}^4} c_{x,y} \ket{x}_{12}\otimes \ket{y}_{3456}$ where $x=(x_1,x_2)$ are the first two qubits and $y=(x_3,x_4,x_5,x_6)$ are the last four qubits. For any fixed $x$, we define $\ket{w_x}=\sum_{y\in\{0,1\}^4}c_{x,y}\ket{y}_{3456}$. Hence, 
-    \begin{equation}\label{eq: psi}
-        \ket{\psi}=\sum_{x\in\{0,1\}^2}\ket{x}_{12}\otimes\ket{w_x}_{3456}.
-    \end{equation}
+Begin with ports $1,2$ and write
+$Q=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)$. The
+remaining variables admit the pairings $34\mid56$, $35\mid46$, and
+$36\mid45$. Factorization across one pairing is equivalent to the
+corresponding $4$-by-$4$ flattening having rank one. For example,
+\[
+M_{34\mid56}(\partial_{12}^Q\widehat f_6)=
+\begin{pmatrix}
+a-d&b+c&c-b&a+d\\
+b-c&a+d&a-d&-b-c\\
+-b-c&d-a&a+d&c-b\\
+a+d&b-c&b+c&d-a
+\end{pmatrix}.
+\]
+The $2$-by-$2$ minors of the three flattenings reduce, respectively, to
+\begin{align*}
+\mathcal I_1&=\{a^2+d^2,ab-cd,b^2+d^2,ac+bd,ad+bc,c^2-d^2\},\\
+\mathcal I_2&=\{a^2+d^2,ab+cd,b^2-d^2,ac-bd,ad+bc,c^2+d^2\},\\
+\mathcal I_3&=\{a^2-d^2,ab,b^2-c^2,ac,bd,cd\}.
+\end{align*}
+A list vanishes when all its entries vanish. Since $Q$ is invertible, the
+flattenings are nonzero, so one has rank one precisely when one of these
+lists vanishes.
 
-    Then $P=\ket{\psi}\bra{\psi}=\sum_{x,x'\in \{0,1\}^2}\ket{x}\bra{x'}_{12}\otimes \ket{w_x}\bra{w_{x'}}_{3456}$. For $A=(1,2)$, we can compute the reduced density matrix $\rho_{12}$,
-    \begin{align}
-        \rho_{12}&=\operatorname{Tr}_{3456}(P)\\
-        &=\sum_{x,x'} \operatorname{Tr}(\ket{w_x}\bra{w_{x'}})\ket{x}\bra{x'}_{12}\\
-        &=\sum_{x,x'}\braket{w_{x'}|w_x}\ket{x}\bra{x'}_{12},\label{eq: rho_12}
-    \end{align}
-    since $\operatorname{Tr}(\ket{u}\bra{v})=\braket{v|u}$. Recall that $\ket{\psi}$ is $\mathrm{AME}(6,2)$, $\rho_{12}=\frac{1}{4}I_4=\frac{1}{4}\sum_{x\in\{0,1\}^2}\ket{x}\bra{x}$. Since $\{\ket{x}\bra{x'}:x,x'\in\{0,1\}^2\}$ is a basis of $4\times 4$ matrix, thus we can get $\braket{w_{x'}|w_x}=\frac{1}{4}\delta_{x,x'}$.
-    This indicates that $\lVert w_x\rVert^2=\frac{1}{4}$ if $x=x'$ and $\ket{w_x}$ is orthogonal to $\ket{w_{x'}}$ if $x\neq x'$. For simplicity, we define $\ket{v_x}=2\ket{w_x}$ and $\braket{v_{x'}|v_x}=\delta_{x,x'}$ and $\{\ket{v_x}:x\in\{0,1\}^2\}$ are pairwise orthogonal. Thus, ~\eqref{eq: psi} is equal to
-    \begin{equation}\label{eq: psi v}
-        \ket{\psi}=\frac{1}{2}\sum_{x\in\{0,1\}^2}\ket{x}_{12}\otimes \ket{v_x}_{3456}.
-    \end{equation}
+If $\mathcal I_3=0$, invertibility gives either $b=c=0$ and $a^2=d^2$,
+or $a=d=0$ and $b^2=c^2$; these are the four classes in $K_4$. If
+$\mathcal I_1=0$, then $d\ne0$, and after scaling $d=1$ the solutions are
+$(a,b,c)=(\epsilon\mathrm i,\eta\mathrm i,-\epsilon\eta)$, namely the
+$R^+_{\epsilon,\eta}$. Similarly, $\mathcal I_2=0$ gives
+$(a,b,c)=(\epsilon\mathrm i,\eta,-\epsilon\eta\mathrm i)$, namely the
+$R^-_{\epsilon,\eta}$. Substitution proves the converse.
 
-    We can get $Q_A=4\operatorname{Tr}_{12}(P)= 4\sum_{x,x'\in\{0,1\}^2} \operatorname{Tr}(\ket{x}\bra{x'})\ket{w_x}\bra{w_{x'}}=4 \sum_{x,x'\in\{0,1\}^2}\braket{x|x'}\ket{w_x}\bra{w_{x'}}=\sum_{x\in\{0,1\}^2}\ket{v_x}\bra{v_x}$.
-
-    Let $\mathcal{C}=\operatorname{span}\{\ket{v_x}:x\in\{0,1\}^2\}$. Since $\ket{v_x},x\in\{0,1\}^2$ are pairwise orthogonal, $\operatorname{dim}\mathcal{C}=4$. We can get $Q_A=\sum_{x\in\{0,1\}^2}\ket{v_x}\bra{v_x}=Q_A^\dagger$, and $Q_A^2=\sum_{x,x'\in\{0,1\}^2}\ket{v_x}\braket{v_x|v_{x'}}\bra{x'}=\sum_{x,x'}\delta_{x,x'}\ket{v_x}\bra{v_{x'}}=\sum_{x\in\{0,1\}^2}\ket{v_x}\bra{v_{x'}}=Q_A$. Thus, $Q_A$ is the orthogonal projector onto $\mathcal{C}$.
-
-    Now we prove that for any nonidentity 4-qubit Pauli string E with $\operatorname{wt}(E)=1$, we have $Q_AEQ_A=0$.
-
-    Fix a position $k\in \{3,4,5,6\}$, without loss of generality, suppose that $k=3$. Since $\ket{\psi}$ is $\mathrm{AME}(6,2)$, $\rho_{123}=\operatorname{Tr}_{456}(P)=\frac{1}{8}I_4\otimes I_2$. By~\eqref{eq: psi v}, $\rho_{123}=\frac{1}{4}\sum_{x,x'\in\{0,1\}^2}\ket{x}\bra{x'}_{12}\otimes \operatorname{Tr}_{456}(\ket{v_x}\bra{v_{x'}})$. Note that $\frac{1}{8}I_4\otimes I_2=\frac{1}{8}\sum_{x\in\{0,1\}^2}\ket{x}\bra{x}_{12}\otimes I_2$, then we can get
-    \begin{align}
-        \rho_{123}&=\frac{1}{8}\sum_{x\in\{0,1\}^2}\ket{x}\bra{x}_{12}\otimes I_k.\\
-        \rho_{123}&=\frac{1}{4}\sum_{x,x'\in\{0,1\}^2}\ket{x}\bra{x'}_{12}\otimes \operatorname{Tr}_{456}(\ket{v_x}\bra{v_{x'}}).
-    \end{align}
-    Since $\{\ket{x}\bra{x'}:x,x'\in\{0,1\}^2\}$ is a orthogonal basis of $4\times 4$ matrix, comparing the coefficient, we can get that 
-    \begin{equation}
-        \operatorname{Tr}_{456}(\ket{v_x}\bra{v_{x'}})=\delta_{x,x'}\frac{I_k}{2}.
-    \end{equation}
-
-    Thus, suppose that $E=E_3\otimes I_{456}$ be a 4-qubit Pauli string and one of $\{X,Y,Z_0\}$ in the $k$-th qubit, we have
-    \begin{align}
-        Q_AEQ_A&=\sum_{x,x'\in\{0,1\}^2}\ket{v_x}\bra{v_{x}}E \ket{v_{x'}}\bra{v_{x'}}\\
-        &=\sum_{x,x'\in\{0,1\}^2}\ket{v_x}\operatorname{Tr}_{3456}(E\ket{v_{x'}}\bra{v_x})\bra{v_{x'}}\\
-        &=\sum_{x,x'\in\{0,1\}^2}\ket{v_x}\operatorname{Tr}_3[E_3\operatorname{Tr}(\ket{v_x}\bra{v_{x'}})]\bra{v_{x'}}\\
-        &=\sum_{x,x'\in\{0,1\}^2}\frac{\delta_{x,x'}}{2} \operatorname{Tr}(E_k) \ket{v_x}\bra{v_{x'}}\\
-        &=0,
-    \end{align}
-    since $\operatorname{Tr}(E_k)=0$. Finally, $Q_A$ is a the rank-4 projector of a pure $((4,4,2))_2$ code.
-\end{proof}
-
-\begin{corollary}\label{cor: fixed by SX and SZ}
-    Let $\ket{\psi}$ be $\mathrm{AME}(6,2)$ state. For every pair $A\subset [6]$, we have $\mathrm{AME}(6,2)$ state $\ket{\psi^{(1)}}:=(I_A\otimes U_{\overline{A}})\ket{\psi}$ such that $(I_A\otimes S_X)\ket{\psi^{(1)}}=\ket{\psi^{(1)}}$ and $(I_A\otimes S_Z)\ket{\psi^{(1)}}=\ket{\psi^{(1)}}$.
-\end{corollary}
-
-\begin{proof}
-    By~\cref{lem: QA is orth proj of pure 442}, we have $\ket{\psi}=\frac{1}{2}\sum_{x\in\{0,1\}^2}\ket{x}_{12}\otimes \ket{v_x}_{3456}$ where $\{\ket{v_x}:x\in\{0,1\}^2\}$ are pairwise orthogonal, and $\mathcal{C}=\operatorname{span}\{\ket{v_x}:x\in\{0,1\}^2\}$ is a pure $((4,4,2))_2$ code and $Q_A=\sum_{x\in\{0,1\}^2}\ket{v_x}\bra{v_x}$ is the orthogonal projector onto $\mathcal{C}$. 
-
-    Then, $(I_A\otimes S_X)\ket{\psi}=(I_A\otimes S_X)\left(\frac{1}{2}\sum_{x\in\{0,1\}^2}\ket{x}_{12}\otimes \ket{v_x}_{3456}\right)=\frac{1}{2}\sum_{x\in\{0,1\}^2}\ket{x}_{12}\otimes S_X\ket{v_x}_{3456}$. By~\cref{thm: rains standard code}, there exist $U=U_1\otimes U_2\otimes U_3\otimes U_4$ where $U_i\in U(2)$, such that $U\ket{v_x}=\ket{\phi_x}\in \mathcal{C}_{\mathrm{std}}$ for each $x\in\{0,1\}^2$. Thus $S_X\ket{v_x}=S_XU^{-1}\ket{\phi_x}=$
-\end{proof}
-
-\begin{lemma}\label{lem: ame62 is unitary equivalent}
-    Every $\mathrm{AME}(6,2)$ state $\ket{\psi^{(0)}}$ is locally unitary equivalent, up to variables permutation, to one fixed 6-qubit stabilizer state, called the quantum hexacode state.
-\end{lemma}
-
-\begin{proof}
-    Let $P^{(0)}=\ket{\psi^{(0)}}\bra{\psi^{(0)}}$. Apply~\cref{lem: QA is orth proj of pure 442} to the pair $(1,2)$ and the matrix $Q_{12}^{(0)}=4\operatorname{Tr}(P^{(0)})$. By~\cref{thm: rains standard code}, there is a local unitary $U_{3456}=U_3\otimes U_4\otimes U_5\otimes U_6$ such that 
-    \begin{equation}
-        U_{3456}Q_{12}^{(0)}U_{3456}^\dagger=Q_{\mathrm{std}}.
-    \end{equation}
-    Define $\ket{\psi^{(1)}}=(I_{12}\otimes U_{3456})\ket{\psi^{(0)}}$ and $P^{(1)}=\ket{\psi^{(1)}}\bra{\psi^{(1)}}$. Local unitaries preserve the $\mathrm{AME}$ equations \todo{gjc: add a lemma}, thus $\ket{\psi^{(1)}}$ is $\mathrm{AME}(6,2)$ state. And we have 
-    \begin{equation}
-        Q_{12}^{(1)}:=4\operatorname{Tr}_{12}(P^{(1)})=U_{3456}Q_{12}^{(0)}U_{3456}^\dagger=Q_{\mathrm{std}}.
-    \end{equation}
-    By~\cref{cor: fixed by SX and SZ}, $\ket{\psi^{(1)}}$ is fixed by (omitting $\otimes$) 
-    \begin{equation}
-        S_1=IIXXXX,\quad\quad S_2=IIZ_0Z_0Z_0Z_0.
-    \end{equation}
-
-    Let $Q:=Q_{56}^{(1)}=4\operatorname{Tr}_{56}(P^{(1)})$, ~\cref{lem: QA is orth proj of pure 442} says that $Q$ is the projector of a pure $((4,4,2))_2$ code. Since $S_1\ket{\psi^{(1)}}=\ket{\psi^{(1)}}$ we have $S_1P^{(1)}S_1=P^{(1)}$. With respect to the cut $1234|56$, the $S_1$ is $(IIXX)_{1234}\otimes (XX)_{56}$, since\todo{a lemma or preli} unitary invariance of the partial trace on qubits 5,6 gives
-    \begin{equation}
-        (IIXX)Q(IIXX)=4\operatorname{Tr}_{56}(S_1P^{(1)}S_1)=4\operatorname{Tr}_{56}(P^{(1)})=Q.
-    \end{equation}
-    The same argument with $S_2$ gives $(IIXX)Q=Q(IIXX),(IIZ_0Z_0)Q=Q(IIZ_0Z_0)$, namely $[Q,IIXX]=[Q,IIZ_0Z_0]=0$.
-
-    Let $\ket{b_1}=\ket{\Phi^+}=\frac{\ket{00}+\ket{11}}{\sqrt 2},\ket{b_2}=\ket{\Phi^-}=\frac{\ket{00}-\ket{11}}{\sqrt 2},\ket{b_3}=\ket{\Psi^+}=\frac{\ket{01}+\ket{10}}{\sqrt 2},\ket{b_4}=\frac{\ket{01}-\ket{10}}{\sqrt 2}$ be an orthonormal basis of two qubit on 3,4, thus $I_{34}=\sum_{i=1}^4\ket{b_i}\bra{b_i}$.
-
-    We can rewrite $Q=(I_{12}\otimes I_{34})Q(I_{12}\otimes I_{34})=\sum_{i,j=1}^4(I_{12}\otimes \ket{b_i}\bra{b_i})Q(I_{12}\otimes \ket{b_j}\bra{b_j})$. Define $Q_{ij}=(I_{12}\otimes \bra{b_i})Q(I_{12}\otimes \ket{b_j})$, we can get $Q=\sum_{i,j=1}^4Q_{ij}\otimes\ket{b_i}\bra{b_j}$. Consider the four Bell state's eigenvalue with respect to $XX$ and $ZZ$,
-    \[
-\begin{array}{c|cc}
- & X\otimes X & Z\otimes Z \\ \hline
-|b_1\rangle & +1 & +1 \\
-|b_2\rangle & -1 & +1 \\
-|b_3\rangle & +1 & -1 \\
-|b_4\rangle & -1 & -1
+For a binary matrix $A$, write $A^{rs}$ when its two variables occupy
+ports $r,s$. The same substitution identifies the factors:
+\[
+\begin{array}{c|l}
+Q&\partial_{12}^Q\widehat f_6\\ \hline
+I&2X^{36}X^{45}\\
+X&2J^{36}Z^{45}\\
+Z&2Z^{36}I^{45}\\
+J&-2I^{36}J^{45}\\
+R^+_{\epsilon,\eta}&
+ (1-\epsilon\mathrm i)(R^-_{\epsilon,\epsilon\eta})^{34}
+ (R^+_{\epsilon,\eta})^{56}\\
+R^-_{\epsilon,\eta}&
+ (1-\epsilon\mathrm i)(R^-_{\epsilon,-\eta})^{35}
+ (R^+_{\epsilon,-\epsilon\eta})^{46}.
 \end{array}
 \]
-    Then we can get $(I_{12}\otimes X_3X_4)(Q_{ij}\otimes \ket{b_i}\bra{b_j})=Q_{ij}\otimes X_3X_4\ket{b_i}\bra{b_j}=x_iQ_{ij}\otimes\ket{b_i}\bra{b_j}$ where $x_i\in{\pm 1}$ and $x_i$ is the eigenvalue of $X_3X_4$ to $\ket{b_i}$. We also can get $(Q_{ij}\otimes \ket{b_i}\bra{b_j})(I_{12}\otimes X_3X_4)=x_jQ_{ij}\otimes \ket{b_i}\bra{b_j}$ where $x_j\in\{\pm 1\}$ and $x_j$ is the eigenvalue of $X_3X_4$ to $\ket{b_j}$. Since $[Q,IIXX]=0$, $(x_i-x_j)Q_{ij}=0$. Similarly, $(z_i-z_j)Q_{ij}=0$ where $z_i,z_j\in \{\pm 1\}$ are the eigenvalue of $Z_3Z_4$ with respect to $\ket{b_i},\ket{b_j}$ respectively. Since $i\neq j$ we have at least one of $x_i\neq x_j$ and $z_i\neq z_j$ hold, thus $Q_{ij}=0$ for $i\neq j$. Hence, $Q=\sum_{i=1}^4Q_{ii}\otimes \ket{b_i}\bra{b_i}$.
+Thus both factors again lie projectively in $\mathfrak T_X$. They are
+projectively unitary because the Klein representatives are unitary and
+$R^\pm_{\epsilon,\eta}(R^\pm_{\epsilon,\eta})^\dagger=2I$.
 
-    Since $Q^2=Q$, expanding $Q^2$ we can get $Q^2=\sum_{i=1}^4 Q_{ii}^2\otimes \ket{b_i}\otimes\bra{b_i}$. Comparing coefficient, we can get $Q_{ii}^2=Q_{ii}$. And since $Q^\dagger=Q$, we can get $Q^\dagger=\sum_{i=1}^4 Q_{ii}^\dagger \ket{b_i}\bra{b_i}$. Comparing coefficient, we can also get $Q_{ii}^\dagger=Q_{ii}$. Hence each $Q_{ii}$ is an orthogonal projector.
-
-    Since $\ket{\psi^{(1)}}$ is $\mathrm{AME}(6,2)$ state, $\rho_{34}^{(1)}=\frac{1}{4}I_{34}$. Then $\operatorname{Tr}_{12}Q=4\operatorname{Tr}_{12}(\operatorname{Tr}_{56}P^{(1)})=4\operatorname{Tr}_{1256}P^{(1)}=4\rho_{34}^{(1)}=I_{34}=\sum_{i=1}^4\ket{b_i}\bra{b_i}$. On the other hand, $\operatorname{Tr}_{12}(Q)=\sum_{i=1}^4\operatorname{Tr}(Q_{ii})\ket{b_i}\bra{b_i}$. Since $\ket{b_i}\bra{b_i}$ are orthogonal, comparing the coefficient, we can get $\operatorname{Tr}(Q_{ii})=1$ for each $i\in [4]$. Since the trace of orthogonal projector is equal to the rank, $\operatorname{rank}(Q_{ii})=1$. Thus, exist uniform vector $\ket{u_i}$ such that $Q_{ii}=\ket{u_i}\bra{u_i}$ for each $i\in [4]$.
-
-    Consider $\operatorname{Tr}_{34}Q$, by $\mathrm{AME}(6,2)$, we have $\operatorname{Tr}_{34}Q=I_{12}$. On the other hand, we have $\operatorname{Tr}_{34}Q=\sum_{i=1}^4Q_{ii} \operatorname{Tr}(\ket{b_i}\bra{b_i})=\sum_{i=1}^4 Q_{ii}$. Fixed $j\in [4]$, $\sum_{i=1}^4\ket{u_j}Q_{ii}\bra{u_j}=\ket{u_j}I_{12}\bra{u_j}=1$. We also know that $\sum_{i=1}^4\ket{u_j}Q_{ii}\bra{u_j}=\sum_{i=1}^4\braket{u_j|u_i}\braket{u_j|u_i}=\sum_{i=1}^4\lvert \braket{u_i|u_j}\rvert^2$. Thus $1=\sum_{i=1}^4\lvert \braket{u_i|u_j}\rvert^2$, and since $\lvert \braket{u_j|u_j}\rvert^2=1$. Hence, $\braket{u_i|u_j}=0$ for $i\neq j$. So the four vectors $\ket{u_i},i\in[4]$ form an orthonormal basis of the two-qubit space.
-
-    Since $Q$ is the orthogonal projector of pure $((4,4,2))_2$ code, for any nonidentity Pauli string $E$ with weight one, we have $Q(E\otimes I_{34})Q=0$. Expanding, 
-    \begin{align}
-        Q(E\otimes I_{34})Q&=\sum_{i,j\in\{0,1\}^2}Q_{ii}EQ_{jj}\otimes \ket{b_i}\braket{b_i|b_j}\bra{b_j}\\
-        &=\sum_{i\in\{0,1\}^2}Q_{ii}EQ_{ii}\otimes\ket{b_i}\bra{b_i}\\
-        &=\sum_{i\in\{0,1\}^2}\ket{u_i}\bra{u_i}E\ket{u_i}\bra{u_i}\otimes \ket{b_i}\bra{b_i}\\
-        &=\sum_{i\in\{0,1\}^2}\bra{u_i}E\ket{u_i}Q_{ii}\otimes \ket{b_i}\bra{b_i}\\
-        &=0.
-    \end{align}
-    Since distinct $i$ on qubit $3,4$ has orthogonal space $\ket{b_i}\bra{b_i}$, thus $\bra{u_i}E\ket{u_i}=0$ for each $i\in [3]$.
-
-    Let $\rho_1=\operatorname{Tr}_2(\ket{u_i}\bra{u_i})$ be the density matrix on qubit 1, note that every single qubit density matrix can be write as $\rho_1=\frac{1}{2}(I+\operatorname{Tr}(\rho_1X)X+\operatorname{Tr}(\rho_1Y)Y+\operatorname{Tr}(\rho_1Z)Z)$. Let $E=X\otimes I$, we can get $\operatorname{Tr}(\rho_1X)=\bra{u_i}X\otimes I\ket{u_i}=0$. Thus, $\operatorname{Tr}(\rho_1X)=0$. Similarly, let $E=Y\otimes I,Z_0\otimes I$, we can get $\operatorname{Tr}(\rho_1Y)=\operatorname{Tr}(\rho_1Z_0)=0$. Hence, $\rho_1=\frac{1}{2}I$. Let $\rho_2=\operatorname{Tr}_1(\ket{u_i}\bra{u_i})$, we can also get $\rho_2=\frac{1}{2}I$ similarly. This indicates that each $\ket{u_i}$ is maximally entangled.
-
-    Now we prove that for each $i\in [4]$ there exist a unitary $M_i$ such that $\ket{u_i}=(M_i\otimes I)\ket{\Phi^+}$ and $\operatorname{Tr}(M_i^\dagger M_j)=2\delta_{ij}$. Since we can write $\ket{u_i}=\sum_{a,b=0}^1c_{ab}^{(i)}\ket{a}\ket{b}$, let $C_i=\left(\begin{matrix}
-        c_{00}^{(i)} & c_{01}^{(i)}\\
-        c_{10}^{(i)} & c_{11}^{(i)}
-    \end{matrix}\right)$. Since $\ket{u_i}$ is maximally entangled, $C_iC_i^\dagger=\frac{I}{2}$. Define $M_i:=\sqrt{2} C_i$ and we have $M_iM_i^\dagger=I$. Thus, $\ket{u_i}=(M_i\otimes I)\ket{\Phi^+}$.
-
-    For any $2\times 2$ matrix $A$, we have $\bra{\Phi^+}(A\otimes I)\ket{\Phi^+}=\frac{1}{2}\operatorname{Tr}(A)$. Thus $\braket{u_i|u_j}=\bra{\Phi^+}(M_i^\dagger M_j\otimes I)\ket{\Phi^+}=\frac{1}{2}\operatorname{Tr}(M_i^\dagger M_j)$. And since $\braket{u_i|u_j}=\delta_{ij}$ by orthogonal, we have $\operatorname{Tr}(M_i^\dagger M_j)=2\delta_{ij}$. This indicates that the four $2\times 2$ unitary matrices $M_1,M_2,M_3,M_4$ is the orthonormal basis of $2\times 2$ matrix under the Hilbert-Schmidt inner product. Define $N_i:=M_1^\dagger M_i$, in particular $N_1=I$. Thus $N_1=I,N_2,N_3,N_4$ is a orthonormal basis and $\operatorname{Tr}(N_1)=2$ and $\operatorname{Tr}(N_j)=\operatorname{Tr}(N_1^\dagger N_j)=2\delta_{1j}=0$ for $j=2,3,4$.
-
-    Now, we have $N_1=I,N_2,N_3,N_4$ are unitary matrix and $N_1,N_2,N_3$ are traceless unitary matrix. For any $N_j,j\neq 1$, its two eigenvalue have norm 1 and the sum of two eigenvalues is equal to 1. Thus, we can suppose that $\lambda_j,-\lambda_j$ are $N_j$'s two eigenvalues and $\lvert \lambda_j\rvert=1$. Hence, define $H_j:=\frac{1}{\lambda_j}N_j$. According $N_j$ is unitary matrix, then $H_j$ is normal matrix, then we can get $H_j=U\operatorname{diag}(1,-1)U^\dagger=H^\dagger$ and $\operatorname{Tr}(H_j)=0$. So $H_j$ is Hermitian matrix. Since every traceless $2\times 2$ Hermitian matrix has unique form: $H_j=n_{j,x}X+n_{j,y}Y+n_{j,z}Z_0$ where $n_{j,x},n_{j,Y},n_{j,z}\in \mathbb{R}$. Let $\mathbf{n_j}=(n_{j,x},n_{j,Y},n_{j,z})^T\in \mathbb{R}^3$. Then we can define $A(\mathbf{v})=v_xX+v_yY+v_zZ_0$ for $\mathbf{v}=(v_x,v_y,v_z)^T$. Hence $H_j=A(\mathbf{n_j})$.
-
-    Computing $H_j^2$, we can get 
-    \begin{align*}
-        H_j^2&=(n_{j,x}X+n_{j,y}Y+n_{j,Z}Z_0)^2\\
-        &=n_{j,x}^2X^2+n_{j,y}^2Y^2+n_{j,z}^2Z_0^2\\
-        &+n_{j,x}n_{j,y}(XY+YX)\\
-        &+n_{j,x}n_{j,z}(XZ_0+Z_0X)\\
-        &+n_{j,y}n_{j,z}(YZ_0+Z_0Y)\\
-        &=(n_{j,x}^2+n_{j,y}^2+n_{j,z}^2)I\\
-        &=\lVert\mathbf{n_j}\rVert^2I.
-    \end{align*}
-    Since $H_j^2=H_jH_j^\dagger=I$, $\lVert\mathbf{n_j}\rVert=1$. For distinct $i,j$, $\frac{1}{2}\operatorname{Tr}(H_iH_j)=\frac{1}{2}\operatorname{Tr}[(n_{i,x}X+n_{i,y}Y+n_{i,z}Z_0)(n_{j,x}X+n_{j,y}Y+n_{j,z}Z_0)]=\mathbf{n_i}\cdot\mathbf{n_j}$. And since $\frac{1}{2}\operatorname{Tr}(H_iH_j)=\frac{1}{2}\operatorname{Tr}(H_iH_j^\dagger)=\frac{1}{2}\operatorname{Tr}(N_iN_j^\dagger)=\delta_{ij}=0$. So $\mathbf{n_i}\cdot \mathbf{n_j}=0$, and finally $\mathbf{n_1},\mathbf{n_2},\mathbf{n_3}$ is orthonormal basis in $\mathbb{R}^3$. 
-
-    Let $\mathbf{e_x}=(1,0,0)^T,\mathbf{e_y}=(0,1,0)^T,\mathbf{e_z}=(0,0,1)^T$. Let $N=(\mathbf{n_1,n_2,n_3})$. Since $\mathbf{n_1,n_2,n_3}$ are orthonormal, $N^TN=I$. Thus define $R:=N^T$, we have $R\mathbf{n_1}=\mathbf{e_x}, R\mathbf{n_2}=\mathbf{e_y}, R\mathbf{n_3}=\mathbf{e_z}$. Since $(\det N)^2=\det N^TN=\det I=1$, so $\det N\in\{\pm1\}$. If $\det N=-1$, then we can just define $\mathbf{n_1'}=(-n_{1,x},-n_{1,y},-n_{1,z}), \mathbf{n_2'}=\mathbf{n_2},\mathbf{n_3'}=\mathbf{n_3}$, thus $N'=(\mathbf{n_1',n_2',n_3'})$ and $\det N'=1$ and $-n_{1,x}X-n_{1,y}Y-n_{1,z}Z=-H_1$ and others are unchanged. We can suppose that $\det N=1$. In this case $R\in \mathrm{SO}(3)=\{R\in \mathbb{R}^{3\times 3}: R^TR=I, \det R=1\}$. Since $\mathrm{SO}(3)\cong \mathrm{SU}(2)/\{I,-I\}$, for every $R\in \operatorname{SO}(3)$, there exist a $W\in \operatorname{SU}(2)$ such that $WA(\mathbf{v})W^\dagger=A(R\mathbf{v})$ for every $\mathbf{v}\in \mathbb{R}^3$. Thus for this $R=N^T$, there exist $W\in \mathrm{SU}(2)$ such that $WH_1W^\dagger=A(R\mathbf{n_1})=A(\mathbf{e_1})=X$, $WH_2W^\dagger=Y$ and $WH_3W^\dagger=Z_0$.
-
-    Recall that $\ket{u_i}=(M_i\otimes I)\ket{\Phi^+}$, let $V_1:=WM_0^\dagger,V_2:=\overline{W}$. Since $(A\otimes B)\ket{\Phi^+}=(AB^T\otimes I)\ket{\Phi^+}$ for every $2\times 2$ matrix $A,B$.
-    Then we can get $(V_1\otimes V_2)\ket{u_i}=(WM_0^\dagger\otimes \overline{W})(M_i\otimes I)\ket{\Phi^+}=(WM_0^\dagger M_i\otimes \overline{W})\ket{\Phi^+}=(WN_i\otimes \overline{W})\ket{\Phi^+}=(WN_iW^\dagger \otimes I)\ket{\Phi^+}$. Since $N_0=I,N_i=\lambda_i H_i$ for $i=1,2,3$. Then we have $(V_1\otimes V_2)\ket{u_0}=\ket{\Phi^+}$, $(V_1\otimes V_2)\ket{u_1}=\lambda_1(X\otimes I)\ket{\Phi^+}=\lambda_1\ket{\Psi^+}$, $(V_1\otimes V_2)\ket{u_2}=\lambda_1(Y\otimes I)\ket{\Phi^+}=-i\lambda_2\ket{\Psi^-}$ and $(V_1\otimes V_2)\ket{u_3}=\lambda_3(Z_0\otimes I)\ket{\Phi^+}=\lambda_3\ket{\Phi^-}$. Hence, for every $i\in\{0,1,2,3\}$, there exist a $\omega_i\in \mathbb{C},\lvert w_i\rvert=1$ such that $(V_1\otimes V_2)\ket{u_i}=\omega_i\ket{b_i}$. Hence, $(V_1\otimes V_2)\ket{u_i}\bra{u_i}(V_1\otimes V_2)^\dagger=\ket{b_i}\bra{b_i}.$
-
-    Recall that $Q=\sum_{i=0}^3\ket{u_i}\bra{u_i}_{12}\otimes \ket{b_i}\bra{b_i}_{3456}$. After add $V_1\otimes V_2$ on qubit 1,2, we can get $Q'=(V_1\otimes V_2\otimes I_{34})Q(V_1\otimes V_2\otimes I_{34})^\dagger=\sum_{i=0}^3\ket{b_i}\bra{b_i}_{12}\otimes \ket{b_i}\bra{b_i}_{34}=Q_{\mathrm{std}}$.
-
-    Define the twice standardized state and its projector by
-    \begin{equation}
-        \ket{\psi^{(2)}}:=(V_1\otimes V_2\otimes I_{3456})\ket{\psi^{(1)}},\quad \quad P^{(2)}=\ket{\psi^{(2)}}\bra{\psi^{(2)}}.
-    \end{equation}
-    The $\ket{\psi^{(2)}}$ is also $\mathrm{AME}(6,2)$ state. Then $Q_{56}^{(2)}=4\operatorname{Tr}_{56}(P^{(2)})=Q_{\mathrm{std}}$.
-    One can verify that $S_1\ket{\psi^{(2)}}=\ket{\psi^{(2)}},S_2\ket{\psi^{(2)}}=\ket{\psi^{(2)}}$. Since $XXXX,IIII$ fixed $Q_{56}^{(2)}$, then $XXXXII,ZZZZII$ fixed $\ket{\psi^{(2)}}$. Hence $(IIXXXX)S_1=(IIXXXX)(XXXXII)=(XXIIXX),(IIZZZZ)S_2=(ZZIIZZ)$ also fixed $\ket{\psi^{(2)}}$. Now we can get that $\ket{\psi^{(2)}}$ is fixed by 
-    \begin{align*}
-        &S_1=IIXXXX, \quad S_2=IIZ_0Z_0Z_0Z_0\\
-        &S_3=XXIIXX, \quad S_4=Z_0Z_0IIZ_0Z_0.
-    \end{align*}
-
-    Now consider $Q_{13}^{(2)}=4\operatorname{Tr}_{13}(P^{(2)})$ and order its four qubits as $(2,4,5,6)$. Thus by~\cref{lem: QA is orth proj of pure 442}, $Q_{13}^{(2)}$ is a rank-4 projector of pure $((4,4,2))_2$ code. Restrict the four stabilizers $S_1,S_2,S_3,S_4$ to qubits $(2,4,5,6)$, we can $IXXX,IZZZ,XIXX,ZIZZ$. Since $S_1P^{(2)}S_1=P^{(2)}$, the partial trace gives $(IXXX)Q_{13}^{(2)}(IXXX)=Q_{13}^{(2)}$, $IZZZ,XIXX,ZIZZ$ is similar. Thus $[Q_{13}^{(2)},IXXX]=[Q_{13}^{(2)},IZZZ]=[Q_{13}^{(2)},XIXX]=[Q_{13}^{(2)},ZIZZ]=0$.
-
-    Since $Q_{13}^{(2)}$ is $16\times 16$ matrix, then $Q_{13}^{(2)}=\sum_{E\in\{I,X,Y,Z\}^{\otimes 4}}c_E E$. Note that the $256$ different $E$ is a orthonormal basis of $16\times 16$ matrix. Encode the 4 qubit Pauli string as $(x_1,x_2,x_3,x_4|z_1,z_2,z_3,z_4)$, $(x_i,z_i)=(0,0)$ means that the $i$'th Pauli Matrix is $I$. $(1,0)$ is $X$, $(0,1)$ is $Z$ and $(1,1)$ is $Y$. Let $\mathbf{x}=(x_1,x_2,x_3,x_4)^T,\mathbf{z}=(z_1,z_2,z_3,z_4)^T$. A key property is that two Pauli strings  $(\mathbf{x|z})$ and $(\mathbf{x'|z'})$ are commutate if and only if $\mathbf{x^T z'+z^T x'}=0 \mod{2}$.
-
-    Since $IXXX,IZZZ,XIXX,ZIZZ$'s corresponding Pauli string encodes are $(0111|0000),(0000|0111),(1011|0000)$ and $(0000|1011)$ respectively. Then the possible Pauli string $E=(\mathbf{x|z})$ with nonzero coefficient must satisfy 
-    \begin{align*}
-        z_2+z_3+z_4=0, \quad x_2+x_3+x_4=0\\
-        z_1+z_3+z_4=0, \quad x_1+x_3+x_4=0\\
-    \end{align*}
-    Thus, $x_1=x_2,z_1=z_2,x_4=x_1+x_3,z_4=z_1+z_3$. There are four free bits and hence exactly sixteen solutions. Grouped by weight, they are
-
-    \begin{equation}
-\begin{array}{c|l}
-\text{weight} & \text{Pauli strings} \\ \hline
-0 & IIII \\[2pt]
-2 & IIXX,\ IIYY,\ IIZ_0Z_0 \\[2pt]
-3 & XXIX,\ XXXI,\ YYIY,\ YYYI,\ Z_0Z_0IZ_0,\ Z_0Z_0Z_0I \\[2pt]
-4 & XXYZ_0,\ YYZ_0X,\ Z_0Z_0XY,\ XXZ_0Y,\ YYXZ_0,\ Z_0Z_0YX
+For another contracted pair $ij$, list the three pairings of the remaining
+ports lexicographically. An entry $rst$ below means that their rank-one
+conditions are $\mathcal I_r,\mathcal I_s,\mathcal I_t$:
+\[
+\begin{gathered}
+\begin{array}{c|cccccccc}
+ij&12&13&14&15&16&23&24&25\\ \hline
+ &123&132&312&213&231&312&213&312
+\end{array}\\[1mm]
+\begin{array}{c|ccccccc}
+ij&26&34&35&36&45&46&56\\ \hline
+ &213&231&213&312&312&132&123
 \end{array}
-\end{equation}
+\end{gathered}
+\]
+The solution set is therefore unchanged. The corresponding factors differ
+from those above only by transposition and left or right multiplication by
+Klein elements, under which $\mathfrak T_X$ is closed.
 
-Note that $e_E=\operatorname{Tr}(Q_{13}^{(2)}E)=4\operatorname{Tr}(P^{(2)}(I_{13}\otimes E))=4\bra{\psi^{(2)}}I_{13}\otimes E\ket{\psi^{(2)}}=0$ if $\operatorname{wt}(E)\leq 3$ and $E$ is nonidentity by~\cref{lem:614 code}. Thus the Pauli expansion of $Q_{13}^{(2)}$ contains no terms of weights 1,2 or 3. Since $Q_{13}^{(2)}$ is rank 4 orthonormal projector, then $\operatorname{Tr}(Q_{13}^{(2)})=\operatorname{rank}(Q_{13}^{(2)})=4$. Hence
-\begin{equation}
-    Q_{13}^{(2)}=\frac{1}{4}I+bXXYZ_0+cYYZ_0X+dZ_0Z_0XY+eXXZ_0Y+fYYXZ_0+gZ_0Z_0YX,
-\end{equation}
-where $b,c,d,e,f,g\in \mathbb{R}$. Let $A_1:=XXYZ_0,A_2:=YYZ_0X,A_3:=Z_0Z_0XY, B_1:XXZ_0Y,B_2:=YYXZ_0,B_3:=Z_0Z_0YX$, we have $(A_i,A_j)$ are commute and $A_i^2=B_i^2=I,A_1A_2=A_3,A_2A_3=A_1,A_3A_1=A_2,B_1B_2=B_3,B_2B_3=B_1,B_3B_1=B_2$ and $A_1B_1=IIXX,A_2B_2=IIYY,A_3B_3=IIZ_0Z_0$ and $(A_i,B_j)$ are anticommute when $i\neq j$.
-
-Since $Q_{13}^{(2)}$ is orthogonal projector, thus $(Q_{13}^{(2)})^2=Q_{13}^{(2)}$. Let $L=bA_1+cA_2+dA_3+eB_1+fB_2+gB_3$. Expanding $(Q_{13}^{(2)})^2$, we can get
-\begin{align}
-    (Q_{13}^{(2)})^2&=\frac{1}{16}I+\frac{1}{2}L+L^2\\
-    &=(\frac{1}{16}+b^2+c^2+d^2+e^2+f^2+g^2)I\\
-    &+(\frac{b}{2}+2cd)A_1+(\frac{c}{2}+2bd)A_2+(\frac{d}{2}+2bc)A_3\\
-    &+(\frac{e}{2}+2fg)B_1+(\frac{f}{2}+2eg)B_2+(\frac{g}{2}+2ef)B_3\\
-    &+2beIIXX+2cfIIYY+2dgIIZ_0Z_0.
-\end{align}
-Comparing $Q_{13}^{(2)}=\frac{1}{4}I+bA_1+cA_2+dA_3+eB_1+fB_2+gB_3$, we can get
-\begin{align}
-    & b^2+c^2+d^2+e^2+f^2+g^2=\frac{3}{16},\\
-    & be=cf=dg=0,\\
-    & b=4cd,\quad c=4bd,\quad d=4bc,\\
-    &e=4fg,\quad f=4eg,\quad g=4ef.\\
-\end{align}
-
-Since $be=0$, gives $b=0$ or $e=0$. Swapping qubits 5,6 will exchanges the triples $(b,c,d)$ and $(e,f,g)$. Thus, we can suppose that $e=0$. Then we can get $f=g=0$. If one of $b,c,d$ were zero, this gives that all three zero, contary to the first equation. Hence,
-\begin{equation}
-    \lvert b\rvert=\lvert c\rvert=\lvert d\rvert=\frac{1}{4}, \mathrm{sgn}(d)=\mathrm{sgn}(b)\mathrm{sgn}(c).
-\end{equation}
-Thus, let $s_b=4b\in\{\pm1\},s_c=4c\in\{\pm1\}$, we have 
-\begin{equation}
-    Q_{13}^{(2)}=\frac{1}{4}(I+s_bA_1+s_cA_2+s_bs_cA_3)=\frac{1}{4}(I+s_bA_1)(I+s_cA_2),
-\end{equation}
-since $A_1A_2=A_3$. This indicates that $\mathrm{im} Q_{13}^{(2)}$ is the simultaneous $+1$ eigenspace of $s_bA_1$ and $s_cA_2$. Thus, lifting to $\ket{\psi^{(2)}}$, we can get $T_5=s_bIXIXYZ_0,T_6=s_cIYIYZ_0X$ and
-\begin{equation}
-    s_bIXIXYZ_0\ket{\psi^{(2)}}=\ket{\psi^{(2)}}, \quad s_cIYIYZ_0X\ket{\psi^{(2)}}=\ket{\psi^{(2)}}.
-\end{equation}
-Let $S_5=T_5=s_bIXIXYZ_0,S_6=T_5T_6=s_bs_cIZ_0IZ_0XY$.
-
-
-Until now, we have prove that $S_i\ket{\psi^{(2)}}=\ket{\psi^{(2)}}, 1\leq i\leq 6$ and 
-\begin{align*}
-    S_1&=IIXXXX\\
-    S_2&=IIZ_0Z_0Z_0Z_0\\
-    S_3&=XXIIXX\\
-    S_4&=Z_0Z_0IIZ_0Z_0\\
-    S_5&=s_bIXIXYZ_0\\
-    S_6&=s_bs_cIZ_0IZ_0XY,
-\end{align*}
-where $s_b,s_c\in\{\pm 1\}$. Define $S_i=G_i$ for $1\leq i\leq 4$ and $S_5=s_bG_5,S_6=s_cG_6$. We can encode each 6 qubits Pauli string as $r=(\mathbf{x|z})\in \mathbb{F}_2^{12}$ where $\mathbf{x}=(x_1,x_2,x_3,x_4,x_5,x_6)$ and $\mathbf{z}=(z_1,z_2,z_3,z_4,z_5,z_6)$. $(x_i,z_i)=(0,0),(0,1),(1,0),(1,1)$ represent the $i$'th Pauli matrix is $I,Z_0,X,Y$ respectively. Thus we can get the six $G_i$'s encode are as following:
-\begin{equation}
-\begin{array}{c|c|c}
- & x & z \\ \hline
-G_1 & 001111 & 000000 \\
-G_2 & 000000 & 001111 \\
-G_3 & 110011 & 000000 \\
-G_4 & 000000 & 110011 \\
-G_5 & 010110 & 000011 \\
-G_6 & 000011 & 010101
-\end{array}
-\end{equation}
-
-One can check that $\mathbf{xz'^T+x'z^T}=0 \mod{2}$ for any $(\mathbf{x,z}),(\mathbf{x',z'})$. Thus for any $S_i,S_j$, $[S_i,S_j]=0$. Multiplication of Pauli string is equal to addition of encode mod two. So the independence of the six Pauli strings is equal to the six encoders are linear independent on $\mathbb{F}_2$. Suppose that $\mathbf{r_i}=(\mathbf{x_i|z_i})$ for $i\in [6]$. If $\sum \alpha_i \mathbf{r_i}=0$, we can only get $\alpha_1=\alpha_2=\alpha_3=\alpha_4=\alpha_5=\alpha_6=0$. Thus, the six $G_i$ are independent.
-
-Let $\mathcal{V^+}(S)=\{\ket{\phi}:S\ket{\phi}=\ket{\phi}\}$ be the $+1$ eigenspace of $S$. Now the eigenspace of $S_1,\dots,S_6$ is $\mathcal{V}=\{\ket{\phi}:S_j\ket{\phi}=\ket{\phi},j=1,\dots,6\}=\mathcal{V^+}(S_1)\cap\cdots \cap \mathcal{V^+}(S_6)$. We know that $\ket{\psi^{(2)}}\in \mathcal{V}$, next we want to prove that $\mathrm{dim}(\mathcal{V})=1$.
-
-Since each $S_j$ is Hermitian Pauli string with $S_j^\dagger=S_j,S_j^2=I$, define $\Pi_j=\frac{S_j+I}{2}$. Since $\mathrm{im} \Pi_j=\{\Pi_j\ket{\eta}:\ket{\eta}\in (\mathbb{C}^2)^{\otimes 6}\}=\mathcal{V}^+(S_j)$ and $\Pi_j^\dagger=\Pi_j,\Pi_j^2=\Pi_j$, then $\Pi_j$ is the orthogonal projector of $\mathcal{V}^+(S_j)$. Since $S_j$ are pairwise commute, then $\Pi_i$ are pairwise commute. Thus, $\Pi=\Pi_1\cdots\Pi_6$ is the orthogonal projector of $\mathcal{V}$, namely $\mathrm{im} \Pi=\mathcal{V}$.
-
-We can compute the $\Pi=\Pi_1\cdots \Pi_6=2^{-6}\Pi_{j=1}^6(I+S_j)=2^{-6}\sum_{\alpha\in \mathbb{F}_2^{6}}S_1^{\alpha_1}\cdots S_6^{\alpha_6}$. We know the trace of nonidentity Pauli strings are zero, thus $\operatorname{Tr}(\Pi)=2^{-6}\operatorname{Tr}(I^{\otimes 6})=1$. Since $\Pi$ is orthogonal projector, it has only eigenvalue $0$ or $1$, and its trace is equal to its rank and its dimension of image phase space. Hence $\mathrm{dim}\mathcal{V}=\operatorname{rank} \Pi=\operatorname{Tr}\Pi=1$. Finally, we can get $\mathcal{V}=\operatorname{span}\{\ket{\psi^{(2)}}\}$.
-
-Recall that $S_j=G_j$ for $1\leq j\leq 4$ and $G_5\ket{\psi^{(2)}}=s_b\ket{\psi^{(2)}},G_6\ket{\psi^{(2)}}=s_c\ket{\psi^{(2)}}$.
-Since $\ket{\psi^{(2)}}$ is the eigenvalue $+1$ of $G_j$, but maybe eigenvalue $-1$ of $G_5,G_6$. So we need Pauli transformation to change $-1$ to $+1$. Define $C_5=Z_0Z_0IIII,C_6=XXIIII$, thus $C_5G_5=-G_5C_5,C_5G_j=G_jC_5$ for $j\neq 5$ and $C_6G_6=-G_6C_6,C_6G_j=G_jC_6$ for $j\neq 6$. Let $\epsilon_5=\frac{1-s_b}{2},\epsilon_6=\frac{1-s_c}{2}$, thus $\epsilon_5,\epsilon_6\in\{0,1\}$. Define $U_{\mathrm{sgn}}=C_5^{\epsilon_5}C_6^{\epsilon_6}$ and $\ket{\phi}=U_{\mathrm{sgn}}\ket{\psi^{(2)}}$. Since $[U_{\mathrm
-sgn},G_j]=0$ for $j=1,2,3,4$, $G_j\ket{\phi}=\ket{\phi}$. For $G_5$, $G_5\ket{\phi}=G_5C_5^{\epsilon_5}C_6^{\epsilon^6}\ket{\psi^{(2)}}=(-1)^{\epsilon_5}s_b\ket{\phi}=\ket{\phi}$ when $s_b=1,-1$. Similarly, $G_6\ket{\phi}=\ket{\phi}$. Hence, define $\mathcal{V}_0=\{\ket{\eta}:G_j\ket{\eta}=\ket{\eta},j=1,2,\dots,6\}$. In fact, $U_{\mathrm{sgn}}S_jU_{\mathrm{sgn}}^\dagger=G_j$ for $1\leq j\leq 6$, thus $\mathcal{V}_0=U_{\mathrm{sgn}}\mathcal{V}$. So $\mathrm{dim} \mathcal{V}_0=1$.
-
-Choose and fix a unit vector spanning $\mathcal{V}_0$, and denote it by
-$\ket{H_6}$. We call $\ket{H_6}$ the quantum hexacode state. Since
-$\dim \mathcal{V}_0=1$ and
-$U_{\mathrm{sign}}\ket{\psi^{(2)}}\in\mathcal{V}_0$, there exists
-$\theta\in\mathbb{R}$ such that
-\begin{equation}
-    U_{\mathrm{sign}}\ket{\psi^{(2)}}
-    =e^{\mathrm{i}\theta}\ket{H_6}.
-\end{equation}
-
-Combining the two standardizing local unitaries, the possible
-transposition of qubits $5$ and $6$, and the final local Pauli operator
-$U_{\mathrm{sign}}$, we conclude that there exist one-qubit unitaries
-$L_1,\ldots,L_6$, a permutation $\pi\in S_6$, and
-$\theta\in\mathbb{R}$ such that
-\begin{equation}
-    (L_1\otimes\cdots\otimes L_6)
-    P_\pi\ket{\psi^{(0)}}
-    =
-    e^{\mathrm{i}\theta}\ket{H_6}.
-\end{equation}
-Equivalently,
-\begin{equation}
-    \ket{\psi^{(0)}}
-    =
-    e^{\mathrm{i}\theta'}
-    P_{\pi^{-1}}
-    (L_1^\dagger\otimes\cdots\otimes L_6^\dagger)
-    \ket{H_6}
-\end{equation}
-for some $\theta'\in\mathbb{R}$. Hence every $\mathrm{AME}(6,2)$ state
-is locally unitarily equivalent, up to a permutation of the qubits and
-a global phase, to the quantum hexacode state $\ket{H_6}$. 
-This completes the proof.
-    
+If a physical binary gadget $B$ is attached through two surrounding
+$\neq_2$ signatures, its effective cap is $XBX$ (or $XB^TX$ when its
+ports are reversed). Since $[X]\in K_4$, the conclusion is equivalently
+$[B]\in\mathfrak T_X$. This reconciles the direct-cap statement with the
+bipartite gadget convention.
 \end{proof}
 
+The filter controls each pair separately. The next lemma shows that these
+pairwise restrictions are compatible: all six matrices share one continuous
+frame, leaving only finite tetrahedral labels.
 
-\begin{lemma}[the normalized state of $\ket{f_6}$ is $\mathrm{AME}(6,2)$ state]
-    
+\begin{lemma}[Common frame]
+\label{lem:f6-common-frame}
+Let $U_1,\ldots,U_6$ be unitary matrices satisfying
+$[U_i^TXU_j]\in\mathfrak T_X$ whenever $i\ne j$. Then there are a
+unitary matrix $W$ and matrices $C_1,\ldots,C_6$ such that
+\[
+ W^TXW=X,\qquad X\overline WX=W,\qquad
+ W^{-1}U_i=C_i,\quad [C_i]\in\mathfrak T_X.
+\]
 \end{lemma}
-\begin{lemma}[the normalized state of $\ket{\hat{f_6}}$ is $\mathrm{AME}(6,2)$ state]
-    
-\end{lemma}
 
-\begin{theorem}\label{thm: AME62 to f6}
-    Let $\F$ be a conjugate closed signature set, and suppose that $f\in \F$ is a nonzero irreducible 6-ary signature whose normalized state is $\mathrm{AME}(6,2)$. Assume that every equality contraction $\partial_{ij}f$ belongs to $\mathcal{U}^{\otimes}$. Then either $\holant{=_2}{\F}$ is $\#\operatorname{P}$-hard or 
-    \begin{equation}
-        \holant{=_2}{f_6,O\F}\leq_T \holant{=_2}{\F}.
-    \end{equation}
-\end{theorem}
+\begin{proof}
+Take $U_1$ as reference and put $D=U_1^TXU_1$ and
+$B_i=U_1^TXU_i$ for $i>1$. For distinct $i,j>1$,
+$U_i^TXU_j=B_i^TD^{-1}B_j$. Indeed,
+$D^{-1}=U_1^{-1}XU_1^{-T}$, and the intervening copies of
+$U_1,U_1^{-1}$ and $X^2$ cancel. Rearranging this identity expresses
+$D^{-1}$ using $B_i^T,U_i^TXU_j,B_j$ and their inverses. Their classes
+belong to $\mathfrak T_X$, so $[D^{-1}]\in\mathfrak T_X$.
 
-\subsection{The proof of~\cref{thm: AME62 to f6}}
+Set $R=U_1D^{-1}$, $A_1=D$, and $A_i=B_i$ for $i>1$. Then
+$U_i=RA_i$ and $[A_i]\in\mathfrak T_X$. Since the $U_i$ are unitary and
+the $A_i$ projectively unitary, $R$ is projectively unitary. Rescale $R$,
+with the inverse rescaling of every $A_i$, so that $R$ is unitary.
 
-Since the normalized $\hat{f_6}$ is $\mathrm{AME}(6,2)$. By~\cref{lem: ame62 is unitary equivalent}, we can get that $\ket{\hat{f_6}}=\beta P_{\pi_B}(B_1\otimes \cdots \otimes B_6)\ket{H_6}$. Since $f\in \mathcal{F}$ is a 6-ary signature whose normalized state is $\mathrm{AME}(6,2)$ and $K^{-1}=K^\dagger$ is a unitary matrix, thus $\hat{f}$ is also a 6-ary signature whose normalized state is $\mathrm{AME}(6,2)$ state. Hence, $\hat{f}=\alpha P_{\pi_A}(A_1\otimes \cdots \otimes A_6)\ket{H_6}$. In conclusion, after a permutation of variables and ignoring the scalar, we can get that
+The matrix $S=R^TXR$ is symmetric and unitary. As $D$ is symmetric,
+direct calculation gives $S=D^{-1}$, hence $[S]\in\mathfrak T_X$.
+The only symmetric classes in \eqref{eq:tetrahedral-group} are represented
+by $I,X,Z$; a phase rescaling of $R$ makes $S$ equal to one of them.
+Choose
+\[
+\begin{array}{c|c}
+S&A_0\\ \hline
+X&I\\[1mm]
+I&\displaystyle\frac{\mathrm i}{\sqrt2}
+ \begin{pmatrix}\mathrm i&\mathrm i\\-1&1\end{pmatrix}\\[4mm]
+Z&\displaystyle\frac{1-\mathrm i}{2}
+ \begin{pmatrix}\mathrm i&1\\-\mathrm i&1\end{pmatrix}.
+\end{array}
+\]
+In each row, $A_0^\dagger A_0=I$, $A_0^TSA_0=X$, and
+$[A_0]\in\mathfrak T_X$. Let $W=RA_0$ and
+$C_i=A_0^{-1}A_i$. Then $W$ is unitary, $W^TXW=X$, and
+$W^{-1}U_i=C_i$ with $[C_i]\in\mathfrak T_X$.
+
+Finally, $W^TXW=X$ gives $W^{-1}=XW^TX$. Comparing this with
+$W^{-1}=W^\dagger=\overline W^{\,T}$ and transposing yields
+$X\overline WX=W$.
+\end{proof}
+
+\paragraph{Removing the finite labels.}
+The common-frame lemma leaves six matrices in $\mathfrak T_X$. We now pass
+to the equality frame, where extracted binary factors compose directly on
+equality edges. Write
+\[
+ \mathfrak T_{=}=K\mathfrak T_XK^{-1},\qquad
+ F_0=I,\quad F_1=\mathrm iX,\quad F_2=J,\quad F_3=\mathrm iZ.
+\]
+The classes of the $F_s$ form the normal Klein subgroup of
+$\mathfrak T_{=}$. The other eight classes have representatives
+\[
+ r_{\epsilon_1\epsilon_2\epsilon_3}
+ =\tfrac12(F_0+\epsilon_1F_1+\epsilon_2F_2+\epsilon_3F_3),
+ \qquad \epsilon_1,\epsilon_2,\epsilon_3\in\{\pm1\},
+\]
+and $\mathfrak T_{=}/K_4\cong\mathbb Z_3$.
+
+Using the preceding port notation, the tensor
 \begin{equation}
-    \hat{f}=(U_1\otimes \cdots \otimes U_6)\hat{f_6},
+\begin{split}
+ g_\star=\frac12\big(&F_0^{12}F_0^{36}F_0^{45}
+ +F_1^{12}F_3^{36}F_2^{45}\\
+ &+F_2^{12}F_1^{36}F_3^{45}
+ +F_3^{12}F_2^{36}F_1^{45}\big)
+\end{split}
+\label{eq:gstar-four-bell-terms}
 \end{equation}
-where $U_1,\cdots, U_6\in U(2)$ are $2\times 2$ unitary matrix.
+satisfies
+\begin{equation}
+ g_\star=\tfrac12
+ (I\otimes I\otimes(-F_2)\otimes X\otimes I\otimes I)f_6.
+ \label{eq:gstar-to-f6}
+\end{equation}
+Thus recovering $g_\star$ is equivalent to recovering $f_6$ once the Bell
+signatures are available. The next lemma performs this finite cancellation.
+
+\begin{lemma}[Finite-label cancellation]
+\label{lem:f6-residual-labels}
+Let $\mathcal E$ be a finite algebraic signature family that is conjugate
+closed and outside condition
+$\textup{(\ref{cond: tractable classes})}$. Suppose that $\mathcal E$
+realizes
+\[
+ g\propto(B_1\otimes\cdots\otimes B_6)g_\star,\qquad
+ [B_i]\in\mathfrak T_{=}.
+\]
+Then either $\operatorname{Holant}(\mathcal E)$ is
+$\#\operatorname{P}$-hard, or $f_6$ and the four members of $\mathcal B$
+can be adjoined to $\mathcal E$ by a polynomial-time Turing reduction.
+\end{lemma}
+
+\begin{proof}
+Contracting ports $i,j$ of $g$ by equality inserts $B_i^TB_j$ into the
+same ports of $g_\star$. After conjugating by $K$ and using
+\eqref{eq:gstar-to-f6}, this becomes an $X$-contraction of
+$\widehat f_6$ with an effective cap in $\mathfrak T_X$. By
+\cref{lem:tetrahedral-filter}, it is a product of two
+projectively unitary binaries whose classes, after restoring the four
+exterior labels, lie in $\mathfrak T_{=}$.
+
+Apply \cref{thm:paired-entrance}(ii), which extracts the prime factors of
+a reducible realizable signature unless hardness already follows, to all
+fifteen contractions. If one application gives hardness, we are done.
+Otherwise all resulting binary factors, their conjugates, and their
+transposes may be adjoined.
+Let $\mathfrak G\leq\mathfrak T_{=}$ be the projective group they generate.
+If $\mathfrak G$ contains a class outside $K_4$, then it contains that
+class and its transpose. These belong to distinct order-three subgroups of
+$A_4$ and generate $\mathfrak T_{=}$. Thus
+$\mathfrak G=\mathfrak T_{=}$ in this case.
+
+It remains to consider $\mathfrak G\leq K_4$. Put $r=r_{+++}$ and record
+the coset of $B_i$ by $c_i\in\mathbb Z_3$, so that
+$[B_i]K_4=r^{c_i}K_4$. Only differences of the $c_i$ occur, and we set
+$c_1=0$. Direct multiplication in \eqref{eq:gstar-four-bell-terms} gives
+\begin{equation}
+\begin{array}{c|ccc}
+ij&c_j-c_i=0&c_j-c_i=1&c_j-c_i=2\\ \hline
+12&36\mid45;(0,0)&34\mid56;(2,1)&35\mid46;(2,1)\\
+13&25\mid46;(0,0)&24\mid56;(2,2)&26\mid45;(2,1).
+\end{array}
+\label{eq:two-contraction-quotients}
+\end{equation}
+Here $ab\mid cd;(u,v)$ says that the contraction factors on $ab\mid cd$
+and that the two factors contributed by $g_\star$ have quotient classes
+$u,v$. After restoring the exterior labels, their classes are
+$c_a+u-c_b$ and $c_c+v-c_d$. Both vanish because every extracted factor
+lies in $K_4$.
+
+Solving these four equations gives the normalized words
+\begin{equation}
+ 000000,\quad001221,\quad010212,\quad012120,\quad021102,\quad022011.
+ \label{eq:normalized-coset-words}
+\end{equation}
+Allowing a common shift gives eighteen words: the three constant words and
+the three cyclic assignments to each of
+\[
+ 12\mid36\mid45,\quad13\mid25\mid46,\quad14\mid23\mid56,\quad
+ 15\mid26\mid34,\quad16\mid24\mid35.
+\]
+
+In the next display, $(M_1,\ldots,M_6)g_\star$ abbreviates
+$(M_1\otimes\cdots\otimes M_6)g_\star$. The following three projective
+symmetries explain this list:
+\begin{align}
+ &(I,I,I,F_3,F_3,I)g_\star
+   \propto P_{(4,2,5,6,1,3)}g_\star,\label{eq:gstar-pairing-cycle}\\
+ &(r_{+++},r_{+++},r_{+++},r_{+++},r_{+++},r_{-+-})g_\star
+   \propto P_{(4,6,3,5,2,1)}g_\star,\label{eq:gstar-common-shift}\\
+ &(I,I,r_{+++},r_{+-+},r_{+-+},r_{+--})g_\star
+   \propto P_{(6,5,4,2,3,1)}g_\star.
+ \label{eq:gstar-base-word}
+\end{align}
+The first cycles the five displayed pairings, the second adds a common
+shift, and the third gives the word $001221$. They therefore cover all
+eighteen possibilities. Consequently, for the actual coset word there
+are $S_i\in\mathfrak T_{=}$ and a permutation $\pi$ such that
+$[S_i]K_4=[B_i]K_4$ for every $i$ and
+$(S_1\otimes\cdots\otimes S_6)g_\star\propto P_\pi g_\star$.
+
+It remains to see that the extracted factors generate all of $K_4$, rather
+than a proper subgroup. Projectively write $B_i=F_{\alpha_i}r^{c_i}$,
+where $F_{00}=F_0,F_{10}=F_1,F_{01}=F_2,F_{11}=F_3$. Conjugation by
+$r$ acts on $\mathbb F_2^2$ by
+$\rho(1,0)=(1,1)$ and $\rho(0,1)=(1,0)$, so multiplication is
+$(\alpha,c)(\beta,d)=(\alpha+\rho^c\beta,c+d)$.
+
+Let $p_{ij}^{ab}$ be the oriented factor on $ab$ extracted from the
+contraction on $ij$. For the two representative words, the multiplication
+rule gives
+\begin{align*}
+000000:\quad
+ &p_{12}^{45}p_{13}^{25}p_{23}^{14}\propto F_1,\\
+ &p_{12}^{36}p_{12}^{45}p_{13}^{25}p_{14}^{23}
+  p_{23}^{14}p_{24}^{16}\propto F_2;\\[1mm]
+001221:\quad
+ &p_{12}^{36}p_{14}^{26}p_{24}^{13}\propto F_1,\\
+ &p_{12}^{36}p_{12}^{45}p_{13}^{24}p_{14}^{26}
+  p_{23}^{15}p_{24}^{13}\propto F_2.
+\end{align*}
+These are binary chains on equality edges, and the unknown $\alpha_i$
+cancel in every line. The symmetries
+\eqref{eq:gstar-pairing-cycle}--\eqref{eq:gstar-base-word} transport
+the identities to every allowed word. Hence
+$[F_1],[F_2]\in\mathfrak G$, and these classes generate $K_4$. We have
+proved
+\[
+ \mathfrak G=K_4\qquad\text{or}\qquad
+ \mathfrak G=\mathfrak T_{=}.
+\]
+In either case the four Bell classes, and therefore the fixed
+representatives in $\mathcal B$ after scalar normalization, are available.
+
+If $\mathfrak G=\mathfrak T_{=}$, attach $B_i^{-1}$ to the six ports of
+$g$ to obtain $g_\star$. If $\mathfrak G=K_4$, then
+$[S_iB_i^{-1}]\in K_4$ for the $S_i$ chosen above. Attaching these Bell
+filters replaces the labels $B_i$ by $S_i$ and produces
+$P_\pi g_\star$; relabeling gives $g_\star$. Finally,
+\eqref{eq:gstar-to-f6} yields $f_6$ using fixed Bell filters.
+\end{proof}
+
+We now assemble the three steps. The proof explicitly tracks the edge
+matrix, so a direct effective cap is not confused with a physical binary
+gadget connected through disequalities.
+
+\begin{proof}[Proof of \cref{thm:realize-f6}]
+Set $\widehat f=(K^{-1})^{\otimes6}f$. Unitarity of $K$ preserves
+irreducibility and the $\operatorname{AME}(6,2)$ property. Moreover,
+$K^TK=X$ gives
+\begin{equation}
+ \partial_{ij}f=K^{\otimes4}\partial_{ij}^{X}\widehat f.
+ \label{eq:contraction-change-of-frame}
+\end{equation}
+Thus the contraction hypothesis is equivalent to
+$\partial_{ij}^{X}\widehat f\in\mathcal U^{\otimes}$ for all $i<j$.
+
+By \cref{lem:ame6-normal-form}, after relabeling the ports and absorbing a
+nonzero scalar, there are unitaries $U_1,\ldots,U_6$ such that
+$\widehat f\propto(U_1\otimes\cdots\otimes U_6)\widehat f_6$.
+Capping ports $i,j$ by $X$ inserts the effective matrix
+$Q_{ij}=U_i^TXU_j$ into $\widehat f_6$:
+\[
+ \partial_{ij}^{X}\widehat f\propto
+ \left(\bigotimes_{k\ne i,j}U_k\right)
+ \partial_{ij}^{Q_{ij}}\widehat f_6.
+\]
+The four exterior unitaries preserve both factorization and projective
+unitarity. Hence \cref{lem:tetrahedral-filter} gives
+$[U_i^TXU_j]\in\mathfrak T_X$ for every $i\ne j$.
+
+Apply \cref{lem:f6-common-frame}. Its matrix $W$ is a legal uniform
+change of basis in the hatted frame: $W^TXW=X$ implies
+$W^{-1}XW^{-T}=X$, and $X\overline WX=W$ gives compatibility with arrow
+reversal. Hence
+\[
+ \widehat h:=(W^{-1})^{\otimes6}\widehat f
+ \propto(C_1\otimes\cdots\otimes C_6)\widehat f_6,\qquad
+ [C_i]\in\mathfrak T_X.
+\]
+
+Return to the equality frame by setting $O=KW^{-1}K^{-1}$. The identities
+$\overline K=KX$, $\overline{K^{-1}}=XK^{-1}$, and
+$X\overline{W^{-1}}X=W^{-1}$ give $\overline O=O$. Also
+$W^{-T}XW^{-1}=X$ and $K^TK=X$ give
+\[
+ O^TO=K^{-T}W^{-T}XW^{-1}K^{-1}=K^{-T}XK^{-1}=I.
+\]
+Thus $O\in O(2,\mathbb R)$.
+
+Let $h=O^{\otimes6}f$ and $D_i=KC_iK^{-1}$. Returning the preceding
+identity to the equality frame gives
+\[
+ h\propto(D_1\otimes\cdots\otimes D_6)f_6,\qquad
+ [D_i]\in\mathfrak T_{=}.
+\]
+If $(L_1,\ldots,L_6)=(I,I,-F_2,X,I,I)$, then
+\eqref{eq:gstar-to-f6} gives
+$f_6=2(L_1^{-1}\otimes\cdots\otimes L_6^{-1})g_\star$. Thus, with
+$B_i=D_iL_i^{-1}$,
+\[
+ h\propto(B_1\otimes\cdots\otimes B_6)g_\star,\qquad
+ [B_i]\in\mathfrak T_{=}.
+\]
+
+Set $\mathcal E=O\mathcal F$. Because $O$ is real orthogonal,
+$\mathcal E$ remains conjugate closed and outside condition
+$\textup{(\ref{cond: tractable classes})}$, while equality edges are
+unchanged. Since $h\in\mathcal E$,
+\cref{lem:f6-residual-labels} gives hardness or jointly realizes
+$f_6$ and $\mathcal B$ over $\mathcal E$. In the latter case,
+\[
+ \operatorname{Holant}(=_2\mid\{f_6\}\cup O\mathcal F)
+ \leq_T\operatorname{Holant}(=_2\mid\mathcal F),
+\]
+as required.
+
+Finally, $O$ is effective. There are finitely many port permutations and
+choices of the six classes $[C_i]\in\mathfrak T_X$. For each choice, the
+normal-form and common-frame identities form a fixed finite polynomial
+system over the real algebraic numbers after separating real and imaginary
+parts. At least one system is feasible by the preceding argument, and
+standard real-algebraic elimination returns a sample solution. All matrices
+and scalar normalizations can therefore be fixed before the input instance
+is given.
+\end{proof}

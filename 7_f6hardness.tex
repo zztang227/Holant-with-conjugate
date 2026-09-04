@@ -178,7 +178,7 @@ So in the following we may assume that $f_6\in \mathcal{G}$
 By \cref{lm: non-pairty reduction}, we can realize a binary signature $b$ with no parity.
 By $\cref{lm: }$, $b\in\Gamma,$ otherwise $\Holant(\mathcal{F})$ is \#P-hard.
 So $b\in \Gamma\setminus \{I,X,Z,J\}\cong A_4 \setminus K_4.$
-\textcolor{red}{Since an arbitrary element in $A_4 \setminus K_4$ and $K_4$ generates $A_4$,} we can realize all elements in $\Gamma.$
+\textcolor{black}{Since an arbitrary element in $A_4 \setminus K_4$ and $K_4$ generates $A_4$,} we can realize all elements in $\Gamma.$
 In the following, we will prove $\Holant(\Gamma,f_6,\mathcal{F})$ is \#P-hard.
 Recall
 \Fgate*
@@ -210,8 +210,9 @@ Now we may assume $\Gamma\cup \{f_6\}\subseteq \mathcal{G}.$
 \begin{lemma}\label{lm: decrease Pauli weight by 2}
     Suppose $Q_{i_1i_2\ldots i_k}$ is a Pauli tensor of weight at least $3.$
     Then we can realize a signature $g_{i_1i_2\ldots i_k}\in \mathscr{A}\cap \mathcal{G}$ of arity $2k$ with matrix $U_{i_1i_2\ldots i_k}=M_{x_1\ldots x_k,\, x_{k+1}\ldots x_{2k}}(g_{i_1i_2\ldots i_k})$ which is unitary, such that $U_{i_1i_2\ldots i_k}Q_{i_1i_2\ldots i_k}U_{i_1i_2\ldots i_k}^\dagger$ is a Pauli tensor of weight decreased by 2 compared with the Pauli tensor $Q_{i_1i_2\ldots i_k}$.
-    \todo{ZZT: add a figure here.}
+    %\todo{ZZT: add a figure here.}
 \end{lemma}
+
 \begin{proof}
     Since $Q_{i_1i_2\ldots i_k}$ has weight at least 3, we may assume $i_1i_2i_3\neq 0$ without loss of generality.
     First apply \cref{lm: conjugate action by Gamma}, we realize a 6-ary signature $g_6$ with matrix $M(g_6)=\gamma_1\otimes \gamma_2\otimes\gamma_3$ with $\gamma_1,\gamma_2,\gamma_3\in \Gamma$, such that $M(g_6)(\sigma_{i_1}\otimes\sigma_{i_2}\otimes \sigma_{i_3})M(g_6)^\dagger=X\otimes Z\otimes Z.$
