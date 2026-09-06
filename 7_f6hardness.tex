@@ -1,6 +1,6 @@
-\section{Hardness When $f_6$ is Available}
+\section{Hardness When $f_6$ is Available}\label{sec: f6 is hard}
 
-In this section, we prove that $\Holant(f_6,\mathcal{F})$ is \#P-hard when $\mathcal{F}$ doesn't satisfy condition (\ref{cond: tractable classes}).
+In this section, we prove that $\Holant(f_6,\mathcal{B},\mathcal{F})$ is \#P-hard when $\mathcal{F}$ doesn't satisfy condition (\ref{cond: tractable classes}).
 The proof consists of two cases.
 If every signature in $\mathcal{F}$ has parity, we do a realification argument to prove that every signature in $\mathcal{F}$ is \emph{real} up to a complex phase. 
 Then the result in \cite{realholant} applies.
@@ -9,7 +9,7 @@ If $\mathcal{F}$ contains a signature with no parity, we can do arity reduction 
 In this section, we still assume that $\mathcal{F}$ only contains even arity signatures and doesn't satisfy condition (\ref{cond: tractable classes}).
 
 
-\subsection{Parity Condition}
+\subsection{Parity Condition}\label{subsec: f6 parity}
 In this subsection, we assume every signature in $\mathcal{F}$ has parity.
 Recall
 $$
@@ -35,7 +35,7 @@ J=\left[\begin{matrix}
 \end{matrix}\right].
 $$
 
-If we can realize $f_6$, then we can realize $K_4=\{I,X,Z,J\}$ by \cref{lm:}
+
 
 \begin{definition}[Projectively real]
     A signature $f:\{0,1\}^d\to \mathbb{C}$ is projectively real, if there exists $\lambda\in \mathbb{C}$ and a signature $g:\{0,1\}^d\to \mathbb{R}$ such that $f=\lambda g.$
@@ -98,7 +98,7 @@ So in the following we may assume that $f_6\in \mathcal{G}$
 \end{lemma}
 \begin{proof}
     We prove this lemma by induction on the arity of $f$.
-    If $f$ has arity $2$, then $f\in \Gamma$, otherwise $\Holant(\mathcal{F})$ is \#P-hard by \cref{lm:}.
+    If $f$ has arity $2$, then $f\in \Gamma$, otherwise $\Holant(\mathcal{F})$ is \#P-hard by \cref{lem:f6-nongamma-binary}.
     Since $f$ has parity, $f\in \{I,X,Z,J\}.$
     Then $f$ is real.
     If $f$ has arity $4$, then by \cref{lm: base case 2n=4}, $\Holant(\mathcal{F})$ is \#P-hard unless $f\in \mathcal{U}^{\otimes }$.
@@ -166,7 +166,7 @@ So in the following we may assume that $f_6\in \mathcal{G}$
     Then by Lemma 7.20 in \cite{realholant}, $\Holant(f_6,\mathcal{F})$ is \#P-hard.
 \end{proof}
 
-\subsection{Non-parity Condition}
+\subsection{Non-parity Condition}\label{subsec: f6 non-parity}
 
 \begin{lemma}\label{lm: non-pairty reduction}
     If $f$ is a signature of arity $2d\ge 4$ with no parity, then we can realize a signature $g$ of arity $2(d-1)$ with no parity.
@@ -176,7 +176,7 @@ So in the following we may assume that $f_6\in \mathcal{G}$
 \end{proof}
 
 By \cref{lm: non-pairty reduction}, we can realize a binary signature $b$ with no parity.
-By $\cref{lm: }$, $b\in\Gamma,$ otherwise $\Holant(\mathcal{F})$ is \#P-hard.
+By $\cref{lem:f6-nongamma-binary}$, $b\in\Gamma,$ otherwise $\Holant(\mathcal{F})$ is \#P-hard.
 So $b\in \Gamma\setminus \{I,X,Z,J\}\cong A_4 \setminus K_4.$
 \textcolor{black}{Since an arbitrary element in $A_4 \setminus K_4$ and $K_4$ generates $A_4$,} we can realize all elements in $\Gamma.$
 In the following, we will prove $\Holant(\Gamma,f_6,\mathcal{F})$ is \#P-hard.
@@ -233,14 +233,15 @@ Repeatedly apply \cref{lm: decrease Pauli weight by 2}, we have the following Co
 \end{corollary}
 
 \begin{lemma}\label{lm: all 12 binary available is hard}
-    $\Holant(\Gamma, f_6, \mathcal{F})$ is \#P-hard.
+    Suppose $\mathcal{F}$ doesn't satisfy condition (\ref{cond: tractable classes}). 
+    Then $\Holant(\Gamma, f_6, \mathcal{F})$ is \#P-hard.
 \end{lemma}
 \begin{proof}
     
     Since $\mathcal{F}$ doesn't satisfy condition (\ref{cond: tractable classes}), then there exists some $f\in \mathcal{G}$ such that $f\notin \mathscr{A}.$
     We choose such an $f$ with minimal arity $d$.
     If $d=2$, then $f\notin \Gamma$.
-    By \cref{lm:}, $\Holant(\Gamma,f_6,\mathcal{F})$ is \#P-hard.
+    By \cref{lem:f6-nongamma-binary}, $\Holant(\Gamma,f_6,\mathcal{F})$ is \#P-hard.
     In the following we assume $d\ge 4.$
     Let $\mathbf{f}$ denote the truth table of $f$, listed lexicographically as a column vector in $\mathbb{C}^{2^d}$.
 
@@ -291,26 +292,30 @@ Repeatedly apply \cref{lm: decrease Pauli weight by 2}, we have the following Co
 \end{lemma}
 \begin{proof}
     By \cref{lm: non-pairty reduction}, we can realize a binary signature $b$ with no parity.
-    By $\cref{lm: }$, $b\in\Gamma,$ otherwise $\Holant(\mathcal{F})$ is \#P-hard.
+    By $\cref{lem:f6-nongamma-binary}$, $b\in\Gamma,$ otherwise $\Holant(\mathcal{F})$ is \#P-hard.
     So $b\in \Gamma\setminus \{I,X,Z,J\}\cong A_4 \setminus K_4.$
     Since an arbitrary element in $A_4 \setminus K_4$ and $K_4$ generates $A_4$, we can realize all elements in $\Gamma.$
     By \cref{lm: all 12 binary available is hard}, $\Holant(f_6,\mathcal{F})\equiv_T\Holant(\Gamma,f_6,\mathcal{F})$ is \#P-hard.
 \end{proof}
 
 \subsection{Hardness When $f_6$ is Available}
-\begin{lemma}
-    $\Holant(f_6,\mathcal{F})$ is \#P-hard.
+
+\begin{lemma}\label{lm: f6 is hard}
+    If $\mathcal{F}$ doesn't satisfy condition (\ref{cond: tractable classes}), then $\Holant(f_6,\mathcal{F})$ is \#P-hard.
 \end{lemma}
+
 \begin{proof}
     Combine \cref{lm: parity f6 is hard,lm: non-parity f6 is hard}.
 \end{proof}
 
-The following lemma no longer requires that $\mathcal{F}$ doesn't satify condition (\ref{cond: tractable classes}).
-\begin{lemma}\label{lm: f6 is hard}
-    If $\mathcal{F}$ contains a signature ${f}$ of arity $6$ and $f\notin \mathcal{U}^\otimes$, then $\Holant(\mathcal{F})$ is \#P-hard.
+%The following lemma no longer requires that $\mathcal{F}$ doesn't satify condition (\ref{cond: tractable classes}).
+The following lemma completes the induction proof for $2n=6$.
+\begin{lemma}\label{lm: induction 2n=6}
+    If $\mathcal{F}$ doesn't satisfy condition (\ref{cond: tractable classes}) and it contains a signature ${f}$ of arity $6$ such that $f\notin \mathcal{U}^\otimes$, then $\Holant(\mathcal{F})$ is \#P-hard.
 \end{lemma}
+
 \begin{proof}
-    By \cref{lm: } $\Holant(f_6,\mathcal{F})\equiv_T \Holant(\mathcal{F})$.
+    By \cref{thm:f6-equality-realization}, $\Holant(f_6,\mathcal{F})\equiv_T \Holant(\mathcal{F})$.
     By \cref{lm: f6 is hard}, $\Holant(\mathcal{F})$ is \#P-hard.
 \end{proof}
 

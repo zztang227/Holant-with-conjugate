@@ -1,0 +1,209 @@
+\section{Auxiliary Lemmas for the Disequality Reduction}
+\label{app: disequality reduction}
+We use the usual fixed finite algebraic signature model. Matrix actions
+on signatures denote the corresponding tensor powers, and
+$N_2=\left[\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right]$.
+The following lemmas supply the remaining steps in
+\Cref{lm: disequality 4 gives dichotomy,lem: In conjugate closed setting disequality 4 gives hardness}.
+The arity-reduction and affine-support facts are cited directly in the
+main text.
+
+\begin{lemma}[Lifting along an opposite pairing]
+\label{lm: pairwise opposite lifting}
+Let $f$ be a signature of arity $2n$ whose support is pairwise opposite.
+Then
+\[
+ f\in\mathrm{EO}^{\mathscr A}\ \Longrightarrow\ f\in\mathscr A,
+ \qquad
+ f\in\mathrm{EO}^{\mathscr P}\ \Longrightarrow\ f\in\mathscr P.
+\]
+Consequently, the same implications hold for every EO signature
+with affine support.
+\end{lemma}
+
+\begin{proof}
+After permuting the variables, assume that
+$x_{2j-1}\ne x_{2j}$ on $\operatorname{supp}(f)$ for every $j\in[n]$.
+Define the induced signature
+\[
+ g(y_1,\ldots,y_n)=f(y_1,1-y_1,\ldots,y_n,1-y_n).
+\]
+By the definitions of $\mathrm{EO}^{\mathscr A}$ and
+$\mathrm{EO}^{\mathscr P}$, the respective assumption implies
+$g\in\mathscr A$ or $g\in\mathscr P$.
+Indeed, these definitions require membership for the signature
+induced by every oriented pairing, including the chosen pairing.
+Moreover,
+\[
+ f(x_1,\ldots,x_{2n})
+ =g(x_1,x_3,\ldots,x_{2n-1})
+   \prod_{j=1}^{n}\neq_2(x_{2j-1},x_{2j}).
+\]
+If $g\in\mathscr A$, this expression retains its affine phase
+and adds only the affine support equations
+$x_{2j-1}\oplus x_{2j}=1$, so $f\in\mathscr A$.
+If $g\in\mathscr P$, it adds disequality factors to a product of
+unary, equality, and disequality factors, so $f\in\mathscr P$.
+The final assertion follows from~\cite[Lemma~5.7]{CaiFuShao2020EO}.
+\end{proof}
+
+\begin{lemma}[From disequality Holant to counting CSP]
+\label{lm: disequality Holant CSP equivalence}
+Let $r\geq3$ be fixed, and let $\mathcal G$ be a finite set of signatures.
+Then
+\[
+ \operatorname{Holant}(\neq_2\mid {=}_r,\mathcal G)
+ \equiv_T \#\operatorname{CSP}_r(\neq_2,\mathcal G),
+\]
+where each variable of a $\#\operatorname{CSP}_r$ instance occurs
+a multiple of $r$ times, counting repetitions.
+\end{lemma}
+
+\begin{proof}
+The counting CSP simulation follows
+\cite[full version, Lemma~5.2]{odd_holant_real}.
+We describe both directions to specify the placement of signatures.
+Variables with no occurrences contribute a factor of two each and
+can be removed first; nullary constraints are carried as scalar factors.
+In this proof, connections between left- and right-hand gadget
+ports are ordinary bipartite edges; no additional disequality
+is inserted at such a connection.
+
+In the Holant problem, connect all $r$ ports of one right-hand
+${=}_r$ to separate left-hand $\neq_2$ vertices and leave the other
+port of each $\neq_2$ dangling. The resulting left-hand signature
+is ${=}_r$, since all dangling bits are the common complement of
+the bit at the right-hand equality.
+Inductively, suppose that left-hand ${=}_{(m-1)r}$ is available,
+where $m\geq2$. Take this signature, two left-hand copies of
+${=}_r$, and one right-hand ${=}_r$.
+Connect $r-2$ ports of the right-hand equality to the first
+left-hand signature and one port to each of the other two.
+Since $r\geq3$, all three left-hand equalities are connected
+and hence share one bit. Exactly $mr$ dangling ports remain,
+so this realizes left-hand ${=}_{mr}$.
+Every satisfying boundary assignment has a unique internal extension.
+
+We can also realize a right-hand $\neq_2$: take two right-hand
+copies of ${=}_r$ and connect $r-1$ pairs of their ports by
+left-hand disequalities. The remaining two bits must be opposite,
+again with a unique internal extension.
+Thus all left-hand equalities of positive arity divisible by $r$
+and all right-hand signatures from $\{\neq_2\}\cup\mathcal G$
+are available. This realizes every instance of
+$\#\operatorname{CSP}_r(\neq_2,\mathcal G)$.
+An equality of arity $mr$ uses $O(mr)$ vertices, so this
+simulation has polynomial size.
+
+Conversely, suppress the degree-two left-hand vertices of a
+Holant instance and view them as disequality edges between
+right-hand vertices. Introduce a separate CSP variable at each
+port of a $\mathcal G$-vertex, but use a single CSP variable for
+all $r$ ports of each ${=}_r$-vertex.
+Keep the original $\mathcal G$ constraints.
+Replace each disequality edge by $r-1$ identical copies of the
+binary disequality constraint on its endpoint variables.
+Because $\neq_2$ takes only values zero and one, this replacement
+preserves the partition function.
+Each variable at a $\mathcal G$-port occurs $1+(r-1)=r$ times,
+and each equality-vertex variable occurs $r(r-1)$ times.
+This count also holds for self-loops, with both occurrences counted.
+The resulting instance is therefore a legal
+$\#\operatorname{CSP}_r$ instance, with the same value and
+$O(r)$ overhead per original edge.
+\end{proof}
+
+\begin{lemma}[Pulling back diagonal tractability]
+\label{lm: diagonal tractability pullback}
+Let
+\[
+ K=\frac1{\sqrt2}\begin{pmatrix}1&1\\ \mathrm i&-\mathrm i\end{pmatrix},
+ \qquad \widehat{\mathcal F}=K^{-1}\mathcal F,
+ \qquad Q=\operatorname{diag}(q,q^{-1}),\quad
+ q\in\overline{\mathbb Q}\setminus\{0\}.
+\]
+Here a matrix acts by its tensor power on each signature.
+If $Q\widehat{\mathcal F}\subseteq\mathscr P$, then
+$\mathcal F$ is $\mathscr P$-transformable.
+If $DQ\widehat{\mathcal F}\subseteq\mathscr A$ for some
+$D=\operatorname{diag}(1,\lambda)$ with $\lambda\ne0$, then
+$\mathcal F$ is $\mathscr A$-transformable.
+
+In particular, for every fixed $r\geq3$, if $\mathcal F$ satisfies
+neither of these transformability conditions, then
+\[
+ \#\operatorname{CSP}_r
+ \bigl(\neq_2,\neq_4,Q\widehat{\mathcal F}\bigr)
+\]
+is $\#\mathrm P$-hard. Here $\#\operatorname{CSP}_r$ means that
+every variable occurs a multiple of $r$ times, counting repetitions.
+\end{lemma}
+
+\begin{proof}
+For the first assertion, transform right-hand signatures by
+$T=QK^{-1}$. Then $T\mathcal F\subseteq\mathscr P$, while
+the equality signature on the left transforms to
+\[
+ (T^{-1})^{\mathsf T}T^{-1}
+ =(Q^{-1})^{\mathsf T}K^{\mathsf T}KQ^{-1}
+ =Q^{-1}N_2Q^{-1}=N_2\in\mathscr P.
+\]
+This is precisely $\mathscr P$-transformability, including the
+condition on the transformed edge signature.
+
+For the second assertion, set $T=DQK^{-1}$.
+Now $T\mathcal F\subseteq\mathscr A$, and
+\[
+ (T^{-1})^{\mathsf T}T^{-1}
+ =D^{-1}Q^{-1}N_2Q^{-1}D^{-1}
+ =D^{-1}N_2D^{-1}
+ =\lambda^{-1}N_2\in\mathscr A.
+\]
+Here nonzero scalar multiples are allowed in $\mathscr A$.
+This proves $\mathscr A$-transformability.
+
+Finally, \cite[full version, Theorem~5.3]{odd_holant_real}, applied to
+$\mathcal G=\{\neq_2,\neq_4\}\cup Q\widehat{\mathcal F}$,
+gives hardness unless $\mathcal G\subseteq\mathscr P$ or
+$D\mathcal G\subseteq\mathscr A$ for an allowed diagonal
+root-of-unity matrix $D$.
+Either exception contradicts the hypothesis by the first two
+assertions. Hence the displayed counting CSP is $\#\mathrm P$-hard.
+\end{proof}
+
+
+\begin{lemma}[One-sided pinning in a conjugate-closed family]
+\label{lm: one sided pinning hardness}
+Let $\mathcal F$ be conjugate closed and suppose that it does not satisfy
+condition~\textup{(\ref{cond: tractable classes})}.
+If a signature $c\Delta_e^{\otimes r}$, with $c\ne0$,
+$e\in\{0,1\}$, and even $r\geq2$, is realizable on the right-hand
+side of $\holant{\neq_2}{\neq_4,\widehat{\mathcal F}}$, then this
+problem is $\#\mathrm P$-hard.
+\end{lemma}
+
+\begin{proof}
+The family $\widehat{\mathcal F}$ is closed under arrow reversal,
+which commutes with disequality contraction. Moreover, $\neq_4$
+is invariant under arrow reversal.
+Replacing each signature in the given gadget by its arrow reversal
+therefore realizes $\overline c\Delta_{1-e}^{\otimes r}$ as well.
+By~\Cref{lm: decomposition of tensor power}, both $\Delta_0$ and
+$\Delta_1$ can be added under polynomial-time Turing reductions.
+
+Transforming by $K$ gives
+\[
+ \holant{\neq_2}{\neq_4,\Delta_0,\Delta_1,\widehat{\mathcal F}}
+ \equiv_T \holant{=_2}{g_4,u_0,u_1,\mathcal F},
+ \qquad
+ g_4=K^{\otimes4}\neq_4,\quad u_j=K\Delta_j.
+\]
+We have $u_1=\overline{u_0}$.
+Also $\overline K=KN_2$ and
+$N_2^{\otimes4}\neq_4=\neq_4$ imply $\overline{g_4}=g_4$.
+Hence $\mathcal F\cup\{g_4,u_0,u_1\}$ is conjugate closed and
+contains a nonzero unary signature.
+It still violates condition~\textup{(\ref{cond: tractable classes})},
+because that condition is inherited by subfamilies.
+The conclusion follows from~\Cref{lm: odd holant with conjugation}.
+\end{proof}

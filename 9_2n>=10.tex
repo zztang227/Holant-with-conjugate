@@ -93,8 +93,9 @@ make the proof of the main theorem complete.
 
 \begin{theorem}[Main theorem]
 \label{thm: conjugate closed Holant dichotomy}
-Let $\mathcal F$ be a conjugate-closed set of complex-valued Boolean
-signatures.  If $\mathcal F$ satisfies condition
+Let $\mathcal F$ be a conjugate-closed set of algebraic complex-valued Boolean
+signatures.  
+If $\mathcal F$ satisfies condition
 \rm{(\ref{cond: tractable classes})}, then $\Holant(\mathcal F)$ is
 polynomial-time computable.  Otherwise $\Holant(\mathcal F)$ is
 \#P-hard.
@@ -113,7 +114,7 @@ $\mathcal F$ fails condition \rm{(\ref{cond: tractable classes})} implies
 that some $f\in\mathcal F$ has even arity $2n$ and
 $f\notin\mathcal U^{\otimes}$.  We induct on $2n$.  The cases
 $2n=2,4,6,8$ are respectively
-\cref{lm: base case 2n=2,lm: base case 2n=4,lm: f6 is hard,%
+\cref{lm: base case 2n=2,lm: base case 2n=4,lm: induction 2n=6,%
 thm: base case 2n=8}.
 
 For $2n\geq10$, apply \cref{thm: strict arity descent}.  Either hardness

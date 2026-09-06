@@ -1,4 +1,6 @@
 \section{Second Order Orthogonality}\label{sec: second order orthoganality}
+In this section, we will prove that if $\mathcal{F}$ contains an irreducible signature that doesn't satisfy {\sc 2nd-Orth}, then $\Holant(\mathcal{F})$ is \#P-hard (\cref{lm: not 2nd-orth is hard}).
+First, \cref{def: k-th order orthogonality} specializes to the following definition when $k=2$.
 \begin{definition}[Second order orthogonality \cite{realholant}]\label{def: second-order-orth}
     Let $f$ be a complex-valued signature of arity $n \geqslant 4$. It satisfies the \emph{second order orthogonality ({\sc 2nd-Orth})} if there exists some $\lambda\neq 0$ such that for all pairs of indices $\{i, j\}\subseteq [n]$, the entries of $f$ satisfy 
     \begin{equation*}
@@ -63,9 +65,9 @@ Recall that $\hF$ is arrow reversal closed.
     = 
     \langle \widehat{{\bf f}}_{ij}^{00}, \widehat{{\bf f}}_{ij}^{10} \rangle+\langle \widehat{{\bf f}}_{ij}^{01}, \widehat{{\bf f}}_{ij}^{11}\rangle 
     =0.$$
-    Then $\textcolor{red}{\braket{00\mid 10}}+\textcolor{red}{\braket{01\mid 11}}=0$.
-    Note that by exchanging $i$ and $j$ we also have $\textcolor{blue}{\braket{00\mid 01}}+\textcolor{blue}{\braket{10\mid 11}}=0.$
-    Similarly, $\braket{\widehat{\bf f}_i^1, \widehat{\bf f}_i^0}=0$ implies that $\textcolor{gray}{\braket{10\mid 00}}+\textcolor{gray}{\braket{11\mid 01}}=0$ and $\textcolor{orange}{\braket{01\mid 00}}+\textcolor{orange}{\braket{11\mid 10}}=0$.
+    Then $\textcolor{black}{\braket{00\mid 10}}+\textcolor{black}{\braket{01\mid 11}}=0$.
+    Note that by exchanging $i$ and $j$ we also have $\textcolor{black}{\braket{00\mid 01}}+\textcolor{black}{\braket{10\mid 11}}=0.$
+    Similarly, $\braket{\widehat{\bf f}_i^1, \widehat{\bf f}_i^0}=0$ implies that $\textcolor{black}{\braket{10\mid 00}}+\textcolor{black}{\braket{11\mid 01}}=0$ and $\textcolor{black}{\braket{01\mid 00}}+\textcolor{black}{\braket{11\mid 10}}=0$.
     By $|\widehat{{\bf f}}_i^0|^2=|\widehat{{\bf f}}_i^1|^2,$ we have $\braket{00\mid 00}+\braket{01\mid 01}=\braket{10\mid 10}+\braket{11\mid 11}.$
     Similarly by $|\widehat{{\bf f}}_j^0|^2=|\widehat{{\bf f}}_j^1|^2,$ we have $\braket{00\mid 00}+\braket{10\mid 10}=\braket{01\mid 01}+\braket{11\mid 11}.$
     So $\braket{00\mid 00}=\braket{11\mid 11}=c$ and $\braket{01\mid 01}=\braket{10\mid 10}=d$, where $c,d\in \mathbb{R}_{\ge 0}.$ 
@@ -117,20 +119,20 @@ we have
     \end{matrix}\right]
     =
     \left[\begin{matrix}
-    \braket{00\mid 11} & \textcolor{red}{\braket{00\mid 10}} & 
-    \textcolor{blue}{\braket{00\mid 01}} & \braket{00\mid 00}\\
+    \braket{00\mid 11} & \textcolor{black}{\braket{00\mid 10}} & 
+    \textcolor{black}{\braket{00\mid 01}} & \braket{00\mid 00}\\
     
-    \textcolor{red}{\braket{01\mid 11}} & \braket{01\mid 10} & 
-    \braket{01\mid 01} & \textcolor{orange}{\braket{01\mid 00}}\\
+    \textcolor{black}{\braket{01\mid 11}} & \braket{01\mid 10} & 
+    \braket{01\mid 01} & \textcolor{black}{\braket{01\mid 00}}\\
 
-    \textcolor{blue}{\braket{10\mid 11}} & \braket{10\mid 10} & 
-    \braket{10\mid 01} & \textcolor{gray}{\braket{10\mid 00}}\\
+    \textcolor{black}{\braket{10\mid 11}} & \braket{10\mid 10} & 
+    \braket{10\mid 01} & \textcolor{black}{\braket{10\mid 00}}\\
 
-    \braket{11\mid 11} & \textcolor{orange}{\braket{11\mid 10}} & 
-    \textcolor{gray}{\braket{11\mid 01}} & \braket{11\mid 00}
+    \braket{11\mid 11} & \textcolor{black}{\braket{11\mid 10}} & 
+    \textcolor{black}{\braket{11\mid 01}} & \braket{11\mid 00}
     \end{matrix}\right].$$
     \textcolor{red}{If $\widehat{\mathfrak m}_{ij}\widehat f$ belongs to the additional tractable case (beyond that of the eight-vertex model), the colored entries in the upper (or lower) diagonal of the above matrix are all 0.}
-    So all colored entries are 0, thus $\widehat{\mathfrak{m}}_{ij}\widehat{f}$ has even parity, and it represents a signature of the eight-vertex model.
+    Combined with the equalities obtained above, $\widehat{\mathfrak{m}}_{ij}\widehat{f}$ has even parity, and it represents a signature of the eight-vertex model.
     Note that $|\braket{ab\mid cd}|^2\le \braket{ab
     \mid ab}\cdot \braket{cd\mid cd}$ by Cauchy-Schwarz inequality.
 
@@ -157,7 +159,8 @@ we have
       0 & 0 & 0 & 0\\
        1 & 0 & 0 & 0\\
     \end{smallmatrix}\right]$.
-    \todo{Use $\neq_4$ to show \#P-hardness.}
+    By~\cref{lem: In conjugate closed setting disequality 4 gives hardness}, $\holant{\neq_2}{\hF}$ is $\#P$-hard.
+    %\todo{Use $\neq_4$ to show \#P-hardness.}
     
     \item $\widehat{\mathfrak{m}}_{ij}\widehat f$ has support of size $8$. 
     We can rename the four variables of $\widehat{\mathfrak{m}}_{ij}\widehat f$ in a cyclic permutation, and replace $\braket{00\mid 11}$ and $\braket{11\mid 00}$ by $|\braket{00\mid 11}|$ by \cref{thm: eight-vertex model}.

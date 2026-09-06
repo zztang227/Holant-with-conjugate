@@ -17,7 +17,7 @@ Let $\rho_g=\ket{g}\bra{g}$ be an $2^n \times 2^n$ matrix where $x,y\in\{0,1\}^n
 \begin{equation}
     (\rho_S)_{x_S,y_S}=\bra{x_S}\rho_S\ket{y_S}=\sum_{z\in \{0,1\}^{\lvert \overline{S}\rvert}} \bra{x_Sz}\rho_g\ket{y_Sz}.
 \end{equation}
-Equivalently, $\rho_S=\operatorname{Tr}_{\overline{S}}(\rho_g)$. \todo{gjc: adding how to compute $\operatorname{Tr}_{\overline{S}}(\rho_g)$}
+Equivalently, $\rho_S=\operatorname{Tr}_{\overline{S}}(\rho_g)$. %
 
 
 \begin{definition}[Absolutely maximally entangled state]
@@ -200,7 +200,7 @@ An $n$-qubit Pauli string is an operator $E=E_1\otimes \cdots \otimes E_n$ with 
     \begin{equation}
         U_{3456}Q_{12}^{(0)}U_{3456}^\dagger=Q_{\mathrm{std}}.
     \end{equation}
-    Define $\ket{\psi^{(1)}}=(I_{12}\otimes U_{3456})\ket{\psi^{(0)}}$ and $P^{(1)}=\ket{\psi^{(1)}}\bra{\psi^{(1)}}$. Local unitaries preserve the $\mathrm{AME}$ equations \todo{gjc: add a lemma}, thus $\ket{\psi^{(1)}}$ is $\mathrm{AME}(6,2)$ state. And we have 
+    Define $\ket{\psi^{(1)}}=(I_{12}\otimes U_{3456})\ket{\psi^{(0)}}$ and $P^{(1)}=\ket{\psi^{(1)}}\bra{\psi^{(1)}}$. Local unitaries preserve the $\mathrm{AME}$ equations, thus $\ket{\psi^{(1)}}$ is $\mathrm{AME}(6,2)$ state. And we have 
     \begin{equation}
         Q_{12}^{(1)}:=4\operatorname{Tr}_{12}(P^{(1)})=U_{3456}Q_{12}^{(0)}U_{3456}^\dagger=Q_{\mathrm{std}}.
     \end{equation}
@@ -209,7 +209,7 @@ An $n$-qubit Pauli string is an operator $E=E_1\otimes \cdots \otimes E_n$ with 
         S_1=IIXXXX,\quad\quad S_2=IIZ_0Z_0Z_0Z_0.
     \end{equation}
 
-    Let $Q:=Q_{56}^{(1)}=4\operatorname{Tr}_{56}(P^{(1)})$, ~\cref{lem: QA is orth proj of pure 442} says that $Q$ is the projector of a pure $((4,4,2))_2$ code. Since $S_1\ket{\psi^{(1)}}=\ket{\psi^{(1)}}$ we have $S_1P^{(1)}S_1=P^{(1)}$. With respect to the cut $1234|56$, the $S_1$ is $(IIXX)_{1234}\otimes (XX)_{56}$, since\todo{a lemma or preli} unitary invariance of the partial trace on qubits 5,6 gives
+    Let $Q:=Q_{56}^{(1)}=4\operatorname{Tr}_{56}(P^{(1)})$, ~\cref{lem: QA is orth proj of pure 442} says that $Q$ is the projector of a pure $((4,4,2))_2$ code. Since $S_1\ket{\psi^{(1)}}=\ket{\psi^{(1)}}$ we have $S_1P^{(1)}S_1=P^{(1)}$. With respect to the cut $1234|56$, the $S_1$ is $(IIXX)_{1234}\otimes (XX)_{56}$, since unitary invariance of the partial trace on qubits 5,6 gives
     \begin{equation}
         (IIXX)Q(IIXX)=4\operatorname{Tr}_{56}(S_1P^{(1)}S_1)=4\operatorname{Tr}_{56}(P^{(1)})=Q.
     \end{equation}
