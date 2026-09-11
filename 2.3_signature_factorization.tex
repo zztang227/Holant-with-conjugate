@@ -1,0 +1,68 @@
+
+\subsection{Signature Factorization}
+
+For signatures $f$ and $g$ on disjoint variable sets $\{x_1,\ldots,x_n\}$ and $\{y_1,\ldots,y_m\}$, $f\otimes g$ denotes their tensor product, with $(f\otimes g)(x_1,\ldots, x_n,y_1,\ldots,y_m)=f(x_1,\ldots,x_n)\cdot g(y_1,\ldots, y_m)$.
+Recall that by our definition, every signature has arity at least one.
+A nonzero signature $g$ \emph{divides} $f$ denoted by $g \mid f$, if there is a signature $h$ such that  $f=g \otimes h$
+%=h \otimes g$ 
+%%% the permutation includes this other order
+(with possibly a permutation of variables) or there is a constant $\lambda$ such that $f= \lambda \cdot g$.
+In the latter case, if $\lambda \neq 0$, then we also have $f \mid g$ since $g= \frac{1}{\lambda} \cdot f$.
+%When $h$ is a nonzero signature of arity $0$, i.e. a  constant $c \not = 0$,
+%it is a \emph{unit} and $g \otimes h$ is just $cg$. 
+For nonzero signatures, if both $g\mid f$ and $f \mid g$, then they are nonzero constant multiples of
+each other, and 
+we say $g$ is an \emph{associate} of $f$, 
+denoted by $g \sim f$.
+In terms of  this division relation,
+the notions of \emph{irreducible}  signatures  and \emph{prime} signatures have been defined.
+They are proved equivalent and thus, the \emph{unique prime factorization} (UPF) of signatures is established \cite{cai-fu-shao-eo}.
+
+%\begin{definition}
+%A signature $f$ is irreducible (a prime signature) if it cannot be decomposed 
+%\end{definition}
+A nonzero signature $f$ is irreducible  if there are no signatures $g$ and $h$ such that $f=g\otimes h$. 
+A nonzero signature $f$ is a prime signature
+if $f \mid g\otimes h$
+implies that $f \mid g$ or $f \mid h$.  These notions
+are equivalent.
+%On the contrary, 
+We say a signature $f$ is reducible  if $f = g \otimes h$,
+for some signatures $g$ and $h$. All zero signatures 
+of arity greater than 1 are reducible.
+A prime factorization of a signature $f$ is $f=g_1\otimes \ldots \otimes g_k$ up to a permutation of
+variables, where each $g_i$ is irreducible. 
+%%% 0 is reducible
+% unit , arity-0 nonzero constant is neither
+% arity 1 nonzero is irre
+% nonzero arity >= 2 : reducible if there is a decomp 
+% of f = lower arity g \otimes lower arity  h
+% and irre otherwise.
+
+
+\begin{lemma}[Unique prime factorization~\cite{cai-fu-shao-eo}]\label{unique}
+Every nonzero signature $f$ has a prime factorization.
+If  $f$ has  prime factorizations
+ $f=g_1\otimes \ldots \otimes g_k$ and $f=h_1\otimes \ldots \otimes h_\ell$,
+both up to a permutation of variables,
+then $k=\ell$ and after reordering the factors we have $g_i \sim h_i$  for all $i$. 
+%where $\lambda_i$ are nonzero constants.
+\end{lemma}
+
+For $k\ge1$, let
+\[
+\mathcal F^{\otimes k}
+=\left\{\lambda\bigotimes_{j=1}^k f_j:
+  \lambda\in\mathbb C^\times,\ f_j\in\mathcal F\right\},\qquad
+\mathcal F^\otimes=\bigcup_{k\ge1}\mathcal F^{\otimes k}.
+\]
+We also write $\langle\mathcal F\rangle$ for this normalized tensor
+closure.
+
+\begin{lemma}[\cite{Lin_Wang_Decomposition_lemma} Lemma 3.1]\label{lm: decomposition of tensor power}
+    Let $\F$ be a set of signatures. Then
+    $$
+        \Holant(\F,f)\leq_T \Holant(\F,f^{\otimes d}),
+    $$
+    for all $d\geq 1$.
+\end{lemma}

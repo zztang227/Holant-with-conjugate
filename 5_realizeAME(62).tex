@@ -8,9 +8,18 @@ The induction framework \cref{subsec: Induction framework} shows we may assume t
     f\in \mathcal{F} \text{ is arity } 6, \text{irreducible, satisfies {\sc 2nd-Orth} and } B(f) \text{ closure \cref{prop: binary closure}.}
 \end{equation}
 
-We are going to prove that $f$ satisfies {\sc 3rd-Orth}, i.e., $\ket{f}$ is an AME$(6,2)$ state.
+In this section, we are going to prove the following theorem:
+
+\begin{restatable}{theorem}{ThirdOrderOrth}\label{thm: third order orthogonality}
+    Under assumption \eqref{eq: arity 6 assumption}, $f$ satisfies {\sc 3rd-Orth}.
+    Equivalently, $\frac{\ket{f}}{||f||}$ is an AME(6,2) state.
+\end{restatable}
+
 The proof enumerates all possible cases of the finite group $B(f)\le \mathbf{SO}(3)$.
-We fix arbitrary distinct indices $\{i,j,k\}\subseteq [6]$ and show that either $\rho_{ijk}=\frac{1}{8}I_8$ or \eqref{eq: arity 6 assumption} cannot be satisfied.
+We fix arbitrary distinct indices $\{i,j,k\}\subseteq [6]$.
+For the polyhedral group case (\cref{subsec: polyhedral groups}), large dihedral group case (\cref{subsec: dihedral group}) and standard case of Klein group (\cref{subsubsec: Standard Case Klein}), we prove that $f$ satisfies {\sc 3rd-Orth}, by showing the coefficients of Pauli weight $3$ in the Pauli representation of the marginal density matrix $\rho_{ijk}$ are all 0. 
+We also prove the non-standard case of Klein group (\cref{subsubsec: Non-standard Klein}) and the cyclic group case (\cref{subsec: Trivial group,subsec: Order Two group,subsec: Cyclic group of Order at least three}) can not happen.
+
 
 \subsection{Polyhedral Groups}\label{subsec: polyhedral groups}
 
@@ -345,7 +354,7 @@ factorization assertion in \cref{prop: binary closure}.
     The lemma is proven.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lm: K4 non-standard}
 Under assumption \eqref{eq: arity 6 assumption}, the non-standard case of
 $B(f)\cong K_4$ cannot occur.
 \end{lemma}
@@ -609,7 +618,7 @@ However, the second equation in \eqref{eq:C1-eight-d} says that the same
 quantity is \(\lambda\).  Hence \(\lambda=-\lambda\), so
 \(\lambda=0\), contradicting \(\lambda\neq 0\).
 Therefore, we proved:
-\begin{lemma}
+\begin{lemma}\label{lm: trivial group}
     Under assumption \eqref{eq: arity 6 assumption}, the case $B(f)\cong C_1$ cannot occur.
 \end{lemma}
 
@@ -849,14 +858,7 @@ In this case, $B(f)=\{e,b\}$ where $M(e)=I_2$ and $M(b)=\left[\begin{matrix}
      \partial_{12}^{b}g=2z\cdot t(x_5,x_6).
     \)
     Comparison with \eqref{eq: C2 sym} gives $|y|=2|z|$ and $t=e$.
-    On the other hand, for any pair of indices $\{i,j\},$
-   
-    $$|\partial_{ij}^{b}f|^2
-    =
-    \sum_{r,s,p,q}
-    b(r,s)\overline{b(p,q)}
-    \langle f_{ij}^{rs},f_{ij}^{pq}\rangle=\sum_{r,s}|b(r,s)|^2\braket{f_{ij}^{rs},f_{ij}^{rs}}=2\lambda$$
-    by {\sc 2nd-Orth}, where $\lambda=|f_{ij}^{00}|^2=|f_{ij}^{01}|^2=|f_{ij}^{10}|^2=|f_{ij}^{11}|^2>0$.
+    On the other hand, for any pair of indices $\{i,j\}$, we have $|\partial_{ij}^bf|^2=\lambda|b|^2=2\lambda$ by \cref{lm: 2nd-orth contraction nonzero}, where $\lambda=|f_{ij}^{00}|^2=|f_{ij}^{01}|^2=|f_{ij}^{10}|^2=|f_{ij}^{11}|^2>0$.
     Consequently $|\partial_{12}^{b}f|=|\partial_{34}^{b}f|=|g|>0$.
     So $|y|=|z|>0$, contradicting $|y|=2|z|$.
     Therefore, the case \eqref{eq:c2-symmetric-crossed} cannot occur.
@@ -925,14 +927,7 @@ In the asymmetric case, we have $B(f)=\{e,b\}$, where $M(e)=I_2$ and $M(b)=\left
      \partial_{12}^{b}g=2z\cdot t(x_5,x_6).
     \)
     Comparison with \eqref{eq: C2 asym} gives $|y|=2|z|$ and $t=e$.
-    On the other hand, for any pair of indices $\{i,j\},$
-   
-    $$|\partial_{ij}^{b}f|^2
-    =
-    \sum_{r,s,p,q}
-    b(r,s)\overline{b(p,q)}
-    \langle f_{ij}^{rs},f_{ij}^{pq}\rangle=\sum_{r,s}|b(r,s)|^2\braket{f_{ij}^{rs},f_{ij}^{rs}}=2\lambda$$
-    by {\sc 2nd-Orth}, where $\lambda=|f_{ij}^{00}|^2=|f_{ij}^{01}|^2=|f_{ij}^{10}|^2=|f_{ij}^{11}|^2>0$.
+    On the other hand, for any pair of indices $\{i,j\}$, we have $|\partial_{ij}^bf|^2=\lambda|b|^2=2\lambda$ by \cref{lm: 2nd-orth contraction nonzero}, where $\lambda=|f_{ij}^{00}|^2=|f_{ij}^{01}|^2=|f_{ij}^{10}|^2=|f_{ij}^{11}|^2>0$.
     Consequently $|\partial_{12}^{b}f|=|\partial_{34}^{b}f|=|g|>0$.
     So $|y|=|z|>0$, contradicting $|y|=2|z|$.
 \end{proof}
@@ -1268,4 +1263,15 @@ We only sketch the proof and focus on differences from the standard case.
     This is a contradiction.
 \end{proof}
 
+\subsection{Synthesis of All Cases}
 
+We are ready to prove the main theorem of this section.
+\ThirdOrderOrth*
+
+\begin{proof}
+    By \cref{thm: binary set is finite group}, $B(f)$ is isomorphic to a finite subgroup of $\mathbf{SO}(3)$.
+    It can either be one of the polyhedral groups, or a dihedral group, or a cyclic group.
+    If $B(f)$ is a polyhedral group, or a dihedral group of order at least six, or the Klein group in the standard case, $f$ satisfies {\sc 3rd-Orth} by \cref{lm: arity 6 polyhedral group 3rd orth,lm: arity 6 dihedral group 3rd orth,lm: K4 standard case}, respectively.
+    The non-standard case and the cyclic group case cannot happen by \cref{lm: K4 non-standard,lm: trivial group,lm: C2 symmetric impossible,lm: C2 asymmetric impossible,lm: cyclic group impossible}.
+    The above cases are exhaustive.
+\end{proof}

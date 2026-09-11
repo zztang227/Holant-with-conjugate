@@ -1,0 +1,266 @@
+
+\subsection{Tractable Signatures}\label{subsec: tractable signatures}
+
+We give some known signature sets that define polynomial time computable (tractable) counting problems.
+
+
+\begin{definition}
+    The class $\mathscr T$ consists of all signatures that, up to a
+    permutation of variables, are tensor products of unary and binary signatures.
+\end{definition}
+
+
+\begin{definition}[Affine signatures]\label{def: affine}
+A signature $f(x_1,\ldots,x_n)$ is \emph{affine} if it has the form
+\[
+f(x_1,\ldots,x_n)
+=\lambda\,\chi_{A\mathbf x=0}\,
+ \mathfrak i^{\,Q(x_1,\ldots,x_n)},
+\]
+where $\lambda\in\mathbb C$,
+$\mathbf x=(x_1,\ldots,x_n,1)^{\mathsf T}$, $A$ is a matrix over
+$\mathbb Z_2$, and $Q\in\mathbb Z_4[x_1,\ldots,x_n]$ is multi-linear polynomial of
+degree at most two with even mixed coefficients.  
+Equivalently,
+\[
+Q(x_1,\ldots,x_n)
+=a_0+\sum_{k=1}^n a_kx_k
+ +\sum_{1\le i<j\le n}2b_{ij}x_ix_j,
+\qquad a_k,b_{ij}\in\mathbb Z_4.
+\]
+The equation $A\mathbf x=0$ is evaluated over $\mathbb Z_2$, and $\chi$ is a 0-1 indicator function such that $\chi_{A\mathbf{x}=0}$ is 1 iff $A\mathbf{x}=0.$
+The class of affine signatures is denoted by $\mathscr A$. 
+\end{definition}
+
+We say that
+$f$ has \emph{affine support} if $\mathscr S(f)$ is an affine subspace of
+$\mathbb Z_2^n$.
+Clearly, any affine signature has affine support. 
+%Moreover, we have that any signature of product type has affine support \cite{jcbook}.
+
+\begin{lemma}\label{lm: affine singular value}
+    Let $f\in \mathscr{A}$ be a signature of arity n.
+    For every subset of indices $S\subseteq[n]$, the nonzero rows of the $2^{|S|}$ by $2^{n-|S|}$ matrix $M_{S,\overline{S}}(f)$ are either orthogonal or proportional.
+    Moreover, the $2^{|S|}$ by $2^{n-|S|}$ matrix $M_{S,\overline{S}}(f)$ has equal non-zero singular values, and $\mathrm{rank}(M_{S,\overline{S}}(f))$ is the power of 2.
+\end{lemma}
+
+\begin{proof}
+    By the definition of affine signature, it has normal form $f(\mathbf{x})=\lambda \mathbf{1}_{A\mathbf{x}=b}\mathfrak{i}^{Q(\mathbf{x})}$, where the solution set of $A\mathbf x=b$ over $\mathbb Z_2$ is an affine subspace over $\mathbb Z_2^n$ and the $Q(\mathbf{x})$ is a multi-linear polynomial of degree at most two with even mixed coefficients.
+
+    For any subset $S\subseteq [n]$, let $\mathbf{x}=(\mathbf{x}_S,\mathbf{x}_{\overline{S}})$ and  $\mathbf{x}_S,\mathbf{x}_{\overline{S}}$ be the vector of variables in $S$ and $\overline{S}$ respectively. Thus, the signature matrix $M_{S,\overline{S}}(f)$ has row index $\mathbf{x}_S$ and column index $\mathbf{x}_{\overline{S}}$. Since the support of $f$ is an affine subspace, we can assume that $\mathscr{S}(f)=L+(\mathbf{x}_S',\mathbf{x}_{\overline{S}}')$ where $L$ is the solution set of $A\mathbf{x}=0$ over $\mathbb Z_2$, hence $L$ is an linear subspace over $\mathbb{Z}_2^n$, and $(\mathbf{x}_S',\mathbf{x}_{\overline{S}}')$ is a special solution of $A\mathbf{x}=b$.
+
+    Let $W:= \{\mathbf{u}_S\in \{0,1\}^{|S|}: \exists \mathbf{v}_{\overline{S}},(\mathbf{u}_S,\mathbf{v}_{\overline{S}})\in L\}$. This $W$ help us to give the set of all row indices of all nonzero rows, which is the set $\mathbf{x}_S+W$. Let $V:= \{\mathbf{v}_{\overline{S}}\in \{0,1\}^{|\overline{S}|}:(\mathbf{0},\mathbf{v}_{\overline{S}})\in L\}$. This $V$ help us to give the set of column indices that the entry of the matrix is nonzero when giving a nonzero row index. Giving an index $\mathbf{x}_S^{(1)}$ of a nonzero row, there must exist a index $\mathbf{x}_{\overline{S}}^{(1)}$ such that $(\mathbf{x}_S^{(1)},\mathbf{x}_{\overline{S}}^{(1)})\in L+(\mathbf{x}_S',\mathbf{x}_{\overline{S}}')$ since the row is not all zero. Then the index of column that the entry is nonzero belongs to $\mathbf{x}_{\overline{S}}^{(1)}+V$, since for any $\mathbf{v}_{\overline{S}}\in V$, we have $(\mathbf{x}_S^{(1)},\mathbf{x}_{\overline{S}}^{(1)}+\mathbf{v}_{\overline{S}})=(\mathbf{x}_S^{(1)},\mathbf{x}_{\overline{S}}^{(1)})+(\mathbf{0},\mathbf{v}_{\overline{S}})\in L+(\mathbf{x}_S',\mathbf{x}_{\overline{S}}').$ 
+    
+    Let $\mathscr{S}(f_{S}^{\mathbf{x}_S^{(1)}})=\{\mathbf{x}_{\overline{S}}^{(1)}\in\{0,1\}^{|S|}:(\mathbf{x}_S^{(1)},\mathbf{x}_{\overline{S}}^{(1)})\in L+(\mathbf{x}_S',\mathbf{x}_{\overline{S}}')\}$ be the partly support set of $f$ when fixed the variables in $S$ to $\mathbf{x}_S^{(1)}$. Thus, $\mathscr{S}(f_{S}^{\mathbf{x}_S^{(1)}})= \mathbf{x}_{\overline{S}}^{(1)}+V$ where $\mathbf{x}_{\overline{S}}^{(1)}$ is an arbitrary column index such that $(\mathbf{x}_S^{(1)},\mathbf{x}_{\overline{S}}^{(1)})\in L+(\mathbf{x}_S',\mathbf{x}_{\overline{S}}')$. Hence, for any nonzero row $\mathbf{x}_S^{(1)}$, the partly support $\mathscr{S}(f_{S}^{\mathbf{x}_S^{(1)}})$ is a coset of $V$. Suppose that $\mathscr{S}(f_{S}^{\mathbf{x}_S^{(1)}})=\mathbf{x}_{\overline{S}}^{(1)}+V$ and $\mathscr{S}(f_{S}^{\mathbf{x}_S^{(2)}})=\mathbf{x}_{\overline{S}}^{(2)}+V$ are intersecting, then exist $\mathbf{v}_{\overline{S}}^{(1)},\mathbf{v}_{\overline{S}}^{(2)}\in V$ such that $\mathbf{x}_{\overline{S}}^{(1)}+\mathbf{v}_{\overline{S}}^{(1)}=\mathbf{x}_{\overline{S}}^{(2)}+\mathbf{v}_{\overline{S}}^{(2)}$. We can get $\mathbf{x}_{\overline{S}}^{(1)}-\mathbf{x}_{\overline{S}}^{(2)}=\mathbf{v}_{\overline{S}}^{(2)}-\mathbf{v}_{\overline{S}}^{(1)}\in L$. Thus, for any $\mathbf{x}_{\overline{S}}^{(1)}+\mathbf{v}_{\overline{S}}^{'}\in \mathscr{S}(f_{S}^{\mathbf{x}_S^{(1)}})$, we have $\mathbf{x}_{\overline{S}}^{(1)}+\mathbf{v}_{\overline{S}}^{'}=\mathbf{x}_{\overline{S}}^{(2)}+(\mathbf{x}_{\overline{S}}^{(1)}-\mathbf{x}_{\overline{S}}^{(2)}+\mathbf{v}_{\overline{S}}^{'})\in \mathscr{S}(f_{S}^{\mathbf{x}_S^{(2)}})$. Then $\mathscr{S}(f_{S}^{\mathbf{x}_S^{(1)}})\subseteq \mathscr{S}(f_{S}^{\mathbf{x}_S^{(2)}})$, by symmetric, we can get $\mathscr{S}(f_{S}^{\mathbf{x}_S^{(2)}})\subseteq \mathscr{S}(f_{S}^{\mathbf{x}_S^{(1)}})$. Hence, we can get $\mathscr{S}(f_{S}^{\mathbf{x}_S^{(1)}})= \mathscr{S}(f_{S}^{\mathbf{x}_S^{(2)}})$. This indicates that for any two coset of $V$, either they are identical or they are disjoint. And we also have $\|f_{S}^{\mathbf{x}_S^{(i)}}\|^2=|\lambda|^2|V|$ have the same norm for any nonzero row.
+
+    Until now, if for any the two nonzero rows $\mathbf{x}_S^{(i)},\mathbf{x}_S^{(j)}$ and these partly support $\mathscr{S}(f_{S}^{\mathbf{x}_S^{(i)}}), \mathscr{S}(f_{S}^{\mathbf{x}_S^{(j)}})$ are disjoint, then obviously $\langle f_{S}^{\mathbf{x}_S^{(i)}},f_{S}^{\mathbf{x}_S^{(j)}}\rangle=0$. Next, we consider the case that the two rows have the same partly support $\mathscr{S}(f_{S}^{\mathbf{x}_S^{(i)}})=\mathscr{S}(f_{S}^{\mathbf{x}_S^{(j)}})$, we will prove that $f_{S}^{\mathbf{x}_S^{(i)}},f_{S}^{\mathbf{x}_S^{(j)}}$ are proportional.
+
+    Suppose that for two nonzero rows $\mathbf{x}_S^{(i)},\mathbf{x}_S^{(j)}$, we have that $\mathscr{S}(f_{S}^{\mathbf{x}_S^{(i)}})=\mathbf{x}_{\overline{S}}^{(i)}+V=\mathbf{x}_{\overline{S}}^{(j)}+V =\mathscr{S}(f_{S}^{\mathbf{x}_S^{(j)}})$ where $(\mathbf{x}_S^{(i)},\mathbf{x}_{\overline{S}}^{(i)}),(\mathbf{x}_S^{(j)},\mathbf{x}_{\overline{S}}^{(j)})\in L+(\mathbf{x}_S',\mathbf{x}_{\overline{S}}')$. For any $\mathbf{x}_{\overline{S}}^{(*)}\in \mathscr{S}(f_{S}^{\mathbf{x}_S^{(i)}})=\mathscr{S}(f_{S}^{\mathbf{x}_S^{(j)}})$, we have $(\mathbf{x}_S^{(i)}+\mathbf{x}_S^{(j)},\mathbf{0})=(\mathbf{x}_S^{(i)},\mathbf{x}_{\overline{S}}^{(*)})+(\mathbf{x}_S^{(j)},\mathbf{x}_{\overline{S}}^{(*)})\in L$. Then we can define $W_0=\{\mathbf{d}_S\in\{0,1\}^{|S|}:(\mathbf{d}_S,\mathbf{0})\in L\}$ is a linear subspace. This $W_0$ will help us analyze the class of rows where all rows in the class are pairwise proportional.  
+
+    Let $\mathbf{d}_S=\mathbf{x}_S^{(i)}+\mathbf{x}_S^{(j)}$, we know that $(\mathbf{d}_S,\mathbf{0})\in L$. Suppose that $Q(\mathbf{x}_S,\mathbf{x}_{\overline{S}})=Q_S(\mathbf{x}_S)+Q_{\overline{S}}(\mathbf{x}_{\overline{S}})+2B(\mathbf{x}_S,\mathbf{x}_{\overline{S}}) \mod 4$. Then we analyze the distance between $Q(\mathbf{x}_S^{(i)},\mathbf{x}_{\overline{S}}^{(*)})$ and $Q(\mathbf{x}_S^{(j)},\mathbf{x}_{\overline{S}}^{(*)})$. We have $Q(\mathbf{x}_S^{(i)},\mathbf{x}_{\overline{S}}^{(*)})-Q(\mathbf{x}_S^{(j)},\mathbf{x}_{\overline{S}}^{(*)})=Q(\mathbf{x}_S^{(j)}+\mathbf{d}_S,\mathbf{x}_{\overline{S}}^{(*)})-Q(\mathbf{x}_S^{(j)},\mathbf{x}_{\overline{S}}^{(*)})=c_{\mathbf{x}_S^{(j)},\mathbf{d}_S}+2l_d(\mathbf{x}_{\overline{S}}^{(*)})\mod 4$, where $c_{\mathbf{x}_S^{(j)},\mathbf{d}_S}$ is independent to $\mathbf{x}_{\overline{S}}^{(*)}$ and $l_d(\mathbf{x}_{\overline{S}}^{(*)})$ is a linear polynomial of $\mathbf{x}_{\overline{S}}^{(*)}$. Thus, 
+    \begin{equation*}
+\begin{aligned}
+&f\left(
+  \mathbf{x}_S^{(i)},
+  \mathbf{x}_{\overline S}^{(*)}
+ \right)                                                     \\
+&\quad =
+ f\left(
+  \mathbf{x}_S^{(j)}+\mathbf d_S,
+  \mathbf{x}_{\overline S}^{(*)}
+ \right)                                                     \\
+&\quad =
+ \lambda
+ \mathfrak{i}^{
+   Q\left(
+     \mathbf{x}_S^{(j)},
+     \mathbf{x}_{\overline S}^{(*)}
+   \right)
+ }
+ \mathfrak{i}^{
+   c_{\mathbf{x}_S^{(j)},\mathbf d_S}
+   +\ell_{\mathbf d}\left(
+      \mathbf{x}_{\overline S}^{(*)}
+    \right) 
+ }\\
+ &\quad =
+ \omega_{\mathbf{x}_S^{(j)},\mathbf d_S}(-1)^{\ell_{\mathbf d}}f\left(
+     \mathbf{x}_S^{(j)},
+     \mathbf{x}_{\overline S}^{(*)}
+   \right),
+\end{aligned}
+\end{equation*}
+where $\omega_{\mathbf{x}_S^{(j)},\mathbf d_S}=\mathfrak{i}^{c_{\mathbf{x}_S^{(j)},\mathbf d_S}}$ is independent to $\mathbf{x}_{\overline{S}}^{(*)}$ and thus $|\omega_{\mathbf{x}_S^{(j)},\mathbf d_S}|=1$. Hence, we have that the ratio of the two entries $f\left(
+  \mathbf{x}_S^{(i)},
+  \mathbf{x}_{\overline S}^{(*)}
+ \right)  ,f\left(
+     \mathbf{x}_S^{(j)},
+     \mathbf{x}_{\overline S}^{(*)}
+   \right)$ is $\omega_{\mathbf{x}_S^{(j)},\mathbf d_S}(-1)^{\ell_d(\mathbf{x}_{\overline{S}}^{(*)})}$.
+
+Recall that $\mathscr{S}(f_{S}^{\mathbf{x}_S^{(i)}})=\mathbf{x}_{\overline{S}}^{(i)}+V=\mathbf{x}_{\overline{S}}^{(j)}+V =\mathscr{S}(f_{S}^{\mathbf{x}_S^{(j)}})$. If $\ell_d$ is constant zero, then we have $\ell_d(\mathbf{x}_{\overline{S}}^{(*)})=\ell_d(\mathbf{x}_{\overline{S}}^{(i)})+\ell_d(\mathbf{v_{\overline{S}}})=\ell_d(\mathbf{x}_{\overline{S}}^{(i)})$ where $\mathbf{v}_{\overline{S}}\in V$ and $\mathbf{x}_{\overline{S}}^{(*)}=\mathbf{x}_{\overline{S}}^{(i)}+\mathbf{v_{\overline{S}}}$. Thus, $f\left(
+  \mathbf{x}_S^{(i)},
+  \mathbf{x}_{\overline S}^{(*)}
+ \right)  = \omega_{\mathbf{x}_S^{(j)},\mathbf d_S} f\left(
+     \mathbf{x}_S^{(j)},
+     \mathbf{x}_{\overline S}^{(*)}
+   \right)$. If $\ell_d$ is not constant zero, choosing $\mathbf{v}_{\overline{S}}^{(0)}\in V$ such that $\ell_d(\mathbf{v}_{\overline{S}}^{(0)})=1$. Then we have $S=\sum_{\mathbf{v}_{\overline{S}}\in V}(-1)^{\ell_d(\mathbf{v}_{\overline{S}})}=\sum_{\mathbf{v}_{\overline{S}}\in V}(-1)^{\ell_d(\mathbf{v}_{\overline{S}})+1}=-S$ since $\mathbf{v}_{\overline{S}}+V=V$. Thus, $S=0$ and this indicates that $\langle f_{S}^{\mathbf{x}_S^{(i)}},f_{S}^{\mathbf{x}_S^{(j)}}\rangle=\sum_{\mathbf{w}_{\overline{S}}\in V+\mathbf{x}_{\overline{S}}^{(i)}} f\left(
+  \mathbf{x}_S^{(i)},
+  \mathbf{w}_{\overline{S}}
+ \right)  \overline{f\left(
+     \mathbf{x}_S^{(j)},
+     \mathbf{w}_{\overline{S}}
+   \right)}=\overline{\omega_{\mathbf{x}_S^{(j)},\mathbf d_S}}\sum_{\mathbf{w}_{\overline{S}}\in V+\mathbf{x}_{\overline{S}}^{(i)}}(-1)^{\ell_d(\mathbf{w}_{\overline{S}})}|f\left(
+     \mathbf{x}_S^{(j)},
+     \mathbf{w}_{\overline{S}}
+   \right)|^2=\overline{\omega_{\mathbf{x}_S^{(j)},\mathbf d_S}}|\lambda|^2\sum_{\mathbf{v}_{\overline{S}}\in V}(-1)^{\ell_d(\mathbf{v}_{\overline{S}})+\ell_d(\mathbf{x}_{\overline{S}}^{(i)})}=\overline{\omega_{\mathbf{x}_S^{(j)},\mathbf d_S}}|\lambda|^2(-1)^{\ell_d(\mathbf{x}_{\overline{S}}^{(i)})}S=0$.
+
+   Hence, for any two nonzero rows, either they are orthogonal or they are proportional, i.e., $\langle f_{S}^{\mathbf{x}_S^{(i)}},f_{S}^{\mathbf{x}_S^{(j)}}\rangle=0$ or $f_{S}^{\mathbf{x}_S^{(i)}}=\omega_{\mathbf{x}_S^{(i)},\mathbf{x}_S^{(j)}}f_{S}^{\mathbf{x}_S^{(j)}}$ where $|\omega_{\mathbf{x}_S^{(i)},\mathbf{x}_S^{(j)}}|=1$.
+
+   Let $H=\{\mathbf{d}_S\in W_0: \ell_d(\mathbf{v}_{\overline{S}})=0\quad \text{for every }\mathbf{v}_{\overline{S}}\in V\}$ and $H$ is a linear subspace. Thus, when given any nonzero row vector $f_S^{\mathbf{x}_{S}}$, their are $|H|$ many rows that are proportional to $f_S^{\mathbf{x}_{S}}$(include itself). And since the number of nonzero rows is $|W|$, thus there are $|W|/|H|$ many different proportional classes such the elements in one class are pairwise proportional and the elements in the different classes are orthogonal. Since $W,H$ are linear subspace, then $|W|/|H|=2^{\dim W-\dim H}$.
+
+   Finally, using the above proofs, we can represent the vector in one class are $\omega_1r,\dots,\omega_{|H|}r$ where $|\omega_i|=1$ for $i\in [|H|]$. Then the eigenvalue of $(\omega_1r,\dots,\omega_{|H|}r)^T(\overline{\omega_1r},\dots,\overline{\omega_{|H|}r})$ is $|\lambda|^2|V||H|$. Thus, the matrix $M_{S,\overline{S}}(f)$ has same singular value $|\lambda|\sqrt{|V||H|}$. And we can get that the $\operatorname{rank}(M_{S,\overline{S}})=|W|/|H|=2^{\dim W-\dim H}$ is the power of $2$.
+    
+\end{proof}
+
+\begin{lemma}\label{lm: affine is 1st-orth}
+    Let $f\in \mathscr{A}$ be an irreducible signature of arity $n\ge 2$.
+    Then $f$ satisfies {\sc 1st-Orth}.
+\end{lemma}
+\begin{proof}
+    By~\cref{lm: affine singular value}, for any $S={i}$ and $\overline{S}=[n]\setminus \{i\}$, then we can get that $M_{S,\overline{S}}(f)$ has two rows, $\|f_i^0\|^2=\|f_i^1\|^2$, and either $f_i^0,f_i^1$ are orthogonal or proportional. If $f_i^0,f_i^1$ are proportional, then $\operatorname{rank}(M_{S,\overline{S}}(f))=1$ and this indicates that $f$ is irreducible. Hence, the only case is that $f_i^0,f_i^1$ are orthogonal, namely $\langle f_i^0,f_i^1\rangle=0$. This gives the {\sc 1st-Orth}.
+\end{proof}
+
+\begin{definition}[Product-type signatures]\label{def: product-type}
+A signature is of \emph{product type} if it is an ordinary pointwise
+product of unary signatures, binary equality signatures, and binary
+disequality signatures; different factors may involve overlapping
+variables.  The class of all product-type signatures is denoted by
+$\mathscr P$.
+\end{definition}
+
+Note that the product in \cref{def: product-type} are ordinary products of functions (not tensor products); in particular they may be applied on overlapping sets of variables.
+
+\cref{def: product-type} is succinct.
+But an alternative definition of $\mathscr{P}$ is
+useful. This is given below in \cref{definition-product-1}.
+\begin{definition}[Product-type signatures]\label{definition-product-1}
+Let $\mathcal{E}$ be the set of all signatures $f$ such that
+the support set
+$\mathscr{S}(f)$ is contained in two antipodal points, i.e.,
+if $f$ has arity $n$,
+then $f$ is zero except on (possibly) two inputs $\alpha
+= (a_1, a_2, \ldots, a_n)$
+and $\overline{\alpha} =
+(\overline{a}_1, \overline{a}_2, \ldots, \overline{a}_n)=(1- a_1, 1- a_2,
+ \ldots, 1 - a_n)$.
+Then $\mathscr{P}=\langle \mathcal{E}\rangle$.
+\end{definition}
+
+By Definition~\ref{definition-product-1}, if a signature $f\in\mathscr{P}$, then the support of $f$ is affine.
+Thus the number of nonzero entries of $f$ is a power of 2.
+
+Let $\alpha=e^{\frac{\pi \mathfrak i}{4}}$ such that $\alpha^2=\mathfrak i.$
+For $s\in\mathbb Z$, let
+\(
+T_{\alpha^s}=\left[\begin{smallmatrix}1&0\\0&\alpha^s\end{smallmatrix}\right].
+\)
+
+\begin{definition}[Local-affine signatures]
+An arity-$n$ signature $f$ is \emph{local-affine} if, for every
+$\sigma=s_1\cdots s_n\in\mathscr S(f)$,
+\(
+\left(T_{\alpha^{s_1}}\otimes\cdots\otimes
+      T_{\alpha^{s_n}}\right)f\in\mathscr A.
+\)
+The class of local-affine signatures is denoted by $\mathscr L$.
+\end{definition}
+
+We also use
+\(
+\alpha\mathscr A
+=\left\{T_\alpha^{\otimes\operatorname{arity}(f)}f\mid 
+  f\in\mathscr A\right\}.
+\)
+
+\begin{definition}[Transformable]
+Let $\mathscr C$ be a class of signatures.  A signature set $\mathcal F$
+is \emph{$\mathscr C$-transformable} if there exists
+$T\in\mathrm{GL}_2(\mathbb C)$ such that
+\[
+(=_2)(T^{-1})^{\otimes2}\in\mathscr C
+\qquad\text{and}\qquad
+T\mathcal F\subseteq\mathscr C.
+\]
+\end{definition}
+
+These definitions give the four alternatives in
+\textup{(\ref{cond: tractable classes})}.  If
+$\mathcal F\subseteq\mathscr T$, or if $\mathcal F$ is
+$\mathscr P$-, $\mathscr A$-, or $\mathscr L$-transformable, then
+$\Holant(\mathcal F)$ is computable in polynomial time
+by~\cite{realholant}.
+
+
+\begin{theorem}[\cite{realholant}]\label{thm: tractable classes}
+    Let $\mathcal{F}$ be a set of complex valued signatures.
+    Then $\Holant(\mathcal{F})$ is tractable if
+    \begin{equation}\label{cond: tractable classes}
+    \mathcal{F}\subseteq \mathscr{T}, ~~~
+     \mathcal{F} \text{ is }\mathscr{P}\text{-transformable,}~~~
+     \mathcal{F} \text{ is } \mathscr{A}\text{-transformable,~~~or~} 
+     \mathcal{F} \text{ is } \mathscr{L}\text{-transformable.}\tag{$\mathrm{ \textcolor{red}{T}}$}
+     \end{equation}
+\end{theorem}
+
+The following lemma can be easily checked from the above definitions.
+\begin{lemma}\label{lm: APL-transformable}
+    Let $f$ be an irreducible signature of arity $n\ge 2$.
+    If $f$ is $\mathscr{A}$- or $\mathscr{P}$- or $\mathscr{L}$-transformable, then there exists $T_1,T_2,\ldots,T_n\in \mathrm{GL}_2(\C)$ such that $f=(T_1\otimes T_2\otimes \cdots \otimes T_n)a$, where $a\in \mathscr{A}.$
+\end{lemma}
+\begin{proof}
+    Since $f$ is irreducible, $f$ is a non-zero signature.
+    If $f$ is $\mathscr{A}$-transformable, there exists $T\in \mathrm
+    GL_2(\C)$ such that $Tf=a$, where $a\in \mathscr{A}$.
+    Let $T_1=T_2=\cdots=T_n=T^{-1}$, then $f=(T_1\otimes T_2 \otimes \cdots \otimes T_n)a.$
+    If $f$ is $\mathscr{L}$-transformable, pick an arbitrary $s_1\cdots s_n\in \mathscr{S}(f)$, we have $T_{\alpha^{s_1}}\otimes\cdots \otimes T_{\alpha^{s_n}}f=a\in\mathscr{A}.$
+    Let $T_i=T_{\alpha^{s_i}}^{-1}$ for $1\le i\le n$, the lemma is proved.
+
+    Now we consider the case that $f$ is $\mathscr{P}$-transformable.
+    There exists $T\in \mathrm{GL}_2(\C)$ such that $Tf=g\in \mathscr{P}.$
+    Since holographic transformation doesn't change irreducibility, $g$ is also irreducible.
+    By \cref{definition-product-1}, $g\in \mathcal{E}$.
+    i.e. $\mathscr{S}(g)\subseteq \{\alpha,\overline{\alpha}\}$, where $\alpha\in \{0,1\}^n$.
+    If $|\mathscr{S}(g)|=0$, $g$ is the zero signature, contradicting irreducibility.
+    If $|\mathscr{S}(g)|=1$, $g$ is a tensor product of unary signatures, again contradicting irreducibility.
+    So $\mathscr{S}(g)=\{\alpha,\overline{\alpha}\}.$
+    Suppose $g(\alpha)=p$ and $g(\overline{\alpha})=q$, $pq\neq 0.$
+    Without loss of generality, assume $\alpha_1=0.$
+    Let $T_1=\left[\begin{smallmatrix}
+        p & 0\\
+        0 & q
+    \end{smallmatrix}\right],T_2=\cdots=T_n=I_2.$
+    Let $a(x)=1$ iff $x=\alpha$ or $x=\overline{\alpha}.$
+    Clearly $a\in \mathscr{A}.$
+    We claim $f=(T_1\otimes T_2\otimes \cdots T_n)a.$
+    To see this,
+    first notice $\mathscr{S}(f)=\mathscr{S}(a)$ since $T_1,\ldots, T_n$ are all diagonal matrices.
+    Then $f(\alpha)=p\cdot a(\alpha)=p$, $f(\overline{\alpha})=q\cdot a(\overline{\alpha})=q.$
+    This finishes the proof.
+\end{proof}
+
+We give the following lemma about the invariance of conjugate closure, condition~\eqref{cond: tractable classes} and irreducibility under real orthogonal transformation.
+The proof is deferred to~\autoref{subapp: proof of subsec tractable signature}.
+
+
+\begin{restatable}{lemma}
+{InvarianceUnderRealOrth}\label{lem: invariance under real orthogonal transformation}
+Let $\F$ be a set of complex-valued signatures and let $O\in \mathbf{O}_2$ be a real orthogonal $2\times 2$ matrix. Then the following statements hold:
+\begin{enumerate}
+    \item $\F$ is conjugate closed if and only if $O\F$ is conjugate closed.
+    \item $\F$ satisfies condition~\eqref{cond: tractable classes} if and only if $O\F$ satisfies condition~\eqref{cond: tractable classes}.
+    \item For every nonzero signature $f$, the signature $f$ is irreducible if and only if $Of$ is irreducible.
+\end{enumerate}
+Consequently, under a real orthogonal holographic transformation, conjugate closure and outside condition~\eqref{cond: tractable classes} are preserved preserved for signature set, while irreducibility is preserved for each signature.
+\end{restatable}
+

@@ -1,0 +1,375 @@
+
+
+\subsection{Known Dichotomies and Hardness Results}\label{subsec: hardness results}
+
+%This subsection introduces the notation and preliminary results used throughout the paper. Proofs of selected results are deferred to \autoref{app: disequality reduction}.
+
+\paragraph{Dichotomy for Counting Eulerian Orientations}
+$\newline$
+  
+For $\bowtie \,\in\{=,\ge,\le,>,<\}$, define
+\(
+\mathrm{HW}^{\bowtie}
+=\left\{\sigma\in\{0,1\}^*\mid 
+  \operatorname{wt}(\sigma)\mathrel{\bowtie}\frac{|\sigma|}{2}\right\}.
+\)
+With a slightly abuse of notation,
+we also write $f\in\mathrm{HW}^{\bowtie}$ when
+$\mathscr S(f)\subseteq\mathrm{HW}^{\bowtie}$.
+An arity-$2d$ signature
+$f$ is an \emph{$\eo$
+signature} if $f\in\eoe$.
+For a set $\mathcal F$ of $\eo$
+signatures, we use
+\[
+\ceo(\mathcal F):=\holant{\neq_2}{\mathcal F}.
+\]
+For completeness, we now give the $\#\eo$ support notation used
+in~\cite{GSS26}.  
+For an $\eo$ signature $f$, and for all
+$\beta,\gamma,\delta\in\mathscr S(f)$, define
+\begin{align*}
+f\in\POLMID
+&\iff \beta\oplus\gamma\oplus\delta\in\mathscr S(f),\\
+f\in\POLUP
+&\iff \beta\oplus\gamma\oplus\delta
+      \in\mathscr S(f)\cup\mathrm{HW}^{>},\\
+f\in\POLDOWN
+&\iff \beta\oplus\gamma\oplus\delta
+      \in\mathscr S(f)\cup\mathrm{HW}^{<}.
+\end{align*}
+The latter two classes are the up- and down-quasi-polymorphism classes.
+A \emph{perfect pairing} $M$ of the variables of an arity-$2d$
+signature is a partition into $d$ unordered pairs.  It determines
+\[
+\{0,1\}^{M}
+=\{x\in\{0,1\}^{2d}\mid x_p\ne x_q
+  \text{ for every }\{p,q\}\in M\}.
+\]
+For any signature class $\mathscr C$, define
+\[
+\eo^{\mathscr C}
+=\left\{f\mid f\text{ is an $\eo$ signature and }
+  f|_{\{0,1\}^{M}}\in\mathscr C
+  \text{ for every perfect pairing }M \text{ of } f\right\}.
+\]
+
+
+
+
+
+\begin{theorem}[Dichotomy for \#EO~\cite{MengWX25},\cite{GSS26}]
+\label{thm: dichotomy for EO}
+Let $\mathcal F$ be a finite set of complex-valued $\eo$ signatures.  If
+\[
+\bigl(\mathcal F\subseteq\POLUP
+      \ \text{or}\ \mathcal F\subseteq\POLDOWN\bigr)
+\quad\text{and}\quad
+\bigl(\mathcal F\subseteq\eo^{\mathscr A}
+      \ \text{or}\ \mathcal F\subseteq\eo^{\mathscr P}\bigr),
+\]
+then $\ceo(\mathcal F)$ is computable in polynomial time.  Otherwise,
+$\ceo(\mathcal F)$ is \#P-hard.
+\end{theorem}
+The two alternatives are uniform over $\mathcal F$: signatures from the
+up and down classes cannot be mixed, nor can
+$\eo^{\mathscr A}$ and $\eo^{\mathscr P}$ be mixed.
+
+
+\begin{lemma}\label{lm: conjugation_polymorphism_affine support}
+    Suppose $\mathcal{F}$ is a conjugate closed signature set.
+    If $\widehat{\mathcal{F}}\subseteq \eog$ or $\widehat{\mathcal{F}}\subseteq \eol$, then every $\widehat{f}\in \widehat{\mathcal{F}}$ is $\eo$.
+    Moreover, if $\widehat{\mathcal{F}}\subseteq \POLUP$ or $\widehat{\mathcal{F}}\subseteq \POLDOWN$, then every $\widehat{f}\in \widehat{\mathcal{F}}$ has affine support.
+\end{lemma}
+
+\begin{proof}
+    We assume $\widehat{\mathcal{F}}\subseteq \eog$, the other case can be handled similarly.
+    By \cref{lm: conjugate closed and ars closed}, $\widehat{\mathcal{F}}$ is arrow reversal closed.
+    Hence $\widehat{\mathcal{F}}\subseteq \eog\cap \eol$, i.e., $\widehat{\mathcal{F}}$ is a set of $\eo$ signatures.
+    We assume $\widehat{\mathcal{F}}\subseteq \POLUP$ without loss of generality.
+    Pick arbitrary $\widehat{f}\in \widehat{\mathcal{F}}$ and $\alpha,\beta,\gamma\in \mathscr{S}(\widehat{f})$, we have $\alpha\oplus \beta\oplus \gamma\in \mathscr{S}(\widehat{f})\cup \eosg$.
+    By \cref{lm: conjugate closed and ars closed}, $\widehat{f}^{\textsc ar}\in \widehat{\mathcal{F}}$.
+    Notice that $\overline{\alpha},\overline{\beta},\overline{\gamma}\in \mathscr{S}(\widehat{f}^{\textsc ar})$.
+    Then $\overline{\alpha\oplus\beta\oplus\gamma}\in \mathscr{S}(\widehat{f}^{\textsc ar})\cup \eosg$.
+    It follows that $\alpha\oplus\beta\oplus\gamma\in \mathscr{S}(\widehat{f})\cup \eosl$.
+    Thus, $\alpha\oplus\beta\oplus\gamma\in (\mathscr{S}(\widehat{f})\cup \eosl)\cap (\mathscr{S}(\widehat{f})\cup \eosg)=\mathscr{S}(\widehat{f})$.
+    Therefore, $\widehat{f}$ has affine support.
+\end{proof}
+
+
+\paragraph{Dichotomy for Holant with an Odd Arity Signature}
+$\newline$
+A signature of arity $k$ is \emph{single-weighted} if its support is
+contained in the strings of one Hamming weight $d$.  In that case define
+the associated $\eo$ signature
+\[
+f_{\to\eo}=
+\begin{cases}
+f\otimes\Delta_0^{\otimes(2d-k)},&2d\ge k,\\
+f\otimes\Delta_1^{\otimes(k-2d)},&2d<k.
+\end{cases}
+\]
+Also set $f|_{\eo}:=f|_{\mathrm{HW}^{=}}$, and extend both operations
+elementwise to signature sets:
+\[
+\mathcal F|_{\eo}=\{f|_{\eo}:f\in\mathcal F\},\qquad
+\mathcal F_{\to\eo}=\{f_{\to\eo}:f\in\mathcal F\}.
+\]
+Finally,
+\[
+\mathcal M
+=\{f:f(\sigma)=0\text{ whenever }\operatorname{wt}(\sigma)>1\}
+\]
+is the class of weighted-matching signatures.
+Notice that 
+\[
+X\mathcal M
+=\{f:f(\sigma)=0\text{ whenever }\operatorname{wt}(\sigma)<n-1\}
+\]
+
+
+\begin{theorem}[Dichotomy for $\holodd$ \cite{Holant_Odd}]\label{thm: holant odd}
+    Let $\mathcal{F}$ be a set of signatures that contains a non-zero signature of odd arity, then $\Holant(\mathcal{F})$ is \#P-hard unless:
+    \begin{enumerate}
+        \item $\widehat{\mathcal{F}}$ only contains $\eog$ signatures (or $\eol$ signatures respectively), and $\widehat{\mathcal{F}}|_{\eo}\subseteq \POLUP$ or $\widehat{\mathcal{F}}|_{\eo}\subseteq \POLDOWN$, and $\widehat{\mathcal{F}}|_{\eo}\subseteq \eo^\mathscr{A}$ or $\widehat{\mathcal{F}}|_{\eo}\subseteq \eo^\mathscr{P}$;
+        
+        \item 
+        All signatures in $\widehat{\mathcal{F}}$ are single-weighted. 
+        There exists a signature in $\eosg$ and another in $\eosl$ belonging to $\widehat{\mathcal{F}}$.  
+        In addition, $\widehat{\mathcal{F}}_{\to\eo}\subseteq \POLUP$ or $\widehat{\mathcal{F}}_{\to\eo}\subseteq \POLDOWN$, and $\widehat{\mathcal{F}}_{\to\eo}\subseteq \eo^\mathscr{A}$ or $\widehat{\mathcal{F}}_{\to\eo}\subseteq \eo^\mathscr{P}$;
+
+        
+
+        \item $\widehat{\mathcal{F}}\subseteq\langle \mathcal{M}\rangle$ or $\widehat{\mathcal{F}}\subseteq\langle X\mathcal{M}\rangle$;
+
+        \item $\mathcal{F}\subseteq\mathscr{T}$;
+        
+        \item $\mathcal{F}$ is $\mathscr{A}$-transformable;
+
+        \item $\mathcal{F}$ is $\mathscr{P}$-transformable;
+
+        \item $\mathcal{F}$ is $\mathscr{L}$-transformable;
+    \end{enumerate}
+    We denote Case 1-7 as condition $(\mathcal{PC})$.
+\end{theorem}
+
+\begin{theorem}[\cite{Holant_Odd}]\label{thm: decomposition lemma}
+    Let $\mathcal{F}$ be a set of signatures and $f$, $g$ be two signatures. Then
+
+$$\Holant(f,g,\mathcal{F})\equiv_T\Holant(f\otimes g,\mathcal{F})$$ 
+holds unless $\widehat{\mathcal{F}}'=\widehat{\mathcal{F}}\cup\{\widehat{f}\otimes\widehat{g}\}$ only contains $\eog$ signatures (or $\eol$ signatures respectively).
+\end{theorem}
+
+
+
+
+\begin{lemma}[Decomposition lemma]\label{lm: decomposition}
+    Let $\mathcal{F}$ be a conjugate closed set of signatures.
+    If $f\in \mathcal{F}$ has a factorization $g\otimes h$, then $\Holant(g, h, \mathcal{F})\equiv_T\Holant( \mathcal{F})$.
+    %In the setting of $\holant{\neq_2}{\hF}$, $\holant{\neq_2}{\widehat{g}, \widehat{h}, \hF}\equiv_T\holant{\neq_2}{\hF}$.
+\end{lemma}
+
+\begin{proof}
+    By \cref{thm: decomposition lemma}, we only need to consider the case that $\widehat{\mathcal{F}}$ only contains $\eog$ signatures (or $\eol$ signatures respectively).
+    Since $\mathcal{F}$ is conjugate closed, $\widehat{\mathcal{F}}$ is $\eo$ by \cref{lm: conjugation_polymorphism_affine support}.
+    By \cref{thm: dichotomy for EO}, either $\Holant(\mathcal{F})\equiv_T\holant{\neq_2}{\widehat{\mathcal{F}}}$ is \#P-hard, then trivially $\Holant(g,h,\mathcal{F})\equiv_T\Holant(\mathcal{F})$, or $\holant{\neq_2}{\hF}$ is tractable.
+    In the tractable case, $\widehat{\mathcal{F}}\subseteq \POLUP$ or $\widehat{\mathcal{F}}\subseteq \POLDOWN$ and $\widehat{\mathcal{F}}\subseteq \eo^{\mathscr{A}}$ or $\widehat{\mathcal{F}}\subseteq \eo^{\mathscr{P}}$.
+    By \cref{lm: conjugation_polymorphism_affine support}, every $\widehat{f}\in \mathcal{F}$ has affine support.
+    Combined with $\widehat{\mathcal{F}}\subseteq \eo^{\mathscr{A}}$ or $\widehat{\mathcal{F}}\subseteq \eo^{\mathscr{P}}$, we have $\widehat{\mathcal{F}}\subseteq \mathscr{A}$ or $\widehat{\mathcal{F}}\subseteq\mathscr{P}$.
+    Since $\widehat{f}=\widehat{g}\otimes\widehat{h}$, $\widehat{g}$ and $\widehat{h}$ are both affine or both product.
+    Then trivially $\holant{\neq_2}{\widehat{g},\widehat{h},\widehat{\mathcal{F}}}\equiv_T \holant{\neq_2}{\widehat{\mathcal{F}}}$, which is equivalent to $\Holant(g, h, \mathcal{F})\equiv_T\Holant( \mathcal{F}).$ 
+\end{proof}
+
+
+
+\begin{lemma}\label{lm: odd holant with conjugation}
+    Let $\mathcal{F}$ be a conjugate closed set of signatures containing a nonzero signature of odd arity.
+    If $\mathcal{F}$ does not satisfy condition \rm{(\ref{cond: tractable classes})},
+    then $\Holant(\mathcal{F})$ is \#P-hard.
+\end{lemma}
+
+
+\begin{proof}
+    Notice that Case 4-7 in $(\mathcal{PC})$ is {\rm(\ref{cond: tractable classes})}.
+    By \cref{thm: holant odd}, we only need to show that Case 1-3 in $(\mathcal{PC})$ cannot happen.
+    \begin{enumerate}
+        \item 
+        Case 1 in $(\mathcal{PC})$ happens.
+        By \cref{lm: conjugation_polymorphism_affine support}, $\hF$ is $\eo$ and has affine support.
+        Combined with $\widehat{\mathcal{F}}|_{\eo}\subseteq \eo^\mathscr{A}$ or $\widehat{\mathcal{F}}|_{\eo}\subseteq \eo^\mathscr{P}$, we have $\hF\subseteq \mathscr{A}$ or $\hF\subseteq \mathscr{P}$.
+        So $\F$ is $\mathscr{A}$-transformable or $\mathscr{P}$-transformable, contradicting that $\F$ does not satisfy \rm{(\ref{cond: tractable classes})}.
+
+        \item 
+        Case 2 in $(\mathcal{PC})$ happens.
+        By \cref{lm: conjugation_polymorphism_affine support}, $\widehat{\mathcal{F}}_{\to\eo}$ has affine support.
+        Combined with $\widehat{\mathcal{F}}_{\to\eo}\subseteq \eo^\mathscr{A}$ or $\widehat{\mathcal{F}}_{\to\eo}\subseteq \eo^\mathscr{P}$, we have
+        $\widehat{\mathcal{F}}_{\to\eo}\subseteq \mathscr{A}$ or  $\widehat{\mathcal{F}}_{\to\eo}\subseteq \mathscr{P}$.
+        So $\hF\subseteq \mathscr{A}$ or $\hF\subseteq \mathscr{P}$,
+        contradicting \rm{(\ref{cond: tractable classes})}.
+
+        \item 
+        Case 3 in $(\mathcal{PC})$ happens.
+        Pick an arbitrary $\widehat{f}\in \hF$.
+        Write its unique prime factorization $\widehat{f}=\widehat{q_1}\otimes \widehat{q_2}\otimes\cdots\otimes \widehat{q_s}.$
+        We first assume $\hF\in \braket{\widehat{\mathcal{M}}}.$
+        Then every $\widehat{q_i}$ is supported on Hamming weight at most 1.
+        By \cref{lm: conjugate closed and ars closed}, $\hF$ is arrow reversal closed.
+        Taking {\sc ars} doesn't change factorization and irreducibility.
+        So $\widehat{f}^{\textsc ar}=\widehat{q_1}^{\textsc ar}\otimes \widehat{q_2}^{\textsc ar}\otimes\cdots\otimes \widehat{q_3}^{\textsc ar}\in \hF$, where every $\widehat{q_i}^{\textsc ar}$ is also supported on Hamming weight at most 1.
+        This is impossible if some $\widehat{q_i}$ has arity greater than 2.
+        Thus, every $q_i$ has arity at most 2.
+        So $\widehat{f}\in {\mathscr{T}}$, and $\hF\subseteq \mathscr{T}$.
+        After a $K$-transformation,  $\F\subseteq \mathscr{T}$.
+        Contradiction.
+    \end{enumerate}
+\end{proof}
+
+
+\paragraph{Dichotomy for Quaternary Signatures}
+$\newline$
+%Let $f$ be an arity 4 signature supported on even Hamming weights.
+%The \emph{eight-vertex model} is the problem $\Holant(\neq_2\mid f).$
+%Moreover, if $f(0000)=f(1111)=0$, then $\Holant(\neq_2\mid f)$ is a \emph{six-vertex model}.
+
+\begin{theorem}[Dichotomy for six-vertex models]\label{thm: six vertex model}
+Let $f$ be a 4-ary signature with the signature matrix
+$M_{x_1x_2, x_4x_3}=\begin{bmatrix}
+0 & 0 & 0 & a\\
+0 & b & c & 0\\
+0 & z & y & 0\\
+x & 0 & 0 & 0\\
+\end{bmatrix}$, then
+$\Holant(\neq_2\mid f)$ is \#P-hard except for the following cases:
+\begin{itemize}
+\item $f\in\mathscr{P}$;
+\item $f\in\mathscr{A}$;
+\item there is a zero in each pair $(a,x), (b,y), (c,z)$;
+\end{itemize}
+in which cases Holant$(\neq_2\mid f)$ is computable in polynomial time.
+For the last tractable case, $f\in \braket{\mathcal{M}}$ or $f\in \braket{X\mathcal{M}}$. 
+\end{theorem}
+
+For an arity 4 signature $h$, we say that $h$ has \emph{$H$-form}
+if $h\in\mathrm{HW}^{\ge}$ or $h\in\mathrm{HW}^{\le}$, and define its
+reduced form by $r(h):=h|_{\eo}$.  Equivalently, $M(h)$ has one of the
+following two forms:
+\[
+\begin{bmatrix}
+0&0&0&b\\
+0&c&d&\ast\\
+0&w&z&\ast\\
+y&\ast&\ast&\ast
+\end{bmatrix}
+\quad\text{or}\quad
+\begin{bmatrix}
+\ast&\ast&\ast&b\\
+\ast&c&d&0\\
+\ast&w&z&0\\
+y&0&0&0
+\end{bmatrix},
+\qquad
+M(r(h))=
+\begin{bmatrix}
+0&0&0&b\\
+0&c&d&0\\
+0&w&z&0\\
+y&0&0&0
+\end{bmatrix}.
+\]
+If every right-hand vertex of an instance of
+$\holant{\neq_2}{h}$ is assigned $h$, then the total Hamming weight on
+the right is exactly half the number of incident edges.  Hence, when
+$h$ has $H$-form, every local assignment occurring in a nonzero global
+assignment has weight two.  Therefore $\holant{\neq_2}{h}\equiv_T\holant{\neq_2}{r(h)}.$
+
+Thus the reduced problem is a six-vertex model, equivalently a quaternary
+$\#\mathrm{EO}$ problem.  We place it together with the following
+eight-vertex result since both serve as quaternary vertex-model base
+cases used later.
+
+\iffalse
+\begin{theorem}[\cite{eight-vertex_model}]\label{thm: eight-vertex model}
+    Let $\widehat{f}$ be a non-zero signature with $M(\widehat{f})=\left[\begin{smallmatrix}
+    a & 0 & 0 & b\\
+    0 & c & d & 0\\
+    0 & d & c & 0\\
+    b' & 0 & 0 & \overline{a}\\
+    \end{smallmatrix}\right]$ and $\hF$ be a set of signatures.
+    Then, $\holant{\neq_2}{\widehat f,\hF}\equiv_T \holant{\neq_2}{\widehat g, \hF}$ where $M(\widehat{g})=\left[\begin{smallmatrix}
+    |a| & 0 & 0 & b\\
+    0 & c & d & 0\\
+    0 & d & c & 0\\
+    b' & 0 & 0 & |a|\\
+    \end{smallmatrix}\right]$, and $\holant{\neq_2}{\widehat g}$ is \#P-hard unless $\widehat{g}$ has support size 2, 4 or 8.
+    Moreover, if $\widehat{g}$ has support size 8, then one of the following holds:
+    \begin{enumerate}
+        \item $\holant{\neq_2}{\widehat{g}}$ is \#P-hard.
+
+        \item There exists $T\in\mathrm{GL}_2(\mathbb{C})$ such that $\#\mathrm{CSP}_2(T\hF)\le_T\holant{\neq_2}{\widehat{g},\hF}.$
+
+        \item $b=b'$ and $|a|=|b|=|c|=|d|$.
+    \end{enumerate}
+\end{theorem}
+\fi
+
+Following~\cite{HuangFu4Regular}, let $\mathscr H$ denote the set of
+arity-four signatures $f$ for which $\widehat f$ has $H$-form and
+$\holant{\neq_2}{r(\widehat f)}$ is tractable.
+
+\begin{theorem}[Dichotomy for a single quaternary signature
+\cite{HuangFu4Regular}]\label{thm: single quaternary dichotomy}
+    Let $f$ be an arity-four signature.  Then $\holant{=_2}{f}$ is
+    \#P-hard unless one of the following holds:
+    \begin{enumerate}
+        \item $f\in\langle K\mathcal M\rangle$ or
+        $f\in\langle KX\mathcal M\rangle$;
+        \item $f$ is $\mathscr A$-transformable;
+        \item $f$ is $\mathscr L$-transformable;
+        \item $f$ is $\mathscr P$-transformable;
+        \item $f\in\mathscr H$;
+        \item $f\in\langle\mathscr T\rangle$.
+    \end{enumerate}
+    In these cases, the problem is computable in polynomial time.
+    %Also, cases 2, 3, 4 are tractable cases for the eight vertex model $\Holant(\neq_2\mid \widehat{f})$.
+\end{theorem}
+
+
+\paragraph{Other Hardness Results}
+The following is a standard lemma by polynomial interpolation. See for example, \cite{jcbook}.
+\begin{restatable}{lemma}{InterpolationBinary}\label{lm: 2 by 2 interpolation}
+    Let $f$ and $g$ be nonzero binary signatures with $M(f)=P^{-1}\left[\begin{smallmatrix}
+    \lambda_1 & 0\\
+    0 & \lambda_2\\
+    \end{smallmatrix}\right]P$ and
+    $M(g)=P^{-1}\left[\begin{smallmatrix}
+    1 & 0\\
+    0 & 0\\
+    \end{smallmatrix}\right]P$ for some invertible matrix $P$.
+    If $\lambda_1\neq 0$ and $\frac{\lambda_2}{\lambda_1}$ is not a root of unity,
+    then $$\Holant(g, \mathcal{F})\leqslant_T\Holant(f, \mathcal{F})$$ for any signature set $\mathcal{F}$.
+\end{restatable}
+
+\begin{theorem}[\cite{real_holantc}]\label{thm: CSP2}
+    Let $\mathcal{F}$ be any set of signatures. 
+    Then $\#\operatorname{CSP}_2(\mathcal{F})$ is $\#\operatorname{P}$-hard unless $\mathcal{F}\subseteq\mathscr{A}$ or $\mathcal{F}\subseteq\alpha\mathscr{A}$ or $\mathcal{F}\subseteq\mathscr{P}$ or $\mathcal{F}\subseteq\mathscr{L}$, in which cases the problem is computable in polynomial time.
+\end{theorem}
+
+\begin{lemma}[\cite{jcbook}]\label{lm: CSP2 to holant =4}
+    $\#\mathrm{CSP}_2(\mathcal{F})\leqslant_T\Holant(=_4, \mathcal F)$.
+\end{lemma}
+
+\begin{restatable}{lemma}{CSPwithEQ}\label{lm: CSP with =2}
+    Suppose $\mathcal{F}$ doesn't satisfy \eqref{cond: tractable classes}.
+    Then for every $T\in \mathrm{GL}_2(\C)$, $\#\mathrm{CSP}_2(T(\mathcal{F}\cup \{=_2\}))$ is \#P-hard.
+\end{restatable}
+
+\begin{restatable}{lemma}{DisFourgivesHard}\label{lm: disequality 4 gives dichotomy}
+    Let $\F$ be a set of signatures. Then $\holant{\neq_2}{\neq_4,\hF}$ is either polynomial-time solvable or $\#\operatorname{P}$-hard.
+\end{restatable}
+
+
+\begin{restatable}{lemma}{ConjuDisFourHard}\label{lem: In conjugate closed setting disequality 4 gives hardness}
+    Let $\F$ be a conjugate closed signature set. If $\F$ does not satisfy the condition \rm{(\ref{cond: tractable classes})}, then $\holant{\neq_2}{\neq_4,\hF}$ is $\#\operatorname{P}$-hard.
+\end{restatable}
+
+The proofs of~\cref{lm: CSP with =2}, ~\cref{lm: disequality 4 gives dichotomy} and~\cref{lem: In conjugate closed setting disequality 4 gives hardness} are given in \autoref{app: disequality reduction}.

@@ -1,6 +1,10 @@
-\section{All AME(6,2) state have one local-unitary normal form}\label{sec: AME62 has a common local unitary normal}
+\section{All AME(6,2) States Have One Local-Unitary Normal Form}\label{sec: AME62 has a common local unitary normal}
 
-\begin{definition}[Trace and partial trace]
+This Appendix~\ref{sec: AME62 has a common local unitary normal} has proved that every $\mathrm{AME}(6,2)$ state is local unitary equivalent to a fixed 6-qubit stabilizer state, i.e., for any $\mathrm{AME}(6,2)$ state $\ket{\psi}$, we have $\ket{\psi}=\lambda (U_1\otimes \cdots \otimes U_6)\ket{H}$ where $\lambda\in\mathbb{C}^\times$, $U_1,\dots,U_6$ are unitary matrix and $\ket{H}$ is determined explicitly. The proof of this section is used in the~\cref{sec:recover-f6} to recover a special 6-ary signature from any given an $\mathrm{AME}(6,2)$ state.
+
+\subsection{Definitions and Notations}
+
+\begin{definition}
     For $n\geq 0$, let $\mathcal{H}_n:=(\mathbb{C}^2)^{\otimes n}$, with the standard basis $\{\ket{x}:x\in\{0,1\}^n\}$. A linear operator $M:\mathcal{H}_n\rightarrow \mathcal{H}_n$ is represented in this basis by a $2^n\times 2^n$ complex matrix whose entry in row x and column y is $(M)_{x,y}:=\bra{x}M\ket{y},\quad x,y\in\{0,1\}^n$. The trace of $M$ is 
     \begin{equation}
         \operatorname{Tr}(M)=\sum_{x\in \{0,1\}^n}\bra{x}M\ket{x}.
@@ -9,7 +13,8 @@
     Let $A\subseteq [n], \overline{A}=[n]\setminus A$. The partial trace of $M$ over the coordinates in A, denoted by $\operatorname{Tr}_A(M)$, is the
 \end{definition}
 
-Let $g:\{0,1\}^n\rightarrow \mathbb{C}$ be a nonzero Boolean signature. It associated normalized state is
+Let $g:\{0,1\}^n\rightarrow \mathbb{C}$ be a nonzero Boolean signature. 
+Its associated normalized state is
 \begin{equation}
     \ket{g}=\frac{1}{\lVert g\rVert_2}\sum_{x\in\{0,1\}^n} g(x)\ket{x},\quad\quad \lVert g\rVert_2^2=\sum_{x} \lvert g(x)\rvert^2.
 \end{equation}
@@ -20,7 +25,7 @@ Let $\rho_g=\ket{g}\bra{g}$ be an $2^n \times 2^n$ matrix where $x,y\in\{0,1\}^n
 Equivalently, $\rho_S=\operatorname{Tr}_{\overline{S}}(\rho_g)$. %
 
 
-\begin{definition}[Absolutely maximally entangled state]
+\begin{definition}
     A normalized $n$-qubit state $\ket{\psi}$ is $\operatorname{AME}(n,2)$ if 
     \begin{equation}\label{eq: AME}
         \rho_S=2^{-\lvert S\rvert} I_{2^{\lvert S\rvert}}
@@ -57,7 +62,7 @@ An $n$-qubit Pauli string is an operator $E=E_1\otimes \cdots \otimes E_n$ with 
     \operatorname{supp}(E)=\{i:E_i\neq I\}, \quad\quad \operatorname{wt}(E)=\lvert \operatorname{supp}(E)\rvert. 
 \end{equation}
 
-\begin{definition}[Pure quantum code]
+\begin{definition}
     Let $\mathcal{C}$ be a $K$-dimensional subspace of $(C^2)^{\otimes n}$. If $\ket{\psi_1},\dots,\ket{\psi_K}$ is an orthonormal basis of $\mathcal{C}$, define the orthogonal projector onto $\mathcal{C}$ by $P_{\mathcal{C}}:=\sum_{i=1}^K\ket{\psi_i}\bra{\psi_i}$. We call $\mathcal{C}$ a pure $((n,K,d))_2$ code if
     \begin{equation}
         P_{\mathcal{C}}EP_{\mathcal{C}}=0,
@@ -67,14 +72,14 @@ An $n$-qubit Pauli string is an operator $E=E_1\otimes \cdots \otimes E_n$ with 
     In particular, for $K=1$, $\mathcal{C}=\operatorname{span}\{\ket{\psi}\},P_{\mathcal{C}}=\ket{\psi}\bra{\psi}$, the condition is $\bra{\psi}E\ket{\psi}=0$.
 \end{definition}
 
-\begin{definition}[Local equivalence]
+\begin{definition}
     Two nonzero $n$-qubit tensors $u$ and $v$ are locally unitarily equivalent, up to input permutation, if there are exist $2\times 2$ unitary matrices $U_1,\dots,U_n\in U(2)$, a permutation $\pi\in S_n$, and a nonzero scalar $\lambda\in \mathbb{C}\setminus \{0\}$ such that 
     \begin{equation}
         \ket{u}=\lambda P_{\pi}(U_1\otimes \dots \otimes U_n)\ket{v}.
     \end{equation}
 \end{definition}
 
-\subsection{The AME pure code}
+\subsection{AME States and Pure Quantum Codes}
 
 \begin{lemma}\label{lem:614 code}
     A normalized $6$-qubit state $\ket{\psi}$ is $\operatorname{AME}(6,2)$ if and only if its one-dimensional span is a pure $((6,1,4))_2$ code.
@@ -113,6 +118,8 @@ An $n$-qubit Pauli string is an operator $E=E_1\otimes \cdots \otimes E_n$ with 
     Therefore, $\ket{\psi}$ is $\operatorname{AME}(6,2)$ if and only if $\operatorname{span}(\ket{\psi})$ is pure $((6,1,4))_2$ code.
 \end{proof}
 
+\subsection{The Standard Four-qubit Code}
+
 \begin{definition}
     Let $S_X:=X^{\otimes 4}$ and $S_Z:=Z_0^{\otimes 4}$. Since $XZ_0=-Z_0X$, we have $S_XS_Z=(-1)^4S_ZS_X=S_ZS_X$, so $S_X$ and $S_Z$ commute. Define the standard four-qubit code $\mathcal{C}_{\mathrm{std}}\subseteq (\mathbb{C}^2)^{\otimes 4}$ to be their simultaneous $+1$ eigenspace:
     \begin{equation}
@@ -131,6 +138,8 @@ An $n$-qubit Pauli string is an operator $E=E_1\otimes \cdots \otimes E_n$ with 
     \end{equation}
     Thus every pure $((4,4,2))_2$ code is locally unitary equivalent to the standard $[[4,2,2]]_2$ code.
 \end{theorem}
+
+\subsection{Four-qubit Reductions of AME States}
 
 \begin{lemma}\label{lem: QA is orth proj of pure 442}
     Let $\ket{\psi}$ be $\operatorname{AME}(6,2)$ state and $P=\ket{\psi}\bra{\psi}$. For every pair $A\subset [6]$, define the $2^4\times 2^4$ matrix $Q_A=4 \operatorname{Tr}_A(P)$ is the rank-$4$ projector of a pure $((4,4,2))_2$ code.
@@ -186,10 +195,39 @@ An $n$-qubit Pauli string is an operator $E=E_1\otimes \cdots \otimes E_n$ with 
 \end{corollary}
 
 \begin{proof}
-    By~\cref{lem: QA is orth proj of pure 442}, we have $\ket{\psi}=\frac{1}{2}\sum_{x\in\{0,1\}^2}\ket{x}_{12}\otimes \ket{v_x}_{3456}$ where $\{\ket{v_x}:x\in\{0,1\}^2\}$ are pairwise orthogonal, and $\mathcal{C}=\operatorname{span}\{\ket{v_x}:x\in\{0,1\}^2\}$ is a pure $((4,4,2))_2$ code and $Q_A=\sum_{x\in\{0,1\}^2}\ket{v_x}\bra{v_x}$ is the orthogonal projector onto $\mathcal{C}$. 
-
-    Then, $(I_A\otimes S_X)\ket{\psi}=(I_A\otimes S_X)\left(\frac{1}{2}\sum_{x\in\{0,1\}^2}\ket{x}_{12}\otimes \ket{v_x}_{3456}\right)=\frac{1}{2}\sum_{x\in\{0,1\}^2}\ket{x}_{12}\otimes S_X\ket{v_x}_{3456}$. By~\cref{thm: rains standard code}, there exist $U=U_1\otimes U_2\otimes U_3\otimes U_4$ where $U_i\in U(2)$, such that $U\ket{v_x}=\ket{\phi_x}\in \mathcal{C}_{\mathrm{std}}$ for each $x\in\{0,1\}^2$. Thus $S_X\ket{v_x}=S_XU^{-1}\ket{\phi_x}=$
+Fix a pair $A\subseteq[6]$. By
+\cref{lem: QA is orth proj of pure 442,thm: rains standard code},
+we can write
+\[
+\ket{\psi}=\frac12\sum_{x\in\{0,1\}^2}
+\ket{x}_A\otimes\ket{v_x}_{\overline A},
+\qquad
+U_{\overline A}\ket{v_x}\in\mathcal C_{\mathrm{std}},
+\]
+where $U_{\overline A}=\bigotimes_{k\in\overline A}U_k$
+and each $U_k$ is unitary.
+Set $\ket{\psi^{(1)}}=(I_A\otimes U_{\overline A})\ket{\psi}$.
+For $S\in\{S_X,S_Z\}$, the definition of
+$\mathcal C_{\mathrm{std}}$ gives
+\[
+(I_A\otimes S)\ket{\psi^{(1)}}
+=\frac12\sum_x\ket{x}_A\otimes S U_{\overline A}\ket{v_x}
+=\frac12\sum_x\ket{x}_A\otimes U_{\overline A}\ket{v_x}
+=\ket{\psi^{(1)}}.
+\]
+Set $U_k=I$ for $k\in A$. For every $T\subseteq[6]$
+with $|T|\leq3$,
+\[
+\rho_T^{(1)}
+=\left(\bigotimes_{k\in T}U_k\right)
+\rho_T
+\left(\bigotimes_{k\in T}U_k\right)^\dagger
+=2^{-|T|}I_{2^{|T|}}.
+\]
+Thus $\ket{\psi^{(1)}}$ is $\operatorname{AME}(6,2)$.
 \end{proof}
+
+\subsection{The Six-qubit Local-Unitary Normal Form}
 
 \begin{lemma}\label{lem: ame62 is unitary equivalent}
     Every $\mathrm{AME}(6,2)$ state $\ket{\psi^{(0)}}$ is locally unitary equivalent, up to variables permutation, to one fixed 6-qubit stabilizer state, called the quantum hexacode state.

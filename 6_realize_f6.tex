@@ -1,21 +1,46 @@
-\section{Recovering \texorpdfstring{$f_6$}{f6} from six-qubit AME signatures}
+\section{Recovering \texorpdfstring{$f_6$}{f6} from Six-Qubit $\operatorname{AME}(6,2)$ Signatures}
 \label{sec:recover-f6}
 
-In this section, following the~\cref{sec: Third Order Orth}'s proof, we have realized a 6-ary signature $f$ and its normalized state is an $\mathrm{AME}(6,2)$ state. Then we can either get $\Holant(\F)$ is $\#\operatorname{P}$-hard, or realize an special 6-ary signature $f_6$ and four Bell signatures $\mathcal{B}$ after a holographic transformation by a real orthogonal matrix $O$, i.e., $\Holant(O\F,f_6,\mathcal{B})\leq_T \Holant(\F)$. With this $f_6$ and the four Bell signatures $\mathcal{B}$ in hand, in the next~\cref{sec: f6 is hard}, we will prove that $\Holant(O\mathcal{F},f_6,\mathcal{B})$ is $\#\operatorname{P}$-hard. 
+By \cref{thm: third order orthogonality}, we have realized a 6-ary signature $f$ and its normalized state as an $\mathrm{AME}(6,2)$ state.
+In this section, we will prove either $\Holant(\F)$ is $\#\operatorname{P}$-hard, or we can realize an special 6-ary signature $f_6$ and four Bell signatures $\mathcal{B}=\{I_2,X,Z,J\}$ after a real orthogonal holographic transformation by $O$, i.e., $\Holant(O\F,f_6,\mathcal{B})\leq_T \Holant(\F)$. 
+With this $f_6$ and the four Bell signatures $\mathcal{B}$ in hand, in the next~\cref{sec: f6 is hard}, we will prove that $\Holant(O\mathcal{F},f_6,\mathcal{B})$ is $\#\operatorname{P}$-hard. 
 
 We retain the standing assumptions that $\mathcal F$ is closed under entrywise conjugation, and is
-outside condition \textup{(T)}.
+outside condition \eqref{cond: tractable classes}.
 
-Now we give the definition of the 6-ary signature $f_6$,
+The sepcial signature $f_6$ is first found in the real Holant problems~\cite{realholant}, and it is a obstacle for the proof of hardness of real Holant~\cite{realholant}. In this paper, we illustrate that why such a special signature can be realized in real Holant and our conjugate-closed Holant, it is corresponding to the $\mathrm{AME}(6,2)$ state in the quantum perspective. The condtion outside~\eqref{cond: tractable classes} and the induction hypothesis make the case $2n=6$ that either yields $\#\operatorname{P}$-hardness or an $\mathrm{AME}(6,2)$ state. And combined with the proof of uniqueness of the $\mathrm{AME}(6,2)$ state in~\cref{sec: AME62 has a common local unitary normal}, we can finally realize a concrete $\mathrm{AME}(6,2)$ state $f_6$ in our conjugate-closed Holant. Since the this $\mathrm{AME}(6,2)$ state $f_6$ has a simple expression, we can easily generalize the proof of $f_6$ giving $\#\operatorname{P}$-hardness in~\cite{realholant} to our conjugate-closed Holant problems.
+
+We now give the definition of 6-ary signature $f_6$:
 \[
  f_6(x)=\mathbf1_{x_1+\cdots+x_6=0}
  (-1)^{x_1+x_2+x_3+q(x)},\qquad
  q(x)=x_1x_2+x_1x_3+x_2x_3+x_1x_4+x_2x_5+x_3x_6,
 \]
-where Boolean arithmetic is over $\mathbb{F}_2$. Its normalized state is an $\mathrm{AME}(6,2)$ state. Now we have a 6-ary signature $f$ and its normalized state is $\mathrm{AME}(6,2)$, since $\mathrm{AME}(6,2)$ has one local-unitary normal form (see~\cref{sec: AME62 has a common local unitary normal} for the detailed proofs), after relabeling its inputs, we can get that 
+where Boolean arithmetic is over $\mathbb{F}_2$. With rows and columns indexed by $x_1x_2x_3$ and $x_4x_5x_6$, we have the signature matrix of $f_6$ as following:
+\begingroup
+\setlength{\arraycolsep}{4pt}
+\renewcommand{\arraystretch}{1.1}
+\[
+M_{x_1x_2x_3,x_4x_5x_6}(f_6)=
+\begin{pmatrix}
+ 1 &  0 &  0 &  1 &  0 &  1 &  1 &  0 \\
+ 0 &  1 & -1 &  0 & -1 &  0 &  0 &  1 \\
+ 0 & -1 &  1 &  0 & -1 &  0 &  0 &  1 \\
+-1 &  0 &  0 & -1 &  0 &  1 &  1 &  0 \\
+ 0 & -1 & -1 &  0 &  1 &  0 &  0 &  1 \\
+-1 &  0 &  0 &  1 &  0 & -1 &  1 &  0 \\
+-1 &  0 &  0 &  1 &  0 &  1 & -1 &  0 \\
+ 0 & -1 & -1 &  0 & -1 &  0 &  0 & -1
+\end{pmatrix}.
+\]
+\endgroup
+
+Its normalized state is an $\mathrm{AME}(6,2)$ state. Now we have a 6-ary signature $f$ and its normalized state is $\mathrm{AME}(6,2)$, since $\mathrm{AME}(6,2)$ has one local-unitary normal form (see~\cref{sec: AME62 has a common local unitary normal} for the detailed proofs), after relabeling its inputs, we can get that 
 \begin{equation}\label{eq:f6-local-unitary-form}
     f=\lambda(U_1\otimes\cdots \otimes U_6)f_6, \quad \lambda\neq 0, \quad U_iU^\dagger=I.
 \end{equation}
+One can refer to~\cref{fig:f6-local-unitary-gadget}. for a more intuitive understanding.
+\input{fig_f6_local_unitary}
 However, the matrices $U_1,\dots,U_6$ maybe not available in $\Holant(\F)$, so instead of proving that we can directly realize $f_6$ in $\Holant(\F)$,
 we will prove that we can convert $U_1,\dots,U_6$ to $V_1,\dots,V_6$ where $[V_i]\in \Gamma$ for $1\leq i\leq 6$ after a orthogonal holographic transformation. Let $h=O^{\otimes6}f=\lambda(V_1\otimes\cdots\otimes V_6)f_6$.
 For each pair of variables, we contract $h$ using $=_2$ and extract
@@ -30,14 +55,14 @@ The main theorem of the section is the following theorem.
 
 \begin{theorem}[Realizing $f_6$]
 \label{thm:f6-equality-realization}
-Suppose that $\mathcal F$ contains a nonzero six-ary signature whose
+Suppose that $\mathcal F$ doesn't satisfy condition~\eqref{cond: tractable classes} and contains a nonzero six-ary signature whose
 normalized state is $\operatorname{AME}(6,2)$. Then either
 $\operatorname{Holant}(\mathcal F)$ is $\#\mathrm P$-hard, or there
 is a real orthogonal matrix $O$ such that
-\[
+\(
  \operatorname{Holant}(O\mathcal F\cup\{f_6\}\cup\mathcal B)
  \leq_T \operatorname{Holant}(\mathcal F).
-\]
+\)
 \end{theorem}
 
 
@@ -45,7 +70,7 @@ is a real orthogonal matrix $O$ such that
 
 
 
-\subsection{Binary contractions and hardness}
+\subsection{Binary Contractions and Hardness}
 \label{subsec:f6-binary-contractions}
 
 In this subsection, we first analyze binary contractions of $f_6$,
@@ -64,7 +89,7 @@ $Z=\left(\begin{matrix}1&0\\0&-1\end{matrix}\right)$, and
 $J=\left(\begin{matrix}0&1\\-1&0\end{matrix}\right)$. For a nonzero matrix $A$, $[A]$ denotes its class up to a nonzero scalar. Also recall the following notation of Kelin group and tetrahedral,
 \[
  C_{\epsilon_1,\epsilon_2,\epsilon_3}
- =\tfrac12(I+\epsilon_1\mathrm iX+\epsilon_2J+\epsilon_3\mathrm iZ),
+ =\tfrac12(I+\epsilon_1\mathfrak iX+\epsilon_2J+\epsilon_3\mathfrak iZ),
  \qquad
  \Gamma=K_4\cup
  \{[C_{\epsilon_1,\epsilon_2,\epsilon_3}]:
@@ -81,7 +106,7 @@ binary factors.
 \begin{lemma}[Binary contractions of $f_6$]
 \label{lem:f6-contraction-test}
 For every nonzero binary matrix $Q$ and every pair $1\le i<j\le6$,
-the signature $\partial_{ij}^Qf_6$ is nonzero. It is a tensor product
+the signature $\partial_{ij}^Qf_6$ is nonzero. $\partial_{ij}^Qf_6$ is a tensor product
 of two binary signatures if and only if $[Q]\in\Gamma$.
 In that case, both factors are projectively unitary and their
 projective classes belong to $\Gamma$.
@@ -126,8 +151,8 @@ The last system gives either $b=c=0$, $a=\pm d\ne0$, or
 $a=d=0$, $b=\pm c\ne0$, hence exactly the classes in $K_4$.
 In either of the first two systems, $d=0$ forces $Q=0$.
 Scaling to $d=1$, their solutions are respectively
-$(a,b,c)=(\epsilon\mathrm i,\eta\mathrm i,-\epsilon\eta)$ and
-$(\epsilon\mathrm i,\eta,-\epsilon\eta\mathrm i)$, where
+$(a,b,c)=(\epsilon\mathfrak i,\eta\mathfrak i,-\epsilon\eta)$ and
+$(\epsilon\mathfrak i,\eta,-\epsilon\eta\mathfrak i)$, where
 $\epsilon,\eta\in\{\pm1\}$.
 Their classes are $[C_{\eta,\epsilon\eta,\epsilon}]$ and
 $[C_{-\epsilon\eta,\eta,\epsilon}]$, giving the remaining eight
@@ -166,7 +191,7 @@ the conditions needed for a common change of basis.
 
 \begin{theorem}[The relation between $U_i$ and $U_j$]
 \label{thm:f6-nongamma-hard}
-Let $f$ be the realized signature in \eqref{eq:f6-local-unitary-form}.
+Let $\F$ be a conjugate closed signature set, $\F$ outside condition~\eqref{cond: tractable classes} and contains an $\operatorname{AME}(6,2)$ state $f=\lambda(U_1\otimes\cdots \otimes U_6)f_6$ where $\lambda\neq 0$ and $U_iU^\dagger=I$.
 Suppose that a nonzero binary signature $B$ is available in $\Holant(\F)$.
 If $[U_i^TBU_j]\notin\Gamma$ for some $i<j$, then
 $\Holant(\mathcal F)$ is $\#\mathrm P$-hard.
@@ -207,7 +232,7 @@ Since $=_2$ is available, it remains to consider the case
 $[U_i^TU_j]\in\Gamma$ for every $i<j$.
 
 
-\subsection{A common real orthogonal transformation}
+\subsection{A Common Real Orthogonal Transformation}
 \label{subsec:f6-real-orthogonal}
 
 Unless $\Holant(\F)$ is $\#\operatorname{P}$-hard, \cref{thm:f6-nongamma-hard} gives
@@ -217,9 +242,10 @@ $V_i$ which belongs to $\Gamma$ up to a scalar.
 
 \begin{lemma}[A common orthogonal transformation]
 \label{lem:f6-common-orthogonal}
-Let $U_1,\ldots,U_6$ be unitary matrices such that
-$[U_i^TU_j]\in\Gamma$ for every $i<j$.
-Then there are a real orthogonal matrix $O$ and unitary matrices
+Let $\F$ be a conjugate closed signature set, $\F$ outside condition~\eqref{cond: tractable classes} and contains an $\operatorname{AME}(6,2)$ state $f=\lambda(U_1\otimes\cdots \otimes U_6)f_6$ where $\lambda\neq 0$ and $U_iU^\dagger=I$.
+If
+$[U_i^TU_j]\in\Gamma$ for every $i<j$,
+then there are a real orthogonal matrix $O$ and unitary matrices
 $V_1,\ldots,V_6$ such that $OU_i=V_i$ and $[V_i]\in\Gamma$ for
 every $i$. 
 \end{lemma}
@@ -266,13 +292,15 @@ $\Holant(\mathcal F)\equiv_T\Holant(\mathcal F)$.
 In this basis, $[V_i^TBV_j]\in\Gamma$ if and only if $[B]\in\Gamma$,
 since $[V_i],[V_j]\in\Gamma$ and $\Gamma$ is closed under transpose,
 multiplication, and inversion. We can therefore state the hardness
-condition directly for a binary signature realized over $\mathcal E$.
+condition directly for a binary signature realized over $\Holant(O\mathcal F)$.
 
 \begin{lemma}[Non-$\Gamma$ hard]
 \label{lem:f6-nongamma-binary}
-Under the standing assumptions, let $\mathcal E=O\mathcal F$ and $h$
-be as above. If $\mathcal E$ realizes a nonzero binary signature $B$
-with $[B]\notin\Gamma$, then $\Holant(\mathcal E)$, and hence
+Let $\F$ be a conjugate closed signature set, $\F$ outside condition~\eqref{cond: tractable classes} and contains an $\operatorname{AME}(6,2)$ state $f=\lambda(U_1\otimes\cdots \otimes U_6)f_6$ where $\lambda\neq 0$ and $U_iU^\dagger=I$.
+Let $O$ be a real orthogonal matrix and 
+$V_1,\ldots,V_6$ are unitary matrices such that $OU_i=V_i$ and $[V_i]\in\Gamma$ for
+every $i$. If $\Holant(O\F)$ can realize a nonzero binary signature $B$
+with $[B]\notin\Gamma$, then $\Holant(O\mathcal F)$, and hence
 $\Holant(\mathcal F)$, is $\#\mathrm P$-hard.
 \end{lemma}
 
@@ -280,15 +308,16 @@ $\Holant(\mathcal F)$, is $\#\mathrm P$-hard.
 Since $[V_1],[V_2]\in\Gamma$ and $\Gamma$ is closed under transpose,
 multiplication, and inversion, $[B]\notin\Gamma$ implies
 $[V_1^TBV_2]\notin\Gamma$.
-Apply \cref{thm:f6-nongamma-hard} to $h$ over $\mathcal E$,
-this gives that $\#\operatorname{P}$-hardness of $\Holant(\mathcal{E})$.
+Apply \cref{thm:f6-nongamma-hard},
+this gives that $\#\operatorname{P}$-hardness of $\Holant(O\mathcal{F})$.
 \end{proof}
 
-It remains to recover $f_6$ from the available signature $h$.
 
 
-\subsection{Recovering \texorpdfstring{$f_6$}{f6} from binary factors}
+
+\subsection{Recovering \texorpdfstring{$f_6$}{f6} from Binary Factors}
 \label{subsec:f6-binary-factors}
+After the holographic transformation of~\cref{subsec:f6-real-orthogonal}, we can get a signature $h:=O^{\otimes6}f=\lambda(V_1\otimes\cdots\otimes V_6)f_6$. In this subsection, we will prove that we can realize $f_6$ and the four Bell signatures $\mathcal B$ in $\Holant(O\F,h)$. 
 
 We define the projective binary group of $\Holant(O\mathcal{F})$, denoted by
 \begin{equation}
@@ -634,4 +663,3 @@ holographic equivalence, we obtain
 \]
 We are done.
 \end{proof}
-

@@ -1,0 +1,74 @@
+
+\subsection{Signatures and Quantum States}\label{subsec: signatures and quantum states}
+Similar to \cref{def-first-order}, we can define $k$-th order orthogonality for a signature of arity $n\ge 2k$:
+\begin{definition}[$k$-th order orthogonality]\label{def: k-th order orthogonality}
+    A signature $f$ of arity $n$ satisfies $k$-th order orthogonality, denoted by {\sc $k$th-Orth} ($n\ge 2k$), if there exists some $\mu\neq 0$ such that for all $S\subseteq [n]$ of size $k$, $ M_S(f)M_S(f)^\dagger=\mu I_{2^k}.$
+\end{definition}
+
+Similar to \cref{prop: invariant 1st-Orth}, we have the following invariance property:
+\begin{proposition}\label{prop: invariant kth Orth}
+    {\sc $k$th-Orth} is invariant up to conjugation and holographic transformation by $T\in \mathbf{U}_2(\mathbb{C})$.
+\end{proposition}
+
+The proof of~\cref{prop: invariant kth Orth} is in~\cref{subapp: proof of subsec signatures and quantum states}. In particular, every real orthogonal matrix
+$O\in\mathbf{O}_2$ is unitary, and hence {\sc $k$th-Orth} is invariant up to orthogonal transformation by $O\in\mathbf{O}_2$.
+Together with \cref{lem: invariance under real orthogonal transformation},
+this shows that a real orthogonal transformation preserves conjugate
+closure, failure of condition~\eqref{cond: tractable classes},
+irreducibility, and {\sc $k$th-Orth}.
+
+There is a natural interpretation of the $k$-th order orthogonality if we view $f$ as a quantum state.
+
+
+Given two signatures $f$ and $g$ both of arity $n$, their inner product is defined as $\braket{f,g}=\sum_{x\in\{0,1\}^n}f(x)\overline{g(x)}.$
+Define $||f||=\sqrt{\braket{f,f}}.$
+A nonzero arity-$n$ signature $f$ determines the normalized $n$-qubit
+state
+\[
+\ket f=\frac{1}{\|f\|}
+ \sum_{x\in\{0,1\}^n}f(x)\ket x.
+\]
+For $S\subseteq[n]$, let $\overline S=[n]\setminus S$ and define the
+reduced density matrix
+\(
+\rho_S=\operatorname{Tr}_{\overline S}(\ket f\!\bra f)
+\)
+(see \autoref{sec: AME62 has a common local unitary normal} for the exact definition and more details).
+The state $\ket f$ is \emph{$k$-uniform} if
+$\rho_S=2^{-k}I_{2^k}$ for every $S\subseteq[n]$ with $|S|=k$.
+Equivalently, $f$ satisfies \textsc{$k$th-Orth}.  
+An $\operatorname{AME}(n,2)$ state is a $\lfloor n/2\rfloor$-uniform $n$-qubit state.  
+Equivalently, we say a non-zero arity $n$ signature $f$ is an AME($n,2$) state if $f$ satisfies {\sc $\lfloor n/2\rfloor$th-Orth}.
+We use a signature and its
+associated quantum state interchangeably when no confusion can arise.  
+%For a permutation $\pi\in S_n$, $P_\pi$ denotes the operator that permutes the tensor factors according to $\pi$.
+
+\paragraph{Pauli representation}
+Define the Hilbert–Schmidt inner product on $\mathbb{C}^{n\times n}$ by $\braket{A,B}:=\mathrm{Tr}(A^\dagger B).$
+The four Pauli matrices are 
+$$
+\sigma_0=I=\left[\begin{matrix}
+    1 & 0\\
+    0 & 1\\
+\end{matrix}\right],
+\sigma_1=X=\left[\begin{matrix}
+    0 & 1\\
+    1 & 0\\
+\end{matrix}\right],
+\sigma_2=Y=\left[\begin{matrix}
+    0 & -\mathfrak i\\
+    \mathfrak i & 0\\
+\end{matrix}\right],
+\sigma_3=Z=\left[\begin{matrix}
+    1 & 0\\
+    0 & -1\\
+\end{matrix}\right]
+$$
+such that $\braket{\sigma_i,\sigma_j}=2\delta_{ij}$.
+Thus they form an orthogonal basis of the vector space of $\mathbb{C}^{2\times 2}.$
+More generally, the $4^m$ matrices $\sigma_{i_1}\otimes\cdots\otimes  \sigma_{i_m}$ form an orthogonal basis of $\mathbb{C}^{2^m\times 2^m}$.
+Therefore every $m$-qubit density matrix has a unique expansion
+$$
+    \rho=\frac{1}{2^m}\sum_{i_1,\ldots,i_m}r_{i_1,\ldots,i_m}\sigma_{i_1}\otimes \cdots\otimes \sigma_{i_m},
+$$
+where $r_{i_1,\ldots,i_m}=\mathrm{Tr}((\sigma_{i_1}\otimes\cdots\otimes\sigma_{i_m})\rho)=\mathrm{Tr}(\rho(\sigma_{i_1}\otimes\cdots\otimes\sigma_{i_m}))$.

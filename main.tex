@@ -8,7 +8,11 @@
 \usepackage{latexsym}
 \usepackage{amssymb}
 \usepackage{amsmath,mathrsfs}
-\usepackage{hyperref}
+% Generate globally unique PDF destinations.  The theorem-like counters are
+% reset in each section, so counter-based destination names such as
+% `lemma.2` would otherwise collide across sections and make links jump to an
+% earlier lemma with the same local number.
+\usepackage[hypertexnames=false]{hyperref}
 \usepackage{euscript}
 \usepackage{nicematrix}
 \usepackage{braket}
@@ -35,18 +39,17 @@
 \newcommand{\hF}{\widehat{\mathcal{F}}}
 \newcommand{\F}{\mathcal{F}}
 
-\title{A Dichotomy for Conjugate-Closed Boolean Holant Problems}
+\title{\bf A Dichotomy for Boolean Complex Holant Problems with Conjugate-Closed Signature Sets}
 
 \author{
-Jincheng Guan\thanks{School of Computer Science and Technology \& Hefei National Laboratory, University of Science and Technology of China. Supported by the Quantum Science and Technology $-$ National Science and Technology Major Project (QNMP), 2021ZD0302901.}\\
-\texttt{guanjincheng@mail.ustc.edu.cn}
-\and
-Shuai Shao\footnotemark[1]\\
-\texttt{shao10@ustc.edu.cn}
-\and
-Zhuxiao Tang\thanks{Department of Computer Sciences,
-University of Wisconsin-Madison.}\\
-\texttt{zztang@wisc.edu}
+ \begin{tabular}{c@{\hspace{0.5cm}}c@{\hspace{0.5cm}}c}
+ \normalsize Jincheng Guan\thanks{School of Computer Science and Technology \& Hefei National Laboratory, University of Science and Technology of China. %Supported by  the Quantum Science and Technology $-$ National Science and Technology Major Project (QNMP), 2021ZD0302901.
+ } &
+\normalsize  Shuai Shao\footnotemark[1] &
+\normalsize  Zhuxiao Tang\thanks{College of Computing \& Artificial Intelligence (CAI),
+University of Wisconsin-Madison.} \\
+ \normalsize  \url{guanjincheng@mail.ustc.edu.cn} & \normalsize \url{shao10@ustc.edu.cn}  & \normalsize \url{zztang@wisc.edu}\\
+ \end{tabular}
 }
 
 \date{}
@@ -70,7 +73,7 @@ University of Wisconsin-Madison.}\\
 \input{8_2n=8}
 \input{9_2n>=10}
 
-\bibliographystyle{plain}
+\bibliographystyle{alpha}
 \bibliography{ref}
 
 \newpage

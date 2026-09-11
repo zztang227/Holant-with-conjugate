@@ -99,20 +99,22 @@
 {\smallskip \noindent \emph{Example:}}
 {\hfill $\boxtimes$ \smallskip}
 
+\newtheorem{theorem}{Theorem}[section]
 % some theorem environments
-\newtheorem{conjecture}{Conjecture}
-\newtheorem{theorem}{Theorem}
-\newtheorem{proposition}{Proposition}
-\newtheorem{claim}{Claim}
-\newtheorem{lemma}{Lemma}
-\newtheorem{corollary}{Corollary}
-\newtheorem{remark}{Remark}
-\newtheorem{condition}{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{definition}[theorem]{Definition} 
 \newtheorem*{remark*}{Remark}
-\newtheorem{question}{Question}
-\newtheorem{definition}{Definition} % Use this for non-trivial
+% Use this for non-trivial
 	% definitions.
 % Define the proof sketch environment
+
 \newenvironment{proofsketch}{%
   \renewcommand{\proofname}{Proof Sketch}\proof}{\endproof}
 

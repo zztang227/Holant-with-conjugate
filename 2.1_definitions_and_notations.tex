@@ -1,0 +1,176 @@
+
+\subsection{Definitions and Notations}
+
+
+
+A \emph{signature} of arity $n$ is a function
+$f:\{0,1\}^n\to\mathbb C$. 
+%We also write $\operatorname{arity}(f)=n$ and $f^\alpha=f(\alpha)$.  
+%Unless a row orientation is explicitly indicated, the truth table of $f$ is the column vector in lexicographic order.  
+For a bit string $\alpha=\alpha_1\cdots\alpha_n$, let $|\alpha|=n$,
+\(
+\operatorname{wt}(\alpha)=\sum_{j=1}^n\alpha_j,
+\)
+and denote its bitwise complement by $\overline{\alpha}$.  
+The symbols
+$0^n=\vec 0^{\,n}$ and $1^n=\vec 1^{\,n}$ denote the all-zero and all-one
+strings; the superscript is omitted when its value is clear.  Addition
+$\oplus$ of bit strings is coordinatewise over $\mathbb Z_2$.
+The \emph{support} of $f$ is
+\(
+\mathscr S(f)=\{\alpha\in\{0,1\}^n:f(\alpha)\ne0\}.
+\)
+The signature is zero, written $f\equiv0$, if $\mathscr S(f)=\emptyset$.
+A signature is \emph{symmetric} if its value depends only on Hamming weight.
+For such a signature of arity $n$, we use the compressed notation
+\(
+f=[f_0,f_1,\ldots,f_n],
+\)
+where $f_j$ is the value on every input of weight $j$. 
+Let
+\(
+\Delta_0=[1,0], \,\Delta_1=[0,1].
+\)
+For $n\ge1$, the equality signature $(=_n)$ is one on $0^n$ and $1^n$ and
+zero elsewhere.  The binary disequality signature is
+$(\neq_2)=[0,1,0]$. 
+More generally, $\neq_{2n}$ denotes the indicator of
+\(
+x_1= x_2=\ldots= x_n\neq
+x_{n+1}=x_{n+2}=\ldots= x_{2n}.
+\)
+We
+write $\mathcal{EQ}=\{=_n\mid n\ge1\}$ and
+$\mathcal{DEQ}=\{\neq_{2n}\mid n\ge1\}$.
+Also write $\mathcal{EQ}_k=\{=_{nk}\mid n\ge1\}$.
+Let
+\(
+\mathscr E_n=\{\alpha\in\{0,1\}^n:\operatorname{wt}(\alpha)
+\text{ is even}\},\,
+\mathscr O_n=\{\alpha\in\{0,1\}^n:\operatorname{wt}(\alpha)
+\text{ is odd}\}.
+\)
+A signature has \emph{even parity} or \emph{odd parity} if its support is
+contained in $\mathscr E_n$ or $\mathscr O_n$, respectively; it has
+\emph{parity} in either case.
+
+We use $=_2^-$ to denote the binary signature $(1, 0, 0, -1)$ and $\neq_2^-$ to denote the binary signature $(0, 1, -1, 0)$.
+We may also write $=_2$ as $=_2^+$ and $\neq_2$ as $\neq_2^+$. 
+%We use $=_2^{\pm}$ to denote $=_2^+$ or $=_2^-$, and use $\neq_2^{\pm}$ to denote $\neq_2^+$ or $\neq_2^-$.
+Let $\mathcal{B}=\{=^+_2, =_2^-, \neq_2^+, \neq_2^-\}$.
+We call them Bell signatures which correspond to Bell states $|\Phi^+\rangle=|00\rangle+|11\rangle$, $|\Phi^-\rangle=|00\rangle-|11\rangle$, 
+$|\Psi^+\rangle=|01\rangle+|10\rangle$ and 
+$|\Psi^-\rangle=|01\rangle-|10\rangle$ in quantum information science \cite{bell1964einstein}.
+
+We use $f_{i_1i_2\ldots i_k}^{a_1a_2\ldots a_k}$ to denote the signature obtained from $f$ by pinning the variables $x_{i_1},x_{i_2},\ldots, x_{i_k}$ to $a_{1},a_2,\ldots, a_k$ respectively.
+For example, $f_{i}^a=f(x_1,\ldots,x_{i-1},a,x_{i+1},\ldots,x_n).$
+For $S\subseteq[n]$, let $M_S(f)$ be the
+$2^{|S|}\times2^{n-|S|}$ matrix whose rows are indexed by assignments
+to the variables in $S$ and whose columns are indexed by assignments to
+the remaining variables, both in lexicographic order.  We also write
+$M_{S,T}(f)$ when the ordered row and column variable lists $S,T$
+partition the variables.  In particular,
+\[
+M_i(f)=
+\begin{bmatrix}\mathbf f_i^0\\ \mathbf f_i^1\end{bmatrix},
+\qquad
+M_{ij}(f)=
+\begin{bmatrix}
+\mathbf f_{ij}^{00}\\ \mathbf f_{ij}^{01}\\
+\mathbf f_{ij}^{10}\\ \mathbf f_{ij}^{11}
+\end{bmatrix},
+\]\
+where $ {\bf {f}}^{a}_{i}$ denotes the row vector indexed by $x_i=a$ in $M_{i}(f)$, and ${\bf {f}}^{ab}_{ij}$ denotes the row vector indexed by $(x_i, x_j)=(a, b)$ in $M_{i j}(f)$.
+For a binary signature $b=b(x_1,x_2)$, $M(b)=\left[\begin{smallmatrix}
+    b(0,0) & b(0,1)\\
+    b(1,0) & b(1,1)
+\end{smallmatrix}\right]$ denotes its $2\times2$ signature matrix.
+
+
+
+
+A \emph{signature grid} over $\mathcal F$ is a pair
+$\Omega=(G,\pi)$, where $G=(V,E)$ is a graph and $\pi$ assigns to every
+$v\in V$ a signature $f_v\in\mathcal F$ of arity $\deg(v)$, and labels the incident edges $E(v)$ at $v$ with input variables of $f_v$.
+We consider all 0-1 edge assignments $\sigma$, and each gives an evaluation $\prod_{v\in V}f_v(\sigma|_{E(v)})$, where $\sigma|_{E(v)}$ denotes the restriction of $\sigma$ to $E(v)$.
+
+\begin{definition}[Holant Problems]
+The input to the problem $\Holant(\mathcal{F})$ is a signature grid $\Omega=(G,\pi)$ over $\mathcal{F}$.
+The output is the partition function
+\[
+\operatorname{Holant}({\Omega})
+=\sum_{\sigma:E(G)\to\{0,1\}}
+ \prod_{v\in V}f_v(\sigma|_{E(v)}).
+\]
+Bipartite Holant problems $\holant{\mathcal{F}}{\mathcal{G}}$
+are {Holant} problems
+ over bipartite graphs $H = (U,V,E)$,
+where each vertex in $U$ or $V$ is labeled by a signature in $\mathcal{F}$ or $\mathcal{G}$ respectively.
+When $\{f\}$ is a singleton set, we write $\Holant(\{f\})$ as $\Holant(f)$ and  $\Holant(\{f\}\cup \mathcal{F})$ as $\Holant(f, \mathcal{F}).$ 
+\end{definition}
+
+We say a signature $f$ is \emph{realizable} from $\F$, if $\Holant(\F,f)\leq_T \Holant(\F)$.
+The \emph{counting constraint satisfaction} problem \#CSP($\mathcal{F}$) is defined as $\Holant(\mathcal{EQ}\mid \mathcal{F}).$
+The problem \#$\mathrm{CSP}_k(\mathcal{F})$ is defined as $\holant{\mathcal{EQ}_k}{\mathcal{F}}$.
+
+For a signature $f$ of arity $n$, define its conjugation $\overline{f}$ by $\overline{f}(\alpha)=\overline{f(\alpha)},\,\forall\alpha\in \{0,1\}^n$.
+We define the \emph{arrow reversal} of $f$ by
+\(
+f^{\textsc{ar}}(\alpha)
+:=\overline{f(\overline\alpha)},\,\forall\alpha\in \{0,1\}^n.
+\)
+We say $f$ satisfies \emph{arrow reversal symmetry} (\textsc{ars}) if
+$f=f^{\textsc{ar}}$.  
+A signature set $\mathcal F$ is
+\emph{conjugate closed}, written $\mathcal F=\overline{\mathcal F}$, if
+$f\in\mathcal F$ implies $\overline f\in\mathcal F$.  
+In this paper, we focus on the case where $\mathcal{F}$ is conjugate closed.
+A set $\mathcal G$
+is \emph{arrow-reversal closed}, written
+$\mathcal G=\mathcal G^{\textsc{ar}}$, if $g\in\mathcal G$ implies
+$g^{\textsc{ar}}\in\mathcal G$.  
+
+
+Let $\mathcal U$ be the set consisting of the binary zero signature and
+all binary signatures $b$ for which
+\(
+M(b)M(b)^\dagger=\lambda I_2
+\text{ for some }\lambda>0.
+\)
+Similarly, $\mathcal O$ consists of the binary zero signature and the
+real-valued binary signatures $b$ satisfying
+$M(b)M(b)^{\mathtt T}=\lambda I_2$ for some $\lambda>0$.  
+%We set $\widehat{\mathcal O}=K^{-1}\mathcal O$ and $\widehat{\mathcal U}=K^{-1}\mathcal U$. 
+
+We use projective binary matrices in the arity-six argument.  For nonzero
+matrices $A,B$, write $A\sim B$ if $A=\lambda B$ for some
+$\lambda\in\mathbb C^\times$, and let $[A]$ denote the projective class.
+Set
+\[
+X=N_2,\qquad
+Y=\begin{bmatrix}0&-\mathfrak i\\ \mathfrak i&0\end{bmatrix},\qquad
+Z=\begin{bmatrix}1&0\\0&-1\end{bmatrix},\qquad
+J=\mathfrak iY=\begin{bmatrix}0&1\\-1&0\end{bmatrix}.
+\]
+Notice that $I_2,X,Z,J$ are matrices of the signatures $=_2^{+},\neq_2^{+},=_2^{-},\neq_2^{-}$, respectively.
+For $\varepsilon_1,\varepsilon_2,\varepsilon_3\in\{\pm1\}$, put
+\[
+C_{\varepsilon_1,\varepsilon_2,\varepsilon_3}
+=\frac12\bigl(I_2+\varepsilon_1\mathfrak iX
+                 +\varepsilon_2J+\varepsilon_3\mathfrak iZ\bigr).
+\]
+The projective tetrahedral group and its normal Klein-four subgroup are
+\[
+\Gamma
+=\{[I_2],[X],[Z],[J]\}
+ \cup
+ \{[C_{\varepsilon_1,\varepsilon_2,\varepsilon_3}]:
+        \varepsilon_1,\varepsilon_2,\varepsilon_3\in\{\pm1\}\},
+\qquad
+K_4=\{[I_2],[X],[Z],[J]\}.
+\]
+Thus $\Gamma\cong A_4$ and $K_4\cong V_4$, where $A_4$ is the alternating group of order 12 and $V_4$ is the Klein group.
+We suppress the projective
+brackets when a displayed unitary representative is intended. 
+In this paragraph, and everywhere in the quantum arguments, $Z$ is the Pauli
+matrix rather than a holographic transformation.

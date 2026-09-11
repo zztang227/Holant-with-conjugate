@@ -8,59 +8,50 @@ We now complete the induction framework of
 eight.  At arity at least ten, however, its strong equality outcome is
 combinatorially impossible.
 
-\begin{lemma}[Strong-equality rigidity]
+\begin{lemma}
 \label{lm: high arity equality rigidity}
-No nonzero signature of arity $2m\geq10$ can simultaneously satisfy
+No nonzero signature of arity $2n\geq10$ can simultaneously satisfy
 {\sc 2nd-Orth} and the strong equality property.
 \end{lemma}
 
 \begin{proof}
-For every edge $e$ on the $2m$ coordinate positions, write
-\[
- \partial_eh=\lambda_e e_{M_e},
- \qquad F_e=\{e\}\cup M_e.
-\]
-Repeat the loop-versus-cross comparison in the proof of
-\cref{lm: f8 one factorization}.  That comparison did not use $m=4$:
-for disjoint $e,d$, closing an equality loop contributes $2$, while
-crossing two equality factors switches their other endpoints.  Thus
-$d\in M_e$ if and only if $e\in M_d$; when this holds, $F_e=F_d$.
-Consequently the sets $F_e$ partition $E(K_{2m})$ into a
-$1$-factorization, and comparison of the two contraction orders gives one
-common nonzero scalar $\lambda_e$: equality is first obtained for disjoint
-edges, and the disjointness graph on $E(K_{2m})$ is connected.
+Similar to \cref{def: f8 matching}, for any pair of distinct indices $e=\{i,j\}$, we can define $M_e, F_e$ and the relation $\sim.$
+Also similar to \cref{lm: f8 matching equivalence}, $\sim$ is an equivalence relation.
+The proof there makes no special use of $2n=8$, and it holds for any $2n\ge10.$
+Consequently the perfect matchings $F_e$ partition $E(K_{2n})$ into a
+$1$-factorization.
 
-Choose distinct factors $A,B$ and disjoint edges $e\in A$, $d\in B$.
-Such a choice exists because $m\geq5$.  Compute
-$\partial_d\partial_eh$ in the two orders.  Starting with $e$, the two
+Choose distinct perfect matchings $A,B$ and disjoint edges $e\in A$, $d\in B$.
+Such a choice exists because $n\geq5$.  
+Because $A$ and $B$ are distinct, they are disjoint as two equivalent classes of $\sim.$
+Compute $\partial_d\partial_eh$ in the two orders.  Starting with $e$, the two
 endpoints of $d$ lie in two distinct edges of $A\setminus\{e\}$.
 Contracting $d$ switches those two edges into one edge and leaves the
-other $m-3$ edges of $A$ unchanged.  Hence the residual matching consists
-of one switched edge and $m-3$ unchanged $A$-edges.  Reversing the order
+other $m-3$ edges of $A$ unchanged.  Hence the residual matching consists of one switched edge and $m-3$ unchanged $A$-edges.  Reversing the order
 gives one switched edge and $m-3$ unchanged $B$-edges.
 
 The two double contractions are the same nonzero equality product, so
-their residual matchings must coincide.  Distinct factors of a
-$1$-factorization share no edge.  Since $m\geq5$, the first residual
-matching contains at least two unchanged $A$-edges.  Neither can be an
-unchanged $B$-edge, while at most one can equal the single switched edge
+their residual matchings must coincide.  
+%Distinct factors of a $1$-factorization share no edge. 
+Since $m\geq5$, the first residual
+matching contains at least two unchanged $A$-edges.  
+Neither can be an unchanged $B$-edge, since $A$ and $B$ are disjoint.
+However, at most one can equal the single switched edge
 in the reverse-order matching.  This is impossible.  Therefore the two
 hypotheses cannot hold simultaneously.
 \end{proof}
 
 The following descent theorem plays the same role as
-\cite[Lemma~9.1]{realholant}.  Its last step is expressed here by the
-strong-equality rigidity lemma, so the proof remains valid for
-conjugate-closed complex signatures.
+\cite[Lemma~9.1]{realholant}. 
 
-\begin{theorem}[Strict arity descent]
+\begin{theorem}
 \label{thm: strict arity descent}
 Let $\mathcal F=\overline{\mathcal F}$ fail condition
-\rm{(\ref{cond: tractable classes})}, and let $f$ be an available
+\rm{(\ref{cond: tractable classes})}, and let $f\in \mathcal{F}$ is a
 signature of arity $2n\geq10$ with
 $f\notin\mathcal U^{\otimes}$.  Then either
-$\Holant(\mathcal F)$ is \#P-hard, or an even-arity signature
-$g\notin\mathcal U^{\otimes}$ of arity at most $2n-2$ is available.
+$\Holant(\mathcal F)$ is \#P-hard, or we can realize an even arity signature
+$g\notin\mathcal U^{\otimes}$ of arity at most $2n-2$.
 \end{theorem}
 
 \begin{proof}
@@ -119,12 +110,16 @@ thm: base case 2n=8}.
 
 For $2n\geq10$, apply \cref{thm: strict arity descent}.  Either hardness
 already follows, or it supplies an available
-$g\notin\mathcal U^{\otimes}$ of smaller even arity.  The gadget and its
-conjugate make the augmented family conjugate closed, and its failure of
-condition \rm{(\ref{cond: tractable classes})} follows from the inclusion
-of $\mathcal F$.  The induction hypothesis makes the augmented problem
+$g\notin\mathcal U^{\otimes}$ of smaller even arity.  
+Since $\mathcal{F}$ is conjugate closed, $\overline{g}$ is also realizable.
+Let $\mathcal{G}=\mathcal{F}\cup\{g,
+\overline{g}\}$.
+Clearly $\mathcal{G}$ fails
+condition \rm{(\ref{cond: tractable classes})} because it contains $\mathcal{F}.$
+The induction hypothesis makes the augmented problem $\Holant(\mathcal{G})$
 \#P-hard, while gadget realization reduces it to
-$\Holant(\mathcal F)$.  Since each descent lowers the fixed signature
+$\Holant(\mathcal F)$.  
+Since each descent lowers the fixed signature
 arity by at least two, the process reaches one of the four base arities
 after finitely many constant-size reductions.  This completes the proof.
 \end{proof}

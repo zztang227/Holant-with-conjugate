@@ -2,343 +2,638 @@
 \label{sec: 2n=8}
 \label{sec: f8}
 
-Throughout this section, $\mathcal F=\overline{\mathcal F}$ and
-$\mathcal F$ does not satisfy condition \rm{(\ref{cond: tractable classes})}.
-All gadget constructions and factor extractions are understood as
-polynomial-time Turing reductions.  In particular, whenever a nonzero
-signature factors, its factors are available by \cref{lm: decomposition}.
+In this section, we will complete the induction proof for $2n=8$  (\cref{thm: base case 2n=8}).
+We assume that $\mathcal F$ does not satisfy condition \rm{(\ref{cond: tractable classes})}, and $\mathcal{F}$ contains a signature $f\notin \mathcal{U}^\otimes.$
 
-\subsection{Realizing \texorpdfstring{$f_8$}{f8} through the lens of Reed-Muller Code}
+Shao and Cai discovered the signature $f_8$ in \cite{realholant}.
+It is $f_8=\chi_C$ where
+\begin{equation}\label{eq: f8}
+ \begin{aligned}
+  C=&\mathscr{S}(f_8)=\{(x_1, x_2, \ldots, x_8)\in \mathbb{Z}_2^{8} \mid~
+x_1+x_2+x_3+x_4= 0, ~ x_5+x_6+x_7+x_8= 0,\\
+  &\hspace{34ex}x_1+x_2+x_5+x_6= 0, ~ x_1+x_3+x_5+x_7= 0\}.\\
+=&\{00000000, 00001111, 00110011, 00111100, 01010101, 01011010, 01100110, 01101001,\\
+& ~10010110,  10011001, 10100101, 10101010, 11000011, 11001100, 11110000, 11111111\}.
+\end{aligned}
+\end{equation}
+
+$f_8$ have some extraordinary properties.
+For example, it satisfies {\sc 2nd-Orth} and $f_8\in \int \mathcal{U}^{\otimes}$.
+Thus, simple merging and factorization cannot realize a signature outside $\mathcal{U}^{\otimes}$.
+In \cref{subsec: realize f8 Reed Muller}, we will realize $f_8$.
+In \cref{subsec: f8 available hardness}, we prove \#P-hardness when $f_8$ is available.
+
+\subsection{Realizing \texorpdfstring{$f_8$}{f8} Through the Lens of Reed-Muller Code}
 \label{subsec: realize f8 Reed Muller}
 
-For a perfect matching $M$ on a set of variables, define the equality
-product
-\[
- e_M=\prod_{\{u,v\}\in M}(=_2)(x_u,x_v).
-\]
-Thus $e_M$ is a tensor product of binary equality signatures, up to a
-permutation of variables.  We say that a signature $h$ has the
-\emph{strong equality property} if, for every pair $\{i,j\}$,
-\[
- \partial_{ij}h\propto e_{M_{ij}}
-\]
-for some perfect matching $M_{ij}$ of the remaining variables.
+\begin{definition}[Strong equality property]\label{def: Strong equality property}
+    Let $\mathcal{E}^\otimes=\{\lambda\cdot (=_2)^{\otimes n}\mid \lambda\in \mathbb{C}^\times,n\ge1\}$ be the set of tensor products of binary $=_2$ up to a non-zero scalar.
+    We say a signature $h$ satisfies the \emph{strong equality property}, if $h\in \int \mathcal{E}^{\otimes}$, i.e., for any pair of indices $\{i,j\}$, $\partial_{ij}h\in \mathcal{E}^\otimes.$
+\end{definition}
 
-We first record a consequence of \cref{def: second-order-orth} that will be
-used repeatedly.  If $h$ satisfies {\sc 2nd-Orth} with common constant
-$\lambda>0$, then for every nonzero binary signature $b$,
-\begin{equation}
- \left\|\partial_{ij}^{b}h\right\|^2
- =\lambda\sum_{a,c\in\{0,1\}}|b(a,c)|^2>0.
- \label{eq: nonzero binary contraction}
-\end{equation}
-Indeed, the four slices
-$\mathbf h_{ij}^{00},\mathbf h_{ij}^{01},
-  \mathbf h_{ij}^{10},\mathbf h_{ij}^{11}$ are mutually orthogonal and
-have squared norm $\lambda$.  Consequently none of the binary contractions
-used below vanishes.
+It can be checked that $f_8$ satisfies the strong equality property.
+The following lemma is essentially the same as
+\cite[Lemma~8.1]{realholant}.
+The only difference is that when doing binary extension, we use the conjugate transpose of the binary instead of the binary itself.
 
-The following lemma has essentially the same role as
-\cite[Lemma~8.1]{realholant}.  The real proof cancels an orthogonal wire by
-transposing it.  Here the wires are unitary, so conjugate closure is needed
-to construct the inverse.  We give the complete argument.
-
-\begin{lemma}[Unitary-wire normalization]
+\begin{lemma}
 \label{lm: unitary wire normalization}
-Let $\mathcal H=\overline{\mathcal H}$, and let $f$ be available from
-$\mathcal H$ by gadget construction and the factor extraction in
-\cref{lm: decomposition}.  Suppose that $f$ has arity $2m\geq8$, is
-irreducible, satisfies
-{\sc 2nd-Orth}, and
-\[
- \partial_{ij}f\in\mathcal U^{\otimes}
- \qquad\text{for every }\{i,j\}\subseteq[2m].
-\]
-Then either a signature of arity $2m-2$ outside
-$\mathcal U^{\otimes}$ is available from $\mathcal H$, or an irreducible
-signature $h$ of arity $2m$ is available from $\mathcal H$ such that $h$
-satisfies {\sc 2nd-Orth} and has the strong equality property.
+Let $f\notin \mathcal{U}^\otimes$ be a signature of arity $2n\ge 8$ in $\mathcal{F}$.
+Then one of the following holds:
+\begin{itemize}
+    \item $\Holant(\mathcal{F})$ is \#P-hard;
+    \item There is a signature $g\notin \mathcal{U}^\otimes$ of arity $2k\le 2n-2$ that is realizable from $f$;
+    \item There is an irreducible signature $f^\ast$ of arity $2n$ that is realizable from $f$ with the strong equality property.
+\end{itemize}
 \end{lemma}
 
 \begin{proof}
-Every binary factor $b$ of an equality contraction is available by
-\cref{lm: decomposition}.  Put $B=M(b)$.  Since
-$b\in\mathcal U$ and $b\neq 0$, $B$ is projectively unitary.  Reversing
-the two arguments gives $B^{\mathtt T}$, and conjugate closure gives
-$\overline B$.  Hence the binary signature with matrix
-\begin{equation}
- B^{-1}\propto B^\dagger=\overline B^{\mathtt T}
- \label{eq: inverse unitary wire}
+Since ${f}\notin {\mathcal{U}}^{\otimes}$, $ f\not\equiv 0$.
+Again, we may assume that ${f}$ is irreducible.
+Otherwise, by factorization, we can realize a nonzero signature of odd arity and we get \#P-hardness by \cref{lm: odd holant with conjugation}, or we can realize a signature of lower even arity that is not in $\mathcal{U}^{\otimes}$ and we are done.
+Under the assumption that $f$ is irreducible, we may further assume that $f$ satisfies {\sc 2nd-Orth} by \cref{lm: not 2nd-orth is hard}.
+Consider signatures ${\partial}_{ij}{f}$ for all pairs of indices $\{i, j\}$. 
+If there exists a pair $\{i, j\}$ such that ${\partial}_{ij}{f}\notin {\mathcal{U}}^{\otimes}$, then let ${g}={\partial}_{ij}{f}$, and we are done.
+Thus, we may also assume that ${f}\in {\int}{\mathcal{U}}^{\otimes}$.  
+
+Since $f$ satisfies {\sc 2nd-Orth}, $\partial_{ij}f$ is non-zero by \cref{lm: 2nd-orth contraction nonzero}.
+Since $ {\partial}_{12} {f} \in  {\mathcal{U}}^{\otimes}$, without loss of generality, we may assume that in the UPF of $ {\partial}_{12} {f}$, variables $x_3$ and $x_4$ appear in one  binary signature $b_1(x_3, x_4)$, $x_5$ and $x_6$ appear in one binary signature $b_2(x_5, x_6)$ and so on. 
+Thus, we have 
+\begin{equation*}
+ {\partial}_{12} {f}=   {b_1}(x_3, x_4)\otimes  {b_2}(x_5, x_6)\otimes {b_3}(x_7, x_8)\otimes \ldots \otimes  {b_{n-1}}(x_{2n-1}, x_{2n}).
+\end{equation*}
+
+All these binary factors $b_1,b_2,\ldots,b_{n-2}$ are realizable by
+\cref{lm: decomposition}.  
+Put $B_i=M(b_i)$.  
+Since
+$b_i\in\mathcal U$ and $b_i\neq 0$, $B_i$ is projectively unitary.  Reversing the two arguments gives $B_i^{\mathtt T}$, and conjugate closure gives
+$\overline B_i$.  
+Hence the binary signature $b_i^{-1}$ with matrix $B_i^{-1}\propto \overline{B_i}^{\tt T}$ is also available.
+We consider the following gadget construction on $f$.
+For $1\leqslant i\leqslant n-1$, by a slight abuse of names of variables, we connect the variable $x_{2i+1}$ of $f$   
+with the variable $x_{2i+2}$ of $  {b^{-1}_{i}}(x_{2i+1}, x_{2i+2})$. 
+We get a signature $f'$ of arity $2n$. 
+We denote this gadget construction by $G_1$ and we write $f'$ as $G_1 \circ f$.
+$G_1$ is constructed by extending variables of $f$ using binary signatures realized from ${\partial}_{12}{f}$. 
+It does not change the irreducibility of $f$.  
+Thus, $f'$ is irreducible since $f$ is irreducible.
+Similarly, we may assume that $f'\in {\int}  {\mathcal{U}}^{\otimes}$. Otherwise, we are done.
+
+
+Consider the signature ${\partial}_{12}{f'}$. 
+Since the above gadget construction $G_1$  does not touch variables $x_1$ and $x_2$ of $f$, $G_1$
+commutes with the merging gadget ${\partial}_{12}$. 
+Thus, ${\partial}_{12}{f'}$ can be realized by performing the gadget construction $G_1$ on ${\partial}_{12}{f}$, which connects each binary signature ${b_{i}}(x_{2i+1}, x_{2i+2})$ in the UPF of ${\partial}_{12}{f}$ with  ${b^{-1}_{i}}(x_{2i+1}, x_{2i+2})$. 
+Thus, each binary signature ${b_{i}}$ in ${\partial}_{12}{f}$ is canceled up to a nonzero scalar after this gadget construction $G_1$. 
+After normalization and renaming variables, we have 
+\begin{equation}\label{eqn:lm5-partial12-f}
+{\partial}_{12}{f'}= (=_2)(x_3, x_4)\otimes (=_2)(x_5, x_6)\otimes \ldots \otimes (=_2)(x_{2n-1}, x_{2n}).
 \end{equation}
-is also available.  Thus every available unitary wire can be cancelled.
-Attaching an invertible binary wire to one argument preserves
-irreducibility.  If that wire is projectively unitary, it also preserves
-{\sc 2nd-Orth}: reduced Gram matrices not involving the changed argument
-are unchanged up to a scalar, and those involving it are unitarily
-conjugated.
+Thus, ${\partial}_{12}{f'}\in {\mathcal{E}}^{\otimes}$.
+Moreover, for all pairs of indices $\{i, j\}$ disjoint with $\{1, 2\}$,
+we have 
+\begin{equation}\label{equ-ij-12-in-D}
+    {\partial}_{(ij)(12)}{f'}\in {\mathcal{E}}^{\otimes}, \text{ ~and hence~ } {\partial}_{(ij)(12)}{f'}\not\equiv 0.
+    \end{equation}
+A fortiori, for all pairs of indices $\{i, j\}$ disjoint with $\{1, 2\}$, ${\partial}_{ij}{f'}\not\equiv 0$.
 
-Fix the anchor pair $\{1,2\}$.  Factor $\partial_{12}f$ into $m-1$
-nonzero binary unitary signatures.  Attach an appropriately oriented
-inverse of each factor to the corresponding remaining leg.  After
-permuting variables and absorbing one nonzero scalar, the resulting
-signature $f^0$ satisfies
-\begin{equation}
- \partial_{12}f^0
- =e_{M_0},\qquad
- M_0=\{\{3,4\},\{5,6\},\ldots,\{2m-1,2m\}\}.
- \label{eq: anchor equality product}
+Next, we show that we can realize an irreducible signature $f^\ast$ of arity $2n$ from ${f'}$ such that ${f^\ast}$ has the strong equality property.
+We first prove the following claim.
+
+\begin{claim}\label{claim: strong equality property}
+    Let ${h}\in {\int}{{\mathcal{U}}}^{\otimes}$ be a signature of arity $2n\geqslant 8$. 
+    If $\partial_{ij}{h}$ is a tensor product of $=_2$ up to a non-zero scalar for all $\{i, j\}$ disjoint with $\{1, 2\}$, then ${h}$ has strong equality property.
+\end{claim}
+
+\begin{claimproof}{\cref{claim: strong equality property}}
+    Clearly, we only need to show that ${\partial}_{1k}{h}\in {\mathcal{E}}^{\otimes}$ for all $2 \leqslant k \leqslant 2n$. Then, by symmetry we also have ${\partial}_{2k}{h}\in {\mathcal{E}}^{\otimes}$ for $k=1$ and all $3 \leqslant k \leqslant 2n$. This will prove ${h}\in {\int}{\mathcal{E}}^{\otimes}.$
+    Consider ${\partial}_{1k}{h}$ for an arbitrary $2\leqslant k \leqslant 2n$.
+   Since for all $\{i, j\}$ disjoint with $\{1, 2\}$, we have
+    ${\partial}_{ij}{h}\in {\mathcal{E}}^{\otimes}$, a fortiori
+    for all  $\{i, j\}$ disjoint with $\{1, 2\} \cup \{k\}$,
+    \begin{equation}\label{eqn:partial-1kj-in-sec8}
+    \partial_{(1k)(ij)}{h}\in {\mathcal{E}}^{\otimes}.
+   \end{equation}
+    Since ${h}$ has arity $2n\geqslant 8$, we can pick a pair of indices $\{i, j\}$ disjoint with $\{1, 2\} \cup \{k\}$.
+    Since $\partial_{(1k)(ij)}{h}\in {\mathcal{E}}^{\otimes}$, which is nonzero,  a  fortiori  we have
+    ${\partial}_{1k}{h} \not \equiv 0$.
+    So we may consider  the UPF of ${\partial}_{1k}{h}$,
+    which is known to be in ${\mathcal{U}}^{\otimes}$.
+    For a contradiction,
+    suppose that  there is a binary signature  ${b_1}$ (as a factor of ${\partial}_{1k}{h}$) such that ${b_1}$ is not an associate of $=_2$. 
+    Among the two variables in the scope of ${b_1}$,  at least one is not $x_2$. 
+    We pick such a variable $x_s$ where $x_s \neq x_2$. 
+    Then, we consider another binary signature ${b_2}$ in the UPF of ${\partial}_{1k}{h}$. 
+    \begin{itemize}
+        \item 
+    If ${b_2} =\lambda \cdot (=_2)$, for some  nonzero scalar
+    $\lambda$, then we pick a variable $x_t$ in the scope of ${b_2}$ that is not $x_2$. 
+    Consider ${\partial}_{(st)(1k)}{h}$. 
+    When merging variables $x_s$ and $x_t$ of ${\partial}_{1k}{h}$, 
+    we connect the variable $x_s$ of  ${b_1}$ with the variable $x_t$ of $\lambda  \cdot (=_2)$, and the resulting binary signature is just $\lambda \cdot{b_1}$, which is not an associate of $=_2$. 
+    Thus, we have ${\partial}_{(st)(1k)}{h}\notin {\mathcal{E}}^{\otimes}$.
+    
+    \item Otherwise,  ${b_2}$ is not an associate of $=_2$. Since ${\partial}_{1k}{h}$ has arity $2n-2\geqslant 6$, we can find another binary signature ${b_3}$ in the UPF of ${\partial}_{1k}{h}$. 
+    We pick a variable $x_t$ in the scope of ${b_3}$ that is not $x_2$. 
+    Consider ${\partial}_{(st)(1k)}{h}$. 
+    Now, when merging variables $x_s$ and $x_t$ of ${\partial}_{1k}{h}$, 
+    the binary signature ${b_2}$ is untouched. 
+    Thus, we have ${b_2}\mid {\partial}_{(st)(1k)}{h}$, which implies that ${\partial}_{(st)(1k)}{h}\notin {\mathcal{E}}^{\otimes}$.
+   \end{itemize}
+   
+   Note that in both cases, $\{s,t\} \cap (\{1,2\} \cup \{k\}) = \emptyset$. Therefore
+   the two cases above both contradict
+   (\ref{eqn:partial-1kj-in-sec8}) by picking $\{i, j\}=\{s, t\}$.
+      Thus, ${\partial}_{1k}{h}\in {\mathcal{E}}^{\otimes}$ for all $2 \leqslant k \leqslant 2n$. Then similarly, we can show that ${\partial}_{2k}{h}\in {\mathcal{E}}^{\otimes}$ for all $3 \leqslant k \leqslant 2n$. 
+\end{claimproof}
+
+Remember that ${\partial}_{ij}{f'}\not\equiv 0$ for all $\{i, j\}$ disjoint with $\{1, 2\}$.
+We consider the UPF of ${\partial}_{ij}{f'}$. Since ${f'}\in {\int}{\mathcal{U}}^{\otimes}$, there are two cases depending on whether variables $x_1$ and $x_2$ appear in one  binary signature or two distinct binary signatures.
+
+\vspace{1ex}
+\noindent{\bf Case 1.}
+    For every $\{i, j\}$ disjoint with $\{1, 2\}$, in the UPF of ${\partial}_{ij}{f'}$, $x_1$ and $x_2$ appear in one nonzero binary signature
+    %%% nonzero because the {\partial}_{ij}{f'} is nonzero.
+    ${b_{ij}}(x_1, x_2) \in {\mathcal{U}}$.  %If $x_1$ and $x_2$ appear in one single binary ${b}(x_1, x_2)$, 
+    In other words, for every $\{i, j\}$ disjoint with $\{1, 2\}$, $${\partial}_{ij}{f'}={b_{ij}}(x_1, x_2)\otimes {g_{ij}}, ~~\text{ for some } {g_{ij}}\not\equiv 0.$$
+    (These factors ${b_{ij}}$ and $ {g_{ij}}$ are nonzero since ${\partial}_{ij}{f'}\not\equiv 0$.)
+   % those are nonzero because  ${\partial}_{(12)(ij)}{f'}={\partial}_{(ij)(12)}{f'}\in {\mathcal{E}}^{\otimes}$, 
+  % and  from (\ref{eqn:lm5-partial12-f}),  it is nonzero. And so we have
+  Then, ${g_{ij}} \sim {\partial}_{(12)(ij)}{f'}$, and by
+    (\ref{equ-ij-12-in-D}), we have ${g_{ij}}\in{\mathcal{E}}^{\otimes}$. 
+    %As a consequence, we have ${\partial}_{(st)(ij)}{f'}\not\equiv 0$.
+    Also for $\{k, \ell\}$ disjoint with both $\{i, j\}$
+    and $\{1, 2\}$, ${\partial}_{(k\ell)(ij)}{f'}
+    \not \equiv 0$ since
+    %{\partial}_{k \ell} {g_{ij}}
+    %\sim 
+    ${\partial}_{(12)(k \ell)(ij)} {f'} = {\partial}_{(ij)(k \ell)(12)} {f'} 
+    \not \equiv 0$.
+    
+    We first show that for any two pairs $\{i, j\}\neq \{k, \ell\}$ that are both disjoint with $\{1, 2\}$,
+    ${b_{ij}}(x_1, x_2)\sim {b_{k\ell}}(x_1, x_2)$. 
+    If $\{i, j\}$ is disjoint with $\{k, \ell\}$, then  ${b_{ij}}(x_1, x_2)\mid {\partial}_{(k\ell)(ij)}{f'}$ and ${b_{k\ell}}(x_1, x_2)\mid {\partial}_{(ij)(k\ell)}{f'}$. 
+    Since ${\partial}_{(k\ell)(ij)}{f'}={\partial}_{(ij)(k\ell)}{f'}\not\equiv 0$, by \cref{unique}, 
+    we have ${b_{ij}}(x_1, x_2)\sim {b_{k\ell}}(x_1, x_2)$. 
+    Otherwise, $\{i, j\}$ and $\{k, \ell\}$ are not disjoint. Since ${f'}$ has arity $\geqslant 8$, we can find another pair of indices $\{s, t\}$ such that it is disjoint with $\{1, 2\}\cup \{i, j\} \cup \{k, \ell\}$. 
+    Then, by the above argument, we have ${b_{ij}}(x_1, x_2)\sim {b_{st}}(x_1, x_2),$ and  ${b_{st}}(x_1, x_2)\sim {b_{k\ell}}(x_1, x_2).$
+    Thus, ${b_{ij}}(x_1, x_2)\sim {b_{k\ell}}(x_1, x_2).$
+    We can use a binary signature ${b}(x_1, x_2)$  to denote these binary signature ${b_{ij}}(x_1, x_2)$ for all $\{i, j\}$ disjoint with $\{1, 2\}$. 
+    Then, ${b}(x_1, x_2) \mid {\partial}_{ij}{f'}$ for all $\{i, j\}$ disjoint with $\{1, 2\}$. 
+    Also,  ${b}(x_1, x_2)$ is realizable  from $ f'$ by merging and factorization.
+    Then $b^{-1}(x_1,x_2)$ is realizable by taking conjugation and renaming the two variables in $b.$
+    
+    Then, we consider the following gadget construction $G_2$ on ${f'}$. 
+    By a slight abuse of variable names, 
+    we connect the variable $x_1$ of ${f'}$ with the variable $x_2$ of $b^{-1}(x_1, x_2)$ and we get a signature ${f^\ast}$. 
+    Clearly, $G_2$ is constructed by extending variables of ${f'}$. It does not change the irreducibility of ${f'}$.
+    Thus, ${f^\ast}$ is irreducible.
+    Again, we may assume that ${f^\ast}\in {\int}{\mathcal{U}}^{\otimes}$.
+    Consider ${\partial}_{ij}{f^\ast}$ for all $\{i, j\}$ disjoint with $\{1, 2\}$. 
+    Since the above gadget construction $G_2$ only touches the variable $x_1$ of $f'$, it commutes with the merging operation ${\partial}_{ij}$.
+    Thus, ${\partial}_{ij}{f^\ast}$ can be realized by performing the gadget construction $G_2$ on ${\partial}_{ij}{f'}$, i.e.,
+    connecting the binary signature $ b(x_1, x_2)$ in the UPF of ${\partial}_{ij}{f'}$ with itself, which changes $b(x_1, x_2)$ to $=_2$ up to some nonzero scalar $\lambda_{ij}$.
+    Thus,  for all $\{i, j\}$ disjoint with $\{1, 2\}$, after renaming variables, we have
+    $${\partial}_{ij}{f^\ast}=\lambda_{ij}\cdot(=_2)(x_1, x_2) \otimes {g_{ij}}\in {\mathcal{E}}^{\otimes}.$$
+        Thus, ${\partial}_{ij}{f^\ast}\in {\mathcal{E}}^{\otimes}$ for all $\{i, j\}$ disjoint with $\{1, 2\}$. By our \cref{claim: strong equality property}, ${f^\ast}\in {\int}{\mathcal{E}}^{\otimes}$.
+        We are done with {Case 1.}
+
+      \vspace{1ex}
+    \noindent{\bf Case 2.}  There is a pair of indices $\{i, j\}$ disjoint with $\{1, 2\}$ such that $x_1$ and $x_2$ appear in two distinct nonzero binary signatures ${b_1'}(x_1, x_u)$ and ${b_2'}(x_2, x_v)$ in the UPF of ${\partial}_{ij}{f'}$. 
+ In other words, there exits $\{i, j\}$ such that  \begin{equation}
+    {\partial}_{ij}{f'}={b'_1}(x_1, x_u)\otimes {b'_2}(x_2, x_v) \otimes {h_{ij}}, \text{ for some } {h_{ij}}\not\equiv 0.
+    \end{equation}
+    %The fact that ${b_1'}(x_1, x_u)$,   ${b_2'}(x_2, x_v)$ and
+    %${h_{ij}}\not\equiv 0$ follows from
+   % ${\partial}_{(12)(ij)}{f'}
+   % ={\partial}_{(ij)(12)}{f'}
+   % \in {\mathcal{E}}^{\otimes}$ by (\ref{eqn:lm5-partial12-f}), hence nonzero.
+    Since ${h_{ij}} \mid {\partial}_{(12)(ij)}{f'}$ and ${\partial}_{(12)(ij)}{f'}\in 
+    %{\int_2}
+    {\mathcal{E}}^{\otimes}$, we have ${h_{ij}}\in {\mathcal{E}}^{\otimes}$.
+    Also, after merging variables $x_1$ and $x_2$ in ${\partial}_{ij}{f'}$, variables $x_u$ and $x_v$ form a binary $=_2$ up to a nonzero scalar, since we already know ${\partial}_{(12)(ij)}{f'}\in 
+    {\mathcal{E}}^{\otimes}$. 
+    \textcolor{black}{By \cref{lem-binary-sim}, we have ${b'_1} \sim \overline{b'_2}$.
+    Also, connecting the variable $x_u$ of ${b'_1}$ and the variable  $x_v$ of ${b'_2}$ will give the binary signature $\lambda \cdot=_{2}(x_1, x_2)$ as well.}
+    
+    We consider the following gadget construction $G_3$ on ${f'}$.
+    By a slight abuse of variable names, 
+    we connect variables $x_1$ and $x_2$ of ${f'}$ with the variable $x_1$ of $\overline{b'_1}(x_1,x_u)$ and $x_2$ of $\overline{b'_2}(x_2,x_v)$ respectively. 
+    We get a signature ${f^{\ast}}$.
+    Again, ${f^{\ast}}$ is irreducible since the gadget construction $G_3$ does not change the irreducibility of ${f'}.$
+    %We know ${f^{\ast}}\notin{\mathcal{U}}^{\otimes}$ since ${f'}\notin{\mathcal{U}}^{\otimes}$.
+    Also, we may assume that ${f^{\ast}}\in{\int}{\mathcal{U}}^{\otimes}$.
+    Otherwise, we are done.
+    Consider ${\partial}_{ij}{f^{\ast}}$.
+    Similarly, by the commutitivity of the  gadget construction $G_3$ and the merging gadget ${\partial}_{ij}$, 
+    ${\partial}_{ij}{f^{\ast}}$ can be realized by connecting variables $x_1$ and $x_2$ of ${\partial}_{ij}{f'}$ with the variable $x_1$ of $\overline{b'_1}$ and the variable $x_2$ of $\overline{b'_2}$ respectively.
+    After renaming variables, we have
+    \begin{equation}\label{form_ij}
+        {\partial}_{ij}{f^{\ast}}=\lambda_{ij} \cdot (=_2)(x_1, x_u)\otimes (=_2) \left(x_2, x_v\right) \otimes  h_{ij}\in \mathcal{E}^{\otimes}.
+    \end{equation}
+
+We now show that  ${\partial}_{12}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$. Note that it is realized in the following way; 
+we first connect variables $x_1$ and $x_2$ of ${f'}$ with the variable $x_1$ of $\overline{b'_1}(x_1, x_u)$ and the variable $x_2$ of $\overline{b'_2}(x_2, x_v)$ respectively to get ${f^{\ast}}$, and then after renaming variables $x_u$ and $x_v$ to $x_1$ and $x_2$ respectively, we merge them using $=_2$ (see Figure~\ref{fig:f^ast-f'}(a)). 
+By 
+%commutivity 
+associativity of gadget constructions, we can change the order; 
+we first connect the variable $x_u$ of ${b'_1}(x_1, x_u)$ with the variable $x_v$ of ${b'_2}(x_2, x_v)$ (using $=_2$), and then we use the resulting binary signature to connect variables $x_1$ and $x_2$ of ${f'}$ (edges are connected using $=_2$). 
+Note that connecting $x_u$ of ${b'_1}(x_1, x_u)$ with $x_v$ of ${b'_2}(x_2, x_v)$ gives $\lambda\cdot (=_2)$ up to a nonzero scalar $\lambda$, and $\lambda\cdot (=_2)$ is unchanged by extending both of its two variables with $=_2$ (see Figure~\ref{fig:f^ast-f'}(b)).
+Thus, ${\partial}_{12}{f^{\ast}}$ is actually realized by merging $x_1$ and $x_2$ of ${f'}$ up to a nonzero scalar. 
+Thus, we have ${\partial}_{12}{f^{\ast}}\sim {\partial}_{12}{f'},$ and hence  ${\partial}_{12}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$,
+by the form (\ref{eqn:lm5-partial12-f}) of ${\partial}_{12}{f'}$.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[height=4.8cm]{f_ast-f.pdf}
+    \caption{\cite{realholant} Gadget constructions of ${\partial}_{12}{{f^\ast}}$  and ${\partial}_{12}{{f'}}$}
+    \label{fig:f^ast-f'}
+\end{figure}
+
+Then, we show that  ${\partial}_{st}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ for all pairs of indices $\{s, t\}$ disjoint with $\{1, 2, i, j\}$ and $\{s, t\} \neq \{u, v\}$ where $u$ and $v$ are named in (\ref{form_ij}). 
+Clearly, ${\partial}_{st}{f^{\ast}}\not\equiv 0$ since ${\partial}_{(st)(12)}{f^{\ast}}\in{\mathcal{E}}^{\otimes}$.
+ We first show that in the UPF of ${\partial}_{st}{f^{\ast}}$, $x_1$ and $x_2$ appear in two distinct nonzero binary signatures. 
+ Otherwise, for a contradiction, suppose that there is a nonzero binary signature ${b^\ast}(x_1, x_2)$ such that ${b^\ast}(x_1, x_2)\mid {\partial}_{st}{f^{\ast}}$. 
+ Then, ${b^\ast}(x_1, x_2)\mid{\partial}_{(ij)(st)}{f^{\ast}}={\partial}_{(st)(ij)}{f^{\ast}}\not\equiv 0$. 
+ By the form (\ref{form_ij}) of ${\partial}_{ij}{f^{\ast}}$,  
+ the only way that $x_1$ and $x_2$ can form a nonzero binary signature in ${\partial}_{(st)(ij)}{f^{\ast}}$ is that the merging gadget is actually merging $x_u$ and $x_v$. Thus, $\{s, t\}=\{u, v\}$. Contradiction. 
+Therefore, for some $i'$ and $j'$, we have 
+\begin{equation}\label{form_st}
+{\partial}_{st}{f^{\ast}}={b^\ast_{st1}}(x_1, x_{i'})\otimes {b^\ast_{st2}}(x_2, x_{j'})\otimes{h_{st}},
+%\in {\mathcal{E}}^{\otimes}.
 \end{equation}
-It is still irreducible and satisfies {\sc 2nd-Orth}.  After every later
-unitary extension we inspect all equality contractions.  If one is outside
-$\mathcal U^{\otimes}$, the first conclusion of the lemma holds.  We may
-therefore assume throughout the rest of the proof that every such
-contraction stays in $\mathcal U^{\otimes}$.
+%Since ${\partial}_{(12)(st)}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$, 
+%all three signatures 
+for some ${b^\ast_{st1}}(x_1, x_{i'}),  {b^\ast_{st2}}(x_2, x_{j'}), {h_{st}} \not \equiv 0$ since  ${\partial}_{st}{f^{\ast}}\not\equiv 0$.
+  Since ${h_{st}} \mid {\partial}_{(12)(st)}{f^\ast}$ and ${\partial}_{(12)(st)}{f^\ast}\in 
+    %{\int_2}
+    {\mathcal{E}}^{\otimes}$, 
+%and furthermore 
+we have ${h_{st}} \in {\mathcal{E}}^{\otimes}$.
+Also, by \cref{lem-binary-sim}, ${b^\ast_{st1}}  \sim \overline{b^\ast_{st2}}$.
+For a contradiction,
+suppose that ${\partial}_{st}{f^{\ast}}\notin {\mathcal{E}}^{\otimes}$, then  ${b^\ast_{st1}}(x_1, x_{i'}) 
+%\sim {b^\ast_{st2}}(x_2, x_\ell)  
+\not\sim (=_2)$,
+and ${b^\ast_{st2}}(x_2, x_{j'})  
+\not\sim (=_2)$.
+Consider the signature ${\partial}_{(st)(ij)}{f^{\ast}}$. 
+Since $\{s, t\}\neq \{u, v\}$,  by the form (\ref{form_ij}) of ${\partial}_{ij}{f^{\ast}}$, 
+$x_1$ and $x_2$ appear in two binary signatures in the UPF of ${\partial}_{(st)(ij)}{f^{\ast}}.$
+Remember that ${\partial}_{(st)(ij)}{f^{\ast}}={\partial}_{(ij)(st)}{f^{\ast}}$.
+By the form (\ref{form_st}) of ${\partial}_{st}{f^{\ast}}$, 
+if
+$\{i', j'\}= \{i, j\}$, 
+then, after merging $x_i$ and $x_j$ of ${\partial}_{st}{f^{\ast}}$, $x_1$ and $x_2$ will form a new binary  signature in ${\partial}_{(ij)(st)}{f^{\ast}}$. Contradiction.
+Thus, $\{i', j'\}\neq \{i, j\}$.
+Then, when merging $x_i$ and $x_j$ of ${\partial}_{st}{f^{\ast}}$,
+among ${b^\ast_{st1}}(x_1, x_{i'})$ and ${b^\ast_{st2}}(x_2, x_{j'})$, at least one binary signature is untouched. 
+Thus, ${\partial}_{(ij)(st)}{f^{\ast}}$ has a factor that is not an associate of $=_2$. 
+Contradicting ${\partial}_{(ij)(st)}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$,
+which is a consequence of (\ref{form_ij}).
+Thus, ${\partial}_{st}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$.
 
-We use the following propagation observation.  Suppose a signature $q$ of
-arity at least eight has all equality contractions in
-$\mathcal U^{\otimes}$ and
-\begin{equation}
- \partial_{ij}q\propto e_{M_{ij}}
- \quad\text{whenever }\{i,j\}\cap\{1,2\}=\emptyset.
- \label{eq: equality away anchor}
-\end{equation}
-Then $q$ has the strong equality property.  To see this, factor
-$\partial_{1k}q$ into projectively unitary binaries.  If one factor $c$
-is not proportional to $(=_2)$, choose an endpoint of $c$ other than
-$x_2$.  If another factor is an equality, contract the chosen endpoint
-with one endpoint of that equality factor; the resulting composition is
-still a non-equality binary.  If all other factors are non-equalities,
-use an endpoint of a third factor and leave a second non-equality factor
-untouched.  The chosen pair is disjoint from $\{1,2\}$, so by
-\eqref{eq: equality away anchor} the same double contraction, performed in
-the opposite order, is an equality product.  This contradicts uniqueness
-of tensor factorization.  There are at least three residual binary factors
-because $2m\geq8$.  Hence $\partial_{1k}q$ is an equality product.  The
-same argument applies to $\partial_{2k}q$ and $\partial_{12}q$, proving the
-observation.
+Then, we show that ${\partial}_{uv}{f^{\ast}} \in {\mathcal{E}}^{\otimes}$. 
+Recall the form (\ref{form_ij}) of ${\partial}_{ij}{f^{\ast}}$. Clearly, $\{u, v\}$ is disjoint with $\{1, 2, i, j\}$.
+Also, ${\partial}_{uv}{f^{\ast}}\not\equiv 0$ since ${\partial}_{(ij)(uv)}{f^{\ast}} \in {\mathcal{E}}^{\otimes}.$
+Consider the UPF of ${\partial}_{uv}{f^{\ast}}$.
+%Recall the form (\ref{form_ij}).
+\begin{itemize}
+    \item 
+If $x_1$ and $x_2$ appear in one nonzero binary signature ${b^\ast_{uv}}(x_1, x_2)$, then $${\partial}_{uv}{f^{\ast}}={b^\ast_{uv}}(x_1, x_2)\otimes {g_{uv}} ~~~~\text{ for some } {g_{uv}} \not\equiv 0.$$
+%\in {\mathcal{E}}^{\otimes}.$$
+%Here ${b^\ast_{uv}}$
+%is nonzero and $ {g_{uv}}\in {\mathcal{E}}^{\otimes}$,  because  we already have
+%${\partial}_{12}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$,
+% and   
+%${\partial}_{(12)(uv)}{f^{\ast}} \in 
+%{\mathcal{E}}^{\otimes}$
+%which is nonzero, 
+% and
+Then, we have
+ ${g_{uv}} \sim
+ {\partial}_{(12)(uv)}{f^{\ast}} \in 
+{\mathcal{E}}^{\otimes}$ since ${\partial}_{12}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$.
+Also, since ${b^\ast_{uv}}(x_1, x_2)\mid {\partial}_{(ij)(uv)}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$, we have ${b^\ast_{uv}}(x_1, x_2)\in {\mathcal{E}}^{\otimes}$. Hence, ${\partial}_{uv}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$.
+%we show $x_1$ and $x_2$ must appear in one single binary. 
+\item If $x_1$ and $x_2$ appear in two distinct nonzero binary signatures ${b^\ast_{uv1}}(x_1, x_{i'})$ and ${b^\ast_{uv2}}(x_2, x_{j'})$, then
+ $${\partial}_{uv}{f^{\ast}}={b^\ast_{uv1}}(x_1, x_{i'})\otimes {b^\ast_{uv2}}(x_2, x_{j'})\otimes{h_{uv}} ~~~~\text{ for some } {h_{uv}}\not\equiv 0.$$
+ %\in {\mathcal{E}}^{\otimes}.$$ 
+ 
+% In view of (\ref{eqn:lm5-partial12-f}), by considering
+% ${\partial}_{(uv)(12)}{f^{\ast}}$
+% we see that both binary signatures ${b^\ast_{uv1}}(x_1, x_{i'}) \not \equiv 0$,  ${b^\ast_{uv2}}(x_2, x_{j'}) \not \equiv 0$
+% and 
+Then, we have $ {h_{uv}} \in {\mathcal{E}}^{\otimes}$ since ${\partial}_{(12)(uv)}{f^{\ast}} \in 
+{\mathcal{E}}^{\otimes}$. 
+By the form (\ref{form_ij}) of ${\partial}_{ij}{f^{\ast}}$, 
+after merging variables $x_u$ and $x_v$ of  ${\partial}_{ij}{f^{\ast}}$,
+variables $x_1$ and $x_2$ form a binary $=_2$ in ${\partial}_{(uv)(ij)}{f^{\ast}}={\partial}_{(ij)(uv)}{f^{\ast}}$. 
+On the other hand,
+by the form of ${\partial}_{uv}{f^{\ast}}$, the only way that $x_1$ and $x_2$  form a binary after merging two variables in ${\partial}_{uv}{f^{\ast}}$ is to merge  $x_{i'}$ and $x_{j'}$. 
+Thus, we have $\{i', j'\}=\{i, j\}$. Since ${f^{\ast}}$ has arity $2n \geqslant 8$, we can find another pair of indices $\{s, t\}$ disjoint with $\{1, 2, i, j, u, v\}$. 
+When merging variables $x_s$ and $x_t$ in ${\partial}_{uv}{f^{\ast}}$, 
+binary signatures ${b^\ast_{uv1}}(x_1, x_{i'})$ and ${b^\ast_{uv2}}(x_2, x_{j'})$ are untouched. 
+Thus, we have ${b^\ast_{uv1}}(x_1, x_{i'})\otimes {b^\ast_{uv2}}(x_2, x_{j'})\mid {\partial}_{(st)(uv)}{f^{\ast}}$.
+As showed above, we have ${\partial}_{st}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ and then  ${\partial}_{(st)(uv)}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$.
+Thus, ${b^\ast_{uv1}}(x_1, x_{i'})\otimes {b^\ast_{uv2}}(x_2, x_{j'})\in {\mathcal{E}}^{\otimes}$ and then ${\partial}_{uv}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$.
+\end{itemize}
 
-It remains to establish \eqref{eq: equality away anchor}.  Let
-$e=\{i,j\}$ be disjoint from $\{1,2\}$ and inspect the unique binary
-factorization of $\partial_e f^0$.  Projectively unitary binary signatures
-have matrix rank two and hence are irreducible; consequently their
-variable pairing in such a tensor product is unique.
+So far, we have shown that ${\partial}_{12}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$, ${\partial}_{ij}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ and ${\partial}_{st}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ for all $\{s, t\}$ disjoint with $\{1, 2, i, j\}$.
+If we can further show that ${\partial}_{ik}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ for all $k\neq 1, 2, i, j$, and then symmetrically ${\partial}_{jk}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ for all $k\neq 1, 2, i, j$, then 
+%Now, we want to show that,
+${\partial}_{st}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ for all $\{s, t\}$  disjoint with $\{1, 2\}$.
+Thus, by our \cref{claim: strong equality property},  ${f^\ast}\in {\int}\mathcal{E}^{\otimes}$. This will finish the proof of Case 2.
 
-First suppose that $x_1$ and $x_2$ form one binary factor in
-$\partial_e f^0$ for every $e$ disjoint from the anchor.  Denote this
-factor by $c_e(x_1,x_2)$.  Commuting the contractions $\partial_{12}$ and
-$\partial_e$ and using \eqref{eq: anchor equality product} shows that all
-other factors of $\partial_e f^0$ are equality signatures.  If $e$ and
-$e'$ are disjoint, comparison of
-$\partial_e\partial_{e'}f^0$ in the two orders gives
-$c_e\propto c_{e'}$.  If $e$ and $e'$ intersect, choose a third pair
-disjoint from $\{1,2\}\cup e\cup e'$ and compare both with it.  Such a
-pair exists already when $2m=8$.  Thus all $c_e$ are proportional to one
-binary signature $c$.  Attach an appropriately oriented inverse of $c$ to
-$x_1$.  Every contraction disjoint from the anchor is now an equality
-product, and the propagation observation finishes this case.
+%Given what we have shown above, we only need to show that ${\partial}_{ik}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ for all $k\neq 1, 2, i, j$. 
+%Then, by symmetry, we also have ${\partial}_{jk}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ for all $k\neq 1, 2, i, j$. 
+%Thus, ${\partial}_{st}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ for all $\{s, t\}$ that is disjoint with or equal to $\{1, 2\}$. 
+%Then, we may switch the roles
+%of (\ref{eqn:lm5-partial12-f}) and
+%(\ref{form_ij})
+%and switch the roles 
+%of the pairs $\{1,2\}$ 
+%and $\{i, j\}$.
+%This will let us prove
+%that
+%as showed in Case 1, we have
+%${\partial}_{1k}{f^\ast}\in {\mathcal{E}}^{\otimes}$ and ${\partial}_{2k}{f^\ast}\in {\mathcal{E}}^{\otimes}$ for all $3 \leqslant k \leqslant 2n$.
+%$k \not = 1, 2, i, j$.
+%Combining these results, we finally get
+%$3 \leqslant k \leqslant 2n$. 
+%Thus,
+%${f^{\ast}}\in {\int}{\mathcal{E}}^{\otimes}$.
 
-It remains to consider the case in which, for some
-$e=\{i,j\}$, $x_1$ and $x_2$ occur in distinct factors.  For suitable
-remaining variables $u,v$,
-\begin{equation}
- \partial_e f^0
- =c_1(x_1,x_u)c_2(x_2,x_v)e_N
- \label{eq: crossed anchor factors}
-\end{equation}
-up to a nonzero scalar.  Commuting $\partial_e$ with $\partial_{12}$ and
-using \eqref{eq: anchor equality product} shows that all factors in $e_N$
-are equalities and
-\begin{equation}
- M(c_1)^{\mathtt T}M(c_2)\sim I_2,
- \qquad
- M(c_2)M(c_1)^{\mathtt T}\sim I_2.
- \label{eq: crossed inverse relation}
-\end{equation}
-Let $A_1=M(c_1)^{-1}$ and $A_2=M(c_2)^{-1}$, and attach binary wires with
-these matrices to $x_1,x_2$, using the row/column orientations for which
-$A_1M(c_1)=A_2M(c_2)=I_2$.  Call the result $q$.  Equality on the two new
-anchor arguments induces on the old arguments the matrix
-\[
- A_1^{\mathtt T}A_2
- =M(c_1)^{-\mathtt T}M(c_2)^{-1}
- =(M(c_2)M(c_1)^{\mathtt T})^{-1}\sim I_2.
-\]
-Therefore
-\begin{equation}
- \partial_{12}q\propto e_{M_0},\qquad
- \partial_eq\propto
- (=_2)(x_1,x_u)(=_2)(x_2,x_v)e_N.
- \label{eq: two normalized contractions}
-\end{equation}
+Now we prove ${\partial}_{ik}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ for all $k\neq 1, 2, i, j$. 
+%Then, by symmetry, we also have ${\partial}_{jk}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ for all $k\neq 1, 2, i, j$. 
+%Consider ${\partial}_{ik}{f^{\ast}}$ for any $k\neq 1, 2, i, j$. 
+Since ${\partial}_{(ik)(12)}{f^{\ast}}\in \mathcal{E}^{\otimes}$,
+we have  ${\partial}_{ik}{f^{\ast}}\not\equiv 0$. 
+So we can consider the UPF
+of ${\partial}_{ik}{f^{\ast}}$. 
+\begin{itemize}
+    \item 
+If $x_1$ and $x_2$ appear in one nonzero binary signature, then  $${\partial}_{ik}{f^{\ast}}={b^\ast_{ik}}(x_1, x_2)\otimes {g_{ik}} ~~~~\text{ for some } {g_{ik}}\in \mathcal{E}^{\otimes}.$$ 
+Here, ${g_{ik}}\in \mathcal{E}^{\otimes}$
+since ${\partial}_{(ik)(12)}{f^{\ast}}
+\in \mathcal{E}^{\otimes}$.
+Since ${f^\ast}$ has arity $2n \geqslant 8$,
+we can pick a pair of indices $\{s, t\}$ disjoint with $\{1, 2, i, j, k\}$, and merge variables $x_s$ and $x_t$ of ${\partial}_{ik}{f^{\ast}}$.
+Then, ${b^\ast_{ik}}(x_1, x_2)\mid {\partial}_{(st)(ik)}{f^{\ast}}.$
+Since ${\partial}_{st}{f^{\ast}}\in \mathcal{E}^{\otimes}$,
+${\partial}_{(st)(ik)}{f^{\ast}}={\partial}_{(ik)(st)}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$. Thus, ${b^\ast_{ik}}(x_1, x_2) \in {\mathcal{E}}^{\otimes}$ and then ${\partial}_{ik}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$.
+\item    If $x_1$ and $x_2$ appear in two nonzero distinct binary signatures,
+then $${\partial}_{ik}{f^{\ast}}={b^\ast_{ik1}}(x_1, x_p)\otimes {b^\ast_{ik2}}(x_2, x_q)\otimes{h_{ik}} ~~~~\text{ for some } {h_{ik}} \in \mathcal{E}^{\otimes}.$$
+Again, here ${h_{ik}} \in \mathcal{E}^{\otimes}$
+since ${\partial}_{(ik)(12)}{f^{\ast}}
+\in \mathcal{E}^{\otimes}$.
+By connecting variables $x_1$ and $x_2$ of ${\partial}_{ik}{f^{\ast}}$, $x_p$ and $x_q$ will form a binary $=_2$ up to a nonzero scalar
+(this binary signature is $=_2$
+because we know that
+ ${\partial}_{(ik)(12)}{f^{\ast}}\in \mathcal{E}^{\otimes}$).
+By \cref{lem-binary-sim}, 
+as the type of binary signatures,
+${{b^\ast_{ik1}}} \sim \overline{b^\ast_{ik2}}.$
+%${{b^\ast_{ik1}}}(x_1, x_p) \sim {b^\ast_{ik2}}(x_2, x_q).$
+Between $x_p$ and $x_q$, at least one of them is not $x_j$; suppose that it is $x_p$. 
+We pick a variable $x_r$ in the scope of ${h_{ik}}$ that is also not $x_j$ (such a  variable $x_r$  exists as $2n \geqslant 8$). Then, by merging $x_p$ and $x_r$ of ${\partial}_{ik}{f^{\ast}}$, 
+the binary signature ${b^\ast_{ik2}}(x_2, x_q)$ is untouched. 
+Since $\{p, r\}$ is disjoint with $\{1, 2, i, j\}$, we have ${b^\ast_{ik2}}(x_2, x_q)\mid {\partial}_{(ik)(pr)}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$. Thus, we have ${b^\ast_{ik2}}(x_2, x_q)
+% JYC edited out this   {f^{\ast}}
+\in {\mathcal{E}}^{\otimes}$ and so does
+${{b^\ast_{ik1}}}(x_1, x_p)$. 
+Thus, ${\partial}_{ik}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$.
+    \end{itemize}
+%We show ${\partial}_{st}{f^{\ast}}\in $
+   
+    
+   % Thus, we know connecting $x_1$ of ${b'_1}$ with $x_2$ of ${b'_2}$ gives $\neq_2$. This implies that ${b'_1}$ and ${b'_2}$ are both in ${\mathcal{U}^{\otimes}_{1}}$ or ${\mathcal{U}^{\otimes}_{0}}$. 
+%Thus, we have
+As remarked earlier,  by symmetry, we also have ${\partial}_{jk}{f^{\ast}}\in {\mathcal{E}}^{\otimes}$ for all $k\neq 1, 2, i, j$. Thus, we are done with Case 2.
+%can realize a signature ${f^\ast}$ of arity $2n$ from ${f'}$ such that
+%${f^\ast}\in {\int}{\mathcal{E}}^{\otimes}$. 
 
-We now propagate the second relation to every pair disjoint from the
-anchor.  This incidence check is included because it is the point at which
-one must not assume that an individual complex signature has
-arrow-reversal symmetry.
-
-Let $s=\{r,t\}$ be disjoint from $\{1,2,i,j\}$ and first suppose
-$s\neq\{u,v\}$.  If $x_1,x_2$ formed one factor of $\partial_s q$, that
-factor would survive the further contraction on $e$.  In the opposite
-order, however, the second formula in
-\eqref{eq: two normalized contractions} can pair $x_1$ with $x_2$ only
-when $s=\{u,v\}$.  Uniqueness of the residual factorization therefore
-forces
-\[
- \partial_s q
- \propto d_1(x_1,x_p)d_2(x_2,x_w)e_{N_s}.
-\]
-Commuting with $\partial_{12}$ shows that $e_{N_s}$ is an equality
-product and
-$M(d_1)^{\mathtt T}M(d_2)\sim I_2$.  If $d_1,d_2$ were both
-non-equalities, then contracting $e$ would either leave one of them
-untouched, or would require $\{p,w\}=e$.  The first possibility contradicts
-the equality product obtained by contracting in the opposite order.  In
-the second possibility, one order pairs $x_1$ with $x_2$, while the second
-formula in \eqref{eq: two normalized contractions}, together with
-$s\neq\{u,v\}$, leaves them in two distinct equality factors.  This is
-again impossible.  Hence $d_1,d_2$ are equalities and
-\begin{equation}
- \partial_s q\text{ is an equality product}
- \quad\text{for }s\cap\{1,2,i,j\}=\emptyset,
- \ s\neq\{u,v\}.
- \label{eq: remote pairs normalized}
-\end{equation}
-
-For $s=\{u,v\}$, if $x_1,x_2$ form one factor of
-$\partial_{uv}q$, commuting with $\partial_e$ forces that factor to be an
-equality, while commuting with $\partial_{12}$ forces all remaining
-factors to be equalities.  If instead $x_1,x_2$ occur in distinct factors,
-the opposite contraction order forces their other endpoints to be
-$x_i,x_j$.  Choose a pair outside $\{1,2,i,j,u,v\}$; it exists for arity
-eight and is covered by \eqref{eq: remote pairs normalized}.  Contracting
-this pair after $\partial_{uv}$ leaves both distinguished factors
-untouched, so both must be equalities.  Therefore $\partial_{uv}q$ is also
-an equality product.
-
-Finally consider $s=\{i,k\}$ with
-$k\notin\{1,2,i,j\}$.  If $x_1,x_2$ form one factor of $\partial_s q$,
-contracting a pair outside $\{1,2,i,j,k\}$ and using the preceding
-paragraphs forces that factor to be equality; commuting with
-$\partial_{12}$ also forces every remaining factor to be equality.  If
-they occur in factors
-$d_1(x_1,x_p),d_2(x_2,x_w)$, commuting with $\partial_{12}$ gives
-$M(d_1)^{\mathtt T}M(d_2)\sim I_2$ and makes every other factor an
-equality.  At least one of $p,w$ is not $x_j$; join that endpoint to an
-endpoint different from $x_j$ of a residual equality factor.  The
-corresponding contraction is covered by the preceding paragraphs and
-leaves the other distinguished factor untouched.  Hence both $d_1,d_2$
-are equalities.  The same argument applies to $\{j,k\}$.
-
-We have proved \eqref{eq: equality away anchor} for $q$.  The propagation
-observation now shows that every equality contraction of $q$ is an
-equality product.  Taking $h=q$ completes the proof.
+Thus, an irreducible signature ${f^\ast}\in \int\mathcal{E}^{\otimes}$ of arity $2n$ is realized from $ f$.
 \end{proof}
 
-We next determine the exact form of an arity-$8$ signature with the strong
-equality property.  For a pair $e$ of coordinates, write
-\begin{equation}
- \partial_eh=\lambda_e e_{M_e},
- \qquad \lambda_e\in\mathbb C^\times,
- \label{eq: strong equality factors}
-\end{equation}
-where $M_e$ is a perfect matching of the other six coordinates, and put
-$F_e=\{e\}\cup M_e$.
+We next determine the exact form of an arity-$8$ signature with the strong equality property. 
+By \cref{lm: unitary wire normalization}, we may assume that $\mathcal{F}$ contains an arity $8$ signature $h$ satisfying the strong equality property.
+Otherwise, the induction is completed by the first two items in \cref{lm: unitary wire normalization}.
 
-\begin{lemma}[The induced $1$-factorization]
+\begin{definition}\label{def: f8 matching}
+    Let $h\in \mathcal{F}$ be an arity 8 signature satisfying the strong equality property.
+    By \cref{def: Strong equality property}, for any pair of distinct indices $e=\{i,j\}$, $$\partial_{e}h=\partial_{ij}h=\lambda_{ij}\cdot (=_2)(x_{i_1},x_{j_1})\cdot(=_2)(x_{i_2},x_{j_2})\cdot (=_2)(x_{i_3},x_{j_3}), \quad \lambda_{ij}\in \C^\times,$$
+    and $\{i,j\}\cup \{i_1,j_1\}\cup\{i_2,j_2\}\cup\{i_3,j_3\}=\{1,2,\ldots, 8\}.$
+    We define $M_e=\{\{i_1,j_1\},\{i_2,j_2\},\{i_3,j_3\}\}$ and $F_e=\{i,j\}\cup M_e.$
+    For two pairs of distinct indices $e_1=\{i,j\}$ and $e_2=\{k,\ell\}$, define $e_1\sim e_2$ if $e_1\in F_{e_2}$.
+\end{definition}
+
+\begin{lemma}\label{lm: f8 matching same norm}
+    The $\lambda_{ij}$ in \cref{def: f8 matching} have the same norm for every pair of distinct indices $\{i,j\}$, otherwise $\Holant(\mathcal{F})$ is \#P-hard.
+\end{lemma}
+\begin{proof}
+    We may assume $h$ is irreducible and satisfies {\sc 2nd-Orth}, otherwise we obtain $\Holant(\mathcal{F})$ is \#P-hard.
+    By \cref{lm: 2nd-orth contraction nonzero}, $|\partial_{ij}f|^2=\lambda\cdot |(=_2)|^2=2\lambda$ for every pair of distinct indices $\{i,j\}$, where $\lambda=|f_{ij}^{00}|^2=|f_{ij}^{01}|^2=|f_{ij}^{10}|^2=|f_{ij}^{11}|^2>0$.
+    On the other hand, $|\partial_{ij}f|^2=|\lambda_{ij}|^2\cdot \prod_{k=1}^3|(=_2)(x_{i_k},x_{j_k})|^2=8|\lambda_{ij}|^2.$
+    Therefore, $|\lambda_{ij}|$ are all the same.
+\end{proof}
+
+\begin{lemma}\label{lm: f8 matching equivalence}
+    The relation ``$\sim$'' in \cref{def: f8 matching} is an equivalence relation, otherwise $\Holant(\mathcal{F})$ is \#P-hard.
+\end{lemma}
+\begin{proof}
+    First $M_e$ and $F_e$ are well defined for any pair of indices $e=\{i,j\}$, by the UPF of $\partial_eh.$
+    Clearly $e\in F_e$, so $\sim$ is self-inversive.
+    %Next we show $\sim$ is reflexive and transitive.
+    
+    Now suppose $d=\{k,\ell\}$ and $e=\{i,j\}$ are two pairs of distinct indices such that $d\neq e$ and $d\sim e$. 
+    Then $d\in M_e$ and $d\cap e=\emptyset.$
+    Suppose $M_e=\{\{k,\ell\},\{s,t\},\{u,v\}\}.$
+    Then
+    \begin{equation}\label{eq: contract h using e}
+        \partial_{ij}h=\lambda_{ij}\cdot (=_2)(x_{k},x_{\ell})\cdot (=_2)(x_{s},x_{t})\cdot (=_2)(x_{u},x_{v}).
+    \end{equation}
+    Suppose $M_d=\{\{i_1,j_1\},\{i_2,j_2\},\{i_3,j_3\}\}$, then 
+    \begin{equation}\label{eq: contract h using d}
+        \partial_{k\ell}h=\lambda_{k\ell}\cdot (=_2)(x_{i_1},x_{j_1})\cdot (=_2)(x_{i_2},x_{j_2})\cdot (=_2)(x_{i_3},x_{j_3}).
+    \end{equation}
+    Consider $\partial_{(k\ell)(ij)}h=\partial_{(ij)(k\ell)}h$.
+    By \eqref{eq: contract h using e}, we have 
+    \begin{equation}\label{eq: contracting h by e then d}
+        \partial_{(k\ell)(ij)}h=2\lambda_{ij}\cdot (=_2)(x_{s},x_{t})\cdot (=_2)(x_{u},x_{v}).
+    \end{equation} 
+    Suppose for a contradiction that $e\notin M_d$.
+    Then $x_i$ and $x_j$ appear in two distinct binary factors in \eqref{eq: contract h using d}. 
+    Without loss of generality, $i=i_1$ and $j=j_2$.
+    Merging $x_i$ and $x_j$ results in 
+    \begin{equation}\label{eq: contracting h using d then e}
+        \partial_{(ij)(k\ell)}h=\lambda_{k\ell}\cdot (=_2)(x_{j_1},x_{i_2})\cdot (=_2)(x_{i_3},x_{j_3}).
+    \end{equation}
+    Compare \eqref{eq: contracting h by e then d} and \eqref{eq: contracting h using d then e}, we have $2\lambda_{ij}=\lambda_{k\ell}.$
+    However, by \cref{lm: f8 matching same norm}, $|\lambda_{ij}|=|\lambda_{k\ell}|>0$, contradiction.
+    Therefore, $e\in M_d$.
+    Without loss of generality, $i=i_1$ and $j=j_1$.
+    Then 
+    \begin{equation}\label{eq: contracting h using d then e 2}
+        \partial_{(ij)(k\ell)}h=2\lambda_{k\ell}\cdot (=_2)(x_{i_2},x_{j_2})\cdot (=_2)(x_{i_3},x_{j_3}).
+    \end{equation}
+    Compare \eqref{eq: contracting h by e then d} and \eqref{eq: contracting h using d then e 2}, we have $\lambda_{ij}=\lambda_{k\ell}.$
+    Thus, $\sim$ is reflective.
+    Moreover, if $d\in M_e$, then $\lambda_d=\lambda_e.$
+
+    Finally we show transitivity.
+    Suppose $c=\{s,t\},d=\{k,\ell\},e=\{i,j\}$, and $c\sim d,\,d\sim e$.
+    If any two of them are equal, then trivially $c\sim e.$
+    Now assume $c,d,e$ are mutually distinct.
+    We have $c\in M_d$ and $d\in M_e$.
+    So $\{s,t\}\cap\{k,\ell\}=\emptyset$ and $\{k,\ell\} \cap \{i,j\}=\emptyset.$
+    Suppose 
+    \begin{equation}\label{eq: transitivity partial e h}
+        \partial_{ij}h=\lambda_{ij}\cdot (=_2)(x_k,x_{\ell})\cdot (=_2)\cdot (=_2).
+    \end{equation}
+    By reflectivity, $e\in M_d$.
+    Also $c\in M_d$ and $c\neq e$.
+    So $\{k,\ell\}\cap\{i,j\}=\emptyset$ and
+    \begin{equation}\label{eq: transitivity partial d h}
+        \partial_{k\ell}h=\lambda_{k\ell}\cdot (=_2)(x_i,x_{j})\cdot (=_2)(x_s,x_t)\cdot (=_2).
+    \end{equation}
+    Now consider $\partial_{(st)(ij)(k\ell)}h=\partial_{(st)(k\ell)(ij)}h$.
+    By \eqref{eq: transitivity partial d h}, $\partial_{(st)(ij)(k\ell)}h=4\lambda_{k\ell}\cdot(=_2)$.
+    Suppose for a contradiction that $c\notin M_e$.
+    Then $s$ and $t$ appear in the second and third binary factors respectively in \eqref{eq: transitivity partial e h}.
+    So $\partial_{(st)(k\ell)(ij)}h=2\lambda_{ij}\cdot(=_2)$.
+    We obtain $4\lambda_{k\ell}=2\lambda_{ij}>0$, contradiction.
+    So $c\in M_e$ and thus $c\sim e$.
+    
+    We have proved $\sim$ is self-inversive, reflexive and transitive. 
+    So it is an equivalence relation. 
+\end{proof}
+
+\begin{lemma}\label{lm: f8 same coe}
+    The $\lambda_{ij}$ in \cref{def: f8 matching} are all the same, otherwise $\Holant(\mathcal{F})$ is \#P-hard.
+\end{lemma}
+\begin{proof}
+    In the proof of \cref{lm: f8 matching equivalence}, we have proved $\lambda_{ij}$ are all the same for $\{i,j\}$ in the same equivalent class of $\sim.$
+    We only need to show $\lambda_{ij}=\lambda_{k\ell}$ for $\{i,j\}\not \sim \{k,\ell\}.$
+    Let $e=\{i,j\},\,d=\{k,\ell\}.$
+    We have $\partial_{ij}h=\lambda_{ij}\cdot (=_2)^{\otimes 3}$
+    and $\partial_{k\ell}h=\lambda_{k\ell}\cdot (=_2)^{\otimes 3}$.
+    Since $\{i,j\}\not \sim\{k,\ell\}$, we know $d\notin M_e$ and $e\notin M_d.$
+    So $x_k$ and $x_\ell$ appear in distinct binary factors of $\partial_{ij}h$.
+    Then $\partial_{(k\ell)(ij)}h=\lambda_{ij}\cdot (=_2)^{\otimes 2}.$
+    Similarly, $x_i$ and $x_j$ appear in distinct binary factors of $\partial_{k\ell}h$, and $\partial_{(ij)(k\ell)}h=\lambda_{k\ell}\cdot (=_2)^{\otimes 2}.$
+    By $\partial_{(k\ell)(ij)}h=\partial_{(ij)(k\ell)}h$, we have $\lambda_{ij}=\lambda_{k\ell}$.
+\end{proof}
+
+An equivalent class of $\sim$ in \cref{def: f8 matching} can be viewed as a perfect matching of the complete graph $K_8$ with vertices labeled by $\{1,2,\ldots, 8\}.$
+Since $K_8$ has 28 edges, and every equivalent class has size $4$, there are 7 equivalent classes in total.
+They are 7 perfect matchings, or a 1-factorization of $K_8$.
+
+\begin{lemma}
 \label{lm: f8 one factorization}
-Let $h$ be an arity-$8$ signature satisfying {\sc 2nd-Orth} and the strong
-equality property.  The sets $F_e$ form a $1$-factorization of $K_8$.
-After identifying the eight coordinates with the points of
-$\mathbb F_2^3$, these seven perfect matchings are
+%The equivalent classes $F_e$ form a $1$-factorization of $K_8$.
+After identifying the vertices of $K_8$ with the points of
+$\mathbb F_2^3$, the seven perfect matchings determined by the equivalent classes of $\sim$ are
 \begin{equation}
- F_v=\bigl\{\{z,z+v\}:z\in\mathbb F_2^3\bigr\},
- \qquad v\in\mathbb F_2^3\setminus\{0\}.
+    F_e=\bigl\{\{z,z+v_e\}\mid z\in\mathbb F_2^3\bigr\}, \qquad v_e\in\mathbb F_2^3\setminus\{0\}.
  \label{eq: translation matchings}
 \end{equation}
-Moreover, all scalars $\lambda_e$ in
-\eqref{eq: strong equality factors} are equal.
 \end{lemma}
 
 \begin{proof}
-By \cref{def: second-order-orth}, the norm of
-$\partial_eh$ is independent of $e$, and therefore so is
-$|\lambda_e|$.  Let $e,d$ be disjoint edges.  If $d\in M_e$, then
-contracting $d$ after $e$ closes one equality factor and contributes a
-factor $2$.  If $d\notin M_e$, its endpoints belong to two different
-equality factors; contraction switches their other endpoints and
-contributes no factor $2$.  Commutativity of contractions and the common
-value of $|\lambda_e|$ imply
-\begin{equation}
- d\in M_e\quad\Longleftrightarrow\quad e\in M_d.
- \label{eq: loop cross equivalence}
-\end{equation}
-When these equivalent conditions hold, uniqueness of the nonzero residual
-equality product gives
+Let $\mathcal{PM}$ be the 7 perfect matchings determined by the equivalent classes of $\sim$.
+The union of two perfect matchings in $\mathcal{PM}$ is either one $8$-cycle or two $4$-cycles.  
+The first case is impossible.  Indeed, label an alternating $8$-cycle so that the two perfect matchings are
 \[
- M_e\setminus\{d\}=M_d\setminus\{e\},
- \qquad F_e=F_d.
+ F_1=\{\{1,2\},\{3,4\},\{5,6\},\{7,8\}\},\qquad
+ F_2=\{\{2,3\},\{4,5\},\{6,7\},\{8,1\}\}.
 \]
-Hence the $F_e$ partition the edges of $K_8$ into seven perfect matchings.
-Comparing the two orders of every double contraction also gives
-$\lambda_e=\lambda_d$ for disjoint $e,d$.  The disjointness graph on the
-edges of $K_8$ is connected, so all $\lambda_e$ are equal.
+Merging first $x_1,x_2$ and then $x_4,x_5$ leaves the residual matching
+$\{\{3,6\},\{7,8\}\}$.
+By commutativity, it is equivalent to first merge $x_4,x_5$ and then $x_1,x_2$, leaving $\{\{3,8\}, \{6,7\}\}$.  
+This contradicts the UPF of $\partial_{(12)(34)}h$.
+Thus every two perfect matchings form two $4$-cycles.
 
-The union of two factors is a disjoint union of even alternating cycles.
-At eight vertices it is either one $8$-cycle or two $4$-cycles.  The first
-case is impossible.  Indeed, label an alternating $8$-cycle so that its
-two factors are
-\[
- A=01\mid23\mid45\mid67,\qquad
- B=12\mid34\mid56\mid70.
-\]
-Contracting first $01$ and then $34$ leaves the residual matching
-$25\mid67$, whereas reversing the order leaves $27\mid56$.  This
-contradicts commutativity and uniqueness of the residual equality product.
-Thus every two factors form two $4$-cycles.
 
-Regard the seven factors as fixed-point-free involutions.  The two-cycle
-description above says that any two of them commute.  Adjoin the identity
-and fix one vertex $z_0$.  Given two involutions $a,b$, let $c$ be the
-unique member satisfying $c(z_0)=ab(z_0)$.  For every member $d$,
-commutativity gives
-$c(dz_0)=d(cz_0)=ab(dz_0)$.  The eight points $dz_0$ exhaust the vertex
-set, so $c=ab$.  We have obtained a regular elementary abelian group of
-order eight, hence $\mathbb F_2^3$.  Its seven nonzero translations are
-exactly \eqref{eq: translation matchings}.
+For every perfect matching $F\in\mathcal{PM}$, we identify $F$ with a map $m_F:V(K_8)\to V(K_8)$, $u\mapsto v$ if $\{u,v\}\in F.$
+So $m_F$ is an involution map, i.e., $m_F^{(2)}(u)=m_F(m_F(u))=u,\,\forall u\in [8].$
+Let $G=\{m_F\mid F\in \mathcal{PM}\}\cup \{\mathrm{id}\}$.
+Consider two perfect matchings $F_1,F_2\in \mathcal{PM}$.
+Since $F_1\cup F_2$ form two 4-cycles of $K_8$, we have $m_{F_1}m_{F_2}=m_{F_2}m_{F_1}$.
+Now fix one vertex $z_0\in V(K_8)$.
+Given two maps $m_1,m_2\in G$, let $m_3$ be the unique member in $G$ satisfying $m_3(z_0)=m_1m_2(z_0)$.
+This $m_3$ exists, because if $m_1=m_2$ then $m_3=\mathrm{id}$, otherwise it is the map determined by the matching containing the edge $\{z_0,m_1m_2(z_0)\}.$
+For every $m\in G$, commutativity gives $m_3(m(z_0))=m(m_3(z_0))=m(m_1m_2(z_0))=m_1m_2(m(z_0))$.  
+The eight points $\{m(z_0)\mid m\in G\}$ exhaust the vertex set, so $m_3=m_1m_2$.  
+Thus, $G$ is an abelian group of
+order eight, and every non-zero element in $G$ has order $2$.
+Hence $G\cong \mathbb F_2^3$. 
+Now we identify the vertex $m(z_0)\in V(K_8)$ with $m\in G\cong \mathbb F_2^3,\,\forall m\in G.$
+Then the seven non-zero elements in $G$ are exactly \eqref{eq: translation matchings}.
 \end{proof}
 
+In the following, we give an interpretation of the signature $f_8$ through the lens of the Reed-Muller code $RM(1,3).$
 Let
 \begin{equation}
- C=\operatorname{RM}(1,3)
- =\left\{(a_0+a\cdot z)_{z\in\mathbb F_2^3}:
+ C=RM(1,3)
+ =\left\{(a_0+a\cdot z)_{z\in\mathbb F_2^3}\mid 
  a_0\in\mathbb F_2,\ a\in\mathbb F_2^3\right\}.
  \label{eq: RM code definition}
 \end{equation}
 The coordinates are ordered as
 $000,001,010,011,100,101,110,111$.  Thus $C$ is the self-dual
-$[8,4,4]$ first-order Reed--Muller code, with codewords
+$[8,4,4]$ first order Reed-Muller code, with codewords
 \begin{align*}
 &00000000,00001111,00110011,00111100,01010101,01011010,\notag\\
 &01100110,01101001,10010110,10011001,10100101,10101010,\notag\\
 &11000011,11001100,11110000,11111111.
 \end{align*}
-Define the arity-$8$ signature and two unary vectors
-\begin{equation}
- f_8=\chi_C,\qquad
- u_+=\begin{bmatrix}1\\ \mathfrak i\end{bmatrix},\qquad
- u_-=\begin{bmatrix}1\\-\mathfrak i\end{bmatrix}.
- \label{eq: f8 Reed Muller definition}
-\end{equation}
+Therefore, $f_8=\chi_C.$
 
-\begin{lemma}[Normalized Reed--Muller equations]
+\begin{lemma}\label{lm: f8 indistinguishble}
+    Let $h\in \mathcal{F}$ be an arity $8$ signature satisfying the strong equality property.
+    Then there exists $\lambda\in \mathbb C^\times$ such that $\partial_{ij}h= \lambda\cdot\partial_{ij}f_8$ for every pair of distinct indices $\{i,j\},$ otherwise $\Holant(\mathcal{F})$ is \#P-hard.
+\end{lemma}
+\begin{proof}
+    By \cref{lm: f8 same coe}, unless $\Holant(\mathcal{F})$ is \#P-hard, there exists $\lambda\in \mathbb C^\times$ such that 
+    \begin{equation*}
+        \partial_{e}h=\lambda\cdot\bigotimes_{d\in M_e}(=_2)_d
+    \end{equation*}
+    for every pair of indices $e=\{i,j\}$, where $(=_2)_d$ is the binary $=_2$ on the two variables corresponding to the two indices in $d.$
+    By \cref{lm: f8 one factorization}, we may label $\{1,2,\ldots, 8\}$ by elements in $\mathbb F_2^3$, such that $F_e=\{\{z,z+v_e\}\mid z\in \mathbb{F}_2^3\}$ for some $v_e\in \mathbb F_2^3\setminus\{0\}.$
+    Since $e\in F_e$, there exists some $z_0\in \mathbb F_2^3$ such that $e=\{z_0,z_0+v_e\}.$
+    Suppose $M_e=\{\{z_1,z_1+v_e\},\{z_2,z_2+v_e\},\{z_3,z_3+v_e\}\}$ for some $z_1,z_2,z_3\in \mathbb F_2^3.$
+    Then 
+    \begin{equation}\label{eq: f8 indistinguishble partial e h}
+        \partial_{e}h=\lambda\cdot\bigotimes_{i=1}^3(=_2)(x_{z_i},x_{z_i+v_e}).
+    \end{equation}
+    Now consider $\partial_{e}f_8$.
+    Since $e=\{z_0,z_0+v_e\}$, merging $x_{z_0}$ and $x_{z_0+v_e}$ requires $x_{z_0}=x_{z_0+v_e}.$
+    By the definition of $C=RM(1,3)$ and $f_8=\chi_C$, the $y$-th coordinate of the codeword indexed by $(a_0,a)$ is $x_y=a_0+a\cdot y.$
+    So $x_{z_0}=x_{z_0+v_e}\iff a_0+a\cdot z_0=a_0+a\cdot (z_0+v_e)\iff a\cdot v_e=0.$
+    Once $a\cdot v_e=0$, we have $x_{y+v_e}=a_0+a\cdot (y+v_e)=a_0+a\cdot y=x_y$, for every $y\in \mathbb F_2^3.$
+    Therefore, $x_{z_i}=x_{z_i+v_e}$ in $\partial_{e}f_8$ for $i=1,2,3.$
+    Direct computation shows that merging any two variables of $f_8$, it becomes a tensor product of three binary equalities \cite{realholant}.
+    So
+    \begin{equation}\label{eq: f8 indistinguishble partial e f8}
+        \partial_{e}f_8=\bigotimes_{i=1}^3(=_2)(x_{z_i},x_{z_i+v_e}).
+    \end{equation}
+    Comparing \eqref{eq: f8 indistinguishble partial e h} and \eqref{eq: f8 indistinguishble partial e f8} gives $ \partial_{ij}h=\lambda\cdot\partial_{ij}f_8$, for every pair of indices $\{i,j\}$.
+\end{proof}
+
+\begin{lemma}
 \label{lm: f8 normalized equations}
-After dividing $h$ by the common nonzero scalar in
-\cref{lm: f8 one factorization}, there exist
+Let $h\in \mathcal{F}$ be an arity 8 signature satisfying the strong equality property. 
+After normalizing $h$,
+unless $\Holant(\mathcal{F})$ is \#P-hard,
+there exists
 $\alpha,\beta\in\mathbb C$ such that
 \begin{equation}
- h=f_8+\alpha u_+^{\otimes8}+\beta u_-^{\otimes8}.
+ h= f_8+\alpha u_+^{\otimes8}+\beta u_-^{\otimes8}.
  \label{eq: f8 kernel family}
 \end{equation}
+where $u_+=[1, \mathfrak i], u_-=[1, -\mathfrak i]$ are unary signatures.
 Moreover, $h$ satisfies {\sc 2nd-Orth} if and only if
 \begin{equation}
  \operatorname{Re}(\alpha)+8|\alpha|^2=0,
@@ -349,33 +644,59 @@ Moreover, $h$ satisfies {\sc 2nd-Orth} if and only if
 \end{lemma}
 
 \begin{proof}
-Fix $v\neq0$ and an edge $e=\{z,z+v\}$.  Equality contraction on $e$
-restricts an affine function in \eqref{eq: RM code definition} to have
-equal values at $z$ and $z+v$, equivalently $a\cdot v=0$.  On the quotient
-$\mathbb F_2^3/\langle v\rangle\cong\mathbb F_2^2$, arbitrary values on
-the other three points have a unique affine extension to the missing
-point.  It follows that
-\[
- \partial_e f_8=e_{F_v\setminus\{e\}}.
-\]
-Thus $f_8$ is one particular solution of all the normalized contraction
-equations.
-
-Let $k$ lie in the common homogeneous kernel, so
-$\partial_{pq}k=0$ for every pair.  Expand $k$ in the tensor basis
-$u_+,u_-$.  Since
+By \cref{lm: f8 indistinguishble}, there exists $\lambda\in \mathbb C^\times$ such that $\partial_{ij}h=\lambda\cdot \partial_{ij}f_8$ for every pair of distinct indices $\{i,j\}.$
+We normalize $h$ by $\lambda$, and with a slight abuse of notation, still use $h$ to denote the normalized signature.
+Let $h'=h-f_8$.
+Then $\partial_{ij}h'=0$ for every pair of distinct indices $\{i,j\}.$
+Notice that $\{u_+,u_{-}\}$ form a basis for $\C^2$.
+So $\{u_{\epsilon_1}\otimes u_{\epsilon_2}\otimes\ldots \otimes u_{\epsilon_8}\mid \epsilon_1,\epsilon_2,\ldots,\epsilon_8\in\{+,-\}\}$ form a basis for $(\C^2)^8$.
+The arity $8$ signature $h'$ can be viewed as a tensor in $(\C^2)^8.$
+We expand $h'$ interms of this basis, and obtain
+\begin{equation}\label{eq: expansion of h'}
+    h'=\sum_{\epsilon_1,\ldots, \epsilon_8\in\{+,-\}}c'_{\epsilon_1,\ldots,\epsilon_8}u_{\epsilon_1}\otimes\ldots\otimes u_{\epsilon_8}=\sum_{S\subseteq[8]}c_S \bigotimes_{j\in S}u_+ \bigotimes_{j\notin S}u_{-},
+\end{equation}
+where $c_S=c'_{\epsilon_1,\ldots,\epsilon_8}$ if $S=\{i\in[8]\mid \epsilon_i=+\}.$
+We note that
 \begin{equation}
- u_+^{\mathtt T}u_+=u_-^{\mathtt T}u_-=0,\qquad
- u_+^{\mathtt T}u_-=u_-^{\mathtt T}u_+=2,
+ u_+u_+^{\mathtt T}=u_-u_-^{\mathtt T}=0,\qquad
+ u_+u_-^{\mathtt T}=u_-u_+^{\mathtt T}=2.
  \label{eq: isotropic unary basis}
 \end{equation}
-the equation $\partial_{pq}k=0$ says that, among coefficients with a fixed
-number $r$ of $u_+$ factors, coefficients indexed by adjacent vertices of
-the Johnson graph $J(8,r)$ are negatives of one another.  For
-$1\leq r\leq7$, the graph $J(8,r)$ contains a triangle.  Going around that
-triangle makes a coefficient equal to its own negative; hence every mixed
-coefficient is zero.  Only the all-$u_+$ and all-$u_-$ terms remain, which
-proves \eqref{eq: f8 kernel family}.
+Now consider $\partial_{ij}h'.$
+By \eqref{eq: isotropic unary basis}, every term in \eqref{eq: expansion of h'} with $\epsilon_i=\epsilon_j$ will vanish in $\partial_{ij}h'$, because merging $x_i$ and $x_j$ results in a factor $u_{\epsilon_i}u_{\epsilon_j}^{\tt T}.$
+\begin{claim}\label{claim: Johnson graph}
+    For every subset $T\subseteq[8]\setminus\{i,j\}$, the coefficients in \eqref{eq: expansion of h'} satisfy $c_{T\cup\{i\}}+c_{T\cup\{j\}}=0.$
+\end{claim}
+\begin{claimproof}{\cref{claim: Johnson graph}}
+    Let $v_T:=\bigotimes_{j\in T} u_+\bigotimes_{j\in [8]\setminus\{i,j\}\setminus T}u_-.$
+    After merging $x_i$ and $x_j$, $v_T$ is a term in the expansion of $\partial_{ij}h'$.
+    We consider the coefficient of $v_T$ in $\partial_{ij}h'.$
+    If a term in \eqref{eq: expansion of h'} survives in $\partial_{ij}h'$, then $\epsilon_i\neq\epsilon_j.$
+    There are two possibilities, $(\epsilon_i,\epsilon_j)=(+,-)$ or $(\epsilon_i,\epsilon_j)=(-,+).$
+    In the first case, the contribution for the coefficient of $v_T$ in $\partial_{ij}h'$ is $2c_{T\cup \{i\}}.$
+    In the latter case, the contribution is $2c_{T\cup \{j\}}.$
+    Hence the coefficient of $v_T$ in $\partial_{ij}h'$ is $2c_{T\cup \{i\}}+2c_{T\cup \{j\}}.$
+    Since $\partial_{ij}h'=0$, and the terms $v_T$ are linearly independent, we have $c_{T\cup\{i\}}+c_{T\cup \{j\}}=0$, for every $T\subseteq[8]\setminus \{i,j\}.$
+\end{claimproof}
+
+\begin{claim}\label{claim: coe is 0 in expansion of h}
+    In \eqref{eq: expansion of h'}, the coefficients $c_S=0$ if $1\le |S|\le 7$.
+\end{claim}
+\begin{claimproof}{\cref{claim: coe is 0 in expansion of h}}
+    Fix \(1\le t\le 7\), and look only at coefficients \(c_S\) in \eqref{eq: expansion of h'} with $|S|=t$.
+    Consider the Johnson graph $J(8,t)$, where the vertices are $t$-element subsets of [8], and two vertices are adjacent when the intersection of the two vertices (subsets) contains $t-1$ elements.
+    By \cref{claim: Johnson graph}, whenever two subsets $S_1$ and $S_2$ are adjacent in $J(8,t)$, their coefficients $c_{S_1}$ and $c_{S_2}$ are negatives.
+    We claim every vertex in $J(8,t)$ is contained in a triangle.
+    To see this, pick an arbitrary vertex (subset) $S$.
+    If $1\le t\le 6$, there are distinct elements $p,q,r\in [8]$ such that $p\in S$ and $q,r\notin S$.
+    Let $S_1=S\setminus\{p\}\cup \{q\}$ and $S_1=S\setminus\{p\}\cup \{r\}$. 
+    Then $S,S_1,S_2$ form a triangle in $J(8,t)$.
+    If $t=7$, then $J(8,7)$ is the complete graph $K_8$, so every vertex is in a triangle.
+    Along the triangle, we have $c_S+c_{S_1}=0\,,c_{S_1}+c_{S_2}=0\,,c_{S_2}+c_{S}=0\,$.
+    So $c_S=0$.
+\end{claimproof}
+By \cref{claim: coe is 0 in expansion of h}, the expansion \eqref{eq: expansion of h'} simplifies to $h'=c_{\emptyset}u_+^{\otimes 8}+c_{[8]}u_-^{\otimes 8}.$
+Let $\alpha=c_{\emptyset}$ and $\beta=c_{[8]}$, we have $h= f_8+\alpha u_+^{\otimes8}+\beta u_-^{\otimes8}.$
 
 It remains to impose {\sc 2nd-Orth}.  The affine group of
 $\mathbb F_2^3$ is transitive on pairs of coordinates, so it suffices to
@@ -407,15 +728,13 @@ $E_-=E_+=0$, and these two equations are equivalent to
 for every coordinate pair.
 \end{proof}
 
-The two circles in \eqref{eq: f8 second orth circles} still leave a
-two-real-parameter family.  A four-ary self-mating gadget removes the extra
-freedom by invoking the completed arity-$4$ case,
-\cref{lm: base case 2n=4}.
+%The two circles in \eqref{eq: f8 second orth circles} still leave a two-real-parameter family.  A four-ary self-mating gadget removes the extra freedom by invoking the completed arity-$4$ case, \cref{lm: base case 2n=4}.
 
-\begin{lemma}[Self-mating forces the real orbit]
+\begin{lemma}
 \label{lm: f8 self mating}
 Let $h$ satisfy \eqref{eq: f8 kernel family} and
-\eqref{eq: f8 second orth circles}.  Unless the Holant problem is already
+\eqref{eq: f8 second orth circles}.  
+Unless $\Holant(\mathcal{F})$ is
 \#P-hard, there exists $\theta\in\mathbb R$ such that
 \begin{equation}
  h=R_\theta^{\otimes8}f_8,\qquad
@@ -430,72 +749,102 @@ Let $h$ satisfy \eqref{eq: f8 kernel family} and
 
 \begin{proof}
 Take two copies of $h$, join six corresponding variables using $(=_2)$,
-and leave the first two variables of each copy dangling.  Let $g_4$ be the
+and leave the first two variables of each copy dangling.  
+(Notice that this is a self-mating, not mating $h$ and $\overline{h}$.)
+Let $g_4$ be the
 resulting four-ary signature.  With row order $00,01,10,11$ on the two
 variables from the first copy and the same column order on those from the
-second copy, substitution of \eqref{eq: f8 kernel family} and
-\eqref{eq: isotropic unary basis} gives
-\begin{equation}
- M_{12,34}(g_4)=(4+t)I_4-t(J\otimes J),\qquad
- t=8(\alpha+\beta+16\alpha\beta).
- \label{eq: f8 self mating matrix}
-\end{equation}
-Equivalently,
-\[
- M_{12,34}(g_4)=
- \begin{bmatrix}
- 4+t&0&0&-t\\
- 0&4+t&t&0\\
- 0&t&4+t&0\\
- -t&0&0&4+t
- \end{bmatrix}.
-\]
-The pure $u_+^{\otimes8}$ and $u_-^{\otimes8}$ self-pairings vanish on
-each joined leg, while the two mixed terms contribute
-$2^6\alpha\beta$; this accounts for every term in
-\eqref{eq: f8 self mating matrix}.
-
-The signature $g_4$ is nonzero.  By \cref{lm: base case 2n=4}, on the
-non-hard branch it belongs to $\mathcal U^{\otimes}$.  A four-ary member
-of $\mathcal U^{\otimes}$ has rank one in the $2|2$ flattening associated
-with its binary factorization.  For the pairing $(13)\mid(24)$,
-\eqref{eq: f8 self mating matrix} is a sum of the two independent rank-one
-matrices
-\[
- (4+t)\operatorname{vec}(I_2)\operatorname{vec}(I_2)^{\mathtt T}
- -t\operatorname{vec}(J)\operatorname{vec}(J)^{\mathtt T}.
-\]
-It has rank one exactly when $t(4+t)=0$.  In either of the other two
-flattenings, rank one would force both $(4+t)^2=0$ and $t^2=0$, which is
-impossible.  Thus $g_4$ factors, respectively, as equality on the pairs
-$(1,3),(2,4)$ or as binary signatures with matrix $J$ on those pairs, and
-\begin{equation}
- t=0\quad\text{or}\quad t=-4.
- \label{eq: f8 self mating alternatives}
+second copy, substitution of \eqref{eq: f8 kernel family} gives
+\begin{equation}\label{eq: f8 self mating matrix}
+     M_{12,34}(g_4)=
+     \begin{bmatrix}
+     4+t&0&0&-t\\
+     0&4+t&t&0\\
+     0&t&4+t&0\\
+     -t&0&0&4+t
+     \end{bmatrix},\qquad t=8(\alpha+\beta+16\alpha\beta).
 \end{equation}
 
+
+The signature $g_4$ is nonzero.  By \cref{lm: base case 2n=4},  $g_4\in\mathcal U^{\otimes}$ unless $\Holant(\mathcal{F})$ is \#P-hard. 
+An arity $4$ signature in $\mathcal U^{\otimes}$ has rank one in the $2|2$ flattening associated with its binary factorization. 
+There are three possibilities, $M_{12,34}(g_4)$, or $M_{13,23}(g_4)$, or $M_{14,23}(g_4)$ has rank $1.$  
+If $M_{12,34}(g_4)$ has rank 1, by evaluating all 2 by 2 minors in \eqref{eq: f8 self mating matrix}, we have $(4+t)^2=t^2=0$, which is impossible.
+In the second case, evaluate all 2 by 2 minors in
+    \[M_{13,24}(g_4)
+    =
+    \begin{bmatrix}
+    4+t&0&0&4+t\\
+    0&-t&t&0\\
+    0&t&-t&0\\
+    4+t&0&0&4+t
+    \end{bmatrix},\]
+we have $t(4+t)=0$.  
+In the third case, 
+    \[M_{14,23}(g_4)=
+    \begin{bmatrix}
+    4+t&0&0&t\\
+    0&-t&4+t&0\\
+    0&4+t&-t&0\\
+    t&0&0&4+t
+    \end{bmatrix}.\]
+gives $(4+t)t=0$ and $t^2=(4+t)^2$, again impossible.
+
+Thus, only second case is possible.
+And $t=0$ or $t=-4.$
 Now define
-\begin{equation}
- z=1+16\alpha,\qquad w=1+16\beta.
- \label{eq: f8 z w definition}
-\end{equation}
-The equations in \eqref{eq: f8 second orth circles} are precisely
-$|z|=|w|=1$, while \eqref{eq: f8 self mating matrix} gives
-$zw=1+2t$.  The alternative $t=-4$ would imply $|zw|=7$, a contradiction.
-Thus $t=0$, $zw=1$, and $w=\overline z$.  Hence
+\(
+ z=1+16\alpha,\, w=1+16\beta.
+\)
+The equations in \eqref{eq: f8 second orth circles} gives 
+\(
+|z|^2
+=|1+16\alpha|^2
+=1+32\operatorname{Re}(\alpha)+256|\alpha|^2
+=1.
+\)
+Similarly, $|w|=1.$
+Also, \eqref{eq: f8 self mating matrix} gives
+\(
+zw=(1+16\alpha)(1+16\beta)
+=1+16(\alpha+\beta)+256\alpha\beta=1+2t.
+\)
+The alternative $t=-4$ would imply $|zw|=7$, a contradiction.
+Thus $t=0$, $zw=1$, and $w=\overline z$. 
+Hence
 $\beta=\overline\alpha$.
 
-Choose $\theta\in\mathbb R$ with $z=e^{8\mathfrak i\theta}$.  Since
-$R_\theta u_\pm=e^{\pm\mathfrak i\theta}u_\pm$, one has
+Choose $\theta\in\mathbb R$ with $z=e^{8\mathfrak i\theta}$.
+Then $\alpha=\frac{e^{8 \mathfrak i\theta}-1}{16}$ and $\beta=\frac{e^{-8 \mathfrak i\theta}-1}{16}$.
+And
+\begin{equation}
+ h= f_8+\frac{e^{8 \mathfrak i\theta}-1}{16}u_+^{\otimes8}+\frac{e^{-8 \mathfrak i\theta}-1}{16} u_-^{\otimes8}.
+ \label{eq: h expansion f8 u+ u-}
+\end{equation}
+
+Because the real orthogonal holographic transformation by $R_\theta$ preserves $=_2$, we have $\partial_{ij}(R_\theta f_8)=R_\theta\partial_{ij}f_8=R_\theta(=_2)^{\otimes 3}=(=_2)^{\otimes 3}=\partial_{ij}f_8$, for every pair of distinct indices $\{i,j\}.$ 
+By \cref{lm: f8 normalized equations}, 
+we know
+\(R_\theta^{\otimes 8}f_8-f_8
+=
+A\,u_+^{\otimes 8}+B\,u_-^{\otimes 8}\) for some $A,B\in \mathbb C.$
+Next we determine the coefficients $A$ and $B.$
+In the following, view $u_+,u_-$ as vectors in $\mathbb C^2$, and $f_8$ as a vector in $\mathbb C^{256}.$
+Consider \((u_-^{\otimes8})^{\tt T}\left(Au_+^{\otimes8}+Bu_-^{\otimes8}\right)=A\cdot 2^8=256A.\)
+On the other hand, \((u_-^{\otimes8})^{\tt T}R_\theta^{\otimes8}f_8=e^{8i\theta}(u_-^{\otimes8})^{\tt T}f_8,\)
+since $R_\theta u_\pm=e^{\pm\mathfrak i\theta}u_\pm$.
+Direct calculation shows \((u_-^{\otimes8})^{\tt T}f_8=16.\)
+So $(u_-^{\otimes 8})^{\tt T}(R_\theta^{\otimes 8}f_8-f_8)=16\cdot (e^{8 \mathfrak i\theta}-1)$.
+Therefore, $A=\frac{e^{8\mathfrak i \theta}-1}{16}$.
+Similarly, $B=\frac{e^{-8\mathfrak i \theta}-1}{16}$. 
+Thus,
 \begin{equation}
  R_\theta^{\otimes8}f_8
  =f_8+\frac{e^{8\mathfrak i\theta}-1}{16}u_+^{\otimes8}
       +\frac{e^{-8\mathfrak i\theta}-1}{16}u_-^{\otimes8}.
  \label{eq: rotated f8 expansion}
 \end{equation}
-Both sides solve the same normalized contraction equations; pairing with
-$u_-^{\otimes8}$ and $u_+^{\otimes8}$ determines the two displayed kernel
-coefficients.  Equations \eqref{eq: f8 z w definition} and
+Equations \eqref{eq: h expansion f8 u+ u-} and
 \eqref{eq: rotated f8 expansion} prove \eqref{eq: f8 real orbit}.
 \end{proof}
 
@@ -505,8 +854,7 @@ Let $\mathcal F=\overline{\mathcal F}$ fail condition
 \rm{(\ref{cond: tractable classes})}, and suppose that
 $f\in\mathcal F$ has arity eight and
 $f\notin\mathcal U^{\otimes}$.  Then either
-$\Holant(\mathcal F)$ is \#P-hard, or there is an effectively computable
-real orthogonal matrix $R$ such that
+$\Holant(\mathcal F)$ is \#P-hard, or there is a real orthogonal matrix $R$ such that
 \begin{equation}
  \Holant(f_8,R^{-1}\mathcal F)\leq_T\Holant(\mathcal F).
  \label{eq: realize f8 reduction}
@@ -519,26 +867,26 @@ available.  An odd-arity factor gives hardness by
 \cref{lm: odd holant with conjugation}.  Otherwise the factors have even
 arity, and at least one is outside $\mathcal U^{\otimes}$.  Since the
 proper even arities below eight are $2,4,6$, hardness follows from
-\cref{lm: base case 2n=2,lm: base case 2n=4,lm: f6 is hard}.
+\cref{lm: base case 2n=2,lm: base case 2n=4,lm: induction 2n=6}.
 Thus we may assume that $f$ is irreducible.
 
 If $f$ fails {\sc 2nd-Orth}, hardness follows from
 \cref{lm: not 2nd-orth is hard}.  If some
 $\partial_{ij}f\notin\mathcal U^{\otimes}$, it is a six-ary obstruction
-and \cref{lm: f6 is hard} applies.  In the remaining case apply
+and \cref{lm: induction 2n=6} applies. 
+In the remaining case apply
 \cref{lm: unitary wire normalization}.  Its lower-arity outcome is again
-handled by \cref{lm: f6 is hard}; otherwise it gives an arity-$8$
+handled by \cref{lm: induction 2n=6}; otherwise it gives an arity-$8$
 signature $h$ satisfying {\sc 2nd-Orth} and the strong equality property.
-Now \cref{lm: f8 one factorization,lm: f8 normalized equations,%
+Now \cref{lm: f8 normalized equations,%
 lm: f8 self mating} give
-$h\propto R^{\otimes8}f_8$ for some real orthogonal $R$.
+$h\sim R^{\otimes8}f_8$ for some real orthogonal $R$.
 
 View the problem as $\holant{=_2}{\mathcal F}$ and apply
 \cref{thm: holographic transformation} with $T=R^{-1}$.  Orthogonality
 gives $(=_2)R^{\otimes2}=(=_2)$, while the transformed signature $h$ is
-$f_8$ up to a nonzero scalar.  Since $h$ is available by the preceding
-gadget constructions and factor extractions, the complete reduction chain
-is
+$f_8$ up to a nonzero scalar.  
+So
 \[
  \Holant(f_8,R^{-1}\mathcal F)
  \equiv_T\Holant(h,\mathcal F)
@@ -556,43 +904,27 @@ $\mathscr P,\mathscr A,\mathscr L$, composing its witnessing matrix with
 $R^{-1}$ would show that $\mathcal F$ is $\mathscr C$-transformable.
 \end{proof}
 
-\subsection{Hardness when \texorpdfstring{$f_8$}{f8} is available}
+\subsection{Hardness When \texorpdfstring{$f_8$}{f8} is Available}
 \label{subsec: f8 available hardness}
-
-We use lowercase letters for binary signatures and reserve uppercase
-letters for their matrices.  Let
+Recall $\mathcal B=\{b_0, b_1, b_2, b_3\}$, where
 \begin{equation}
- b_0=(=_2),\qquad
- M(b_0)=I_2,\quad M(b_1)=X,\quad M(b_2)=Z,\quad M(b_3)=J,
- \qquad
- \mathcal B=\{b_0,b_1,b_2,b_3\}.
+ M(b_0)=I_2,\quad M(b_1)=X,\quad M(b_2)=Z,\quad M(b_3)=J.
  \label{eq: Bell signature set}
 \end{equation}
-These are the four projective Bell signatures.  Index the variables of
-$f_8$ by $z\in\mathbb F_2^3$.  For an edge
-$e=\{z,z+v\}$, orient the other three $v$-parallel pairs consistently.
-The affine-extension argument in the proof of
-\cref{lm: f8 normalized equations} gives
-\begin{equation}
- \partial_e^{b_r}f_8\propto b_r^{\otimes3}
- \qquad (0\leq r\leq3).
- \label{eq: f8 strong Bell property}
-\end{equation}
-For $b_0$ and $b_1$, this says that an affine function has respectively
-zero or one derivative in direction $v$.  For $b_2$ and $b_3$, the sign
-on the contracted pair equals the product of the signs on the other three
-pairs, because the xor of the four values of an affine function on
-$\mathbb F_2^2$ is zero.  This proves
-\eqref{eq: f8 strong Bell property}, including the possible known sign
-caused by reversing an argument of $b_3$.  We call
-\eqref{eq: f8 strong Bell property} the \emph{strong Bell property}.
+These are the four Bell signatures.  
 
-Let $\mathcal G$ denote the closure of a signature set under constant-size
+\begin{definition}[Strong Bell property]\label{def-strong-bell}
+    A signature $f$ satisfies the strong Bell property if for all pairs of indices $\{i, j\}$, and every $b\in \mathcal{B}$, the signature $\partial_{ij}^b f$  realized by merging $x_i$ and $x_j$ of $f$ using $b$ is in $\{b\}^{\otimes}.$
+\end{definition}
+
+It is proved in \cite{realholant} that $f_8$ satisfies the strong Bell property.
+
+Let $\mathcal G$ denote the closure of $\mathcal{F}$ under constant-size
 gadgets, nonzero scalar multiples, argument permutations, conjugation, and
-the factor extraction supplied by \cref{lm: decomposition}.  If the
-starting set is conjugate closed, then so is $\mathcal G$.
+the factor extraction supplied by \cref{lm: decomposition}.  
+If $\mathcal{F}$ is conjugate closed, then so is $\mathcal G$.
 
-\begin{lemma}[Complex non-Bell hardness]
+\begin{lemma}[Non-$\mathcal{B}$ hard]
 \label{lm: f8 complex non Bell}
 Let $\mathcal H=\overline{\mathcal H}$ fail condition
 \rm{(\ref{cond: tractable classes})} and contain $f_8$.  If the closure of
@@ -673,47 +1005,33 @@ The assumed $b$ therefore yields a six-ary signature outside
 $\mathcal U^{\otimes}$, and \cref{lm: f6 is hard} proves hardness.
 \end{proof}
 
-For a signature $b$, let $\Holant(b^{\leq k},\mathcal H)$ denote the
-restriction in which at most $k$ vertices are labeled by $b$.
+For a signature $b$, let $\Holant(b^{\leq k},\mathcal H)$ denote the restriction in which at most $k$ vertices are labeled by $b$.
+The following lemma and its proof are exactly the same as
+\cite[Lemma~8.9]{realholant}.
 
-The following lemma and its proof are essentially the same as
-\cite[Lemma~8.9]{realholant}; we reproduce the reduction in the present
-notation.
-
-\begin{lemma}[Three Bell copies become one]
+\begin{lemma}
 \label{lm: f8 three Bell copies}
-For every $b\in\mathcal B$,
-\begin{equation}
- \Holant(b,f_8,\mathcal F)
- \leq_T\Holant(b^{\leq2},f_8,\mathcal F).
- \label{eq: Bell limited appearance}
-\end{equation}
+    For every $b\in\mathcal B$,
+    $
+     \Holant(b,f_8,\mathcal F)
+     \leq_T\Holant(b^{\leq2},f_8,\mathcal F).
+    $
 \end{lemma}
-
-\begin{proof}
-By \eqref{eq: f8 strong Bell property}, one $f_8$ vertex with two legs
-contracted by one copy of $b$ has external signature
-$b^{\otimes3}$, up to a known nonzero scalar and orientations.  Replace
-any three occurrences of $b$ in an input instance by this gadget.  It uses
-one occurrence of $b$, so the total number decreases by two.  Repeating
-the replacement produces an equivalent instance with at most two copies,
-and increases the instance size only linearly.
-\end{proof}
 
 The following lemma and its two-step oracle reconstruction are essentially
 the same as \cite[Lemma~8.10]{realholant}.  We give the proof because the
 present version uses \cref{lm: f8 complex non Bell} for complex binary
 signatures and must track the known orientation sign of $b_3$.
 
-\begin{lemma}[Bell simulation]
+\begin{lemma}
 \label{lm: f8 Bell simulation}
 If $\mathcal F=\overline{\mathcal F}$ fails condition
 \rm{(\ref{cond: tractable classes})}, then
-\begin{equation}
+\(
  \Holant(\mathcal B,f_8,\mathcal F)
  \leq_T\Holant(f_8,\mathcal F).
  \label{eq: simulate Bell f8}
-\end{equation}
+\)
 \end{lemma}
 
 \begin{proof}
@@ -850,8 +1168,8 @@ are projectively real by induction, and so is their tensor product.
 
 Let $g$ now be irreducible of larger even arity.  By
 \cref{lm: not 2nd-orth is hard}, it satisfies {\sc 2nd-Orth}.  Fix a pair
-$\{i,j\}$.  Equation \eqref{eq: nonzero binary contraction} and the
-induction hypothesis give
+$\{i,j\}$.  By \cref{lm: 2nd-orth contraction nonzero} and the
+induction hypothesis, we have
 \begin{equation}
  \partial_{ij}^{b_s}g=\lambda_s r_s,
  \qquad 0\leq s\leq3,
@@ -890,13 +1208,13 @@ All four slices are real, so $g$ is projectively real.  This completes the
 induction.
 \end{proof}
 
-\begin{theorem}[Hardness when $f_8$ is available]
+\begin{theorem}
 \label{thm: f8 available is hard}
 If $\mathcal F=\overline{\mathcal F}$ fails condition
 \rm{(\ref{cond: tractable classes})}, then
-\[
+\(
  \Holant(f_8,\mathcal F)\text{ is \#P-hard}.
-\]
+\)
 \end{theorem}
 
 \begin{proof}
@@ -931,7 +1249,7 @@ $\Holant(\mathcal B,f_8,\mathcal F)$.  Finally,
 $\Holant(f_8,\mathcal F)$.
 \end{proof}
 
-\begin{theorem}[The arity-$8$ case]
+\begin{theorem}
 \label{thm: base case 2n=8}
 Let $\mathcal F=\overline{\mathcal F}$ fail condition
 \rm{(\ref{cond: tractable classes})}.  If $\mathcal F$ contains an

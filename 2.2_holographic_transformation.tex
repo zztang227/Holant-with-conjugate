@@ -1,0 +1,93 @@
+
+\subsection{Holographic Transformation}
+To introduce the idea of holographic transformation,
+it is convenient to consider bipartite graphs.
+For a general graph,
+we can always transform it into a bipartite graph while preserving the Holant value,
+as follows.
+For each edge in the graph,
+we replace it by a path of length two.
+(This operation is called the \emph{2-stretch} of the graph and yields the edge-vertex incidence graph.)
+Each new vertex is assigned the binary \textsc{Equality} signature $=_2$. Thus, we have $\holant{=_2}{\mathcal{F}}\equiv_T \Holant(\mathcal{F})$.
+
+
+For an invertible $2$-by-$2$ matrix $T \in {\bf GL}_2({\mathbb{C}})$
+ and a signature $f$ of arity $n$, written as
+a column vector (covariant tensor) $f \in \mathbb{C}^{2^n}$, we denote by
+$Tf = T^{\otimes n} f$ the transformed signature.
+  For a signature set $\mathcal{F}$,
+define $T\mathcal{F} = \{T f \mid  f \in \mathcal{F}\}$ the set of
+transformed signatures.
+For signatures written as
+ row vectors (contravariant tensors) we define
+$f T^{-1}$ and  $\mathcal{F} T^{-1}$ similarly.
+Whenever we write $T f$ or $T \mathcal{F}$,
+we view the signatures as column vectors;
+similarly for $f T^{-1}$ or $\mathcal{F} T^{-1}$ as row vectors.
+We can also represent $Tf$ as the matrix $M_{S_k}(Tf)$ with the assignments of variables in $S_k$ as row index and the assignments of the other $n-k$ variables as column index. 
+Then,  we  have $M_{S_k}(Tf)=T^{\otimes k}M_{S_k}(f)(T^{\tt T})^{\otimes n-k}$. Similarly, $M_{S_k}(fT^{-1})=({T^{-1}}^{\tt T})^{\otimes k}M_{S_k}(f)(T^{-1})^{\otimes n-k}$.
+%In the special case of the Hadamard matrix
+%$H_2 = \frac{1}{\sqrt{2}} \left[\begin{smallmatrix} 1 & 1 \\ 1 & -1 \end{smallmatrix}\right]$,
+%we also define $\widehat{\mathcal{F}} = H_2  \mathcal{F}$.
+%Note that $H_2$ is orthogonal.
+%Since constant factors are immaterial, for convenience we sometime
+%drop the factor $\frac{1}{\sqrt{2}}$ when using $H_2$. 
+
+Let $T \in {\bf GL}_2({\mathbb{C}})$.
+The holographic transformation defined by $T$ is the following operation:
+given a signature grid $\Omega = (H, \pi)$ of $\holant{\mathcal{F}}{\mathcal{G}}$,
+for the same bipartite graph $H$,
+we get a new signature grid $\Omega' = (H, \pi')$ of $\holant{\mathcal{F} T^{-1}}{T \mathcal{G}}$ by replacing each signature in
+$\mathcal{F}$ or $\mathcal{G}$ with the corresponding signature in $\mathcal{F} T^{-1}$ or $T \mathcal{G}$.
+
+\begin{theorem}[\cite{Valiant08}]\label{thm: holographic transformation}
+ For every $T \in {\bf GL}_2({\mathbb{C}})$,
+  $\Holant(\mathcal{F} \mid \mathcal{G}) \equiv_T \Holant(\mathcal{F} T^{-1} \mid T \mathcal{G}).$
+\end{theorem}
+
+Therefore,
+a holographic transformation does not change the complexity of the Holant problem in the bipartite setting. 
+A particular useful holographic transformation is the $K$-transformation.
+Direct calculation shows $(=_2)K=(\neq_2)$, so
+\(
+\holant{=_2}{\mathcal F}
+\equiv_T
+\holant{\neq_2}{K^{-1}\mathcal F}.
+\)
+Accordingly, throughout this paper
+\[
+\widehat f:=K^{-1}f,
+\qquad
+\widehat{\mathcal F}:=K^{-1}\mathcal F.
+\]
+We also call
+$\holant{\neq_2}{\widehat{\mathcal F}}$ the
+{$K$-Holant} formulation of $\Holant(\mathcal F)$.
+
+
+\begin{lemma}\label{lm: conjugation and K-trans}
+Let $f$ be a complex-valued signature of arity $n$.  For every
+$\alpha\in\{0,1\}^n$,
+\(
+\widehat{\overline f}(\alpha)
+=\overline{\widehat f(\overline\alpha)}.
+\)
+\end{lemma}
+\begin{proof}
+Using $K^{\mathtt T}=N_2K^{-1}$, we have
+\(
+\widehat{\overline f}
+=(K^{-1})^{\otimes n}\overline f
+=\overline{(K^{\mathtt T})^{\otimes n}f}
+=N_2^{\otimes n}\overline{\widehat f},
+\)
+which is the stated entrywise identity.
+\end{proof}
+
+The preceding lemma immediately gives
+the following equivalence.
+\begin{lemma}\label{lm: conjugate closed and ars closed}
+$\mathcal F$ is conjugate closed if and only if
+$\widehat{\mathcal F}$ is arrow-reversal closed.
+\end{lemma}
+

@@ -1,209 +1,265 @@
-\section{Auxiliary Lemmas for the Disequality Reduction}
-\label{app: disequality reduction}
-We use the usual fixed finite algebraic signature model. Matrix actions
-on signatures denote the corresponding tensor powers, and
-$N_2=\left[\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right]$.
-The following lemmas supply the remaining steps in
-\Cref{lm: disequality 4 gives dichotomy,lem: In conjugate closed setting disequality 4 gives hardness}.
-The arity-reduction and affine-support facts are cited directly in the
-main text.
+\section{Proofs of Some Lemmas in Preliminaries}\label{app: disequality reduction}
+This appendix provides the deferred proofs of the preliminary lemmas.
 
-\begin{lemma}[Lifting along an opposite pairing]
-\label{lm: pairwise opposite lifting}
-Let $f$ be a signature of arity $2n$ whose support is pairwise opposite.
-Then
-\[
- f\in\mathrm{EO}^{\mathscr A}\ \Longrightarrow\ f\in\mathscr A,
- \qquad
- f\in\mathrm{EO}^{\mathscr P}\ \Longrightarrow\ f\in\mathscr P.
-\]
-Consequently, the same implications hold for every EO signature
-with affine support.
-\end{lemma}
+\subsection{Proof of Some Lemmas in~\cref{subsec: tractable signatures}}\label{subapp: proof of subsec tractable signature}
+This subappendix provides the deferred proof of the preliminary lemmas in~\cref{subsec: tractable signatures}.
 
-\begin{proof}
-After permuting the variables, assume that
-$x_{2j-1}\ne x_{2j}$ on $\operatorname{supp}(f)$ for every $j\in[n]$.
-Define the induced signature
+
+\InvarianceUnderRealOrth*
+\begin{proof}[Proof of~\cref{lem: invariance under real orthogonal transformation}]
+    We prove the three statements separately.
+
+    For the first statement, let $f\in \F$ has arity $n$. Since $O$ is real orthogonal matrix,
+    we have 
+    \begin{equation}
+        \overline{Of}
+        =\overline{O}^{\otimes n}\overline f 
+        =O^{\otimes n}\overline f 
+        =O\overline f.
+    \end{equation}
+    Therefore, if $\F$ is conjugate closed, then $\overline{f}\in \F$. Thus, $\overline{Of}=O\overline f\in O\F$. The converse follows by applying the same argument to the real orthgonal matrix $O^{-1}$. Hence, the first statement is hold.
+
+    For the second statement, since holographic transformation preserves tensor decompositions into unary and binary signatures, let $f=f_1\otimes \cdots \otimes f_k$ where $f_i$ has arity at most two, then $Of=(Of_1)\otimes \cdots \otimes (Of_k)$.
+    Applying the same argument to $O^{-1}$ gives
 \[
- g(y_1,\ldots,y_n)=f(y_1,1-y_1,\ldots,y_n,1-y_n).
+    \mathcal F\subseteq\mathscr T
+    \quad\Longleftrightarrow\quad
+    O\mathcal F\subseteq\mathscr T.
 \]
-By the definitions of $\mathrm{EO}^{\mathscr A}$ and
-$\mathrm{EO}^{\mathscr P}$, the respective assumption implies
-$g\in\mathscr A$ or $g\in\mathscr P$.
-Indeed, these definitions require membership for the signature
-induced by every oriented pairing, including the chosen pairing.
-Moreover,
+Now let
+$
+    \mathscr C\in\{\mathscr P,\mathscr A,\mathscr L\},
+$
+and suppose that $\mathcal F$ is $\mathscr C$-transformable, witnessed
+by some $T\in\mathrm{GL}_2(\mathbb C)$. We claim that $TO^{-1}$
+witnesses that $O\mathcal F$ is $\mathscr C$-transformable. First,
 \[
- f(x_1,\ldots,x_{2n})
- =g(x_1,x_3,\ldots,x_{2n-1})
-   \prod_{j=1}^{n}\neq_2(x_{2j-1},x_{2j}).
+    (TO^{-1})(O\mathcal F)
+    =T\mathcal F
+    \subseteq\mathscr C.
 \]
-If $g\in\mathscr A$, this expression retains its affine phase
-and adds only the affine support equations
-$x_{2j-1}\oplus x_{2j}=1$, so $f\in\mathscr A$.
-If $g\in\mathscr P$, it adds disequality factors to a product of
-unary, equality, and disequality factors, so $f\in\mathscr P$.
-The final assertion follows from~\cite[Lemma~5.7]{CaiFuShao2020EO}.
+Moreover, since $O$ is orthogonal, the binary equality signature is
+invariant under $O$:
+\[
+    (=_2)O^{\otimes 2}=(=_2).
+\]
+It follows that
+\[
+\begin{aligned}
+    (=_2)\bigl((TO^{-1})^{-1}\bigr)^{\otimes 2}
+    &=(=_2)(OT^{-1})^{\otimes 2}\\
+    &=\bigl((=_2)O^{\otimes 2}\bigr)
+      (T^{-1})^{\otimes 2}\\
+    &=(=_2)(T^{-1})^{\otimes 2}
+      \in\mathscr C.
+\end{aligned}
+\]
+Hence $O\mathcal F$ is $\mathscr C$-transformable. Applying the same
+argument to $O^{-1}$ proves the converse. Therefore, all four
+alternatives in condition \eqref{cond: tractable classes} are
+invariant under $O$.
+
+For the third statement, let $f$ be a nonzero signature. Suppose that $f=g\otimes h$, since the holographic transformation preserves tensor decompositions, we have $Of=Og\otimes Oh$. Thus, reducibility of $f$ implies reducibility of $Of$. Conversely, if $Of=g'\otimes h'$, then $f=(O^{-1}g')\otimes (O^{-1} h')$. Hence $f$ is reducible if and only if $Of$ is reducible, and $f$ is irreducible if and only if $Of$ is irreducible.
 \end{proof}
 
-\begin{lemma}[From disequality Holant to counting CSP]
-\label{lm: disequality Holant CSP equivalence}
-Let $r\geq3$ be fixed, and let $\mathcal G$ be a finite set of signatures.
-Then
-\[
- \operatorname{Holant}(\neq_2\mid {=}_r,\mathcal G)
- \equiv_T \#\operatorname{CSP}_r(\neq_2,\mathcal G),
-\]
-where each variable of a $\#\operatorname{CSP}_r$ instance occurs
-a multiple of $r$ times, counting repetitions.
-\end{lemma}
+\subsection{Proof of Some Lemmas in~\cref{subsec: hardness results}}
+This subappendix provides the deferred proofs of the preliminary lemmas in~\cref{subsec: hardness results}
+on tensor factorization and hardness from odd-arity signatures or
+$\neq_4$, which are used in the orthogonality arguments and the
+low-arity base cases of the main proof.
 
+\CSPwithEQ*
 \begin{proof}
-The counting CSP simulation follows
-\cite[full version, Lemma~5.2]{odd_holant_real}.
-We describe both directions to specify the placement of signatures.
-Variables with no occurrences contribute a factor of two each and
-can be removed first; nullary constraints are carried as scalar factors.
-In this proof, connections between left- and right-hand gadget
-ports are ordinary bipartite edges; no additional disequality
-is inserted at such a connection.
+    Let $\mathcal{G}=T(\F\cup \{=_2\})$.
+    Suppose that $\#\operatorname{CSP}_2(T(\F\cup \{=_2\}))$ is not $\#\operatorname{P}$-hard, then by~\cite{real_holantc}, $\mathcal{G}\subseteq \mathscr{A},\mathscr{P},\mathscr{L}$ or $\mathcal{G}\subseteq \alpha\mathscr{A}$.
 
-In the Holant problem, connect all $r$ ports of one right-hand
-${=}_r$ to separate left-hand $\neq_2$ vertices and leave the other
-port of each $\neq_2$ dangling. The resulting left-hand signature
-is ${=}_r$, since all dangling bits are the common complement of
-the bit at the right-hand equality.
-Inductively, suppose that left-hand ${=}_{(m-1)r}$ is available,
-where $m\geq2$. Take this signature, two left-hand copies of
-${=}_r$, and one right-hand ${=}_r$.
-Connect $r-2$ ports of the right-hand equality to the first
-left-hand signature and one port to each of the other two.
-Since $r\geq3$, all three left-hand equalities are connected
-and hence share one bit. Exactly $mr$ dangling ports remain,
-so this realizes left-hand ${=}_{mr}$.
-Every satisfying boundary assignment has a unique internal extension.
+    We consider the first three cases. 
+    
+    If $\mathcal{G}\subseteq \mathscr{A}$, then $T\F\subseteq \mathscr{A}$ and $T(=_2)=TT^{\mathsf T}\in \mathscr{A}$. Let $E=TT^{\mathsf T}\in \mathscr{A}$. Then we can get $(=_2)T^{-1}=(T^{-1})^{\mathsf T}T^{-1}=(TT^{\mathsf T})^{-1}=E^{-1}$, thus $E$ is invertible. By~\cref{lm: affine singular value}, $E$'s two row has the same norm and either the two rows are proportional or orthogonal. The proportional property gives $\operatorname{rank}(E)=1$, which contradiction to the invertibility of $E$. Hence, $EE^\dagger=\rho I_2$ and $E^{-1}=\rho^{-1}E^\dagger$. Since $\mathcal{A}$ is closed under conjugation and transposition, $E^{-1}\in \mathscr{A}$. Therefore, $(=_2)T^{-1}\in \mathscr{A}$ and $\mathcal{F}\subseteq \mathscr{A}$-transformable. This contradicts the assumption that $\F$ does not satisfy condition~\eqref{cond: tractable classes}.
 
-We can also realize a right-hand $\neq_2$: take two right-hand
-copies of ${=}_r$ and connect $r-1$ pairs of their ports by
-left-hand disequalities. The remaining two bits must be opposite,
-again with a unique internal extension.
-Thus all left-hand equalities of positive arity divisible by $r$
-and all right-hand signatures from $\{\neq_2\}\cup\mathcal G$
-are available. This realizes every instance of
-$\#\operatorname{CSP}_r(\neq_2,\mathcal G)$.
-An equality of arity $mr$ uses $O(mr)$ vertices, so this
-simulation has polynomial size.
+    If $\mathcal{G}\subseteq \mathscr{P}$, then $T\F\subseteq \mathscr{P}$ and $T(=_2)=TT^{\mathsf T}\in \mathscr{P}$. Let $E=TT^{\mathsf T}\in \mathscr{P}$. Then we can get $(=_2)T^{-1}=(T^{-1})^{\mathsf T}T^{-1}=(TT^{\mathsf T})^{-1}=E^{-1}$, thus $E$ is invertible. If the two variables of $E$ are independent, then $\operatorname{rank}(E)=1$ which contradicts to the invertibility of $E$. Thus, either $E$ is diagonal matrix or antidiagonal matrix, both give that $E^{-1}\in \mathscr{P}$. Therefore, $(=_2)T^{-1}\in \mathscr{P}$ and $\mathcal{F}\subseteq \mathscr{P}$-transformable. This contradicts the assumption that $\F$ does not satisfy condition~\eqref{cond: tractable classes}.
 
-Conversely, suppress the degree-two left-hand vertices of a
-Holant instance and view them as disequality edges between
-right-hand vertices. Introduce a separate CSP variable at each
-port of a $\mathcal G$-vertex, but use a single CSP variable for
-all $r$ ports of each ${=}_r$-vertex.
-Keep the original $\mathcal G$ constraints.
-Replace each disequality edge by $r-1$ identical copies of the
-binary disequality constraint on its endpoint variables.
-Because $\neq_2$ takes only values zero and one, this replacement
-preserves the partition function.
-Each variable at a $\mathcal G$-port occurs $1+(r-1)=r$ times,
-and each equality-vertex variable occurs $r(r-1)$ times.
-This count also holds for self-loops, with both occurrences counted.
-The resulting instance is therefore a legal
-$\#\operatorname{CSP}_r$ instance, with the same value and
-$O(r)$ overhead per original edge.
+    If $\mathcal{G}\subseteq \mathscr{L}$, then $T\F\subseteq \mathscr{L}$ and $T(=_2)=TT^{\mathsf T}\in \mathscr{L}$. Let $E=TT^{\mathsf T}\in \mathscr{L}$. Then we can get $(=_2)T^{-1}=(T^{-1})^{\mathsf T}T^{-1}=(TT^{\mathsf T})^{-1}=E^{-1}$, thus $E$ is invertible. Let $\alpha=e^{\frac{\pi \mathfrak i}{4}}$ and $D:=\left( \begin{matrix}
+        1 & 0\\
+        0 & \alpha 
+    \end{matrix}\right).$ The definition of $\mathscr{L}$ means that for any $(s_1,s_2)\in \mathscr{S}(E)$, we have $\left(\left( \begin{matrix}
+        1 & 0\\
+        0 & \alpha^{s_1}
+    \end{matrix}\right)\otimes \left( \begin{matrix}
+        1 & 0\\
+        0 & \alpha^{s_2}
+    \end{matrix}\right)\right)E\in \mathscr{A}$.
+
+    If $00\in \mathscr{S}(E)$, then $E\in \mathscr{A}$. If $01\in \mathscr{S}(E)$, then $(I_2\otimes D)E\in \mathscr{A}$. If $10\in \mathscr{S}(E)$, then $(D\otimes I_2)E\in \mathscr{A}$. If $11\in \mathscr{S}(E)$, then $(D\otimes D)E\in \mathscr{A}$. This diagonal matrix does not change the support, thus the support of $E$ is also affine. If $|\mathscr{S}(E)|=1$, then contradicts to the invertibility of $E$. If $|\mathscr{S}(E)|=2$ and the nonzero position in the same row or column, then contradicts to invertibility. If $\mathscr{S}(E)=\{00,01,10,11\}$, then $E(x,y)=\lambda\mathfrak i^{Q(x,y)}$. And we have $E(x,y)/E(x',y')\in \{1,\mathfrak i,-1,\mathfrak{-i}\}$. In particular, $E(0,1)/E(0,0)=\mathfrak i^k$ for some $k$. Since $01\in \mathscr{S}(E)$, $(I_2\otimes D)E\in \mathscr{A}$ gives that $E'=\left( \begin{matrix}
+        E(0,0) & \alpha E(0,1)\\
+        E(1,0) & \alpha E(1,1)
+    \end{matrix}\right)\in \mathscr{A}$. Thus, $\alpha E(0,1)/E(0,0)=\alpha \mathfrak i^k\notin \{1,\mathfrak i,-1,\mathfrak{-i}\}$. This contradicts to $E'\in \mathscr{A}$. If $\mathscr{S}(E)=\{01,10\}$, then we can suppose that $E=\left(\begin{matrix}
+        0 & b\\
+        b & 0
+    \end{matrix}\right)$ since $E$ is symmetric. Since $E'=(I_2\otimes D)E=\left( \begin{matrix}
+        0 & \alpha b\\
+        b & 0
+    \end{matrix}\right)\in \mathscr{A}$, but $\alpha b/b=\alpha\notin \{1,\mathfrak i,-1,\mathfrak{-i}\}$. This contradicts to $E'\in\mathscr{A}$.
+    Lastly, $E=\left( \begin{matrix}
+        a & 0\\
+        0 & b
+    \end{matrix}\right),$ and $b/a=\mathfrak i^k$. This gives $E=\lambda \operatorname{diag}(1,\mathfrak i^k)\in \mathscr{A}$. Also we can get $E^{-1}=\lambda^{-1}\operatorname{diag}(1,\mathfrak i^{-k})\in \mathscr{A}$.
+    Finally, we can get that $\F\in \mathscr{L}$-transformable, which contradicts to $\F$ does not satisfies the condtion~\eqref{cond: tractable classes}.
+
+    Next, we consider the case that $\mathcal{G}\subseteq \alpha \mathscr{A}$. Let $D:=\operatorname{diag}(1,\alpha)$, $E=TT^{\mathsf T}$ and $T'=D^{-1}T$. Since $T\F\subseteq \alpha \mathscr{A},T(=_2)\in \alpha \mathscr{A}$, we have $T'\F=D^{-1}T\F\in \mathscr{A}$ and $D^{-1}ED^{-1}\in \mathscr{A}$. Thus, after a holographic transformation $D^{-1}$, we get that $\#\operatorname{CSP}_2(D^{-1}T(\F\cup \{=_2\}))$ where $D^{-1}T(\F\cup \{=_2\})\in \mathscr{A}$, this case is equivalent to the first case $\mathcal{G}\in \mathscr{A}$.
+
+    Eventually, $\#\operatorname{CSP}_2(T(\F\cup \{=_2\}))$ is $\#\operatorname{P}$-hard.
 \end{proof}
 
-\begin{lemma}[Pulling back diagonal tractability]
-\label{lm: diagonal tractability pullback}
-Let
-\[
- K=\frac1{\sqrt2}\begin{pmatrix}1&1\\ \mathrm i&-\mathrm i\end{pmatrix},
- \qquad \widehat{\mathcal F}=K^{-1}\mathcal F,
- \qquad Q=\operatorname{diag}(q,q^{-1}),\quad
- q\in\overline{\mathbb Q}\setminus\{0\}.
-\]
-Here a matrix acts by its tensor power on each signature.
-If $Q\widehat{\mathcal F}\subseteq\mathscr P$, then
-$\mathcal F$ is $\mathscr P$-transformable.
-If $DQ\widehat{\mathcal F}\subseteq\mathscr A$ for some
-$D=\operatorname{diag}(1,\lambda)$ with $\lambda\ne0$, then
-$\mathcal F$ is $\mathscr A$-transformable.
+\DisFourgivesHard*
+\begin{proof}[Proof of~\cref{lm: disequality 4 gives dichotomy}]
 
-In particular, for every fixed $r\geq3$, if $\mathcal F$ satisfies
-neither of these transformability conditions, then
-\[
- \#\operatorname{CSP}_r
- \bigl(\neq_2,\neq_4,Q\widehat{\mathcal F}\bigr)
-\]
-is $\#\mathrm P$-hard. Here $\#\operatorname{CSP}_r$ means that
-every variable occurs a multiple of $r$ times, counting repetitions.
-\end{lemma}
+    Let $g_4:=K^{\otimes 4}\neq_4$. We may discard zero signatures and handle nullary signatures as scalar factors. We divide the proof into three cases.
 
-\begin{proof}
-For the first assertion, transform right-hand signatures by
-$T=QK^{-1}$. Then $T\mathcal F\subseteq\mathscr P$, while
-the equality signature on the left transforms to
-\[
- (T^{-1})^{\mathsf T}T^{-1}
- =(Q^{-1})^{\mathsf T}K^{\mathsf T}KQ^{-1}
- =Q^{-1}N_2Q^{-1}=N_2\in\mathscr P.
-\]
-This is precisely $\mathscr P$-transformability, including the
-condition on the transformed edge signature.
+    \textbf{Case 1: $\F$ contains a nonzero signature of odd arity.}
 
-For the second assertion, set $T=DQK^{-1}$.
-Now $T\mathcal F\subseteq\mathscr A$, and
-\[
- (T^{-1})^{\mathsf T}T^{-1}
- =D^{-1}Q^{-1}N_2Q^{-1}D^{-1}
- =D^{-1}N_2D^{-1}
- =\lambda^{-1}N_2\in\mathscr A.
-\]
-Here nonzero scalar multiples are allowed in $\mathscr A$.
-This proves $\mathscr A$-transformability.
+    By the holographic transformation $K$, $\holant{\neq_2}{\neq_4,\hF}\equiv_T \holant{=_2}{g_4,\F}$, and by~\Cref{thm: holant odd} together with~\cite{GSS26}, $\holant{=_2}{g_4,\F}$ is either polynomial-time solvable or is $\#\operatorname{P}$-hard.
 
-Finally, \cite[full version, Theorem~5.3]{odd_holant_real}, applied to
-$\mathcal G=\{\neq_2,\neq_4\}\cup Q\widehat{\mathcal F}$,
-gives hardness unless $\mathcal G\subseteq\mathscr P$ or
-$D\mathcal G\subseteq\mathscr A$ for an allowed diagonal
-root-of-unity matrix $D$.
-Either exception contradicts the hypothesis by the first two
-assertions. Hence the displayed counting CSP is $\#\mathrm P$-hard.
+    \textbf{Case 2: every signature in $\hF$ is an $\eo$ signature.}
+    Since $\neq_4$ is also an $\eo$ signature, then the problem $\holant{\neq_2}{\neq_4,\hF}$ is a $\ceo$ problem, namely $\holant{\neq_2}{\neq_4,\hF}\equiv_T \ceo(\neq_4,\hF)$. Then by~\Cref{thm: dichotomy for EO} together with~\cite{GSS26}, $\ceo(\neq_4,\hF)$ is either polynomial-time solvable or $\#\operatorname{P}$-hard.
+
+    \textbf{Case 3: a non-$\eo$ signature occurs.}
+
+    Let $\widehat{f}\in \hF$ have arity $2n$ and suppose that $\widehat{f}$ is not an $\eo$ signature. Then there exists $\alpha\in\mathrm{supp}(\widehat{f})$ such that $\mathrm{wt}(\alpha)=k\neq n$. We first show that, if $k<n$, we can realize a signature  $\widehat{g}$ of arity $r=2n-2k>0$ such that $\widehat{g}(\vec{0})\neq 0$, if $k>n$, we can realize a signature  $\widehat{g}$ of arity $r=2k-2n>0$ such that $\widehat{g}(\vec{1})\neq 0$. This follows from~\cite{Holant_Odd}.
+
+    We treat the case $k<n$ firstly. Recall that we realized a signature $\widehat{g}$ of arity $r=2n-2k$ such that $\widehat{g}(\vec{0})\neq 0$. Let $a:=\widehat{g}(\vec{0})\neq 0$ and $b:=\widehat{g}(\vec{1})$. By the gadget construction in~\cite{cai-fu-shao-eo}, $\neq_{2r}$ can be realized on the RHS of $\holant{\neq_2}{\neq_4,\hF}$. We permute its variables so that $\mathrm{supp}(\neq_{2r})=\{0^r1^r,1^r0^r\}$. Then we connect the $r$ variables of $\widehat{g}$ with the first $r$ variables of $\neq_{2r}$ using $\neq_2$, leaving the last $r$ variables of $\neq_{2r}$ dangling. The resulting signature $\widehat{h}$ of arity $r$ is $\widehat{h}=[a,0,\dots,0,b]_r$. Since $\widehat{h}$ is realized on the RHS of $\holant{\neq_2}{\neq_4,\hF}$, we have $\holant{\neq_2}{\neq_4,\hF}\equiv_T \holant{\neq_2}{\neq_4,\widehat{h},\hF}$.
+
+    We now distinguish whether $b$ is zero.
+    
+    \textbf{Subcase 3.1: $b=0$.}
+
+    Then $\widehat{h}=[a,0,\dots,0]_r=a\Delta_0^{\otimes r}=(\sqrt[r]a \Delta_0)^{\otimes r}$. By~\Cref{lm: decomposition of tensor power}, we can get $\holant{\neq_2}{\neq_4,\hF}\equiv_T \holant{\neq_2}{\neq_4,\widehat{h},\hF}\equiv_T \holant{\neq_2}{\neq_4,\Delta_0,\hF}$. By a holographic transformation $K$, we can get $\holant{\neq_2}{\neq_4,\Delta_0,\hF}\equiv_T \holant{=_2}{g_4,u_0,\F}$ where $u_0=K\Delta_0=\frac{1}{\sqrt{2}}\begin{bmatrix}1\\ \mathfrak i\end{bmatrix}.$ Thus a nonzero odd arity signature is available, and by~\Cref{thm: holant odd} together with~\cite{GSS26}, $\holant{=_2}{g_4,u_0,\F}$ is either polynomial time solvable or $\#\operatorname{P}$-hard.
+
+    \textbf{Subcase 3.2: $b\neq 0$.}
+
+    Now $ab\neq 0$. We first suppose that $r\geq 4$. Let $q\in \mathbb{C}$ satisfying $q^{2r}=\frac{b}{a}$. Define 
+    \[
+        \widehat{Q}^{-1}
+        =
+        \begin{pmatrix}
+        q^{-1}&0\\
+        0&q
+        \end{pmatrix},
+        \qquad
+        \widehat Q
+        =
+        \begin{pmatrix}
+        q&0\\
+        0&q^{-1}
+        \end{pmatrix}.
+    \]
+    We have 
+    \[
+        (\widehat{Q}^{-1})^{\mathsf T}N_2\widehat Q^{-1}
+        =
+        \begin{pmatrix}
+        q^{-1}&0\\
+        0&q
+        \end{pmatrix}
+        \begin{pmatrix}
+        0&1\\
+        1&0
+        \end{pmatrix}
+        \begin{pmatrix}
+        q^{-1}&0\\
+        0&q
+        \end{pmatrix}
+        =N_2.
+    \]
+    By a holographic transformation $\widehat{Q}$,
+    \[
+    \begin{aligned}
+        &\holant{\neq_2}{\neq_4,\widehat{h},\hF}\\
+        &\equiv_T \holant{(\widehat{Q}^{-1})^{\mathsf T}N_2\widehat{Q}^{-1}}{\widehat{Q}\neq_4,\widehat{Q}\widehat{h},\widehat{Q}\hF}\\
+        &\equiv_T \holant{\neq_2}{\widehat{Q}\neq_4,\widehat{Q}\widehat{h},\widehat{Q}\hF}
+        \equiv_T \holant{\neq_2}{\neq_4,\widehat{Q}\widehat{h},\widehat{Q}\hF}.
+    \end{aligned}
+    \]
+    Furthermore,
+    \[
+    \begin{aligned}
+        \widehat{Q}\widehat{h}
+        &=\widehat{Q}^{\otimes r}\widehat{h}
+        =[aq^r,0,\dots,0,bq^{-r}]_r\\
+        &=aq^r[1,0,\dots,0,1]_r=aq^r(=_r)
+    \end{aligned}
+    \]
+    since $q^{2r}=b/a$. Thus $\holant{\neq_2}{\neq_4,\widehat{h},\hF}\equiv_T \holant{\neq_2}{\neq_4,=_r,\widehat{Q}\hF}$. By\cite{odd_holant_real}, we have
+    \[
+        \#\operatorname{CSP}_r(\neq_2,\neq_4,\widehat{Q}\hF)
+        \equiv_T \holant{\neq_2}{\neq_4,=_r,\widehat{Q}\hF}.
+    \]
+    Then by~\cite{odd_holant_real}, $\#\operatorname{CSP}_r(\neq_2,\neq_4,\widehat{Q}\hF)$ is either polynomial-time solvable or $\#\operatorname{P}$-hard.
+
+    It remains to consider $r=2$. In this case $\widehat{h}=[a,0,0,b]$. Recall that $\neq_8$ can be realized on the RHS of $\holant{\neq_2}{\neq_4,\widehat{h},\hF}$. Permuting the variables of $\neq_8$ so that $\mathrm{supp}(\neq_8)=\{0^41^4,1^40^4\}$.
+    Connecting the first four variables of $\neq_8$ with two copies of $\widehat{h}$ using $\neq_2$, leaving the last four variables of $\neq_8$ dangling. The resulting quaternary signature is $\widehat{h}_4=[a^2,0,\dots,0,b^2]_4$. Since $a^2b^2\neq 0$, the preceding argument applies with $r=4$. This completes the case $k<n$.
+
+    The case $k>n$ is similar.
 \end{proof}
 
 
-\begin{lemma}[One-sided pinning in a conjugate-closed family]
-\label{lm: one sided pinning hardness}
-Let $\mathcal F$ be conjugate closed and suppose that it does not satisfy
-condition~\textup{(\ref{cond: tractable classes})}.
-If a signature $c\Delta_e^{\otimes r}$, with $c\ne0$,
-$e\in\{0,1\}$, and even $r\geq2$, is realizable on the right-hand
-side of $\holant{\neq_2}{\neq_4,\widehat{\mathcal F}}$, then this
-problem is $\#\mathrm P$-hard.
-\end{lemma}
+\ConjuDisFourHard*
+\begin{proof}[Proof of~\cref{lem: In conjugate closed setting disequality 4 gives hardness}]
+     By~\Cref{lm: disequality 4 gives dichotomy}, we just need to verify that $\holant{\neq_2}{\neq_4,\hF}$ will not fall into the polynomial-time solvable side of case 1, case 2, and case 3.
 
-\begin{proof}
-The family $\widehat{\mathcal F}$ is closed under arrow reversal,
-which commutes with disequality contraction. Moreover, $\neq_4$
-is invariant under arrow reversal.
-Replacing each signature in the given gadget by its arrow reversal
-therefore realizes $\overline c\Delta_{1-e}^{\otimes r}$ as well.
-By~\Cref{lm: decomposition of tensor power}, both $\Delta_0$ and
-$\Delta_1$ can be added under polynomial-time Turing reductions.
+     \textbf{Case 1: $\F$ contains a nonzero signature of odd arity.}
 
-Transforming by $K$ gives
-\[
- \holant{\neq_2}{\neq_4,\Delta_0,\Delta_1,\widehat{\mathcal F}}
- \equiv_T \holant{=_2}{g_4,u_0,u_1,\mathcal F},
- \qquad
- g_4=K^{\otimes4}\neq_4,\quad u_j=K\Delta_j.
-\]
-We have $u_1=\overline{u_0}$.
-Also $\overline K=KN_2$ and
-$N_2^{\otimes4}\neq_4=\neq_4$ imply $\overline{g_4}=g_4$.
-Hence $\mathcal F\cup\{g_4,u_0,u_1\}$ is conjugate closed and
-contains a nonzero unary signature.
-It still violates condition~\textup{(\ref{cond: tractable classes})},
-because that condition is inherited by subfamilies.
-The conclusion follows from~\Cref{lm: odd holant with conjugation}.
+     By~\Cref{lm: odd holant with conjugation}, this case is $\#\operatorname{P}$-hard.
+
+     \textbf{Case 2: every signature in $\hF$ is an $\eo$ signature.}
+
+     Suppose that $\hF\subseteq\POLUP$ and either $\hF\subseteq \eo^{\mathscr{A}}$ or $\hF\subseteq \eo^{\mathscr{P}}$. Since $\neq_4\in \POLUP\cap\eo^{\mathscr{A}}\cap\eo^{\mathscr{P}}$, then by~\Cref{lm: conjugation_polymorphism_affine support} we can get $\neq_4$ and every $\widehat{f}\in\hF$ has affine support. By~\cite{cai-fu-shao-eo}, these signatures are pairwise opposite. Combined with the definition of $\eo^{\mathscr{A}}$ and $\hF\subseteq \eo^{\mathscr{P}}$, we can get $\{\neq_4\}\cup \hF\subseteq \mathscr{A}$ or $\{\neq_4\}\cup\hF\subseteq\mathscr{P}$. Since $K^{\mathsf T}K=N_2\in\mathscr{A}\cap\mathscr{P}$, the transformation $K^{-1}$ witnesses $\mathscr{A}$- or $\mathscr{P}$-transformability of $\F$. This contradicts that $\F$ does not satisfy the condition \rm{(\ref{cond: tractable classes})}. The case $\hF\subseteq\POLDOWN$ and either $\hF\subseteq \eo^{\mathscr{A}}$ or $\hF\subseteq \eo^{\mathscr{P}}$ is symmetric. Thus this case is $\#\operatorname{P}$-hard.
+     
+
+     \textbf{Case 3: a non-$\eo$ signature occurs.}
+     If exactly one of $a,b$ is nonzero in the preceding construction, we can get realize a nonzero unary signature, this case is $\#\operatorname{P}$-hard by~\Cref{lm: odd holant with conjugation}. Otherwise, by~\cite{odd_holant_real}, if $\F$ does not satisfy the condition \rm{(\ref{cond: tractable classes})}, $\#\operatorname{CSP}_r(\neq_2,\neq_4,\widehat{Q}\hF)$ is $\#\operatorname{P}$-hard for $r\geq 3$; when the original $r=2$, we first use the preceding quaternary construction and take $r=4$. Thus this case is also $\#\operatorname{P}$-hard.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Proof of Some Lemmas in~\cref{subsec: signatures and quantum states}}\label{subapp: proof of subsec signatures and quantum states}
+
+\begin{proof}[Proof of~\cref{prop: invariant kth Orth}]
+    For every subset $S\subseteq [n]$ of size $k$, if $f$ satisfies {\sc $k$th-Orth}, then there exists some $\mu\neq 0$ such that 
+    \begin{equation}
+        M_S(f)M_S(f)^\dagger=\mu I_{2^k}.
+    \end{equation}
+
+    We first prove invariance under conjugation. Since $M_S(\overline f)=\overline{M_S(f)}$, we have 
+    \begin{equation}
+        \begin{aligned}
+            M_S(\overline f)M_S(\overline f)^\dagger
+            &=\overline{M_S(f)}\,M_S(f)^{\mathsf T}\\
+            &=\overline{M_S(f)M_S(f)^\dagger}\\
+            &=\overline{\mu I_{2^k}}\\
+            &=\mu I_{2^k}.
+        \end{aligned}
+    \end{equation}
+   Therefore, $\overline{f}$ satisfies {\sc $k$th-Orth}. 
+
+   For avoiding conflict between transpose $\mathsf{T}$ and holographic transformation $T$, we use $U$ instead of the holographic transformation $T$.
+   We next prove invariance under uniatry holographic transformation $U\in \mathbf{U}_2(\mathbb{C})$. We know that $M_S(Uf)=U^{\otimes k}M_S(f)(U^{\mathsf{T}})^{\otimes(n-k)}$. Since $T$ is unitary, we have $U^{\mathsf{T}}\overline U=I_2$. Then we can get that 
+   \begin{equation}
+    \begin{aligned}
+        M_S(Uf)M_S(Uf)^\dagger
+        &= U^{\otimes k}M_S(f) (U^{\mathsf{T}})^{\otimes (n-k)}\overline{U^{\otimes (n-k)}}M_S(f)^\dagger (U^\dagger)^{\otimes k}\\
+        &=U^{\otimes}M_S(f)M_S(f)^\dagger (U^\dagger)^{\otimes k}\\
+        &=\mu U^{\otimes}I_{2^k} (U^\dagger)^{\otimes k}\\
+        &=\mu I_{2^k}.
+    \end{aligned}
+   \end{equation}
+   Thus, $Uf$ satisfies {\sc $k$th-Orth}.
 \end{proof}
